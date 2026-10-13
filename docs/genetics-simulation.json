@@ -1,0 +1,683 @@
+{
+  "modelVersion": 1,
+  "reviewed": "2026-10-13",
+  "count": 100000,
+  "seed": "statistical-validation",
+  "frequencies": [
+    {
+      "genotype": "lilly-white:n/n;axanthic:A/A;cappuccino-complex:n/n",
+      "theoretical": 0.25,
+      "count": 25057,
+      "frequency": 0.25057,
+      "z": 0.4162691437039262
+    },
+    {
+      "genotype": "lilly-white:n/n;axanthic:A/ax;cappuccino-complex:n/n",
+      "theoretical": 0.5,
+      "count": 50044,
+      "frequency": 0.50044,
+      "z": 0.27828043409481734
+    },
+    {
+      "genotype": "lilly-white:n/n;axanthic:ax/ax;cappuccino-complex:n/n",
+      "theoretical": 0.25,
+      "count": 24899,
+      "frequency": 0.24899,
+      "z": -0.7375997107736236
+    }
+  ],
+  "populations": [
+    {
+      "seed": "selection-a",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.35346843727820704,
+          "diversity": 0.7346366666666664
+        },
+        {
+          "generation": 1,
+          "mean": 0.4709501455679886,
+          "diversity": 0.7155133333333336
+        },
+        {
+          "generation": 2,
+          "mean": 0.5720134875272241,
+          "diversity": 0.6897208333333331
+        },
+        {
+          "generation": 3,
+          "mean": 0.661133436048095,
+          "diversity": 0.6605258333333333
+        },
+        {
+          "generation": 4,
+          "mean": 0.7401993318661595,
+          "diversity": 0.6551733333333334
+        },
+        {
+          "generation": 5,
+          "mean": 0.7927658120792406,
+          "diversity": 0.6451633333333332
+        },
+        {
+          "generation": 6,
+          "mean": 0.8325615103585432,
+          "diversity": 0.6106116666666668
+        },
+        {
+          "generation": 7,
+          "mean": 0.8607612556434315,
+          "diversity": 0.5827950000000001
+        },
+        {
+          "generation": 8,
+          "mean": 0.8762762333801308,
+          "diversity": 0.5575849999999999
+        },
+        {
+          "generation": 9,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5420458333333333
+        },
+        {
+          "generation": 10,
+          "mean": 0.8805949444950998,
+          "diversity": 0.519998333333333
+        },
+        {
+          "generation": 11,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5088791666666667
+        },
+        {
+          "generation": 12,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5052558333333332
+        },
+        {
+          "generation": 13,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5009650000000001
+        },
+        {
+          "generation": 14,
+          "mean": 0.8805949444950998,
+          "diversity": 0.48125499999999993
+        },
+        {
+          "generation": 15,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4806208333333334
+        },
+        {
+          "generation": 16,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4726666666666665
+        },
+        {
+          "generation": 17,
+          "mean": 0.8805949444950998,
+          "diversity": 0.465135
+        },
+        {
+          "generation": 18,
+          "mean": 0.8805949444950998,
+          "diversity": 0.46310333333333314
+        },
+        {
+          "generation": 19,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4615041666666666
+        },
+        {
+          "generation": 20,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4482049999999999
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.35346843727820704,
+          "diversity": 0.7346366666666664
+        },
+        {
+          "generation": 1,
+          "mean": 0.3544130549741665,
+          "diversity": 0.728846666666667
+        },
+        {
+          "generation": 2,
+          "mean": 0.3594784980823961,
+          "diversity": 0.7214183333333334
+        },
+        {
+          "generation": 3,
+          "mean": 0.34215123946705434,
+          "diversity": 0.7157508333333332
+        },
+        {
+          "generation": 4,
+          "mean": 0.33180414435486516,
+          "diversity": 0.714476666666667
+        },
+        {
+          "generation": 5,
+          "mean": 0.3232555217644375,
+          "diversity": 0.7146041666666668
+        },
+        {
+          "generation": 6,
+          "mean": 0.3053994893283241,
+          "diversity": 0.7144875000000002
+        },
+        {
+          "generation": 7,
+          "mean": 0.30922840174273647,
+          "diversity": 0.713921666666667
+        },
+        {
+          "generation": 8,
+          "mean": 0.3056650049302208,
+          "diversity": 0.7105008333333332
+        },
+        {
+          "generation": 9,
+          "mean": 0.2937422244779306,
+          "diversity": 0.7047083333333333
+        },
+        {
+          "generation": 10,
+          "mean": 0.30220693593412656,
+          "diversity": 0.7012199999999997
+        },
+        {
+          "generation": 11,
+          "mean": 0.30334659350398663,
+          "diversity": 0.6961766666666668
+        },
+        {
+          "generation": 12,
+          "mean": 0.3121962577494155,
+          "diversity": 0.6888866666666661
+        },
+        {
+          "generation": 13,
+          "mean": 0.3171997726629533,
+          "diversity": 0.6815349999999999
+        },
+        {
+          "generation": 14,
+          "mean": 0.32724495814570503,
+          "diversity": 0.6789974999999998
+        },
+        {
+          "generation": 15,
+          "mean": 0.33017520053190763,
+          "diversity": 0.6752341666666667
+        },
+        {
+          "generation": 16,
+          "mean": 0.32523597040929936,
+          "diversity": 0.6717833333333332
+        },
+        {
+          "generation": 17,
+          "mean": 0.3227788134885842,
+          "diversity": 0.6645166666666663
+        },
+        {
+          "generation": 18,
+          "mean": 0.32444829743366077,
+          "diversity": 0.6575558333333336
+        },
+        {
+          "generation": 19,
+          "mean": 0.3195890614921014,
+          "diversity": 0.6551666666666667
+        },
+        {
+          "generation": 20,
+          "mean": 0.3376376117344288,
+          "diversity": 0.6545066666666666
+        }
+      ]
+    },
+    {
+      "seed": "selection-b",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.36037808724013204,
+          "diversity": 0.7375608333333334
+        },
+        {
+          "generation": 1,
+          "mean": 0.48908875330290136,
+          "diversity": 0.7267283333333332
+        },
+        {
+          "generation": 2,
+          "mean": 0.596771078837291,
+          "diversity": 0.7048083333333336
+        },
+        {
+          "generation": 3,
+          "mean": 0.682359598028137,
+          "diversity": 0.6908241666666666
+        },
+        {
+          "generation": 4,
+          "mean": 0.7598779230935341,
+          "diversity": 0.6648883333333334
+        },
+        {
+          "generation": 5,
+          "mean": 0.8044218550490201,
+          "diversity": 0.6455900000000001
+        },
+        {
+          "generation": 6,
+          "mean": 0.8318255240966294,
+          "diversity": 0.6166633333333332
+        },
+        {
+          "generation": 7,
+          "mean": 0.8572177012300743,
+          "diversity": 0.5928033333333335
+        },
+        {
+          "generation": 8,
+          "mean": 0.8725012441103709,
+          "diversity": 0.56227
+        },
+        {
+          "generation": 9,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5330324999999999
+        },
+        {
+          "generation": 10,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5249875
+        },
+        {
+          "generation": 11,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5195808333333333
+        },
+        {
+          "generation": 12,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5147383333333332
+        },
+        {
+          "generation": 13,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5084950000000001
+        },
+        {
+          "generation": 14,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4901566666666667
+        },
+        {
+          "generation": 15,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4805633333333333
+        },
+        {
+          "generation": 16,
+          "mean": 0.8805949444950998,
+          "diversity": 0.47455499999999995
+        },
+        {
+          "generation": 17,
+          "mean": 0.8805949444950998,
+          "diversity": 0.46720500000000004
+        },
+        {
+          "generation": 18,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4614800000000001
+        },
+        {
+          "generation": 19,
+          "mean": 0.8805949444950998,
+          "diversity": 0.46460166666666675
+        },
+        {
+          "generation": 20,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4627158333333333
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.36037808724013204,
+          "diversity": 0.7375608333333334
+        },
+        {
+          "generation": 1,
+          "mean": 0.35714549402347684,
+          "diversity": 0.7323116666666666
+        },
+        {
+          "generation": 2,
+          "mean": 0.3418856921020103,
+          "diversity": 0.725491666666667
+        },
+        {
+          "generation": 3,
+          "mean": 0.3467599577373713,
+          "diversity": 0.7161983333333334
+        },
+        {
+          "generation": 4,
+          "mean": 0.34183730173789956,
+          "diversity": 0.7147674999999997
+        },
+        {
+          "generation": 5,
+          "mean": 0.347601960015389,
+          "diversity": 0.7093025000000002
+        },
+        {
+          "generation": 6,
+          "mean": 0.35641604617185246,
+          "diversity": 0.7029799999999999
+        },
+        {
+          "generation": 7,
+          "mean": 0.3680220882469252,
+          "diversity": 0.6976116666666666
+        },
+        {
+          "generation": 8,
+          "mean": 0.3689704345655318,
+          "diversity": 0.6963066666666666
+        },
+        {
+          "generation": 9,
+          "mean": 0.3735469259556959,
+          "diversity": 0.6913849999999999
+        },
+        {
+          "generation": 10,
+          "mean": 0.37252724977087553,
+          "diversity": 0.6863908333333336
+        },
+        {
+          "generation": 11,
+          "mean": 0.3783091060942113,
+          "diversity": 0.6843783333333331
+        },
+        {
+          "generation": 12,
+          "mean": 0.37112089449297037,
+          "diversity": 0.6846033333333335
+        },
+        {
+          "generation": 13,
+          "mean": 0.3599495644263361,
+          "diversity": 0.6791700000000003
+        },
+        {
+          "generation": 14,
+          "mean": 0.36740249018931104,
+          "diversity": 0.6742308333333333
+        },
+        {
+          "generation": 15,
+          "mean": 0.36761345526309236,
+          "diversity": 0.6696966666666666
+        },
+        {
+          "generation": 16,
+          "mean": 0.37021737521795756,
+          "diversity": 0.6721974999999999
+        },
+        {
+          "generation": 17,
+          "mean": 0.3690231425688133,
+          "diversity": 0.6660983333333333
+        },
+        {
+          "generation": 18,
+          "mean": 0.370440106226374,
+          "diversity": 0.6663449999999997
+        },
+        {
+          "generation": 19,
+          "mean": 0.37632570829787965,
+          "diversity": 0.6641474999999999
+        },
+        {
+          "generation": 20,
+          "mean": 0.36053840653732466,
+          "diversity": 0.6594791666666668
+        }
+      ]
+    },
+    {
+      "seed": "selection-c",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.3506991849083109,
+          "diversity": 0.7378583333333335
+        },
+        {
+          "generation": 1,
+          "mean": 0.4608635479816286,
+          "diversity": 0.7240974999999997
+        },
+        {
+          "generation": 2,
+          "mean": 0.5542957050344242,
+          "diversity": 0.7146375
+        },
+        {
+          "generation": 3,
+          "mean": 0.6331977134709476,
+          "diversity": 0.6906741666666665
+        },
+        {
+          "generation": 4,
+          "mean": 0.7106007550480146,
+          "diversity": 0.6780516666666664
+        },
+        {
+          "generation": 5,
+          "mean": 0.7704491815872839,
+          "diversity": 0.6547475000000001
+        },
+        {
+          "generation": 6,
+          "mean": 0.8183388663602911,
+          "diversity": 0.6328408333333333
+        },
+        {
+          "generation": 7,
+          "mean": 0.8539696460771379,
+          "diversity": 0.5962583333333333
+        },
+        {
+          "generation": 8,
+          "mean": 0.8730150340410674,
+          "diversity": 0.5747699999999999
+        },
+        {
+          "generation": 9,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5489524999999998
+        },
+        {
+          "generation": 10,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5395066666666666
+        },
+        {
+          "generation": 11,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5305533333333333
+        },
+        {
+          "generation": 12,
+          "mean": 0.8805949444950998,
+          "diversity": 0.5127141666666665
+        },
+        {
+          "generation": 13,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4969924999999999
+        },
+        {
+          "generation": 14,
+          "mean": 0.8805949444950998,
+          "diversity": 0.48099500000000006
+        },
+        {
+          "generation": 15,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4674416666666666
+        },
+        {
+          "generation": 16,
+          "mean": 0.8805949444950998,
+          "diversity": 0.45516499999999993
+        },
+        {
+          "generation": 17,
+          "mean": 0.8805949444950998,
+          "diversity": 0.44404666666666676
+        },
+        {
+          "generation": 18,
+          "mean": 0.8805949444950998,
+          "diversity": 0.4366416666666666
+        },
+        {
+          "generation": 19,
+          "mean": 0.8805949444950998,
+          "diversity": 0.43245000000000006
+        },
+        {
+          "generation": 20,
+          "mean": 0.8805949444950998,
+          "diversity": 0.42478333333333324
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.3506991849083109,
+          "diversity": 0.7378583333333335
+        },
+        {
+          "generation": 1,
+          "mean": 0.3589505145552845,
+          "diversity": 0.7350466666666666
+        },
+        {
+          "generation": 2,
+          "mean": 0.3610965048477872,
+          "diversity": 0.7287591666666668
+        },
+        {
+          "generation": 3,
+          "mean": 0.35741512323861363,
+          "diversity": 0.7249991666666665
+        },
+        {
+          "generation": 4,
+          "mean": 0.34376370681834034,
+          "diversity": 0.7217783333333335
+        },
+        {
+          "generation": 5,
+          "mean": 0.35491848920879315,
+          "diversity": 0.7118866666666668
+        },
+        {
+          "generation": 6,
+          "mean": 0.3404739670819371,
+          "diversity": 0.7092783333333331
+        },
+        {
+          "generation": 7,
+          "mean": 0.339046653382086,
+          "diversity": 0.7046408333333332
+        },
+        {
+          "generation": 8,
+          "mean": 0.33324466672615194,
+          "diversity": 0.6998533333333333
+        },
+        {
+          "generation": 9,
+          "mean": 0.34667530115705275,
+          "diversity": 0.6973424999999996
+        },
+        {
+          "generation": 10,
+          "mean": 0.3521439346480165,
+          "diversity": 0.6976666666666667
+        },
+        {
+          "generation": 11,
+          "mean": 0.33345330063689305,
+          "diversity": 0.6929116666666665
+        },
+        {
+          "generation": 12,
+          "mean": 0.32757941788094913,
+          "diversity": 0.6894083333333332
+        },
+        {
+          "generation": 13,
+          "mean": 0.3290059480480001,
+          "diversity": 0.6896266666666665
+        },
+        {
+          "generation": 14,
+          "mean": 0.3264325764135138,
+          "diversity": 0.6876525000000002
+        },
+        {
+          "generation": 15,
+          "mean": 0.32246476844135685,
+          "diversity": 0.6829058333333332
+        },
+        {
+          "generation": 16,
+          "mean": 0.3331708672436058,
+          "diversity": 0.6820675000000002
+        },
+        {
+          "generation": 17,
+          "mean": 0.3202923783559183,
+          "diversity": 0.6780725000000002
+        },
+        {
+          "generation": 18,
+          "mean": 0.3412245586251925,
+          "diversity": 0.6734566666666667
+        },
+        {
+          "generation": 19,
+          "mean": 0.3367370255896667,
+          "diversity": 0.6711549999999998
+        },
+        {
+          "generation": 20,
+          "mean": 0.3348404166281913,
+          "diversity": 0.6678016666666663
+        }
+      ]
+    }
+  ],
+  "note": "가상 다유전자 게임 모델의 집단 실험. 게임 내 근친 차단 정책과 별개이며 현실 브리딩 예측이나 혈연 교배 허가가 아닙니다."
+}

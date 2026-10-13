@@ -49,7 +49,7 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await tab(page,"부화",mobile);await click(page.getByText("교배 당시 예측·자손·추론 기록",{exact:true}),mobile);
   await expect(page.getByTestId("inference-update").first()).toContainText("50.0% → 100.0%");
   await page.getByTestId("inference-update").first().scrollIntoViewIfNeeded();
-  await page.screenshot({path:info.outputPath("phase5-inference.png"),scale:"css"});
+  await page.locator(".hc-event .genetic-panel").first().screenshot({path:info.outputPath("phase5-inference.png"),scale:"css"});
   const child=Object.values(hatched.individuals).find(g=>g.parents&&g.genotype.loci.axanthic.every(a=>a==="ax"))!;
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:child.name+" 상세보기",exact:true}),mobile);
   await page.getByLabel("개체 이름",{exact:true}).fill("검증된 아잔틱");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);
