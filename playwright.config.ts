@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: false,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3000", trace: "retain-on-failure",
+    baseURL: "http://127.0.0.1:3100", trace: "retain-on-failure",
     launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
       ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH } : {},
   },
@@ -14,9 +14,9 @@ export default defineConfig({
     { name: "desktop-chromium", use: { browserName: "chromium", viewport: { width: 1280, height: 900 } } },
   ],
   webServer: {
-    command: "npm run start",
-    url: "http://127.0.0.1:3000",
-    reuseExistingServer: !process.env.CI,
+    command: "npm run start -- --port 3100",
+    url: "http://127.0.0.1:3100",
+    reuseExistingServer: false,
     timeout: 60_000,
   },
 });

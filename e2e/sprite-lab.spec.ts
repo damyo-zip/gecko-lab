@@ -4,7 +4,7 @@ import { MORPH_PRESETS, specimenFromPreset } from "../src/engine/presets";
 import { renderSprite } from "../src/engine/render";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/lab");
   await expect.poll(() => page.getByTestId("hero-sprite").evaluate((node) => {
     const canvas = node as HTMLCanvasElement;
     return canvas.getContext("2d")!.getImageData(0, 0, canvas.width, canvas.height).data.some((v) => v > 0);

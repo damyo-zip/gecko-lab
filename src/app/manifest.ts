@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "GECKO LAB 스프라이트 연구실", short_name: "GECKO LAB",
-    description: "96×96 크레스티드 게코 픽셀 렌더링 테스트",
+    name: "GECKO LAB 브리딩 연구소", short_name: "GECKO LAB",
+    description: "유전형과 혈통을 유지하는 크레스티드 게코 브리딩 게임",
     start_url: "/", scope: "/", display: "standalone", orientation: "portrait-primary",
     lang: "ko", background_color: "#0e1615", theme_color: "#111b19",
     icons: [

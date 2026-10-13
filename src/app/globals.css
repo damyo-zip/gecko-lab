@@ -179,3 +179,189 @@ input[type="range"] { width: 100%; margin: 0; height: 32px; accent-color: var(--
   .control-block { margin-bottom: 18px; }
 }
 @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+
+/* Phase 2 gameplay. The Phase 1 laboratory styles and sprite renderer stay intact. */
+.game-shell { max-width: 960px; padding-bottom: calc(114px + env(safe-area-inset-bottom)); }
+.game-header { padding-bottom: 18px; }
+.settings-button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #45583c; background: #1b2b20; color: #b9d59b; flex-shrink: 0; }
+.game-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 0 10px; }
+.turn-counter { display: grid; grid-template-columns: auto auto; align-items: baseline; gap: 0 6px; }
+.turn-counter > span { font: 10px var(--font-mono); color: #9bad8b; letter-spacing: 1px; }
+.turn-counter b { font: bold 23px var(--font-mono); color: #d9eac3; }
+.turn-counter small { grid-column: 1/-1; font-size: 9px; color: #91af7c; margin-top: 2px; }
+.turn-actions { display: flex; gap: 7px; }
+.game-primary, .game-secondary { min-height: 44px; padding: 10px 13px; font-size: 12px; border: 1px solid #455d39; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+.game-primary { color: #132117; background: #a5cd82; border-color: #bcde98; font-weight: 700; box-shadow: inset 0 -3px #719951; }
+.game-primary:hover { background: #badb98; }
+.game-secondary { background: #1e2c21; color: #d0ddbf; }
+.game-secondary:hover { background: #2b3e28; }
+button:disabled, fieldset:disabled { opacity: .5; cursor: not-allowed; }
+.full-width { width: 100%; margin-top: 12px; }
+.game-live-notice { margin: 5px 0 22px; padding: 10px 12px; border-left: 2px solid #6d9754; background: #293b2544; color: #b2c5a0; font-size: 11px; line-height: 1.8; }
+.game-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.game-section-heading h1 { font-size: 25px; font-weight: 700; letter-spacing: -.8px; }
+.game-section-heading h1 span { font: 17px var(--font-mono); margin-left: 8px; }
+.game-section-heading .eyebrow { font-size: 9px; margin-bottom: 7px; }
+.game-section-copy { font-size: 11px; color: #a4b198; margin: 12px 0 20px; line-height: 1.85; }
+.game-count-chip { color: #b6cb9f; font: 10px var(--font-mono); padding: 7px 9px; background: #233321; border: 1px solid #435b37; white-space: nowrap; }
+.compact-select { max-width: 145px; min-width: 0; }
+.game-shell select, .game-dialog select { background: #1b291e; color: #ccdaba; border: 1px solid #425839; min-height: 44px; padding: 10px 9px; font-size: 11px; width: 100%; min-width: 0; }
+.game-collection-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
+.game-individual-card { min-width: 0; text-align: left; display: flex; flex-direction: column; padding: 11px; border: 1px solid #3e5136; background: linear-gradient(150deg,#253321,#142119); color: #dfe5d5; }
+.game-individual-card:hover { border-color: #8cac6b; background-color: #293c25; }
+.game-card-top { display: flex; align-items: center; justify-content: space-between; font: 9px var(--font-mono); color: #9bae8a; }
+.sex-mark { font-size: 20px; font-family: Arial,sans-serif; line-height: 1; }
+.sex-mark.male { color: #8dbbec; }
+.sex-mark.female { color: #e793b5; }
+.game-card-art { display: flex; align-items: center; justify-content: center; min-height: 105px; margin: 3px -3px 6px; background: radial-gradient(ellipse,#8fba5d12,transparent 70%); }
+.game-individual-card strong { font-size: 17px; display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.game-morph { font-size: 10px; color: #bac4a9; margin-top: 3px; overflow-wrap: anywhere; }
+.game-genotype { font: 10px var(--font-mono); color: #c5d4ab; margin-top: 5px; }
+.game-stage { display: block; font-size: 10px; color: #b6a77e; margin-top: 10px; }
+.game-individual-card .game-stage { padding-top: 8px; border-top: 1px solid #ffffff11; width: 100%; }
+.game-stage.adult { color: #a9d58a; }
+.game-stage.hatchling { color: #dcc89e; }
+.game-stage.juvenile { color: #a8c3df; }
+.game-bottom-nav { position: fixed; z-index: 20; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 960px; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; background: #101c16f5; backdrop-filter: blur(10px); border-top: 1px solid #4a613b; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); }
+.game-bottom-nav button { min-height: 57px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; border: 1px solid #34482e; background: #1b281f; color: #95a88b; font-size: 11px; }
+.game-bottom-nav button[aria-pressed="true"] { background: #30472a; border-color: #a4cf82; color: #c5eba7; box-shadow: inset 0 -2px #a4cf82; }
+.game-footer-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 26px; padding-top: 16px; border-top: 1px solid #2e412d; color: #91a47d; font-size: 10px; }
+.game-footer-note a { color: #b9cda4; min-height: 44px; display: inline-flex; align-items: center; }
+.game-loading { text-align: center; padding: 50px 12px; color: #b9cfa7; }
+.game-loading h1 { font-size: 23px; margin: 16px 0 12px; }
+.game-loading p { font-size: 12px; color: #9aaf8c; line-height: 1.9; }
+.game-loading svg { display: inline-block; }
+.game-error-banner, .game-warning { padding: 14px; background: #4b322333; color: #e5b79a; border: 1px solid #7b5540; font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; margin: 16px 0; }
+.game-error-banner > button { display: block; margin-top: 10px; }
+.game-warning ul { padding-left: 17px; margin: 8px 0 0; }
+.game-warning li + li { margin-top: 7px; }
+.game-safe { font-size: 11px; padding: 14px; line-height: 1.8; background: #25432444; border: 1px solid #3f6037; color: #b6d99c; margin: 16px 0 8px; }
+.game-model-note { margin: 22px 0; padding: 15px; border: 1px solid #3b5035; background: #1a2a1e; color: #aabd98; font-size: 11px; line-height: 1.9; }
+.game-model-note strong { color: #c7d7b4; }
+.game-model-note p { margin: 6px 0 0; }
+.game-small-note { color: #a1b291; font-size: 10px; line-height: 1.9; margin: 14px 0; overflow-wrap: anywhere; }
+.game-empty { padding: 26px 16px; text-align: center; border: 1px dashed #43573a; color: #adc198; font-size: 12px; margin: 18px 0; line-height: 1.8; }
+.game-empty h2 { font-size: 18px; color: #d0ddbf; margin: 12px 0; }
+.parent-picker-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.parent-picker-grid label { display: flex; flex-direction: column; gap: 9px; color: #c4d3b1; font-size: 12px; min-width: 0; }
+.selected-parents { display: grid; grid-template-columns: minmax(0,1fr) 20px minmax(0,1fr); gap: 4px; align-items: center; margin-top: 16px; }
+.parent-summary { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; padding: 13px 8px; background: #1e2d21; border: 1px solid #3c5033; }
+.parent-summary > span { font-size: 10px; margin-top: 5px; color: #b6c5a5; overflow-wrap: anywhere; }
+.parent-summary > .eyebrow { font: 8px var(--font-mono); margin: 0; color: #89aa72; }
+.parent-summary strong { font-size: 17px; max-width: 100%; overflow-wrap: anywhere; }
+.parent-summary code { color: #dae7c3; font: 11px var(--font-mono); margin-top: 7px; }
+.parent-art { display: flex; align-items: center; justify-content: center; min-height: 106px; }
+.cross-symbol { font-size: 21px; color: #bed89f; text-align: center; }
+.genetics-forecast { padding: 18px 16px; background: #1b2b20; border: 1px solid #41573a; margin-top: 20px; }
+.genetics-forecast h2 { font-size: 15px; color: #dbe6c7; font-weight: 600; line-height: 1.7; }
+.forecast-subtitle { font-size: 10px; color: #91aa7f; margin: 6px 0 18px; }
+.probability-row { margin: 15px 0; }
+.probability-row > div:first-child { display: grid; grid-template-columns: 60px minmax(0,1fr) auto; align-items: center; gap: 8px; font-size: 11px; color: #c3d1b1; }
+.probability-row strong { font: bold 16px var(--font-mono); color: #dbeccc; }
+.probability-row code { font: 10px var(--font-mono); color: #abc295; }
+.probability-track { height: 6px; margin-top: 9px; background: #0f1c14; border: 1px solid #344a2e; }
+.probability-track i { display: block; height: 100%; background: #9dc47d; }
+.probability-row.nonviable span, .probability-row.nonviable strong { color: #e4ac92; }
+.probability-row.nonviable .probability-track i { background: #b37f62; }
+.conditional-probability { border-top: 1px solid #3a5131; padding-top: 14px; margin-top: 19px; font-size: 11px; color: #b5caa3; }
+.conditional-probability h3 { font-size: 12px; color: #d0dfb8; margin: 0 0 10px; }
+.conditional-probability > span { display: block; margin: 6px 0; }
+.conditional-probability b { float: right; color: #d7e8c4; }
+.conditional-probability p { font-size: 9px; color: #9aaf88; margin: 12px 0 0; line-height: 1.8; }
+.breed-button { min-height: 52px; font-size: 14px; }
+.egg-empty > span { font-size: 60px; color: #d8cda7; }
+.clutch-panel { border: 1px solid #3c5234; padding: 14px; margin: 20px 0; background: #17261b; }
+.clutch-heading { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.clutch-heading strong { font-size: 14px; color: #dae4c9; }
+.clutch-heading span { font: 9px var(--font-mono); color: #9bb582; text-align: right; }
+.clutch-parents { font-size: 11px; color: #a8bd94; margin: 8px 0 15px; overflow-wrap: anywhere; }
+.egg-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.egg-card { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 14px 5px; border: 1px solid #395132; background: #1f3122; text-align: center; }
+.egg-card h3 { font-size: 12px; font-weight: 600; color: #d7e2c6; margin: 12px 0 5px; max-width: 100%; overflow-wrap: anywhere; }
+.egg-card > span { font-size: 9px; color: #acc496; overflow-wrap: anywhere; }
+.egg-card > p { font-size: 8px; color: #91a77f; margin-top: 9px; }
+.egg-card code { font: 10px var(--font-mono); color: #d2e2bc; margin-top: 6px; }
+.egg-card button { font-size: 9px; margin-top: 12px; padding: 9px 6px; width: 100%; }
+.egg-card progress { width: 85%; height: 5px; margin-top: 14px; accent-color: #bdd598; }
+.egg-card .egg-hatched-badge { padding: 4px 6px; border: 1px solid #668849; color: #c7e0ae; margin-bottom: 5px; }
+.pixel-egg { width: 53px; height: 65px; border-radius: 46% 46% 40% 40%; background: #dfd3aa; border: 3px solid #a2956b; box-shadow: inset -7px -7px #b9ac7c, 0 5px #101b13; position: relative; margin: 22px 0; }
+.pixel-egg i { position: absolute; width: 7px; height: 7px; background: #8d825c; }
+.pixel-egg i:nth-child(1) { left: 11px; top: 15px; }.pixel-egg i:nth-child(2) { right: 8px; top: 30px; }
+.pixel-egg i:nth-child(3) { left: 11px; bottom: 9px; width: 5px; }.pixel-egg i:nth-child(4) { left: 21px; top: 8px; width: 4px; height: 4px; }
+.game-dialog { background: #17261c; color: #dce6ca; border: 1px solid #789260; padding: 18px 16px; width: calc(100vw - 24px); max-width: 440px; max-height: 87dvh; overflow: auto; margin: auto; box-shadow: 0 20px 70px #0009; }
+.game-dialog::backdrop { background: #060e0bbd; backdrop-filter: blur(3px); }
+.dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #3c5032; padding-bottom: 12px; }
+.dialog-heading h2 { font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.dialog-heading button { width: 44px; height: 44px; border: 1px solid #485e3a; background: #243423; color: #c1dba4; font-size: 25px; flex-shrink: 0; }
+.detail-art { display: flex; justify-content: center; align-items: center; background: radial-gradient(ellipse,#36523355,#102018); margin: 14px 0; overflow: auto; }
+.name-form > label { display: block; font-size: 11px; margin-bottom: 8px; color: #bdd2a7; }
+.name-form > div { display: flex; gap: 8px; }
+.game-dialog input[type="text"], .name-form input, .game-dialog input:not([type]) { color: #d3e3be; background: #101e15; border: 1px solid #4a5f3c; min-height: 44px; padding: 10px; width: 100%; min-width: 0; }
+.name-form input { flex: 1; width: 0; }
+.name-form button { flex-shrink: 0; font-size: 11px; }
+.detail-facts { margin: 18px 0; }
+.detail-facts > div { display: grid; grid-template-columns: 77px minmax(0,1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid #32462d; font-size: 11px; }
+.detail-facts dt { color: #94ae80; }
+.detail-facts dd { color: #d0dec0; min-width: 0; }
+.id-text { font: 9px var(--font-mono); overflow-wrap: anywhere; }
+.detail-parentage h3, .potential-traits h3, .backup-panel h3, .new-game-settings h3 { font-size: 13px; font-weight: 600; margin: 20px 0 12px; }
+.detail-parentage > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.detail-parentage button { flex: 1; font-size: 10px; }
+.detail-parentage p { font-size: 11px; color: #9cb08b; line-height: 1.8; }
+.potential-traits h3 span { font-size: 9px; color: #a1b590; margin-left: 5px; }
+.potential-traits > div { display: grid; grid-template-columns: 75px minmax(0,1fr) 25px; align-items: center; gap: 10px; font-size: 10px; color: #bacba8; margin: 12px 0; }
+.potential-traits progress { width: 100%; height: 6px; accent-color: #b3cf8a; }
+.potential-traits b { text-align: right; font: 10px var(--font-mono); }
+.detail-actions, .confirm-actions { display: flex; gap: 10px; margin-top: 18px; }
+.detail-actions button, .confirm-actions button { flex: 1; }
+.lineage-select { display: block; color: #c1d3ad; font-size: 12px; margin: 22px 0; }
+.lineage-select select { display: block; margin-top: 9px; }
+.lineage-root { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid #5b7948; background: #243723; }
+.lineage-root > div { min-width: 0; }
+.lineage-root h2 { font-size: 18px; margin: 0; overflow-wrap: anywhere; }
+.lineage-root p { color: #b8cba3; font-size: 10px; margin: 4px 0; }
+.lineage-root code { display: block; margin-top: 7px; }
+.lineage-root button { font-size: 10px; margin-top: 10px; }
+.lineage-subtitle { font-size: 16px; margin: 24px 0 14px; color: #d3e1c1; }
+.lineage-subtitle > span { color: #92b878; font: 14px var(--font-mono); margin-left: 6px; }
+.ancestor-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; min-width: 0; }
+.ancestor-branch { color: #77965f; font-size: 20px; flex-shrink: 0; }
+.ancestor-row button { display: flex; flex-direction: column; justify-content: center; min-width: 0; width: 100%; min-height: 53px; text-align: left; background: #1c2d20; border: 1px solid #3c5234; padding: 8px; color: #afc597; }
+.ancestor-row strong { color: #d4e2c2; font-size: 12px; overflow-wrap: anywhere; }
+.ancestor-row > button > span { font-size: 10px; }
+.ancestor-row small { font: 9px var(--font-mono); color: #91ad7b; overflow-wrap: anywhere; }
+.file-restore { display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: #b9cea5; margin: 20px 0; }
+.file-restore input { font-size: 10px; max-width: 100%; min-height: 44px; }
+.file-restore input::file-selector-button { border: 1px solid #4c633b; background: #2a3d25; color: #d5e5c0; padding: 10px; margin-right: 8px; min-height: 44px; font: inherit; }
+.new-game-settings { border-top: 1px solid #415337; padding-top: 15px; margin-top: 20px; }
+.new-game-settings summary { cursor: pointer; min-height: 44px; font-size: 14px; color: #d4e2bb; }
+.new-game-settings fieldset { border: 0; min-width: 0; padding: 0; margin: 10px 0; }
+.seed-setting { display: flex; flex-direction: column; gap: 8px; font-size: 11px; color: #b8cda1; }
+.rule-fields, .variation-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px 10px; margin: 16px 0; }
+.rule-fields label { display: flex; flex-direction: column; gap: 7px; font-size: 10px; color: #b7cba0; }
+.rule-fields input { width: 100%; min-width: 0; padding: 10px; min-height: 44px; background: #122218; border: 1px solid #4a5e3b; color: #d0e1b8; }
+.variation-fields label { display: flex; align-items: center; gap: 4px; color: #b5c9a0; font-size: 10px; }
+.variation-fields input { min-width: 0; width: 42px; flex: 1; background: #142219; border: 1px solid #4a5e3b; color: #cfe0b7; min-height: 44px; padding: 5px; }
+.replacement-confirm h3 { font-size: 17px; color: #d5e4bf; margin: 20px 0 12px; }
+.replacement-confirm > p { font-size: 12px; line-height: 1.85; color: #dbbe9b; }
+.replacement-confirm dl { padding: 12px; background: #102018; margin: 16px 0; font-size: 12px; }
+.replacement-confirm dl > div { display: flex; justify-content: space-between; gap: 10px; margin: 8px 0; }
+.replacement-confirm dt { color: #9ab983; }
+
+@media (min-width:600px) {
+  .game-collection-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+  .game-individual-card { padding: 18px; }
+  .game-card-art { min-height: 120px; }
+  .game-card-top { font-size: 10px; }
+  .game-morph, .game-stage { font-size: 11px; }
+  .game-tab-content { max-width: 760px; margin: auto; }
+  .game-live-notice { max-width: 760px; margin: 8px auto 30px; }
+  .selected-parents { gap: 12px; grid-template-columns: minmax(0,1fr) 28px minmax(0,1fr); }
+  .parent-summary { padding: 20px; }
+  .parent-summary > span { font-size: 12px; }
+  .genetics-forecast { padding: 24px; }
+  .egg-grid { gap: 18px; }
+  .egg-card { padding: 20px 12px; }
+  .egg-card h3 { font-size: 16px; }
+  .egg-card > span { font-size: 11px; }
+}

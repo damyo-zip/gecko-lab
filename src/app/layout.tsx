@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GECKO LAB — 스프라이트 연구실",
-  description: "크레스티드 게코 96×96 픽셀 스프라이트와 외형 조합 테스트",
+  title: "GECKO LAB — 브리딩 연구소",
+  description: "유전 확률을 확인하고 여러 세대의 크레스티드 게코를 브리딩하는 로컬 모바일 게임",
   applicationName: "GECKO LAB",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "GECKO LAB" },
   icons: { icon: "/icon.svg", apple: "/icons/icon-192.png" },

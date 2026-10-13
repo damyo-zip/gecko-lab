@@ -1,5 +1,5 @@
-import SpriteLab from "@/components/sprite-lab";
+import GameHub from "@/components/game/game-hub";
 
 export default function Home() {
-  return <SpriteLab />;
+  return <GameHub />;
 }
