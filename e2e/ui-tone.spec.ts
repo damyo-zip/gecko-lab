@@ -1,3 +1,4 @@
+import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {newGame,act,synchronize} from "../src/game/hardcore/play";
@@ -20,7 +21,7 @@ function fixture(){
 }
 const FIXTURE=fixture();
 async function click(l:Locator,mobile:boolean){if(mobile)await l.tap();else await l.click();}
-async function tab(page:Page,name:string,mobile:boolean){await click(page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}),mobile);}
+async function tab(page:Page,name:string,mobile:boolean){await navigateGame(page,name,mobile);}
 async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async()=>{
  const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
  return new Promise((resolve,reject)=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();tx.onerror=()=>reject(tx.error);});
@@ -35,7 +36,7 @@ test("four portrait screens retain readable controls, immutable records and the 
  test.setTimeout(90_000);const mobile=info.project.name.startsWith("mobile"),errors:string[]=[];
  page.on("pageerror",e=>errors.push(e.message));page.on("console",m=>{if(m.type()==="error")errors.push(m.text());});
  await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
- await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+ await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
  await restore(page,FIXTURE.base,mobile);const original=await saved(page);
  async function frame(name:string){
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -49,7 +50,7 @@ test("four portrait screens retain readable controls, immutable records and the 
   if(name!=="details")await page.screenshot({path:info.outputPath("ui-"+name+"-full.png"),fullPage:true,scale:"css",animations:"disabled"});
  }
  await tab(page,"컬렉션",mobile);await expect(page.locator(".hc-card")).toHaveCount(4);await frame("collection");
- await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("adult");await expect(page.locator(".hc-card")).toHaveCount(4);
+ await click(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("adult");await click(page.getByRole("dialog").getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);await expect(page.locator(".hc-card")).toHaveCount(4);
  await click(page.getByRole("button",{name:"모카 상세보기",exact:true}),mobile);await expect(page.getByRole("heading",{name:"모카 상세",exact:true})).toBeVisible();await frame("details");
  await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}).scrollIntoViewIfNeeded();await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
  await expect(page.getByRole("button",{name:"파이어 업 미리 보기",exact:true})).toBeVisible();await page.keyboard.press("Escape");await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -59,7 +60,7 @@ test("four portrait screens retain readable controls, immutable records and the 
  await restore(page,FIXTURE.incubator,mobile);const incubator=await saved(page);await tab(page,"부화",mobile);await expect(page.locator(".egg-card")).toHaveCount(2);await frame("incubator");
  expect(await saved(page)).toEqual(incubator);
  await writeFile(info.outputPath("ui-state.json"),JSON.stringify({base:original,incubator},null,2));
- await click(page.getByRole("button",{name:"턴 마치기",exact:true}),mobile);await expect(page.getByTestId("game-day")).toHaveText("3");
+ await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText("3");
  const hatched=await saved(page);expect(Object.values(hatched.eggs).every(e=>e.status==="hatched")).toBe(true);
  for(const id of [FIXTURE.fatherId,FIXTURE.motherId]){expect(hatched.individuals[id].genetics?.genome).toEqual(incubator.individuals[id].genetics?.genome);expect(hatched.individuals[id].genotype).toEqual(incubator.individuals[id].genotype);expect(hatched.individuals[id].visualSeed).toBe(incubator.individuals[id].visualSeed);}
  await tab(page,"컬렉션",mobile);await expect(page.locator(".hc-card")).toHaveCount(6);const child=Object.values(hatched.individuals).find(g=>g.parents)!;

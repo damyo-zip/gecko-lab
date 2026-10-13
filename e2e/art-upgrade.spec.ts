@@ -1,3 +1,4 @@
+import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Locator,type Page} from "@playwright/test";
 import {createHash} from "node:crypto";
 import {readFile} from "node:fs/promises";
@@ -9,7 +10,7 @@ import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";
 const DATE="2026-10-14",errors=new WeakMap<Page,string[]>();
 async function click(l:Locator,mobile:boolean){if(mobile)await l.tap();else await l.click();}
-async function tab(p:Page,name:string,mobile:boolean){await click(p.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}),mobile);}
+async function tab(page:Page,name:string,mobile:boolean){await navigateGame(page,name,mobile);}
 async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async()=>{
  const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
  return new Promise(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});
@@ -68,7 +69,7 @@ test("six real face canvases recolor periocular skin while preserving the author
 });
 test("real collection/details/shop/hatching/pedigree use new art while turns, genes, money and reload remain sound",async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith("mobile");await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
- await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
+ await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
  await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"art-test.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(newGame("phase6-mobile",DATE,{fertilizationChance:1,hatchChance:1})))});
  await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
  await tab(page,"상점",mobile);await canvasVisible(page);await page.locator(".hc-grid").screenshot({path:info.outputPath("art-shop.png"),scale:"css"});
@@ -80,7 +81,7 @@ test("real collection/details/shop/hatching/pedigree use new art while turns, ge
  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(parents[0].id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(parents[1].id);
  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
- for(let day=0;day<3;day++){const before=Number(await page.getByTestId("game-day").textContent());await click(page.getByRole("button",{name:"턴 마치기",exact:true}),mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
+ for(let day=0;day<3;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
  await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
  for(let i=0;i<2;i++){expect(game.individuals[parents[i].id].genetics!.genome).toEqual(genomes[i]);expect(game.individuals[parents[i].id].visualSeed).toBe(parentSeeds[i]);}
  await page.locator(".hc-grid").screenshot({path:info.outputPath("art-hatching.png"),scale:"css"});

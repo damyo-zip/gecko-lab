@@ -1,3 +1,4 @@
+import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { newGame } from "../src/game/hardcore/play";
 import { actWithTime } from "../src/game/hardcore/time-source";
@@ -8,7 +9,7 @@ import type { HardcoreGame, LegacyHardcoreGame, TimeMode } from "../src/game/har
 const DATE="2026-10-13";
 const errors=new WeakMap<Page,string[]>();
 async function click(locator:Locator,mobile:boolean) {if(mobile)await locator.tap();else await locator.click();}
-async function tab(page:Page,name:string,mobile:boolean) {await click(page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}),mobile);}
+async function tab(page:Page,name:string,mobile:boolean){await navigateGame(page,name,mobile);}
 async function saved(page:Page):Promise<HardcoreGame> {
   return page.evaluate(async()=>{
     const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
@@ -24,15 +25,15 @@ async function mode(page:Page,value:TimeMode,mobile:boolean) {
 }
 async function endTurn(page:Page,mobile:boolean) {
   const before=Number(await page.getByTestId("game-day").textContent());
-  await click(page.getByRole("button",{name:"턴 마치기",exact:true}),mobile);
+  await finishTurn(page,mobile);
   await expect(page.getByTestId("game-day")).toHaveText(String(before+1));
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
 }
-test.beforeEach(async({page})=>{
+test.beforeEach(async({page},info)=>{
   const list:string[]=[];errors.set(page,list);page.on("pageerror",e=>list.push(e.message));page.on("console",m=>{if(m.type()==="error")list.push(m.text());});
   await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
-  await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
-  await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toBeVisible();
+  await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
+  await tab(page,"교배",info.project.name.startsWith("mobile"));await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toBeVisible();
 });
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
@@ -50,7 +51,7 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   const pending=await saved(page);
   await page.clock.setFixedTime(new Date(addDays(DATE,20)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");expect(await saved(page)).toEqual(pending);
   await endTurn(page,mobile);expect(Object.values((await saved(page)).matings)[0].status).toBe("fertilized");
-  await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:/^수동 전체 급여/}),mobile);
+  await tab(page,"컬렉션",mobile);await feedCollection(page,mobile);
   await endTurn(page,mobile);let g=await saved(page);expect(Object.values(g.eggs)).toHaveLength(2);const embryo=Object.values(g.eggs)[0].embryo;
   await endTurn(page,mobile);g=await saved(page);expect(g.individuals[embryo.id]).toEqual(embryo);
   await click(page.getByRole("button",{name:embryo.name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");
