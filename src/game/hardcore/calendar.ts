@@ -2,6 +2,7 @@ import type { HardcoreGame } from "./model";
 import { addDays, daysBetween, type GameDate } from "./time";
 import { loseHearts, owned } from "./survival";
 import { breedingEvents } from "./breeding";
+import { refreshShop } from "./shop";
 
 export type DailyEvents = (game: HardcoreGame) => void;
 /** Process every midnight exactly once. Rewinding a device clock never undoes history. */
@@ -19,7 +20,7 @@ export function catchUp(source: HardcoreGame, date: GameDate, events: DailyEvent
       const age = daysBetween(g.birthDate, game.lastDate);
       g.stage = age >= game.rules.adultAfter ? "adult" : age >= game.rules.juvenileAfter ? "juvenile" : "hatchling";
     }
-    game.shop.date = game.lastDate;
+    refreshShop(game);
     game.notices = game.notices.slice(-60);
   }
   game.revision++;

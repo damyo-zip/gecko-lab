@@ -1,7 +1,6 @@
 import type { HardcoreGame } from "@/game/hardcore/model";
-import { createGame } from "@/game/hardcore/create";
+import { newGame, synchronize } from "@/game/hardcore/play";
 import { makeSave, readSave } from "@/game/hardcore/save";
-import { catchUp } from "@/game/hardcore/calendar";
 import type { GameDate } from "@/game/hardcore/time";
 import { DATABASE_NAME, STORE_NAME, SaveConflict } from "./indexed-db";
 
@@ -30,8 +29,8 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
     r.onsuccess = () => {
       try {
         const record = r.result;
-        const game = record ? readSave(record.save, date) : createGame("GECKO-" + date + "-" + Date.now(), date);
-        const next = catchUp(game, date);
+        const game = record ? readSave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
+        const next = synchronize(game, date);
         const changed = !record || record.save.version !== 3 || next !== game;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
         if (record?.save.version === 2) store.put(record, "archive-v2-" + writeRevision);

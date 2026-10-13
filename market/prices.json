@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-10-13-provisional-1",
+  "effectiveDate": "2026-10-13",
+  "currency": "KRW",
+  "status": "provisional-game-prices",
+  "buyMultiplier": 1.15,
+  "sellMultiplier": 0.60,
+  "bases": {
+    "normal": 80000,
+    "harlequin": 120000,
+    "dalmatian": 110000,
+    "tricolor": 150000,
+    "lilly": 250000,
+    "axanthic": 500000,
+    "axanthic-lilly": 900000
+  },
+  "carrierMultiplier": 1.8,
+  "note": "공개 시장 자료를 확보하지 못한 임시 게임 가격입니다. 국내 실거래 또는 검증 시세가 아닙니다. 복합 모프 가격도 추정입니다."
+}
