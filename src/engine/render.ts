@@ -25,8 +25,15 @@ function colorsFor(specimen:GeckoSpecimen){
  };
  let cream:RGB=gray?[203,199,212]:a.patternStyle==="lilly"?[255,244,217]:[255,218,151];
  if(e&&!gray)cream=mix(cream,[255,247,222],e.cream*.35);
+ // Preserve authored highlight/shadow clusters, but color lids and periocular
+ // skin from the same body/cream palette as the rest of this individual.
+ const eyeSkin=(source:RGB):RGB=>{
+  if(gray)return tint(source);
+  const creamWeight=a.patternStyle==="lilly"?.92:a.dorsalCoverage*(a.patternStyle==="normal"?.15:.4);
+  return mix(tint(source),fire(patternColor(cream,source)),creamWeight);
+ };
  const contrast=e?.contrast??.6;
- return {body:fire(body),tint,eye:(source:RGB)=>source,ink:fire(gray?[28,27,38]:[55,31,25]),
+ return {body:fire(body),tint,eyeSkin,ink:fire(gray?[28,27,38]:[55,31,25]),
   cream:fire(cream),pattern:fire(mix(cream,gray?[124,123,144]:[210,164,110],(1-contrast)*.2)),
   normalPattern:fire(gray?[142,141,157]:[238,164,78]),
   secondary:fire(gray?[60,59,78]:mix([105,54,35],[142,79,41],1-contrast)),spots:fire(gray?[24,24,33]:[54,34,25])};
@@ -74,8 +81,7 @@ export function renderSprite(specimen:GeckoSpecimen,enabled:readonly LayerName[]
   // Outline, eye/face and crest are always painted last and cannot be covered.
   if(BASE.outline[i])put(details,i,c.ink);
   else if(BASE.face[i]){
-   const eye=((x-25)/6.8)**2+((y-27)/6.5)**2<=1;
-   put(details,i,eye?c.eye(source):c.tint(source));
+   put(details,i,BASE.eye[i]?source:BASE.eyeSurround[i]?c.eyeSkin(source):c.tint(source));
   }else if(BASE.crest[i])put(details,i,c.cream);
  }
  const rng=randomFor(specimen.seed,"art-v2:spots"),centers:{x:number;y:number;radius:number}[]=[];

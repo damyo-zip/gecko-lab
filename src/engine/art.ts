@@ -10,12 +10,13 @@ function decode(rows:readonly string[],binary=false):Uint8Array {
 export const PART={tail:1,farLeg:2,body:3,head:4,frontLeg:5,hindLeg:6} as const;
 export interface BaseSprite {
   silhouette:Uint8Array;parts:Uint8Array;outline:Uint8Array;shadows:Uint8Array;highlights:Uint8Array;
-  crest:Uint8Array;details:Uint8Array;face:Uint8Array;dorsalRegion:Uint8Array;flankRegion:Uint8Array;spotRegion:Uint8Array;
+  crest:Uint8Array;details:Uint8Array;face:Uint8Array;eye:Uint8Array;eyeSurround:Uint8Array;dorsalRegion:Uint8Array;flankRegion:Uint8Array;spotRegion:Uint8Array;
 }
 export function createBaseSprite():BaseSprite {
   const details=decode(ART_ROWS["normal-base"]),parts=decode(ART_ROWS.parts);
   return {details,parts,silhouette:Uint8Array.from(details,v=>v?255:0),outline:decode(ART_ROWS.outline,true),
     shadows:decode(ART_ROWS.shadow,true),highlights:decode(ART_ROWS.highlight,true),crest:decode(ART_ROWS.crest,true),
-    face:decode(ART_ROWS.face,true),dorsalRegion:decode(ART_ROWS.dorsal,true),flankRegion:decode(ART_ROWS.flank,true),spotRegion:decode(ART_ROWS.spots,true)};
+    face:decode(ART_ROWS.face,true),eye:decode(ART_ROWS.eye,true),eyeSurround:decode(ART_ROWS["eye-surround"],true),
+    dorsalRegion:decode(ART_ROWS.dorsal,true),flankRegion:decode(ART_ROWS.flank,true),spotRegion:decode(ART_ROWS.spots,true)};
 }
 export const artColor=(index:number)=>ART_PALETTE[index];

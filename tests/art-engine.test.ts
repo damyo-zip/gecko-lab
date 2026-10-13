@@ -39,7 +39,7 @@ test("12 equal-phenotype seeds are distinct and preserve authored anatomy, face 
   for(const name of ["silhouette","body","shadow","highlight","details"]){const first=outputs[0].layers.find(l=>l.name===name);
     const fingerprint=(l:typeof first)=>createHash("sha256").update(l!.mask).update(l!.pixels).digest("hex");
     for(const o of outputs.slice(1))expect(fingerprint(o.layers.find(l=>l.name===name))).toBe(fingerprint(first));}
-  for(const o of outputs)expect(o.version).toBe("2.0.0");
+  for(const o of outputs)expect(o.version).toBe("2.0.1");
 });
 test("20%→80% anatomical pattern growth and increasing spots retain all existing cores",()=>{
   for(const key of ["dorsalCoverage","flankCoverage"] as const){const layerName=key==="dorsalCoverage"?"dorsal":"flank";
@@ -67,7 +67,7 @@ test("existing Phase 5 phenotype supplies art parameters without modifying game 
   for(const offer of Object.values(game.shop.offers)){
     const g=offer.individual,quote=valueGecko(g),wire=geckoSprite(g),scores=phenotype(g.genetics!.genome!).scores;
     expect(wire.appearance.expression).toEqual({red:scores.red,orange:scores.orange,brightness:scores.brightness,cream:scores.cream,harlequin:scores.harlequin,pinstripe:scores.pinstripe,contrast:scores.contrast});
-    expect(renderSprite(wire).version).toBe("2.0.0");expect(renderSprite(geckoSprite(g,"down")).pixels).not.toEqual(renderSprite(wire).pixels);
+    expect(renderSprite(wire).version).toBe("2.0.1");expect(renderSprite(geckoSprite(g,"down")).pixels).not.toEqual(renderSprite(wire).pixels);
     expect(valueGecko(g)).toEqual(quote);
   }expect(JSON.stringify(game)).toBe(before);expect(readSave(makeSave(game),game.lastDate)).toEqual(game);
 });

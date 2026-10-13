@@ -4,6 +4,8 @@
 
 `manifest.json` records the original hash, pixel sampling, palette and six anatomy annotations. All production masks intersect the PNG silhouette. `src/engine/art-data.ts` is compiled from these PNGs; the build/check tool verifies exact file hashes and indexed pixels.
 
+`eye.png` annotates only the actual iris/pupil/glints and dark rim (66 pixels). `eye-surround.png` annotates the 75 lid/skin pixels formerly mistaken for the fixed eye. Skin uses the individual's body/cream palette with authored luminance; eye pixels retain the original colors. The original base, face and lighting PNGs are unchanged. `scripts/eye-region.mjs` records/rebuilds these two semantic annotations; review artist edits before running it.
+
 From repository root:
 
 ```sh

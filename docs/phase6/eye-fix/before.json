@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "commit": "44c33d08d5c7930ae73e8eceb1a8958207ee8aca",
+  "seed": "phase6-comparison",
+  "presets": [
+    {
+      "id": "normal",
+      "hash": "ddd2cf53643ae85e23781d9bc1ce1c0cac3cf55fbbbdbd7d0f518ceb25065e14",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      },
+      "pngSha256": "82bd600081195912211a12c30ad103c790b2b5faa35f23d5d86404d977ca89bf"
+    },
+    {
+      "id": "lilly",
+      "hash": "40fb668e296ae32b7c228d728839fe589d726a919a2e44f7733d647141d714b4",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "lilly",
+        "dorsalCoverage": 0.92,
+        "flankCoverage": 0.83,
+        "spotCount": 0
+      },
+      "pngSha256": "7555515b42eec2c099a520c5174085bf2ad936819f5e0c32be89bd1bd8dd8a26"
+    },
+    {
+      "id": "axanthic",
+      "hash": "6396a2bc1eadcc86217b3bc19bc7b005060d553351d5bfb49f5dd9c65d410246",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "slate",
+        "patternStyle": "axanthic",
+        "dorsalCoverage": 0.45,
+        "flankCoverage": 0.4,
+        "spotCount": 0
+      },
+      "pngSha256": "a6b32353393d1a73a2f0d33c5faf11a7dbb7fb3273ff8a647a96c96d0e048d0c"
+    },
+    {
+      "id": "dalmatian",
+      "hash": "b352590739acad211dccd5dd53edbda83053a373b8292f3212c5925d40898c6b",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      },
+      "pngSha256": "647162fd5cf3da4e06cc0dd7d3e6e102824acd5ba07a2d8aa93947c6968d0f9a"
+    },
+    {
+      "id": "harlequin",
+      "hash": "1357b2e1a0e3945f7b115bd0a9aac8fe4087dc96df247ac56c2693c9170f5394",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "brown",
+        "patternStyle": "harlequin",
+        "dorsalCoverage": 0.64,
+        "flankCoverage": 0.74,
+        "spotCount": 0
+      },
+      "pngSha256": "d4ad8d77352eb87a7df40500418df182b01133f52905ee356288a5211308105f"
+    },
+    {
+      "id": "tricolor",
+      "hash": "becfd61d1fcf1532006a785a082e8d04eb465ea000d053db6ca126f8a8dc5044",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "tricolor",
+        "dorsalCoverage": 0.73,
+        "flankCoverage": 0.8,
+        "spotCount": 0
+      },
+      "pngSha256": "f55e8b0a9de056183f71f9f9028176d81dbd23ed8d5f07c7f1f550034de83321"
+    }
+  ]
+}

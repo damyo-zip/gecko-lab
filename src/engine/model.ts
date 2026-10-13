@@ -1,6 +1,6 @@
 export const SPRITE_SIZE = 96;
 export const PIXEL_COUNT = SPRITE_SIZE * SPRITE_SIZE;
-export const ENGINE_VERSION = "2.0.0";
+export const ENGINE_VERSION = "2.0.1";
 
 export type BodyColor = "orange" | "brown" | "cream" | "slate";
 export type PatternStyle = "normal" | "lilly" | "axanthic" | "dalmatian" | "harlequin" | "tricolor";

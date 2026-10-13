@@ -17,7 +17,7 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
 async function canvasVisible(page:Page){
  const canvases=page.locator("canvas");expect(await canvases.count()).toBeGreaterThan(0);
  for(const canvas of await canvases.all()){
-  await expect(canvas).toHaveAttribute("data-renderer-version","2.0.0");
+  await expect(canvas).toHaveAttribute("data-renderer-version","2.0.1");
   const result=await canvas.evaluate(node=>{const c=node as HTMLCanvasElement,ctx=c.getContext("2d")!,p=ctx.getImageData(0,0,c.width,c.height).data,r=c.getBoundingClientRect();
    return {opaque:p.some((v,i)=>i%4===3&&v>0),smoothing:ctx.imageSmoothingEnabled,integerSize:c.width%96===0&&c.height%96===0,fits:r.width<=innerWidth};});
   expect(result).toEqual({opaque:true,smoothing:false,integerSize:true,fits:true});
@@ -39,13 +39,32 @@ test("new art/old art toggle matches both actual pixel engines and leaves phenot
 test("six morphs, twelve selected-morph seeds and committed image data agree in the real browser",async({page},info)=>{
  const mobile=info.project.name.startsWith("mobile");await page.goto("/lab");await click(page.getByTestId("preset-dalmatian"),mobile);
  const canvases=page.locator('[data-testid^="individual-"]');await expect(canvases).toHaveCount(12);
- const hashes=[];for(const canvas of await canvases.all()){await expect(canvas).toHaveAttribute("data-renderer-version","2.0.0");
+ const hashes=[];for(const canvas of await canvases.all()){await expect(canvas).toHaveAttribute("data-renderer-version","2.0.1");
   const data=await canvas.evaluate(c=>Array.from((c as HTMLCanvasElement).getContext("2d")!.getImageData(0,0,96,96).data));hashes.push(createHash("sha256").update(Buffer.from(data)).digest("hex"));}
  expect(new Set(hashes).size).toBe(12);await page.locator(".individual-panel").screenshot({path:info.outputPath("art-diversity-lab.png"),scale:"css"});
  await page.getByLabel("개체 시드").fill("phase6-comparison");await click(page.getByRole("button",{name:"시드 적용",exact:true}),mobile);
  for(const preset of MORPH_PRESETS){const reference=decodePNG(await readFile("docs/phase6/"+preset.id+"-96.png"));
   const canvas=page.getByTestId("gallery-"+preset.id);await expect.poll(()=>canvas.evaluate(c=>Array.from((c as HTMLCanvasElement).getContext("2d")!.getImageData(0,0,96,96).data))).toEqual(Array.from(reference.pixels));}
  await page.locator(".gallery-section").screenshot({path:info.outputPath("art-morphs-lab.png"),scale:"css"});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+test("six real face canvases recolor periocular skin while preserving the authored iris and pupil",async({page},info)=>{
+ const mobile=info.project.name.startsWith("mobile");
+ const [source,eye,skin]=await Promise.all(["normal-base","eye","eye-surround"].map(async name=>decodePNG(await readFile("public/art/gecko-v2/"+name+".png"))));
+ const selected=(pixels:readonly number[]|Uint8ClampedArray,mask:typeof eye)=>Array.from({length:9216},(_,i)=>i).filter(i=>mask.pixels[i*4+3]).flatMap(i=>Array.from(pixels.slice(i*4,i*4+4)));
+ const eyes=selected(source.pixels,eye),skins:number[][]=[];
+ await page.goto("/lab");await click(page.getByRole("button",{name:"1×",exact:true}),mobile);
+ const canvas=page.getByTestId("hero-sprite");
+ for(const preset of MORPH_PRESETS){
+  await click(page.getByTestId("preset-"+preset.id),mobile);
+  await expect(canvas).toHaveAttribute("data-renderer-version","2.0.1");
+  const pixels=()=>canvas.evaluate(c=>Array.from((c as HTMLCanvasElement).getContext("2d")!.getImageData(0,0,96,96).data));
+  await expect.poll(async()=>selected(await pixels(),eye)).toEqual(eyes);
+  await expect.poll(async()=>await pixels()).toEqual(Array.from(renderSprite(specimenFromPreset(preset)).pixels));
+  skins.push(selected(await pixels(),skin));
+ }
+ expect(new Set(skins.map(p=>createHash("sha256").update(Buffer.from(p)).digest("hex"))).size).toBe(6);
+ for(let i=0;i<skins[2].length;i+=4)expect(Math.max(...skins[2].slice(i,i+3))-Math.min(...skins[2].slice(i,i+3))).toBeLessThanOrEqual(20);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test("real collection/details/shop/hatching/pedigree use new art while turns, genes, money and reload remain sound",async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith("mobile");await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");

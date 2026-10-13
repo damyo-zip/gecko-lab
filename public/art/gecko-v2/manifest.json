@@ -197,6 +197,11 @@
     "paletteSize": 27
   },
   "caveat": "Generated source is not native 96px. Logical pixel sampling, explicit palette and body annotations are separate asset preparation steps; not a claim of hand-painted professional art.",
+  "eyeAnnotation": {
+    "x": 19,
+    "y": 24,
+    "rows": ["000111000", "011111110", "111111111", "111111111", "111111111", "111111111", "111111111", "011111110", "001111000"]
+  },
   "channels": [
     "normal-base.png",
     "parts.png",
@@ -205,6 +210,8 @@
     "highlight.png",
     "crest.png",
     "face.png",
+    "eye.png",
+    "eye-surround.png",
     "dorsal.png",
     "flank.png",
     "spots.png"

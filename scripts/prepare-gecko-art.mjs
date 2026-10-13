@@ -3,6 +3,7 @@
 import {readFile,writeFile} from "node:fs/promises";
 import {createHash} from "node:crypto";
 import {decodePNG,encodePNG} from "./png.mjs";
+import {eyeRegions,EYE_ANNOTATION} from "./eye-region.mjs";
 const root="public/art/gecko-v2/",sourceBytes=await readFile(root+"source-art.png"),source=decodePNG(sourceBytes);
 const palette=["000000","38221c","593126","78402c","955033","b56436","cb7438","df8a3d","efa34c","f9b65d","ffca77","ffd98f","ffe5ad","fff0c9","ad7460","c99778","deb994","edd0aa","fbe0b8","28191a","704127","a05c25","c9802e","eda94c","ffe1a3","fff8de","83584d","b48875"]
  .map(hex=>[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16)));
@@ -45,7 +46,8 @@ for(let y=0;y<96;y++)for(let x=0;x<96;x++){const i=y*96+x;if(!indices[i])continu
   spots[i]=parts[i]!==2&&!(x>=17&&x<=33&&y>=19&&y<=36)&&!(parts[i]===4&&y>30)?255:0;
  }
 }
-const channels={parts,outline,shadow,highlight,crest,face,dorsal,flank,spots};
+const eye=eyeRegions(indices);
+const channels={parts,outline,shadow,highlight,crest,face,eye:eye.eye,"eye-surround":eye.surround,dorsal,flank,spots};
 const zoneColors=[[0,0,0],[220,110,180],[90,100,190],[70,175,100],[235,160,65],[70,180,215],[200,80,75]];
 for(const[name,mask]of Object.entries(channels)){
  const rgba=new Uint8ClampedArray(9216*4);for(let i=0;i<9216;i++)if(mask[i])rgba.set(name==="parts"?[...zoneColors[mask[i]],255]:[255,255,255,255],i*4);
@@ -55,6 +57,7 @@ const metadata={version:2,logicalSize:96,created:"2026-10-14",source:"Original i
  sourceFile:"source-art.png",sourceSha256:createHash("sha256").update(sourceBytes).digest("hex"),palette:palette.slice(1),zoneColors,
  preparation:{alphaThreshold:128,nearestNeighbor:true,bounds:{left,top,right,bottom},fit:{width:w,height:h,offsetX:ox,offsetY:oy},paletteSize:palette.length-1},
  caveat:"Generated source is not native 96px. Logical pixel sampling, explicit palette and body annotations are separate asset preparation steps; not a claim of hand-painted professional art.",
+ eyeAnnotation:EYE_ANNOTATION,
  channels:["normal-base.png",...Object.keys(channels).map(n=>n+".png")]};
 await writeFile(root+"manifest.json",JSON.stringify(metadata,null,2)+"\n");
 console.log({source:[source.width,source.height],logical:[96,96],opaque:indices.filter(Boolean).length,palette:palette.length-1,parts:Object.fromEntries(zoneColors.slice(1).map((_,n)=>[n+1,parts.filter(v=>v===n+1).length]))});
