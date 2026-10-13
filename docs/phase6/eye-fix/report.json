@@ -1,0 +1,66 @@
+{
+  "beforeVersion": "2.0.0",
+  "baselineCommit": "44c33d08d5c7930ae73e8eceb1a8958207ee8aca",
+  "afterVersion": "2.0.1",
+  "seed": "phase6-comparison",
+  "crop": {
+    "x": 4,
+    "y": 12,
+    "width": 40,
+    "height": 30
+  },
+  "scale": 8,
+  "eyePixels": 66,
+  "skinPixels": 75,
+  "presets": [
+    {
+      "id": "normal",
+      "beforeHash": "ddd2cf53643ae85e23781d9bc1ce1c0cac3cf55fbbbdbd7d0f518ceb25065e14",
+      "afterHash": "8565b939a9834ac7b44169cbdf30ffd8c0c09b0b6ce49a6f2fe53c0e0fb14450",
+      "changedSkin": 72,
+      "changedEye": 0,
+      "changedOutside": 0
+    },
+    {
+      "id": "lilly",
+      "beforeHash": "40fb668e296ae32b7c228d728839fe589d726a919a2e44f7733d647141d714b4",
+      "afterHash": "dbd7a7e162a06736ca8930593448b7629ff89f75d5fd6f17144fa053c1ad4955",
+      "changedSkin": 75,
+      "changedEye": 0,
+      "changedOutside": 0
+    },
+    {
+      "id": "axanthic",
+      "beforeHash": "6396a2bc1eadcc86217b3bc19bc7b005060d553351d5bfb49f5dd9c65d410246",
+      "afterHash": "cc2546471afd492141715413c1c7fc6bdc59e1fb0dc0bb3acb3ffc9d564ff646",
+      "changedSkin": 75,
+      "changedEye": 0,
+      "changedOutside": 0
+    },
+    {
+      "id": "dalmatian",
+      "beforeHash": "b352590739acad211dccd5dd53edbda83053a373b8292f3212c5925d40898c6b",
+      "afterHash": "cf40fb0a7c56f834d4f59d3e75fbf0c5db31d7a81f32e91f3f6d497dbf9b80b7",
+      "changedSkin": 75,
+      "changedEye": 0,
+      "changedOutside": 0
+    },
+    {
+      "id": "harlequin",
+      "beforeHash": "1357b2e1a0e3945f7b115bd0a9aac8fe4087dc96df247ac56c2693c9170f5394",
+      "afterHash": "f443d4dff0bb93ffc6560975628c2a6629dcbc9b60e57cf5c093d55a085a8dde",
+      "changedSkin": 75,
+      "changedEye": 0,
+      "changedOutside": 0
+    },
+    {
+      "id": "tricolor",
+      "beforeHash": "becfd61d1fcf1532006a785a082e8d04eb465ea000d053db6ca126f8a8dc5044",
+      "afterHash": "11d03b806cd807133fc5ced8b129c8503186908de4c3f756d580d240c8c5d7d3",
+      "changedSkin": 75,
+      "changedEye": 0,
+      "changedOutside": 0
+    }
+  ],
+  "provenance": "Before: preserved actual v2.0.0 outputs. After: actual current renderer, same preset/seed/fire. Faces are exact integer crops, not repainted art."
+}

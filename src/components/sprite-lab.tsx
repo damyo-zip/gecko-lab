@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { drawSprite } from "@/engine/canvas";
 import { ENGINE_VERSION, LAYER_LABELS, LAYER_ORDER, type BodyColor, type LayerName } from "@/engine/model";
 import { MORPH_PRESETS, specimenFromPreset } from "@/engine/presets";
-import { renderSprite } from "@/engine/render";
+import { renderSprite, renderLegacySprite } from "@/engine/render";
 import { deriveSeed } from "@/engine/random";
 import { Icon } from "./icons";
 import { SpriteCanvas } from "./sprite-canvas";
@@ -35,6 +35,7 @@ export default function SpriteLab() {
   const [enabled, setEnabled] = useState<readonly LayerName[]>(LAYER_ORDER);
   const [grid, setGrid] = useState(false);
   const [downloadStatus, setDownloadStatus] = useState("");
+  const [renderer,setRenderer]=useState<"current"|"legacy">("current");
 
   const updateTrait = (key: "dorsalCoverage" | "flankCoverage" | "spotCount", value: number) => {
     setSpecimen((current) => ({ ...current, appearance: { ...current.appearance, [key]: value } }));
@@ -48,7 +49,7 @@ export default function SpriteLab() {
   };
   const download = () => {
     const canvas = document.createElement("canvas");
-    drawSprite(canvas, renderSprite(specimen, enabled), 1);
+    drawSprite(canvas, (renderer==="legacy"?renderLegacySprite:renderSprite)(specimen, enabled), 1);
     canvas.toBlob((blob) => {
       if (!blob) { setDownloadStatus("PNG를 생성할 수 없습니다."); return; }
       const url = URL.createObjectURL(blob);
@@ -67,7 +68,7 @@ export default function SpriteLab() {
         <span className="logo-tile"><Icon name="leaf" size={24} /></span>
         <span>GECKO <em>LAB</em><small>나만의 크레스티드 게코 연구소</small></span>
       </a>
-      <span className="phase-badge"><i />PHASE 01</span>
+      <span className="phase-badge"><i />PHASE 06</span>
     </header>
 
     <section className="intro" aria-labelledby="page-title">
@@ -87,13 +88,13 @@ export default function SpriteLab() {
           <div className="fern fern-right" aria-hidden="true"><i /><i /><i /><i /></div>
           <div className="pixel-scroll" data-testid="pixel-scroll">
             <div className="sprite-board" style={{ minWidth: 96 * scale }}>
-              <SpriteCanvas specimen={specimen} scale={scale} enabled={enabled} testId="hero-sprite" />
+              <SpriteCanvas specimen={specimen} scale={scale} enabled={enabled} testId="hero-sprite" renderer={renderer}/>
             </div>
           </div>
           <div className="habitat-bottom"><span className={"fire-indicator " + specimen.state.fire}>
             <Icon name={specimen.state.fire === "up" ? "sun" : "moon"} size={14} />
             {specimen.state.fire === "up" ? "파이어업" : "파이어다운"}</span>
-            <span>코드로 제작한 베이스 v1</span></div>
+            <span>{renderer==="current"?"PNG 아트 베이스 v2":"이전 좌표 베이스 v1"}</span></div>
         </div>
         <div className="specimen-summary">
           <div><p className="eyebrow">SELECTED SPECIMEN</p><h2>{selected.nickname} <span>{selected.english}</span></h2>
@@ -109,6 +110,7 @@ export default function SpriteLab() {
             onClick={() => setGrid(!grid)}><Icon name="grid" size={16} />격자</button>
           <button type="button" className="quiet-button export-button" onClick={download}><Icon name="download" size={16} />PNG 저장</button>
         </div>
+        <div className="segmented art-version-controls" aria-label="아트 버전 비교"><button aria-pressed={renderer==="current"} onClick={()=>setRenderer("current")}>새 아트 v2</button><button aria-pressed={renderer==="legacy"} onClick={()=>setRenderer("legacy")}>이전 아트 v1</button></div>
         <p className="pixel-hint">{scale === 4 ? "4배 확대 · 좁은 화면에서는 스프라이트를 좌우로 스크롤하세요." : "정수 배율 확대 · 픽셀 스무딩 OFF · 투명 배경 출력"}</p>
         <p className="sr-only" role="status">{downloadStatus}</p>
       </div>
@@ -165,7 +167,7 @@ export default function SpriteLab() {
             setEnabled(LAYER_ORDER);
           }}>
           <div className="card-number"><span>0{i+1}</span><span>{selected.id === preset.id ? "선택됨" : "96 × 96"}</span></div>
-          <div className="card-sprite"><SpriteCanvas specimen={preview} testId={"gallery-" + preset.id} /></div>
+          <div className="card-sprite"><SpriteCanvas specimen={preview} testId={"gallery-" + preset.id} renderer={renderer}/></div>
           <span className="morph-name">{preset.name}</span><span className="morph-english">{preset.english}</span>
           <div className="card-footer"><span className="tiny-dot" />{preset.appearance.spotCount ? "반점 패턴" : "부위별 패턴"}<Icon name="arrow" size={14} /></div>
         </button>;
@@ -176,9 +178,9 @@ export default function SpriteLab() {
       <div className="individual-panel">
         <div className="section-heading"><div><p className="eyebrow">SAME TRAITS, DIFFERENT SEEDS</p><h2>개체 비교</h2></div><Icon name="spark" /></div>
         <p className="section-description">설정은 같아도 무늬의 모양과 위치는 다릅니다.</p>
-        <div className="individual-grid">{["A", "B", "C"].map((suffix) => {
+        <div className="individual-grid">{["A", "B", "C","D","E","F","G","H","I","J","K","L"].map((suffix) => {
           const individual = { ...specimen, seed: deriveSeed(specimen.seed, suffix), name: "개체 " + suffix };
-          return <div key={suffix} className="individual-card"><SpriteCanvas specimen={individual} testId={"individual-" + suffix} />
+          return <div key={suffix} className="individual-card"><SpriteCanvas specimen={individual} testId={"individual-" + suffix} renderer={renderer}/>
             <span>개체 {suffix}</span><small title={individual.seed}>{individual.seed}</small></div>;
         })}</div>
       </div>
@@ -193,10 +195,10 @@ export default function SpriteLab() {
       </div>
     </section>
 
-    <aside className="prototype-note"><Icon name="leaf" /><div><strong>픽셀 엔진을 위한 첫 번째 베이스</strong>
-      <p>콘셉트아트를 참고해 코드로 직접 제작했습니다. 원본 아트의 밀도와 완성도에는 아직 차이가 있습니다.
-        전문 픽셀 아트 원본과 부위별 마스크를 추가해 개선할 수 있습니다.</p></div></aside>
+    <aside className="prototype-note"><Icon name="leaf" /><div><strong>새 Normal 베이스와 가변 패턴</strong>
+      <p>별도로 생성한 원화를 96픽셀 팔레트 자산과 부위별 PNG 마스크로 정리했습니다. 원본 레퍼런스를 잘라 넣지 않았으며 얼굴·몸체·꼬리는 실제 아트에서 가져옵니다.
+        콘셉트의 세밀한 질감과 전문 수작업 픽셀 아트에는 아직 차이가 있습니다. 구버전 비교와 같은 표현형의 12개 시드를 확인할 수 있습니다.</p></div></aside>
     <footer className="site-footer"><span>GECKO LAB <span> / SPRITE ENGINE v{ENGINE_VERSION}</span></span>
-      <span>유전학 · 교배 · 육성은 다음 단계</span></footer>
+      <span>기존 유전학 · 브리딩 · 저장 호환</span></footer>
   </main>;
 }

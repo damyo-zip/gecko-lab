@@ -1,5 +1,6 @@
 /* Same-origin offline shell only. No automatic care or protection. */
-const CACHE = "gecko-lab-phase3-shell-3";
+const CACHE = "gecko-lab-phase3-shell-6";
+const STATIC_ASSETS = ["/manifest.webmanifest", "/icon.svg", "/ui/gecko-lab-mark.svg", "/ui/terrarium.svg"];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE), response = await fetch("/", { cache: "reload" });
@@ -7,7 +8,7 @@ self.addEventListener("install", event => {
     const html = await response.clone().text();
     await cache.put("/", response);
     const assets = [...new Set([...html.matchAll(/(?:src|href)="(\/_next\/static\/[^"<>]+)"/g)].map(m => m[1]))];
-    await cache.addAll(["/manifest.webmanifest", "/icon.svg", ...assets]);
+    await cache.addAll([...STATIC_ASSETS, ...assets]);
     await self.skipWaiting();
   })());
 });
@@ -26,7 +27,7 @@ self.addEventListener("fetch", event => {
       try { const response = await fetch(request); if (response.ok) await cache.put("/", response.clone()).catch(() => {}); return response; }
       catch { return await cache.match("/") || Response.error(); }
     })());
-  } else if (url.pathname.startsWith("/_next/static/") || ["/manifest.webmanifest", "/icon.svg"].includes(url.pathname)) {
+  } else if (url.pathname.startsWith("/_next/static/") || STATIC_ASSETS.includes(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE), hit = await cache.match(request);
       if (hit) return hit;

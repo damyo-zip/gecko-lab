@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./terrarium.css";
 
 export const metadata: Metadata = {
   title: "GECKO LAB — 브리딩 연구소",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "GECKO LAB" },
   icons: { icon: "/icon.svg", apple: "/icons/icon-192.png" },
 };
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#111b19", viewportFit: "cover" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0c1420", viewportFit: "cover" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="ko"><body>{children}</body></html>;

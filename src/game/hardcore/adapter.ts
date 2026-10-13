@@ -3,7 +3,6 @@ import { axanthicState } from "@/genetics/hardcore";
 import type { Gecko } from "./model";
 import { carrierProbability } from "@/genetics/advanced/inference";
 import { publicKnowledge } from "./genetics";
-import { polyScores } from "@/genetics/advanced/polygenic";
 import { phenotype } from "@/genetics/advanced/phenotype";
 
 function legacyView(g: Gecko) {
@@ -20,7 +19,8 @@ export function morph(g: Gecko): string {
 /** Preserve the renderer; only the adapter knows the added locus. */
 export function specimen(g: Gecko,fire:"up"|"down"="up") {
   const result = toSpecimen(legacyView(g));
-  if(g.genetics?.genome){const s=polyScores(g.genetics.genome.polygenic),lilly=g.genotype.loci["lilly-white"].includes("Lw");
+  if(g.genetics?.genome){const s=phenotype(g.genetics.genome,{stage:g.stage,fire:"up"}).scores,lilly=g.genotype.loci["lilly-white"].includes("Lw");
+    result.appearance.expression={red:s.red,orange:s.orange,brightness:s.brightness,cream:s.cream,harlequin:s.harlequin,pinstripe:s.pinstripe,contrast:s.contrast};
     if(!lilly){result.appearance.bodyColor=s.red>.55||s.orange>.58?"orange":s.brightness<.42?"brown":s.cream>.7?"cream":"orange";
       result.appearance.dorsalCoverage=(s.dorsal*.4+s.cream*.3+s.pinstripe*.3)*(.8+.2*s.contrast);
       result.appearance.flankCoverage=(s.flank*.4+s.harlequin*.35+s.cream*.25)*(.8+.2*s.contrast);}

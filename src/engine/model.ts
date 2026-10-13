@@ -1,6 +1,6 @@
 export const SPRITE_SIZE = 96;
 export const PIXEL_COUNT = SPRITE_SIZE * SPRITE_SIZE;
-export const ENGINE_VERSION = "1.0.0";
+export const ENGINE_VERSION = "2.0.1";
 
 export type BodyColor = "orange" | "brown" | "cream" | "slate";
 export type PatternStyle = "normal" | "lilly" | "axanthic" | "dalmatian" | "harlequin" | "tricolor";
@@ -21,6 +21,11 @@ export interface AppearanceTraits {
   dorsalCoverage: number;
   flankCoverage: number;
   spotCount: number;
+  /** Render-only adapter values from Phase 5's existing scores. Never stored as genes. */
+  expression?: {
+    red: number; orange: number; brightness: number; cream: number;
+    harlequin: number; pinstripe: number; contrast: number;
+  };
 }
 
 export interface GeckoSpecimen {
@@ -62,4 +67,6 @@ export function validateSpecimen(specimen: GeckoSpecimen): void {
   }
   if (!Number.isInteger(traits.spotCount) || traits.spotCount < 0 || traits.spotCount > 70)
     throw new Error("반점 수는 0~70의 정수여야 합니다.");
+  if(traits.expression){const keys=["red","orange","brightness","cream","harlequin","pinstripe","contrast"] as const;
+    if(Object.keys(traits.expression).length!==keys.length||keys.some(k=>!Number.isFinite(traits.expression![k])||traits.expression![k]<0||traits.expression![k]>1))throw new Error("아트 표현형은 0~1의 유한 수치여야 합니다.");}
 }
