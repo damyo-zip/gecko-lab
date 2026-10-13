@@ -1,8 +1,10 @@
-import { isViablePair } from "@/genetics/mendel";
+import { isViablePair, forecastCross } from "@/genetics/mendel";
 import { expandedGenotype, HARDCORE_LOCI } from "@/genetics/hardcore";
-import { validateTraits } from "@/genetics/traits";
+import { validateTraits, TRAIT_KEYS } from "@/genetics/traits";
+import { canonicalJSON } from "@/game/save";
+import { checkKinship } from "@/game/lineage";
 import type { Gecko, HardcoreGame, Rules } from "./model";
-import { dateNumber } from "./time";
+import { dateNumber, daysBetween, addDays } from "./time";
 import { freeSlots } from "./survival";
 
 function fail(): never { throw new Error("저장 데이터의 구조 또는 값이 손상되었습니다."); }
@@ -69,9 +71,15 @@ export function validateGame(value: unknown): asserts value is HardcoreGame {
     keys(line, "id name createdDate"); if (key !== line.id) fail(); text(line.name, 40); date(line.createdDate);
   }
   const seeds = new Map<string, string>();
+  const genesEqual = (a: Gecko["genotype"], b: Gecko["genotype"]) => canonicalJSON(expandedGenotype(a)) === canonicalJSON(expandedGenotype(b));
   const checkIndividual = (i: Gecko, future = false) => {
     gecko(i);
     if (!future && (i.birthDate > g.lastDate || i.birthTurn > g.turn)) fail();
+    if (!future && i.status === "owned") {
+      const age = daysBetween(i.birthDate, g.lastDate);
+      const expectedStage = age >= g.rules.adultAfter ? "adult" : age >= g.rules.juvenileAfter ? "juvenile" : "hatchling";
+      if (i.stage !== expectedStage) fail();
+    }
     if ((i.lastFedDate && i.lastFedDate > g.lastDate) || (i.diedDate && i.diedDate > g.lastDate)) fail();
     if (i.lineageIds.some(l => !g.lineages[l])) fail();
     if (i.parents) {
@@ -84,30 +92,60 @@ export function validateGame(value: unknown): asserts value is HardcoreGame {
         if (!(paternal.loci[l.id].includes(a) && maternal.loci[l.id].includes(b)) &&
           !(paternal.loci[l.id].includes(b) && maternal.loci[l.id].includes(a))) fail();
       }
+      for (const k of TRAIT_KEYS) {
+        const average = (father.potential[k] + mother.potential[k]) / 2;
+        if (Math.abs(i.potential[k] - average) > g.rules.traitVariation[k] + 1e-9) fail();
+      }
+      if (checkKinship(father, mother, g.individuals)) fail();
     } else if (i.generation !== 1) fail();
     if (seeds.has(i.visualSeed) && seeds.get(i.visualSeed) !== i.id) fail(); seeds.set(i.visualSeed, i.id);
   };
   for (const [key, i] of Object.entries(g.individuals)) { if (i.id !== key) fail(); checkIndividual(i); }
+  const ordinals = new Set<number>();
   for (const [key, m] of Object.entries(g.matings)) {
     keys(m, "id ordinal date parents fatherGenotype motherGenotype fatherTraits motherTraits generation lineageIds seed fertilizationChance hatchChance status resolvedDate");
     if (m.id !== key || !["pending", "fertilized", "failed", "laid", "cancelled"].includes(m.status)) fail();
     integer(m.ordinal, 1, g.nextClutch - 1); date(m.date); nullableDate(m.resolvedDate); text(m.seed);
+    if (ordinals.has(m.ordinal)) fail(); ordinals.add(m.ordinal);
     probability(m.fertilizationChance); probability(m.hatchChance); integer(m.generation, 2);
     keys(m.parents, "fatherId motherId");
     if (!g.individuals[m.parents.fatherId] || !g.individuals[m.parents.motherId]) fail();
+    const father = g.individuals[m.parents.fatherId], mother = g.individuals[m.parents.motherId];
+    if (father.sex !== "male" || mother.sex !== "female" || !genesEqual(father.genotype,m.fatherGenotype) || !genesEqual(mother.genotype,m.motherGenotype) ||
+      canonicalJSON(father.potential) !== canonicalJSON(m.fatherTraits) || canonicalJSON(mother.potential) !== canonicalJSON(m.motherTraits) ||
+      m.generation !== Math.max(father.generation,mother.generation)+1 || checkKinship(father,mother,g.individuals)) fail();
+    if (forecastCross(expandedGenotype(m.fatherGenotype),expandedGenotype(m.motherGenotype),HARDCORE_LOCI).nonViableProbability > 0) fail();
     expandedGenotype(m.fatherGenotype); expandedGenotype(m.motherGenotype); validateTraits(m.fatherTraits); validateTraits(m.motherTraits);
     strings(m.lineageIds); if (m.lineageIds.some(l => !g.lineages[l]) || m.date > g.lastDate) fail();
+    const age = daysBetween(m.date,g.lastDate);
+    if (m.status === "pending" ? age !== 0 || m.resolvedDate !== null :
+      m.resolvedDate === null || m.resolvedDate <= m.date || m.resolvedDate > g.lastDate) fail();
+    if (m.status === "fertilized" && (age !== 1 || m.resolvedDate !== addDays(m.date,1))) fail();
+    if (m.status === "laid" && (age < 2 || m.resolvedDate !== addDays(m.date,2))) fail();
   }
+  const eggCounts = new Map<string,number>();
   for (const [key,e] of Object.entries(g.eggs)) {
     keys(e, "id matingId laidDate dueDate embryo hatchChance seed status resolvedDate");
     if (e.id !== key || !["incubating", "hatched", "failed"].includes(e.status)) fail();
     date(e.laidDate); date(e.dueDate); nullableDate(e.resolvedDate); probability(e.hatchChance); text(e.seed);
     if (e.dueDate < e.laidDate || e.laidDate > g.lastDate || (e.matingId !== null && !g.matings[e.matingId])) fail();
+    if (e.matingId) {
+      eggCounts.set(e.matingId,(eggCounts.get(e.matingId) ?? 0)+1);
+      const m = g.matings[e.matingId];
+      if (m.status !== "laid" || e.laidDate !== addDays(m.date,2) || e.dueDate !== addDays(m.date,3) ||
+        canonicalJSON(e.embryo.parents) !== canonicalJSON(m.parents)) fail();
+    }
     checkIndividual(e.embryo, true);
     if (e.embryo.birthDate !== e.dueDate || (e.status === "incubating" ? e.resolvedDate !== null || e.dueDate <= g.lastDate : e.resolvedDate !== e.dueDate)) fail();
     const child = g.individuals[e.embryo.id];
     if (e.status === "hatched" ? !child : !!child) fail();
-    if (child && (child.visualSeed !== e.embryo.visualSeed || JSON.stringify(expandedGenotype(child.genotype)) !== JSON.stringify(expandedGenotype(e.embryo.genotype)))) fail();
+    if (child && (child.visualSeed !== e.embryo.visualSeed || !genesEqual(child.genotype,e.embryo.genotype) ||
+      canonicalJSON(child.potential) !== canonicalJSON(e.embryo.potential) || canonicalJSON(child.parents) !== canonicalJSON(e.embryo.parents) ||
+      child.birthDate !== e.embryo.birthDate || child.birthTurn !== e.embryo.birthTurn || child.sex !== e.embryo.sex || child.generation !== e.embryo.generation)) fail();
+  }
+  for (const m of Object.values(g.matings)) {
+    const count = eggCounts.get(m.id) ?? 0;
+    if (m.status === "laid" ? count !== 2 : count !== 0) fail();
   }
   if (!Array.isArray(g.sales) || g.sales.length > 30000) fail();
   const sold = new Set<string>();

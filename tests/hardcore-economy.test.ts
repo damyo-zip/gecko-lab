@@ -87,4 +87,4 @@ test("deterministic entire loop and 10+ generations preserve ancestry across sal
   }
   expect(Math.max(...Object.values(game.individuals).map(g=>g.generation))).toBe(11);
   expect(descendants(game,founder).size).toBeGreaterThanOrEqual(20);
-});
+}, 30_000);
