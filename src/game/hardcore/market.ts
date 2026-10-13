@@ -1,4 +1,4 @@
-import prices from "../../../market/prices.json";
+import prices from "../../../market/prices.json" with { type: "json" };
 import type { Gecko, HardcoreGame } from "./model";
 import { axanthicState } from "@/genetics/hardcore";
 import { dateNumber } from "./time";

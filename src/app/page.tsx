@@ -1,5 +1,5 @@
-import GameHub from "@/components/game/game-hub";
+import HardcoreHub from "@/components/hardcore/hub";
 
 export default function Home() {
-  return <GameHub />;
+  return <HardcoreHub />;
 }

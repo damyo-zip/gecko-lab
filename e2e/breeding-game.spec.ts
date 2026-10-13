@@ -13,7 +13,7 @@ async function saved(page: Page): Promise<GameState> {
       const request = indexedDB.open("gecko-lab",1); request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
     });
     return new Promise((resolve,reject) => {
-      const transaction = database.transaction("games","readonly"), request = transaction.objectStore("games").get("active");
+      const transaction = database.transaction("games","readonly"), request = transaction.objectStore("games").get("phase2-lab");
       request.onsuccess = () => resolve(request.result.save.game);
       request.onerror = () => reject(request.error);
       transaction.oncomplete = () => database.close();
@@ -37,7 +37,7 @@ async function layStarterEggs(page: Page, mobile: boolean) {
 test.beforeEach(async ({page}) => {
   const collected: string[] = []; errors.set(page,collected);
   page.on("pageerror",error => collected.push(error.message));
-  await page.goto("/");
+  await page.goto("/lab/breeding");
   await expect(page.getByRole("heading",{name:/컬렉션/})).toBeVisible();
   await expect(page.getByTestId("game-turn")).toHaveText("0");
 });
@@ -158,8 +158,8 @@ test("preserves corrupt IndexedDB data until an explicitly confirmed recovery", 
   await page.evaluate(async () => {
     const database = await new Promise<IDBDatabase>(resolve => {const req=indexedDB.open("gecko-lab",1);req.onsuccess=()=>resolve(req.result);});
     await new Promise<void>((resolve,reject) => {
-      const tx=database.transaction("games","readwrite"),store=tx.objectStore("games"),req=store.get("active");
-      req.onsuccess=()=>{const record=req.result;record.save.checksum="CORRUPTED";store.put(record,"active");};
+      const tx=database.transaction("games","readwrite"),store=tx.objectStore("games"),req=store.get("phase2-lab");
+      req.onsuccess=()=>{const record=req.result;record.save.checksum="CORRUPTED";store.put(record,"phase2-lab");};
       tx.oncomplete=()=>{database.close();resolve();};tx.onerror=()=>reject(tx.error);
     });
   });
@@ -169,7 +169,7 @@ test("preserves corrupt IndexedDB data until an explicitly confirmed recovery", 
   // Read raw checksum to demonstrate that failed initialization did not replace the record.
   const checksum = await page.evaluate(async () => {
     const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
-    return new Promise<string>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");
+    return new Promise<string>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("phase2-lab");
       r.onsuccess=()=>resolve(r.result.save.checksum);tx.oncomplete=()=>db.close();});
   });
   expect(checksum).toBe("CORRUPTED");
@@ -183,7 +183,7 @@ test("preserves corrupt IndexedDB data until an explicitly confirmed recovery", 
 test("prevents stale tabs from overwriting newer progress", async ({page,context},info) => {
   const mobile = info.project.name.startsWith("mobile"), other = await context.newPage();
   const otherErrors: string[]=[];other.on("pageerror",e=>otherErrors.push(e.message));
-  await other.goto("/"); await expect(other.getByTestId("game-turn")).toHaveText("0");
+  await other.goto("/lab/breeding"); await expect(other.getByTestId("game-turn")).toHaveText("0");
   await advance(page,1,mobile);
   await activate(other.getByRole("button",{name:"1턴 진행",exact:true}),mobile);
   await expect(other.getByRole("alert").filter({hasText:"다른 창"})).toBeVisible();

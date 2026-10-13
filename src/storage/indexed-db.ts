@@ -4,7 +4,7 @@ import { makeSave, readSave, type SaveEnvelope } from "@/game/save";
 
 export const DATABASE_NAME = "gecko-lab";
 export const STORE_NAME = "games";
-const ACTIVE_SLOT = "active";
+const ACTIVE_SLOT = "phase2-lab";
 interface StoredRecord { save: SaveEnvelope; writeRevision: number }
 export interface LoadedGame { game: GameState; writeRevision: number }
 export class SaveConflict extends Error {

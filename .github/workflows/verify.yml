@@ -1,4 +1,4 @@
-name: Verify sprite engine
+name: Verify game and sprite engine
 on:
   push:
     branches: [main]
