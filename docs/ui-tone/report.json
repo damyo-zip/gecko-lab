@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-14",
+  "baselineCommit": "a766db09029e9e9b374e8216bb0805ded286290d",
+  "stateHashes": {
+    "base": "177dda1ea9eeaa9d98181eb1843696c1a9e9144be515d4f156b3bc5dd7ceb47d",
+    "incubator": "3733acc8879c0e8c604a8c19796226e48b1458fbd071676922f334f7a4de5006"
+  },
+  "identicalGameStates": true,
+  "fixture": {
+    "seed": "terrarium-ui-0",
+    "initialMoney": 3000000,
+    "initialCapacity": 8,
+    "fertilizationChance": 0.9,
+    "hatchChance": 0.9,
+    "collectionCount": 4,
+    "incubatorEggs": 2,
+    "dates": {
+      "base": "2026-10-14",
+      "incubator": "2026-10-16"
+    }
+  },
+  "screens": [
+    {
+      "name": "collection",
+      "beforePngSha256": "91114666043060b91c21b311ec2ebed31c1d55ef523fe88ac2bc78fc263a1ba1",
+      "afterPngSha256": "ff1c3e82d2fbfe4f31931728a501ee5e73cd7e40d2d2c755c65aa6a40a743f8d",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "comparison": {
+        "width": 744,
+        "height": 840,
+        "scale": 1
+      }
+    },
+    {
+      "name": "details",
+      "beforePngSha256": "20a630f9dc153c0c93226d15bccdb8b9cc35047dd075d928314e9c34dc64084e",
+      "afterPngSha256": "c589e79efce15512e8ab53d7404d281bb280d81c941065f9f32425db9c0bca3d",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "comparison": {
+        "width": 744,
+        "height": 840,
+        "scale": 1
+      }
+    },
+    {
+      "name": "breeding",
+      "beforePngSha256": "36975d1a652f0b96d1aee4aa29a6eee640c79f7bfefc6b684eba9f42ccdf9beb",
+      "afterPngSha256": "d6b7bcd0218b2b57cb8c5f3771f35349e94b6df9ee17ef0e2efafdc685ec88a7",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "comparison": {
+        "width": 744,
+        "height": 840,
+        "scale": 1
+      }
+    },
+    {
+      "name": "incubator",
+      "beforePngSha256": "711a7d3894b5d1d78e3ee724f0af8171c4fc5e8189283b316a4b0250dbeaad2b",
+      "afterPngSha256": "b8f45f68dd2610767c46c7f4b5893828e2af4a1b4121b7bdeba948f1c4fa10c8",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "comparison": {
+        "width": 744,
+        "height": 840,
+        "scale": 1
+      }
+    }
+  ],
+  "provenance": "Actual Chromium mobile-touch browser captures. Identical serialized base/incubator states; labels surround exact original 360×800 screenshot pixels. Reference used for tone only."
+}

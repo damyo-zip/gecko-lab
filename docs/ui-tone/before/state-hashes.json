@@ -1,0 +1,12 @@
+{
+  "commit": "a766db09029e9e9b374e8216bb0805ded286290d",
+  "base": "177dda1ea9eeaa9d98181eb1843696c1a9e9144be515d4f156b3bc5dd7ceb47d",
+  "incubator": "3733acc8879c0e8c604a8c19796226e48b1458fbd071676922f334f7a4de5006",
+  "seed": "terrarium-ui-0",
+  "initialMoney": 3000000,
+  "initialCapacity": 8,
+  "dates": {
+    "base": "2026-10-14",
+    "incubator": "2026-10-16"
+  }
+}
