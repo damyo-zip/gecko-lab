@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "researchDate": "2026-10-13",
+  "region": "KR",
+  "verifiedSamples": 0,
+  "completedTransactions": 0,
+  "askingPriceSamples": 0,
+  "confidence": "unverified",
+  "priceRange": null,
+  "attempts": [
+    { "url": "https://reptilekorea.com/", "result": "environment-network-403", "samples": 0 },
+    { "url": "https://www.morphmarket.com/", "result": "environment-network-403", "samples": 0, "region": "international-context-only" },
+    { "url": "https://www.lillyexotics.com/", "result": "environment-network-403", "samples": 0, "purpose": "genetics-context-only" }
+  ],
+  "observations": [],
+  "limitations": "환경의 네트워크 프록시에서 접근을 거부했습니다. 사이트 내용, 약관, 가격, 거래 완료 여부를 확인하지 못했습니다. 접근 제한은 우회하지 않았습니다."
+}

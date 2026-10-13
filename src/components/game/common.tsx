@@ -1,0 +1,45 @@
+"use client";
+
+import { useEffect, useId, useRef } from "react";
+import { phenotypeOf, toSpecimen } from "@/game/adapter";
+import { genotypeLabel } from "@/genetics/mendel";
+import { SEX_LABELS, STAGE_LABELS, type Individual } from "@/game/model";
+import { SpriteCanvas } from "../sprite-canvas";
+
+export function GameSprite({ individual, scale = 1 }: { individual: Individual; scale?: 1 | 3 | 4 }) {
+  return <SpriteCanvas specimen={toSpecimen(individual)} scale={scale} testId={"game-sprite-" + individual.id} />;
+}
+export function IndividualCard({ individual, onOpen, turn }: { individual: Individual; onOpen: () => void; turn: number }) {
+  const phenotype = phenotypeOf(individual);
+  return <button type="button" className="game-individual-card" onClick={onOpen}
+    data-testid={"individual-card-" + individual.id} aria-label={individual.name + " 상세보기"}>
+    <div className="game-card-top"><span className={"sex-mark " + individual.sex}>{individual.sex === "male" ? "♂" : "♀"}</span>
+      <span>Gen {individual.generation}</span></div>
+    <div className="game-card-art"><GameSprite individual={individual} /></div>
+    <strong>{individual.name}</strong><span className="game-morph">{phenotype.description}</span>
+    <span className="game-genotype">{genotypeLabel(individual.genotype)}</span>
+    <span className={"game-stage " + individual.stage}>{STAGE_LABELS[individual.stage]}
+      {individual.stage === "adult" ? individual.nextBreedTurn <= turn ? " · 교배 가능" : " · 대기 중" : " · 성장 중"}</span>
+  </button>;
+}
+export function ParentSummary({ individual, title }: { individual: Individual | undefined; title: string }) {
+  return <div className="parent-summary">
+    <span className="eyebrow">{title}</span>
+    {individual ? <><div className="parent-art"><GameSprite individual={individual} /></div>
+      <strong>{individual.name}</strong><span>{SEX_LABELS[individual.sex]} · Gen {individual.generation}</span>
+      <span>{phenotypeOf(individual).description}</span><code>{genotypeLabel(individual.genotype)}</code>
+      <span className={"game-stage " + individual.stage}>{STAGE_LABELS[individual.stage]}</span></> : <p>부모를 선택하세요.</p>}
+  </div>;
+}
+export function Dialog({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  const ref = useRef<HTMLDialogElement>(null), titleId = useId();
+  useEffect(() => {
+    const dialog = ref.current;
+    if (dialog && !dialog.open) dialog.showModal();
+    return () => { if (dialog?.open) dialog.close(); };
+  }, []);
+  return <dialog ref={ref} className="game-dialog" aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }}>
+    <div className="dialog-heading"><h2 id={titleId}>{title}</h2><button type="button" onClick={onClose} aria-label="상세 창 닫기">×</button></div>
+    {children}
+  </dialog>;
+}
