@@ -1,0 +1,26 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { drawSprite } from "@/engine/canvas";
+import { LAYER_ORDER, type GeckoSpecimen, type LayerName } from "@/engine/model";
+import { renderSprite } from "@/engine/render";
+
+export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testId }: {
+  specimen: GeckoSpecimen; scale?: 1 | 3 | 4; enabled?: readonly LayerName[]; testId?: string;
+}) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const sprite = useMemo(() => renderSprite(specimen, enabled), [specimen, enabled]);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    try {
+      if (canvas.current) drawSprite(canvas.current, sprite, scale);
+      setError("");
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "스프라이트를 표시할 수 없습니다.");
+    }
+  }, [sprite, scale]);
+  if (error) return <p role="alert">{error}</p>;
+  return <canvas ref={canvas} width={96 * scale} height={96 * scale}
+    style={{ width: 96 * scale, height: 96 * scale }} data-testid={testId}
+    role="img" aria-label={specimen.name + " 픽셀 스프라이트, 시드 " + specimen.seed} />;
+}
