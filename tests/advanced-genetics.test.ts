@@ -4,6 +4,7 @@ import { cross, gametes, inherit } from "@/genetics/advanced/inheritance";
 import { condition, inferFamily, priorCross } from "@/genetics/advanced/inference";
 import { diversity, founderPoly, inheritPoly, polyScores, POLY_IDS } from "@/genetics/advanced/polygenic";
 import { phenotype } from "@/genetics/advanced/phenotype";
+import { classifyCombination } from "@/genetics/advanced/morphs";
 import { selectionExperiment, simulateCross } from "@/genetics/advanced/simulation";
 import type { Locus } from "@/genetics/advanced/model";
 
@@ -33,6 +34,8 @@ test("multi-allelic transmission, dosage, compound phenotype and welfare block a
   for(let i=0;i<100;i++){const child=inherit(f,m,"allelic-"+i).loci["cappuccino-complex"];expect(f.loci["cappuccino-complex"]).toContain(child[0]);expect(m.loci["cappuccino-complex"]).toContain(child[1]);}
   f.loci["lilly-white"]=["n","Lw"];m.loci["lilly-white"]=["n","Lw"];
   const risky=cross(f,m);expect(risky.nonViableProbability).toBe(.25);expect(risky.outcomes.reduce((s,o)=>s+o.viableProbability,0)).toBeCloseTo(1);
+  expect(classifyCombination(["Lilly White","Cappuccino"])).toEqual(["Frappuccino"]);
+  expect(classifyCombination(["Lilly White","Super Cappuccino"])).toEqual(["Sorak · 건강 위험"]);
 });
 test("hidden recessive alleles pass grandparent→parent→grandchild without generation bonuses",()=>{
   const parent=inherit(gene(["ax","ax"]),gene(["A","A"]),"f1");

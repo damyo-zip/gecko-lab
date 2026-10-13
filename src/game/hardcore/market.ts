@@ -2,6 +2,8 @@ import prices from "../../../market/prices.json" with { type: "json" };
 import type { Gecko, HardcoreGame } from "./model";
 import { axanthicState } from "@/genetics/hardcore";
 import { dateNumber } from "./time";
+import { carrierProbability } from "@/genetics/advanced/inference";
+import { publicKnowledge } from "./genetics";
 
 export interface PriceTable {
   schemaVersion: number; version: string; effectiveDate: string; currency: string; status: string;
@@ -28,7 +30,9 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   const marketBase = table.bases[bucket];
   const appearance = .8 + .2 * t.redIntensity + .15 * t.creamCoverage + .15 * (t.dorsalIntensity + t.flankIntensity) / 2;
   // Genotype, game appearance, disclosed sex, age and documented pedigree; never lineage NAME.
-  const carrier = ax === "carrier" ? table.carrierMultiplier : 1;
+  const knowledge=publicKnowledge(g),knownCarrier=carrierProbability(knowledge);
+  const reliability=knowledge.loci.axanthic.source==="seller"?.5:1;
+  const carrier=1+(table.carrierMultiplier-1)*(knownCarrier??0)*reliability;
   const sex = g.stage === "adult" && g.sex === "female" ? 1.08 : 1;
   const age = g.stage === "adult" ? 1 : g.stage === "juvenile" ? .8 : .65;
   const pedigree = g.provenance === "known" && g.parents ? 1.05 : 1;

@@ -5,18 +5,20 @@ export const SOURCES = {
   overview: "https://www.gecktopia.com/learn/where-the-genetics-come-from",
   grades: "https://www.gecktopia.com/morphs/grades",
   psa: "https://lmreptiles.com/fg-scapppsa/",
+  lilly: "https://www.corchgeckos.com/lillywhite.html",
+  axanthic: "https://www.ibexotic.com/post/axanthic-crested-gecko",
 };
 const reviewed = "2026-10-13";
 export const LOCI: readonly Locus[] = [
   { id: "lilly-white", name: "Lilly White", alleles: ["n", "Lw"], inheritance: "incomplete-dominant", modelVersion: 1,
     phenotypes: { "n/n": "Normal", "n/Lw": "Lilly White", "Lw/Lw": "Lilly 동형접합 비생존" },
     nonViable: ["Lw/Lw"], blocked: ["Lw/Lw"], evidence: {
-      sources: [SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
+      sources: [SOURCES.lilly, SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
       claim: "브리더 관찰에 기반한 불완전 우성·동형접합 비생존 작업 모델.",
       disagreements: "분자 유전자 확인이나 개체별 사망 시점의 모델이 아닙니다.", safety: "Lilly × Lilly 차단." } },
   { id: "axanthic", name: "Axanthic · 단일 호환 라인", alleles: ["A", "ax"], inheritance: "recessive", modelVersion: 1,
     phenotypes: { "A/A": "Normal", "A/ax": "Normal", "ax/ax": "Axanthic" }, nonViable: [], blocked: [], evidence: {
-      sources: [SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
+      sources: [SOURCES.axanthic, SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
       claim: "한 호환 라인의 열성 멘델 모델. Aa는 외형상 Normal.",
       disagreements: "모든 실제 아잔틱 라인의 상호 호환성을 주장하지 않습니다. DNA 확정 아님.", safety: "게임은 하나의 호환 라인만 생성합니다." } },
   { id: "cappuccino-complex", name: "Cappuccino / Sable / Highway · 잠정", alleles: ["n", "C", "S", "H"], inheritance: "multiple-alleles", modelVersion: 1,

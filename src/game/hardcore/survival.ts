@@ -1,11 +1,11 @@
 import type { Gecko, HardcoreGame } from "./model";
 
-export function owned(game: HardcoreGame): Gecko[] { return Object.values(game.individuals).filter(g => g.status === "owned"); }
-export function reserved(game: HardcoreGame): number {
+export function owned(game: Pick<HardcoreGame,"individuals">): Gecko[] { return Object.values(game.individuals).filter(g => g.status === "owned"); }
+export function reserved(game: Pick<HardcoreGame,"matings"|"eggs">): number {
   return Object.values(game.matings).filter(m => m.status === "pending" || m.status === "fertilized").length * 2 +
     Object.values(game.eggs).filter(e => e.status === "incubating").length;
 }
-export function freeSlots(game: HardcoreGame): number { return game.capacity - owned(game).length - reserved(game); }
+export function freeSlots(game: Pick<HardcoreGame,"individuals"|"matings"|"eggs"|"capacity">): number { return game.capacity - owned(game).length - reserved(game); }
 export function feedable(game: HardcoreGame, g: Gecko): boolean {
   return g.status === "owned" && g.hearts > 0 && g.hearts < 5 && g.lastFedDate !== game.lastDate;
 }

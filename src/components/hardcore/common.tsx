@@ -8,8 +8,8 @@ export type Play = (action: Action) => Promise<boolean>;
 export interface ViewProps { game: HardcoreGame; busy: boolean; play: Play; onDetail: (id: string) => void }
 export const won = (n: number) => "₩" + n.toLocaleString("ko-KR");
 export const STATUS = { owned: "보유 중", sold: "판매 완료", dead: "폐사" };
-export function Sprite({ gecko, large = false }: { gecko: Gecko; large?: boolean }) {
-  return <SpriteCanvas specimen={specimen(gecko)} scale={large ? 3 : 1} testId={"hardcore-sprite-" + gecko.id} />;
+export function Sprite({ gecko, large = false,fire="up" }: { gecko: Gecko; large?: boolean;fire?:"up"|"down" }) {
+  return <SpriteCanvas specimen={specimen(gecko,fire)} scale={large ? 3 : 1} testId={"hardcore-sprite-" + gecko.id} />;
 }
 export function Hearts({ gecko }: { gecko: Gecko }) {
   return <span className={"hc-hearts " + (gecko.hearts <= 2 ? "danger" : "")} aria-label={"하트 " + gecko.hearts + "/5"}>{"♥".repeat(gecko.hearts)}<i>{"♡".repeat(5-gecko.hearts)}</i></span>;

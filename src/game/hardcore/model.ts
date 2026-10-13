@@ -2,6 +2,7 @@ import type { Individual, Parents } from "@/game/model";
 import type { Genotype } from "@/genetics/mendel";
 import type { PotentialTraits, TraitVariation } from "@/genetics/traits";
 import type { GameDate } from "./time";
+import type { GeneticsRecord, Knowledge } from "@/genetics/advanced/model";
 
 export type Ownership = "owned" | "sold" | "dead";
 export const TIME_MODES = ["turn", "realtime"] as const;
@@ -21,6 +22,7 @@ export interface Gecko extends Individual {
   recoverUntil: GameDate;
   lineageIds: string[];
   provenance: "known" | "unverified";
+  genetics?: GeneticsRecord;
 }
 export interface Rules {
   fertilizationChance: number;
@@ -54,6 +56,11 @@ export interface Mating {
   hatchChance: number;
   status: "pending" | "fertilized" | "failed" | "laid" | "cancelled";
   resolvedDate: GameDate | null;
+  genetics?: {
+    father: GeneticsRecord; mother: GeneticsRecord;
+    observedIds: string[];
+    updates: { id: string; before: Knowledge; after: Knowledge }[];
+  } | null;
 }
 export interface TimedEgg {
   id: string;
@@ -72,7 +79,7 @@ export interface Sale {
 }
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string }
 export interface HardcoreGame {
-  saveVersion: 4;
+  saveVersion: 5;
   rulesVersion: 2;
   gameId: string;
   seed: string;
@@ -99,6 +106,7 @@ export interface HardcoreGame {
   migration: { from: 2; date: GameDate } | null;
 }
 export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { saveVersion: 3 };
+export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 };
 export type GameplayAction =
   | { type: "feed"; id: string }
   | { type: "feedAll" }

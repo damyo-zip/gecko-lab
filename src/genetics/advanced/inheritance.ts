@@ -2,6 +2,7 @@ import type { AllelePair } from "../mendel";
 import { seededRandom } from "../random";
 import { LOCI, pairKey, validateMendelian } from "./loci";
 import type { Forecast, JointOutcome, Locus, MendelianGenome } from "./model";
+import { classifyCombination } from "./morphs";
 
 /** One allele from each parent. Duplicate homozygous gametes merge without changing mass. */
 export function gametes(pair: AllelePair): { allele: string; probability: number }[] {
@@ -22,7 +23,7 @@ export function cross(father: MendelianGenome, mother: MendelianGenome, loci = L
       safe: o.safe && !l.blocked.includes(key), phenotype: [o.phenotype,l.phenotypes[key] === "Normal" ? "" : l.phenotypes[key]].filter(Boolean).join(" + ") })));
   }
   const survival = outcomes.filter(o=>o.viable).reduce((s,o)=>s+o.probability,0);
-  for (const o of outcomes) { o.viableProbability = o.viable && survival > 0 ? o.probability/survival : 0; o.phenotype ||= "Normal"; }
+  for (const o of outcomes) { o.viableProbability = o.viable && survival > 0 ? o.probability/survival : 0; o.phenotype=classifyCombination(o.phenotype.split(" + ")).join(" + ")||"Normal"; }
   const groups = new Map<string, { label:string; probability:number; viableProbability:number }>();
   for (const o of outcomes) { const old = groups.get(o.phenotype); if (old) { old.probability+=o.probability; old.viableProbability+=o.viableProbability; }
     else groups.set(o.phenotype,{label:o.phenotype,probability:o.probability,viableProbability:o.viableProbability}); }
