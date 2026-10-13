@@ -4,6 +4,13 @@ import type { PotentialTraits, TraitVariation } from "@/genetics/traits";
 import type { GameDate } from "./time";
 
 export type Ownership = "owned" | "sold" | "dead";
+export const TIME_MODES = ["turn", "realtime"] as const;
+export type TimeMode = typeof TIME_MODES[number];
+export interface GameTime {
+  mode: TimeMode;
+  /** KST wall-clock anchor; logical dates can be ahead after manual turns. */
+  realtimeAnchorDate: GameDate;
+}
 export interface Gecko extends Individual {
   birthDate: GameDate;
   status: Ownership;
@@ -65,7 +72,7 @@ export interface Sale {
 }
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string }
 export interface HardcoreGame {
-  saveVersion: 3;
+  saveVersion: 4;
   rulesVersion: 2;
   gameId: string;
   seed: string;
@@ -74,6 +81,7 @@ export interface HardcoreGame {
   nextClutch: number;
   startedDate: GameDate;
   lastDate: GameDate;
+  time: GameTime;
   rules: Rules;
   money: number;
   food: number;
@@ -90,7 +98,8 @@ export interface HardcoreGame {
   notices: string[];
   migration: { from: 2; date: GameDate } | null;
 }
-export type Action =
+export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { saveVersion: 3 };
+export type GameplayAction =
   | { type: "feed"; id: string }
   | { type: "feedAll" }
   | { type: "breed"; fatherId: string; motherId: string }
@@ -100,3 +109,6 @@ export type Action =
   | { type: "expand" }
   | { type: "rename"; id: string; name: string }
   | { type: "lineage"; id: string; name: string };
+export type Action = GameplayAction
+  | { type: "endTurn" }
+  | { type: "setTimeMode"; mode: TimeMode };

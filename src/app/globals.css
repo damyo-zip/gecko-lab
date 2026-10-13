@@ -417,3 +417,9 @@ button:disabled, fieldset:disabled { opacity: .5; cursor: not-allowed; }
 .hc-nav { grid-template-columns: repeat(6,minmax(0,1fr)); gap: 4px; padding-left: 6px; padding-right: 6px; }.hc-nav button { font-size: 10px; min-width: 44px; }
 .hc-legacy-banner { padding: 15px; background: #49372a; color: #edcea5; font-size: 12px; text-align: center; }
 @media (min-width:600px) { .hc-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }.hc-stats b { font-size: 20px; }.hc-card { padding: 18px; }.hc-nav { padding-left: 22px; padding-right: 22px; }.hc-nav button { font-size: 12px; }.hc-shell .parent-picker-grid + .hc-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+
+.hc-end-turn { margin: -4px 0 18px; }
+.hc-end-turn .game-small-note { margin: 8px 0; }
+.hc-time-settings { padding: 15px; border: 1px solid #456039; margin: 18px 0; }
+.hc-time-settings label { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+.hc-new-game label + label { margin-top: 14px; }

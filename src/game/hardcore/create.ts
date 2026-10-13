@@ -1,15 +1,16 @@
 import { seedId } from "@/genetics/random";
 import { readSave } from "@/game/save";
 import { BALANCE } from "./balance";
-import type { Gecko, HardcoreGame, Rules } from "./model";
+import type { Gecko, HardcoreGame, Rules, TimeMode } from "./model";
 import { addDays, dateNumber, type GameDate } from "./time";
 
-export function createGame(seed: string, date: GameDate, overrides: Partial<Rules> = {}): HardcoreGame {
+export function createGame(seed: string, date: GameDate, overrides: Partial<Rules> = {}, timeMode: TimeMode = "turn"): HardcoreGame {
   dateNumber(date);
   if (!seed.trim() || seed.length > 128) throw new Error("시드는 1~128자여야 합니다.");
   const rules = { ...BALANCE, ...overrides, traitVariation: { ...BALANCE.traitVariation, ...overrides.traitVariation } };
-  return { saveVersion: 3, rulesVersion: 2, gameId: "h-" + seedId(seed, "hardcore"), seed,
+  return { saveVersion: 4, rulesVersion: 2, gameId: "h-" + seedId(seed, "hardcore"), seed,
     revision: 0, turn: 0, nextClutch: 1, startedDate: date, lastDate: date, rules,
+    time: { mode: timeMode, realtimeAnchorDate: date },
     money: rules.initialMoney, food: 0, capacity: rules.initialCapacity, expansions: 0,
     individuals: {}, matings: {}, eggs: {}, sales: [], lineages: {}, nextLineage: 1,
     shop: { date, offers: {} }, marketVersion: "", notices: [], migration: null };

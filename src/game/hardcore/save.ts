@@ -2,7 +2,7 @@ import { canonicalJSON, MAX_BACKUP_BYTES } from "@/game/save";
 import type { HardcoreGame } from "./model";
 import { migrateV2 } from "./create";
 import type { GameDate } from "./time";
-import { validateGame } from "./validation";
+import { validateGame, validateV3 } from "./validation";
 
 export function checksum(value: unknown): string {
   const input = canonicalJSON(value); let hash = 2166136261;
@@ -10,14 +10,23 @@ export function checksum(value: unknown): string {
   return (hash >>> 0).toString(16).padStart(8, "0");
 }
 export function makeSave(game: HardcoreGame) {
-  validateGame(game); return { format: "gecko-lab-save" as const, version: 3 as const, checksum: checksum(game), game };
+  validateGame(game); return { format: "gecko-lab-save" as const, version: 4 as const, checksum: checksum(game), game };
 }
 export function readSave(value: unknown, date: GameDate): HardcoreGame {
   if (!value || typeof value !== "object") throw new Error("GECKO LAB 저장 파일이 아닙니다.");
   const candidate = value as ReturnType<typeof makeSave>;
   if (candidate.format !== "gecko-lab-save") throw new Error("GECKO LAB 저장 파일이 아닙니다.");
   if ((candidate.version as number) === 2) { const migrated = migrateV2(value, date); validateGame(migrated); return migrated; }
-  if (candidate.version !== 3) throw new Error("지원하지 않는 저장 버전입니다. v2와 v3 백업을 지원합니다.");
+  if ((candidate.version as number) === 3) {
+    const legacy: unknown = candidate.game;
+    validateV3(legacy);
+    if (candidate.checksum !== checksum(legacy)) throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
+    // Switch existing games to turns without inventing extra elapsed days or changing genes/history.
+    const migrated: HardcoreGame = { ...structuredClone(legacy), saveVersion: 4,
+      time: { mode: "turn", realtimeAnchorDate: date } };
+    validateGame(migrated); return migrated;
+  }
+  if (candidate.version !== 4) throw new Error("지원하지 않는 저장 버전입니다. v2·v3·v4 백업을 지원합니다.");
   validateGame(candidate.game);
   if (candidate.checksum !== checksum(candidate.game)) throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
   return candidate.game;

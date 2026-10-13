@@ -1,5 +1,5 @@
 /* Same-origin offline shell only. No automatic care or protection. */
-const CACHE = "gecko-lab-phase3-shell-1";
+const CACHE = "gecko-lab-phase3-shell-2";
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE), response = await fetch("/", { cache: "reload" });

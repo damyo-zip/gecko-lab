@@ -1,5 +1,6 @@
 import type { HardcoreGame } from "@/game/hardcore/model";
-import { newGame, synchronize } from "@/game/hardcore/play";
+import { newGame } from "@/game/hardcore/play";
+import { synchronizeTime } from "@/game/hardcore/time-source";
 import { makeSave, readSave } from "@/game/hardcore/save";
 import type { GameDate } from "@/game/hardcore/time";
 import { DATABASE_NAME, STORE_NAME, SaveConflict } from "./indexed-db";
@@ -30,10 +31,11 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
       try {
         const record = r.result;
         const game = record ? readSave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
-        const next = synchronize(game, date);
-        const changed = !record || record.save.version !== 3 || next !== game;
+        const next = synchronizeTime(game, date);
+        const changed = !record || record.save.version !== 4 || next !== game;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
-        if (record?.save.version === 2) store.put(record, "archive-v2-" + writeRevision);
+        if (record && (record.save.version === 2 || record.save.version === 3))
+          store.put(record, "archive-v" + record.save.version + "-" + writeRevision);
         if (changed) store.put({ save: makeSave(next), writeRevision }, "active");
         result = { game: next, writeRevision };
       } catch (e) { error = e; tx.abort(); }

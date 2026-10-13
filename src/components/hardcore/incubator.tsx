@@ -6,7 +6,7 @@ const MATING_LABEL = {pending:"수정 결과 대기",fertilized:"수정 성공",
 export function Incubator({game,onDetail}:ViewProps) {
   const [limit,setLimit] = useState(12);
   const eggs = Object.values(game.eggs).reverse(), matings = Object.values(game.matings).reverse();
-  return <section><h1>인큐베이터</h1><p className="game-section-copy">한국 자정에 수정·산란·부화가 차례로 진행됩니다. 알의 유전형은 산란 때 확정되며 부화할 때 다시 추첨하지 않습니다.</p>
+  return <section><h1>인큐베이터</h1><p className="game-section-copy">게임에서 하루가 지날 때 수정·산란·부화가 차례로 진행됩니다. 알의 유전형은 산란 때 확정되며 부화할 때 다시 추첨하지 않습니다.</p>
     {matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={"mating-"+m.id}><strong>{game.individuals[m.parents.motherId].name} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.status === "pending" ? " · 수정 확인 " + addDays(m.date,1) : m.status === "fertilized" ? " · 산란 " + addDays(m.date,2) : ""}</span></div>)}
     {!eggs.length && <p className="game-empty">아직 산란한 알이 없습니다.</p>}
     <div className="hc-grid">{eggs.slice(0,limit).map(e=><article className="egg-card" key={e.id} data-testid={"hc-egg-"+e.id}>

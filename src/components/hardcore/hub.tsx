@@ -21,7 +21,8 @@ export default function HardcoreHub() {
   const g=game?.individuals[detail],disabled=busy||conflict;
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
   return <main className="lab-shell game-shell hc-shell"><OfflineShell/><header className="site-header game-header"><a href="/" className="wordmark" aria-label="GECKO LAB 홈"><span className="logo-tile"><Icon name="leaf" size={24}/></span><span>GECKO <em>LAB</em><small>매일 돌보고, 세대를 이어가는 브리더</small></span></a><button className="settings-button" aria-label="저장 및 게임 설정" disabled={loading||busy} onClick={()=>setSettings(true)}><Icon name="sliders" size={21}/></button></header>
-    <div className="hc-clock"><strong data-testid="game-date">{game?.lastDate ?? "—"}</strong><span>Asia/Seoul · 매일 00:00</span><small>{busy ? "저장 중…" : conflict ? "다른 창의 변경 확인 필요" : game ? "자동 저장 완료" : "로컬 저장 확인"}</small></div>
+    <div className="hc-clock"><strong data-testid="game-date">{game?.lastDate ?? "—"}</strong><span>{game?.time.mode === "realtime" ? "현실 시간 · 한국 자정" : "턴 방식 · 게임 날짜"}</span>{game && <span>DAY <b data-testid="game-day">{game.turn}</b></span>}<small>{busy ? "저장 중…" : conflict ? "다른 창의 변경 확인 필요" : game ? "자동 저장 완료" : "로컬 저장 확인"}</small></div>
+    {game?.time.mode === "turn" && <div className="hc-end-turn"><button className="game-primary full-width" disabled={disabled} onClick={()=>act({type:"endTurn"})}>턴 마치기</button><p className="game-small-note">한 번 누르면 하루가 지나고 하트·번식·성장·상점이 갱신됩니다.</p></div>}
     {game && <div className="hc-stats"><div><span>게임 자금</span><b data-testid="game-money">{won(game.money)}</b></div><div><span>먹이</span><b data-testid="game-food">{game.food}개</b></div><div><span>사육장 / 예약</span><b>{owned(game).length}+{reserved(game)} / {game.capacity}</b></div></div>}
     {error && <div className="game-error-banner" role="alert">{error}{conflict && <button className="game-secondary full-width" onClick={()=>location.reload()}>저장 상태 새로고침</button>}</div>}
     {game && game.notices.length>0 && <div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
@@ -31,9 +32,9 @@ export default function HardcoreHub() {
       {tab==="incubator" && <Incubator {...props}/>}{tab==="shop" && <Shop {...props}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}
     </div> : <section className="game-loading"><h1>저장 데이터를 불러오지 못했습니다</h1><p>기존 저장을 덮어쓰지 않았습니다. 복구 전 원본을 아카이브에 남깁니다.</p><button className="game-primary" onClick={()=>setSettings(true)}>백업 복원 또는 새 게임</button></section>}
-    <footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>저장 v3 · 가격표는 현재 임시 추정</span></footer>
+    <footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>저장 v4 · 가격표는 현재 임시 추정</span></footer>
     <nav className="game-bottom-nav hc-nav" aria-label="게임 탭">{TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>
     {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setTab("breeding");}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
-    {settings && <Settings game={game} busy={disabled} error={error} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setTab("home");}}/>}
+    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setTab("home");}}/>}
   </main>;
 }

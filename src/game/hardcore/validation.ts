@@ -3,7 +3,7 @@ import { expandedGenotype, HARDCORE_LOCI } from "@/genetics/hardcore";
 import { validateTraits, TRAIT_KEYS } from "@/genetics/traits";
 import { canonicalJSON } from "@/game/save";
 import { checkKinship } from "@/game/lineage";
-import type { Gecko, HardcoreGame, Rules } from "./model";
+import { TIME_MODES, type Gecko, type HardcoreGame, type LegacyHardcoreGame, type Rules } from "./model";
 import { dateNumber, daysBetween, addDays } from "./time";
 import { freeSlots } from "./survival";
 
@@ -56,10 +56,15 @@ function gecko(g: Gecko): void {
   strings(g.lineageIds); if (new Set(g.lineageIds).size !== g.lineageIds.length) fail();
   if (g.status === "dead" ? g.hearts !== 0 || g.diedDate === null : g.hearts === 0 || g.diedDate !== null) fail();
 }
-export function validateGame(value: unknown): asserts value is HardcoreGame {
-  keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration");
+function validateRecord(value: unknown, version: 3 | 4): void {
+  keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration" + (version === 4 ? " time" : ""));
   const g = value as HardcoreGame;
-  if (g.saveVersion !== 3 || g.rulesVersion !== 2) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
+  if ((g.saveVersion as number) !== version || g.rulesVersion !== 2) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
+  if (version === 4) {
+    keys(g.time, "mode realtimeAnchorDate");
+    if (!TIME_MODES.includes(g.time.mode)) fail();
+    date(g.time.realtimeAnchorDate);
+  }
   id(g.gameId); text(g.seed); integer(g.revision); integer(g.turn, 0, 10000000); integer(g.nextClutch, 1);
   date(g.startedDate); date(g.lastDate); if (g.startedDate > g.lastDate) fail();
   validateRules(g.rules); integer(g.money, 0, 1e12); integer(g.food, 0, 1000000);
@@ -163,3 +168,5 @@ export function validateGame(value: unknown): asserts value is HardcoreGame {
   }
   if (freeSlots(g) < 0) throw new Error("사육장 공간 예약이 손상되었습니다.");
 }
+export function validateGame(value: unknown): asserts value is HardcoreGame { validateRecord(value, 4); }
+export function validateV3(value: unknown): asserts value is LegacyHardcoreGame { validateRecord(value, 3); }

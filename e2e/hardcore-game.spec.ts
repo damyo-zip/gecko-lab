@@ -7,6 +7,7 @@ import { makeSave as legacySave } from "../src/game/save";
 import type { HardcoreGame } from "../src/game/hardcore/model";
 import { addDays } from "../src/game/hardcore/time";
 import { migrateV2 } from "../src/game/hardcore/create";
+import type { TimeMode } from "../src/game/hardcore/model";
 
 test.setTimeout(90_000);
 const DATE = "2026-10-13", errors = new WeakMap<Page,string[]>();
@@ -23,6 +24,13 @@ async function date(page:Page,next:string) {
   await page.evaluate(()=>window.dispatchEvent(new Event("focus")));
   await expect(page.getByTestId("game-date")).toHaveText(next);
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
+}
+async function timeMode(page:Page,mode:TimeMode,mobile:boolean) {
+  await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
+  await page.getByRole("combobox",{name:"시간 진행 방식",exact:true}).selectOption(mode);
+  const button=page.getByRole("button",{name:"시간 방식 저장",exact:true});
+  if(await button.isEnabled()) {await click(button,mobile);await expect(button).toBeDisabled();}
+  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
 }
 async function care(page:Page,mobile:boolean) {
   await tab(page,"컬렉션",mobile);
@@ -50,11 +58,13 @@ function winningSeed() {
   }
   throw new Error("successful deterministic test seed not found");
 }
-test.beforeEach(async({page})=>{
+test.beforeEach(async({page},info)=>{
   const list:string[]=[];errors.set(page,list);page.on("pageerror",e=>list.push(e.message));
   page.on("console",message=>{if(message.type()==="error")list.push(message.text());});
   await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
   await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+  // Preserve all original real-time scenarios while the live default is now manual turns.
+  await timeMode(page,"realtime",info.project.name.startsWith("mobile"));
 });
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
@@ -62,6 +72,7 @@ test("real mobile purchases, daily care, two generations, hidden sex, sale, expa
   const mobile=info.project.name.startsWith("mobile");
   await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
   await page.getByLabel("새 게임 시드",{exact:true}).fill(winningSeed());
+  await page.getByRole("combobox",{name:"새 게임 시간 방식",exact:true}).selectOption("realtime");
   await click(page.getByRole("button",{name:"새 게임 준비",exact:true}),mobile);
   await click(page.getByRole("button",{name:"새 게임 시작",exact:true}),mobile);
   await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -120,7 +131,7 @@ test("real mobile purchases, daily care, two generations, hidden sex, sale, expa
 });
 
 test("five offline midnights kill once, dead animals cannot feed/sell/breed, records remain",async({page},info)=>{
-  const mobile=info.project.name.startsWith("mobile"),fixture=newGame("offline",DATE),offer=Object.values(fixture.shop.offers)[0];
+  const mobile=info.project.name.startsWith("mobile"),fixture=newGame("offline",DATE,undefined,undefined,"realtime"),offer=Object.values(fixture.shop.offers)[0];
   await restore(page,exportBackup(act(fixture,{type:"buyGecko",offerId:offer.id},DATE)),mobile);
   await page.clock.setFixedTime(new Date(addDays(DATE,5)+"T03:00:00Z"));await page.reload();
   await expect(page.getByTestId("game-date")).toHaveText(addDays(DATE,5));let g=await saved(page);
@@ -131,7 +142,7 @@ test("five offline midnights kill once, dead animals cannot feed/sell/breed, rec
   await expect(page.getByRole("button",{name:/분양 준비/})).toHaveCount(0);
 });
 
-test("Phase 2 IndexedDB migration preserves embryos, IDs and reserves capacity atomically",async({page})=>{
+test("Phase 2 IndexedDB migration preserves embryos, IDs and reserves capacity atomically",async({page},info)=>{
   const old=createNewGame("legacy-import"),[father,mother]=Object.values(old.individuals),bred=applyAction(old,{type:"breed",fatherId:father.id,motherId:mother.id});
   await page.evaluate(async record=>{
     const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
@@ -141,6 +152,7 @@ test("Phase 2 IndexedDB migration preserves embryos, IDs and reserves capacity a
   expect(g.migration).toEqual({from:2,date:DATE});expect(g.capacity).toBeGreaterThanOrEqual(8);expect(g.nextClutch).toBe(bred.nextClutch);
   for(const i of Object.values(bred.individuals))expect(g.individuals[i.id]).toMatchObject({...i});
   for(const e of Object.values(bred.eggs))expect(g.eggs[e.id].embryo).toMatchObject({...e.embryo});
+  await timeMode(page,"realtime",info.project.name.startsWith("mobile"));
   await date(page,addDays(DATE,2));expect(Object.values((await saved(page)).eggs).every(e=>e.status==="hatched")).toBe(true);
 });
 
@@ -208,6 +220,7 @@ test("corrupt active v3 stays untouched until confirmed recovery and is archived
 test("live UI distinguishes lethal conditional odds and blocks lineal matings after adulthood",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile"),fixture=migrateV2(legacySave(createNewGame("risk-ui")),DATE);
   fixture.capacity=12;fixture.rules={...fixture.rules,fertilizationChance:1,hatchChance:1,juvenileAfter:1,adultAfter:1};
+  fixture.time.mode="realtime";
   await restore(page,exportBackup(fixture),mobile);
   const [normal,lillyFemale,,,lillyMale]=Object.values(fixture.individuals);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(lillyMale.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(lillyFemale.id);

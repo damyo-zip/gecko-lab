@@ -10,7 +10,7 @@ export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onM
 }) {
   const males = owned(game).filter(g=>g.sex === "male" && g.stage === "adult"), females = owned(game).filter(g=>g.sex === "female" && g.stage === "adult");
   const father = game.individuals[fatherId], mother = game.individuals[motherId], check = breedingCheck(game,fatherId,motherId);
-  return <section><h1>브리딩</h1><p className="game-section-copy">성체 암컷의 배란기에 교배합니다. 지금 새끼 2마리 공간을 예약하고, 내일부터 결과를 확인합니다.</p>
+  return <section><h1>브리딩</h1><p className="game-section-copy">성체 암컷의 배란기에 교배합니다. 지금 새끼 2마리 공간을 예약하고, 다음 게임 날부터 결과를 확인합니다.</p>
     <div className="parent-picker-grid"><label>수컷 부모<select aria-label="수컷 부모" value={fatherId} onChange={e=>onFather(e.target.value)}><option value="">수컷 선택</option>{males.map(g=><option key={g.id} value={g.id}>{g.name} · Gen {g.generation}</option>)}</select></label>
       <label>암컷 부모<select aria-label="암컷 부모" value={motherId} onChange={e=>onMother(e.target.value)}><option value="">암컷 선택</option>{females.map(g=><option key={g.id} value={g.id}>{g.name} · {ovulating(g,game) ? "배란기" : "대기"}</option>)}</select></label></div>
     <div className="hc-grid">{[father,mother].map((g,index)=><div className="parent-summary" key={index}>{g ? <><div className="parent-art"><Sprite gecko={g}/></div><strong>{g.name}</strong><span>{morph(g)}</span><span>Gen {g.generation}</span><Hearts gecko={g}/><span>{geneticLabel(g.genotype)}</span>{g.sex === "female" && <span>{ovulating(g,game) ? "배란 중" : "다음 배란 " + nextOvulation(g,game)}</span>}<button className="game-secondary full-width" onClick={()=>onDetail(g.id)}>상세 정보</button></> : <p>부모를 선택하세요</p>}</div>)}</div>
