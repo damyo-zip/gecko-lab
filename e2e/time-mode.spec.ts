@@ -74,15 +74,17 @@ test("switching modes preserves progress, anchors real days and persists through
   await endTurn(page,mobile);expect(Object.values((await saved(page)).individuals)[0].hearts).toBe(1);
 });
 
-test("v3 active slot migrates to manual v4 without changing records or applying absent days",async({page})=>{
+test("v3 active slot migrates to manual v5 without changing records or applying absent days",async({page})=>{
   let original=newGame("old-v3-time",DATE);const offer=Object.values(original.shop.offers)[0];original=actWithTime(original,{type:"buyGecko",offerId:offer.id},DATE);
   const {time:_time,...fields}=original;const legacy:LegacyHardcoreGame={...fields,saveVersion:3};
+  for(const g of [...Object.values(legacy.individuals),...Object.values(legacy.shop.offers).map(o=>o.individual)])delete g.genetics;
   await page.evaluate(async record=>{
     const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:{format:"gecko-lab-save",version:3,game:legacy,checksum:checksum(legacy)},writeRevision:10});
   await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");
-  const migrated=await saved(page);expect(migrated.saveVersion).toBe(4);expect(migrated.time.mode).toBe("turn");expect(migrated.individuals).toEqual(original.individuals);
+  const migrated=await saved(page);expect(migrated.saveVersion).toBe(5);expect(migrated.time.mode).toBe("turn");
+  expect(migrated.individuals).toMatchObject(legacy.individuals);expect(migrated.individuals[offer.id].genetics?.genome).toBeNull();
   expect(migrated.lastDate).toBe(DATE);expect(migrated.money).toBe(original.money);
 });
 

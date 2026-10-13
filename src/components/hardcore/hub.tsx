@@ -32,7 +32,7 @@ export default function HardcoreHub() {
       {tab==="incubator" && <Incubator {...props}/>}{tab==="shop" && <Shop {...props}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}
     </div> : <section className="game-loading"><h1>저장 데이터를 불러오지 못했습니다</h1><p>기존 저장을 덮어쓰지 않았습니다. 복구 전 원본을 아카이브에 남깁니다.</p><button className="game-primary" onClick={()=>setSettings(true)}>백업 복원 또는 새 게임</button></section>}
-    <footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>저장 v4 · 가격표는 현재 임시 추정</span></footer>
+    <footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>저장 v5 · 가격표는 현재 임시 추정</span></footer>
     <nav className="game-bottom-nav hc-nav" aria-label="게임 탭">{TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>
     {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setTab("breeding");}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
     {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setTab("home");}}/>}

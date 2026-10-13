@@ -423,3 +423,15 @@ button:disabled, fieldset:disabled { opacity: .5; cursor: not-allowed; }
 .hc-time-settings { padding: 15px; border: 1px solid #456039; margin: 18px 0; }
 .hc-time-settings label { display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
 .hc-new-game label + label { margin-top: 14px; }
+
+/* Phase 5 disclosures stay collapsible on a 360px touch screen. */
+.genetic-panel { margin: 12px 0; padding: 12px; background: #101e22; border: 1px solid #3c5558; border-radius: 10px; overflow-wrap: anywhere; }
+.genetic-panel details, .genetics-forecast details { margin: 8px 0; padding: 8px 0; border-top: 1px solid #304747; }
+.genetic-panel summary, .genetics-forecast summary { min-height: 44px; cursor: pointer; display: list-item; align-content: center; font-weight: 700; }
+.genetic-panel p, .genetics-forecast p { line-height: 1.6; overflow-wrap: anywhere; }
+.genetic-panel a { display: inline-block; margin: 4px 12px 4px 0; color: #a4ee8e; min-height: 32px; font-size: .8rem; }
+.genetics-forecast .hc-probability { gap: 10px; align-items: start; }
+.genetics-forecast .hc-probability > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.genetics-forecast .hc-probability > span:last-child { flex-shrink: 0; }
+.lineage-trends { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.lineage-trends div { padding: 8px; background: #122225; border-radius: 6px; overflow-wrap: anywhere; }

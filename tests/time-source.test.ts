@@ -73,8 +73,10 @@ test("v3 migration keeps all records and counters and defaults to paused manual 
   const {game,father,mother}=pair(),bred=actWithTime(game,{type:"breed",fatherId:father,motherId:mother},DATE);
   const { time: _time, ...fields }=structuredClone(bred);
   const legacy:LegacyHardcoreGame={...fields,saveVersion:3};
+  for(const g of [...Object.values(legacy.individuals),...Object.values(legacy.shop.offers).map(o=>o.individual)])delete g.genetics;
+  for(const m of Object.values(legacy.matings))delete m.genetics;
   const old={format:"gecko-lab-save",version:3,checksum:checksum(legacy),game:legacy};
-  const migrated=readSave(old,addDays(DATE,20));expect(migrated).toMatchObject({...legacy,saveVersion:4});
+  const migrated=readSave(old,addDays(DATE,20));expect(migrated).toMatchObject({...legacy,saveVersion:5});
   expect(migrated.time).toEqual({mode:"turn",realtimeAnchorDate:addDays(DATE,20)});
   expect(synchronizeTime(migrated,addDays(DATE,20))).toBe(migrated);
   expect(migrated.nextClutch).toBe(bred.nextClutch);

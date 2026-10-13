@@ -6,6 +6,9 @@ import { checkKinship } from "@/game/lineage";
 import type { Gecko, HardcoreGame, Mating } from "./model";
 import { addDays, daysBetween } from "./time";
 import { freeSlots } from "./survival";
+import { advancedSafety, cachedGenotype, legacyRecord, observeMating, offspringRecord } from "./genetics";
+import { legacyTraits } from "@/genetics/advanced/phenotype";
+import { polyScores } from "@/genetics/advanced/polygenic";
 
 export function ovulating(g: Gecko, game: HardcoreGame): boolean {
   const offset = daysBetween(g.cycleAnchor, game.lastDate);
@@ -35,6 +38,7 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   const kin = checkKinship(father, mother, game.individuals); if (kin) reasons.push(kin.message);
   const forecast = forecastCross(expandedGenotype(father.genotype), expandedGenotype(mother.genotype), HARDCORE_LOCI);
   if (forecast.nonViableProbability > 0) reasons.push("동형접합 비생존 위험 교배를 차단합니다.");
+  reasons.push(...advancedSafety(father,mother));
   if (freeSlots(game) < 2) reasons.push("새끼 2마리의 사육 공간이 필요합니다. 판매하거나 사육장을 확장하세요.");
   if (Object.keys(game.individuals).length + Object.keys(game.eggs).length + 2 > 30000) reasons.push("이 슬롯의 기록 한도에 도달했습니다. 백업을 보관하고 새 게임을 시작하세요.");
   return { reasons, forecast };
@@ -51,7 +55,9 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
     lineageIds: [...new Set([...father.lineageIds, ...mother.lineageIds])],
     seed: game.seed + "|mating:" + ordinal + "|" + fatherId + "|" + motherId,
     fertilizationChance: game.rules.fertilizationChance, hatchChance: game.rules.hatchChance,
-    status: "pending", resolvedDate: null };
+    status: "pending", resolvedDate: null, genetics: {
+      father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
+      observedIds:[],updates:[] } };
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);
   mother.nextBreedTurn = game.turn + game.rules.recoveryDays;
   game.notices.push("교배 일정 시작 · 새끼 공간 2칸 예약 · 내일 수정 결과 공개");
@@ -63,11 +69,12 @@ function lay(game: HardcoreGame, mating: Mating): void {
     const childId = game.gameId + "-c" + mating.ordinal + "-" + ordinal;
     const inheritance = inheritGenotype(expandedGenotype(mating.fatherGenotype), expandedGenotype(mating.motherGenotype), seed, HARDCORE_LOCI);
     if (!inheritance.viable) throw new Error("위험 교배 데이터입니다. 비생존 유전형을 개체로 만들지 않습니다.");
+    const genetics=offspringRecord(mating.genetics?.father??legacyRecord({genotype:mating.fatherGenotype}),mating.genetics?.mother??legacyRecord({genotype:mating.motherGenotype}),inheritance.genotype,seed,childId);
     const embryo: Gecko = { id: childId, name: "해칭 " + mating.ordinal + "-" + ordinal,
       sex: seededRandom(seed, "sex")() < .5 ? "male" : "female", birthTurn: game.turn + 1,
       stage: "hatchling", parents: { ...mating.parents }, generation: mating.generation,
-      genotype: inheritance.genotype,
-      potential: inheritTraits(mating.fatherTraits, mating.motherTraits, seed, game.rules.traitVariation),
+      genotype: cachedGenotype(genetics,inheritance.genotype), genetics,
+      potential: genetics.genome?legacyTraits(polyScores(genetics.genome.polygenic)):inheritTraits(mating.fatherTraits, mating.motherTraits, seed, game.rules.traitVariation),
       visualSeed: childId + "-" + seedId(seed, "visual"), nextBreedTurn: game.turn + 1 + game.rules.adultAfter,
       birthDate: dueDate, status: "owned", hearts: 5, lastFedDate: null, diedDate: null,
       cycleAnchor: addDays(dueDate, game.rules.adultAfter), recoverUntil: addDays(dueDate, game.rules.adultAfter),
@@ -102,4 +109,5 @@ export function breedingEvents(game: HardcoreGame): void {
       game.notices.push(egg.embryo.name + " 부화 · 성체가 되면 성별 공개");
     } else game.notices.push("알 부화 실패 · 공간 예약 해제");
   }
+  for(const mating of Object.values(game.matings))if(mating.status==="laid")observeMating(game,mating);
 }
