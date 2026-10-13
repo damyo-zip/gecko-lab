@@ -105,7 +105,7 @@ export function validateGame(value: unknown): asserts value is HardcoreGame {
   for (const [key, m] of Object.entries(g.matings)) {
     keys(m, "id ordinal date parents fatherGenotype motherGenotype fatherTraits motherTraits generation lineageIds seed fertilizationChance hatchChance status resolvedDate");
     if (m.id !== key || !["pending", "fertilized", "failed", "laid", "cancelled"].includes(m.status)) fail();
-    integer(m.ordinal, 1, g.nextClutch - 1); date(m.date); nullableDate(m.resolvedDate); text(m.seed);
+    integer(m.ordinal, 1, g.nextClutch - 1); date(m.date); nullableDate(m.resolvedDate); text(m.seed, 512);
     if (ordinals.has(m.ordinal)) fail(); ordinals.add(m.ordinal);
     probability(m.fertilizationChance); probability(m.hatchChance); integer(m.generation, 2);
     keys(m.parents, "fatherId motherId");
@@ -127,7 +127,7 @@ export function validateGame(value: unknown): asserts value is HardcoreGame {
   for (const [key,e] of Object.entries(g.eggs)) {
     keys(e, "id matingId laidDate dueDate embryo hatchChance seed status resolvedDate");
     if (e.id !== key || !["incubating", "hatched", "failed"].includes(e.status)) fail();
-    date(e.laidDate); date(e.dueDate); nullableDate(e.resolvedDate); probability(e.hatchChance); text(e.seed);
+    date(e.laidDate); date(e.dueDate); nullableDate(e.resolvedDate); probability(e.hatchChance); text(e.seed, 512);
     if (e.dueDate < e.laidDate || e.laidDate > g.lastDate || (e.matingId !== null && !g.matings[e.matingId])) fail();
     if (e.matingId) {
       eggCounts.set(e.matingId,(eggCounts.get(e.matingId) ?? 0)+1);

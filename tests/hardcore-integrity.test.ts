@@ -63,3 +63,11 @@ test("Lilly/Ax probabilities normalize and carrier cross frequencies match 25/50
   }
   [.25,.5,.25].forEach((p,n)=>expect(Math.abs(counts[n]/10000-p)).toBeLessThan(.02));
 });
+
+test("maximum-length user seeds still breed, hatch and restore derived RNG inputs",()=>{
+  let g=newGame("x".repeat(128),date,{fertilizationChance:1,hatchChance:1});const [father,mother]=Object.keys(g.shop.offers);
+  g=act(g,{type:"buyGecko",offerId:father},date);g=act(g,{type:"buyGecko",offerId:mother},date);
+  g=act(g,{type:"breed",fatherId:father,motherId:mother},date);g=synchronize(g,addDays(date,3));
+  expect(Object.values(g.eggs)).toHaveLength(2);expect(Object.values(g.eggs)[0].seed.length).toBeGreaterThan(128);
+  expect(readSave(makeSave(g),g.lastDate)).toEqual(g);
+});
