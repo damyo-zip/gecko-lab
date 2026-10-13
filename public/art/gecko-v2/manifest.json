@@ -1,0 +1,212 @@
+{
+  "version": 2,
+  "logicalSize": 96,
+  "created": "2026-10-14",
+  "source": "Original image generated with image_gen from a descriptive prompt and concept guidance; not cropped from reference or derived from v1 polygons.",
+  "sourceFile": "source-art.png",
+  "sourceSha256": "3f3f440ddb33f8b92244ac82c2a2fc36fb7074fb5e98287bd938f8f792c617c9",
+  "palette": [
+    [
+      56,
+      34,
+      28
+    ],
+    [
+      89,
+      49,
+      38
+    ],
+    [
+      120,
+      64,
+      44
+    ],
+    [
+      149,
+      80,
+      51
+    ],
+    [
+      181,
+      100,
+      54
+    ],
+    [
+      203,
+      116,
+      56
+    ],
+    [
+      223,
+      138,
+      61
+    ],
+    [
+      239,
+      163,
+      76
+    ],
+    [
+      249,
+      182,
+      93
+    ],
+    [
+      255,
+      202,
+      119
+    ],
+    [
+      255,
+      217,
+      143
+    ],
+    [
+      255,
+      229,
+      173
+    ],
+    [
+      255,
+      240,
+      201
+    ],
+    [
+      173,
+      116,
+      96
+    ],
+    [
+      201,
+      151,
+      120
+    ],
+    [
+      222,
+      185,
+      148
+    ],
+    [
+      237,
+      208,
+      170
+    ],
+    [
+      251,
+      224,
+      184
+    ],
+    [
+      40,
+      25,
+      26
+    ],
+    [
+      112,
+      65,
+      39
+    ],
+    [
+      160,
+      92,
+      37
+    ],
+    [
+      201,
+      128,
+      46
+    ],
+    [
+      237,
+      169,
+      76
+    ],
+    [
+      255,
+      225,
+      163
+    ],
+    [
+      255,
+      248,
+      222
+    ],
+    [
+      131,
+      88,
+      77
+    ],
+    [
+      180,
+      136,
+      117
+    ]
+  ],
+  "zoneColors": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      220,
+      110,
+      180
+    ],
+    [
+      90,
+      100,
+      190
+    ],
+    [
+      70,
+      175,
+      100
+    ],
+    [
+      235,
+      160,
+      65
+    ],
+    [
+      70,
+      180,
+      215
+    ],
+    [
+      200,
+      80,
+      75
+    ]
+  ],
+  "preparation": {
+    "alphaThreshold": 128,
+    "nearestNeighbor": true,
+    "bounds": {
+      "left": 51,
+      "top": 124,
+      "right": 1267,
+      "bottom": 1115
+    },
+    "fit": {
+      "width": 88,
+      "height": 72,
+      "offsetX": 4,
+      "offsetY": 12
+    },
+    "paletteSize": 27
+  },
+  "caveat": "Generated source is not native 96px. Logical pixel sampling, explicit palette and body annotations are separate asset preparation steps; not a claim of hand-painted professional art.",
+  "channels": [
+    "normal-base.png",
+    "parts.png",
+    "outline.png",
+    "shadow.png",
+    "highlight.png",
+    "crest.png",
+    "face.png",
+    "dorsal.png",
+    "flank.png",
+    "spots.png"
+  ]
+}

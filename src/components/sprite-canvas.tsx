@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { drawSprite } from "@/engine/canvas";
 import { LAYER_ORDER, type GeckoSpecimen, type LayerName } from "@/engine/model";
-import { renderSprite } from "@/engine/render";
+import { renderSprite, renderLegacySprite } from "@/engine/render";
 
-export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testId }: {
-  specimen: GeckoSpecimen; scale?: 1 | 3 | 4; enabled?: readonly LayerName[]; testId?: string;
+export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testId,renderer="current" }: {
+  specimen: GeckoSpecimen; scale?: 1 | 3 | 4; enabled?: readonly LayerName[]; testId?: string;renderer?:"current"|"legacy";
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const sprite = useMemo(() => renderSprite(specimen, enabled), [specimen, enabled]);
+  const sprite = useMemo(() => (renderer==="legacy"?renderLegacySprite:renderSprite)(specimen, enabled), [specimen, enabled,renderer]);
   const [error, setError] = useState("");
   useEffect(() => {
     try {
@@ -21,6 +21,6 @@ export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testI
   }, [sprite, scale]);
   if (error) return <p role="alert">{error}</p>;
   return <canvas ref={canvas} width={96 * scale} height={96 * scale}
-    style={{ width: 96 * scale, height: 96 * scale }} data-testid={testId}
+    style={{ width: 96 * scale, height: 96 * scale }} data-testid={testId} data-renderer-version={sprite.version}
     role="img" aria-label={specimen.name + " 픽셀 스프라이트, 시드 " + specimen.seed} />;
 }

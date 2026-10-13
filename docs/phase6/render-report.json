@@ -1,0 +1,351 @@
+{
+  "reviewDate": "2026-10-14",
+  "beforeVersion": "1.0.0",
+  "afterVersion": "2.0.0",
+  "comparisonSeed": "phase6-comparison",
+  "beforeHash": "22f1c236968961da1374f77ef3aa70c8e5cc1ef64b7a8e740343cd99d4dfe746",
+  "afterHash": "ddd2cf53643ae85e23781d9bc1ce1c0cac3cf55fbbbdbd7d0f518ceb25065e14",
+  "presets": [
+    {
+      "id": "normal",
+      "hash": "ddd2cf53643ae85e23781d9bc1ce1c0cac3cf55fbbbdbd7d0f518ceb25065e14",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "id": "lilly",
+      "hash": "40fb668e296ae32b7c228d728839fe589d726a919a2e44f7733d647141d714b4",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "lilly",
+        "dorsalCoverage": 0.92,
+        "flankCoverage": 0.83,
+        "spotCount": 0
+      }
+    },
+    {
+      "id": "axanthic",
+      "hash": "6396a2bc1eadcc86217b3bc19bc7b005060d553351d5bfb49f5dd9c65d410246",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "slate",
+        "patternStyle": "axanthic",
+        "dorsalCoverage": 0.45,
+        "flankCoverage": 0.4,
+        "spotCount": 0
+      }
+    },
+    {
+      "id": "dalmatian",
+      "hash": "b352590739acad211dccd5dd53edbda83053a373b8292f3212c5925d40898c6b",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "id": "harlequin",
+      "hash": "1357b2e1a0e3945f7b115bd0a9aac8fe4087dc96df247ac56c2693c9170f5394",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "brown",
+        "patternStyle": "harlequin",
+        "dorsalCoverage": 0.64,
+        "flankCoverage": 0.74,
+        "spotCount": 0
+      }
+    },
+    {
+      "id": "tricolor",
+      "hash": "becfd61d1fcf1532006a785a082e8d04eb465ea000d053db6ca126f8a8dc5044",
+      "seed": "phase6-comparison",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "tricolor",
+        "dorsalCoverage": 0.73,
+        "flankCoverage": 0.8,
+        "spotCount": 0
+      }
+    }
+  ],
+  "diversity": [
+    {
+      "seed": "art-diversity-0",
+      "hash": "af0f7fda34d7622ef5e6681424be0e6ed6b756338e9f1bafeedc0c3f24327db0",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-1",
+      "hash": "74ddfcfc01036ce857e0fbb748cced17aaa8a3da40c5eab71ebeaf8acaa44c23",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-2",
+      "hash": "2bc8b16cfb7a5cd536357ae5b37d3bf24ac08920de422ed35fdda3f5ff0a1b17",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-3",
+      "hash": "abe8ffb3c5e81c7359d8359aceb9a43b6afc43c0d62a21aecdf57a22a2096e82",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-4",
+      "hash": "f06170094bf03f316bd6fd586aaf6af24c96b786f4c8a475ae2ab4980c089848",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-5",
+      "hash": "a616ceb57576f44e9785e1b003d2ed2133b233613db576a6cbc53cf4a65333a1",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-6",
+      "hash": "1cbab24e49e293c6ec4dd6486b2a017ccde707a6a14a1c728e728cc5c40b445d",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-7",
+      "hash": "d493424de63529bad848453a190bb5a5c014339445758089e8bdea429cc018e0",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-8",
+      "hash": "b5713777a74bf331b5ac97f2f751a43a38f0f10e8eb9776d80c0da37e5928c40",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-9",
+      "hash": "f9aba38b50c3e6b6d1ddd0eb304f5bf699d56d305b8e056b41b57597a2b2afc5",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-10",
+      "hash": "63493077cb40d6592504fd89760fd18819e5aa5b9672c692c3ace544bb49128d",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    },
+    {
+      "seed": "art-diversity-11",
+      "hash": "24d9a64aff12a09637fc430c7da39506b197851aba214e947050a3caadf0b3f1",
+      "appearance": {
+        "bodyColor": "cream",
+        "patternStyle": "dalmatian",
+        "dorsalCoverage": 0.18,
+        "flankCoverage": 0.1,
+        "spotCount": 45
+      }
+    }
+  ],
+  "normalDiversity": [
+    {
+      "seed": "art-diversity-0",
+      "hash": "c6dee62c7f3672373b9bfedfdcef544d0a38e120e2ced7ae24782c2e9980a3fb",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-1",
+      "hash": "027b2b2574cc3ec363f142bd5c16ac310651660b19428b19f50526671ca23f35",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-2",
+      "hash": "062ba27883bb3b76630ed0433066347f7ddea79e9c059267e851ba1cb49ce613",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-3",
+      "hash": "140c84a0bbb92cf473ef6753028199f58d6bd545acd4833c9a8502ca63a2645c",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-4",
+      "hash": "f40c7e92d67fd85f7bcdb77cc92532c7be66cec12a5fb744511563a370e41914",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-5",
+      "hash": "5ebac28e09489e6aa80950ee37d24c2bd4303a70a8430c94d1da9b2872eb2e48",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-6",
+      "hash": "d6ca3183987ee796efd75ff69f36950a95702ca2078488894e933819dea32ff2",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-7",
+      "hash": "f7dedc6af920d2878853cf28474be5f578374461c3588250ca0354bdf1092cff",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-8",
+      "hash": "23e7df6fa761f804202c812b9e160f8953b501ed70a6caf0ea19682ca260ba4d",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-9",
+      "hash": "b39a2ba40fbf86c18769d0ff03192f50eda3e5ff825ec61bff24ffb3500d499a",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-10",
+      "hash": "e6829ed6a58771a7e9672ae0367b0c3dc23409302a57a75a6471eb2c45d25934",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    },
+    {
+      "seed": "art-diversity-11",
+      "hash": "1aa4dc6f9f603bf66d2e0b90189d5a0dadb9aa233fa1ba63fee562504863f5c4",
+      "appearance": {
+        "bodyColor": "orange",
+        "patternStyle": "normal",
+        "dorsalCoverage": 0.32,
+        "flankCoverage": 0.48,
+        "spotCount": 0
+      }
+    }
+  ],
+  "provenance": "All PNGs here are actual renderSprite/renderLegacySprite pixel output. Integer enlargements use exact pixel replication. Labels/grid only surround the outputs; no concept image pixels are used."
+}
