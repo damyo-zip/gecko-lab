@@ -2,6 +2,11 @@ import {expect,type Page,type Locator} from "@playwright/test";
 export async function touch(l:Locator,mobile:boolean) {if(mobile)await l.tap();else await l.click();}
 /** Home has four tabs; incubator provides access to the other existing screens. */
 export async function navigateGame(page:Page,name:string,mobile:boolean) {
+  const breeding=page.getByRole('dialog',{name:'교배',exact:true});
+  if(name==='교배'&&await breeding.count())return;
+  for(const title of ['유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+    const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
+  }
   const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
   if(await resources.count())await touch(resources.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
   const nav=page.getByRole("navigation",{name:"게임 탭"});
@@ -47,4 +52,17 @@ export async function buyFood(page:Page,mobile:boolean,amount:number){
  await manageResources(page,mobile);await page.getByLabel("먹이 구매 수량",{exact:true}).fill(String(amount));
  await touch(page.getByRole("button",{name:"먹이 구입 · ₩"+(amount*1000).toLocaleString("ko-KR"),exact:true}),mobile);
  await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await closeResources(page,mobile);
+}
+
+export async function inspectGenetics(page:Page,mobile:boolean){
+ const d=page.getByRole('dialog',{name:'유전 정보',exact:true});if(!await d.count())await touch(page.getByRole('button',{name:'유전 정보',exact:true}),mobile);
+}
+export async function closeGenetics(page:Page,mobile:boolean){
+ const d=page.getByRole('dialog',{name:'유전 정보',exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
+}
+
+export async function closeBreeding(page:Page,mobile:boolean){
+ for(const title of ['유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+  const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
+ }
 }

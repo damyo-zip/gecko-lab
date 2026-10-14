@@ -1,3 +1,4 @@
+import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
@@ -27,7 +28,7 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
  const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
  return new Promise((resolve,reject)=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();tx.onerror=()=>reject(tx.error);});
 });}
-async function restore(page:Page,game:HardcoreGame,mobile:boolean){
+async function restore(page:Page,game:HardcoreGame,mobile:boolean){await closeBreeding(page,mobile);
  await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
  await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"ui-review.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(game))});
  await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -56,9 +57,9 @@ test("four portrait screens retain readable controls, immutable records and the 
  await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}).scrollIntoViewIfNeeded();await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
  await expect(page.getByRole("button",{name:"파이어 업 미리 보기",exact:true})).toBeVisible();await page.keyboard.press("Escape");await expect(page.getByRole("dialog")).toHaveCount(0);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(FIXTURE.fatherId);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(FIXTURE.motherId);
- await expect(page.getByTestId("hardcore-forecast")).toContainText("50%");await expect(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true})).toBeEnabled();await frame("breeding");
+ await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("50%");await closeGenetics(page,mobile);await expect(page.getByRole("button",{name:"교배하기",exact:true})).toBeEnabled();await frame("breeding");
  expect(await saved(page)).toEqual(original);
- await restore(page,FIXTURE.incubator,mobile);const incubator=await saved(page);await tab(page,"부화",mobile);await expect(page.locator(".egg-card")).toHaveCount(2);await frame("incubator");
+ await closeBreeding(page,mobile);await restore(page,FIXTURE.incubator,mobile);const incubator=await saved(page);await tab(page,"부화",mobile);await expect(page.locator(".egg-card")).toHaveCount(2);await frame("incubator");
  expect(await saved(page)).toEqual(incubator);
  await writeFile(info.outputPath("ui-state.json"),JSON.stringify({base:original,incubator},null,2));
  for(let t=0;t<4;t++)await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText("6");

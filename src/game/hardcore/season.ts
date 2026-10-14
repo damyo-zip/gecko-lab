@@ -4,6 +4,7 @@ import { addDays } from "./time";
 import { V12 } from "./lifecycle";
 import { createEmbryo } from "./offspring";
 import { observeMating } from "./genetics";
+import { bornIndividual, eggFailure, fertileChance } from './egg-outcome';
 
 export const seasonEggSeed=(m:Mating,clutch:number,egg:number)=>m.seed+"|clutch:"+clutch+"|egg:"+egg;
 export function fertilizeSeason(game:HardcoreGame,m:Mating,startTurn=game.turn):void {
@@ -16,7 +17,7 @@ export function fertilizeSeason(game:HardcoreGame,m:Mating,startTurn=game.turn):
     const birthTurn=startTurn+V12.firstLayAfter+V12.hatchAfter;
     const date=addDays(game.lastDate,(birthTurn-game.turn)*V12.daysPerTurn);
     const embryo=createEmbryo(game,m,seed,id,`해칭 ${m.ordinal}-${clutch}-${egg}`,birthTurn,date);
-    m.lifecycle.offspring.push({embryo,fertilized:seededRandom(seed,"fertilization")()<V12.fertileChance});
+    m.lifecycle.offspring.push({embryo,fertilized:seededRandom(seed,"fertilization")()<fertileChance(m)});
   }
   const mother=game.individuals[m.parents.motherId];
   mother.nextBreedTurn=startTurn+V12.firstLayAfter+V12.restAfter;
@@ -46,11 +47,11 @@ export function seasonEvents(game:HardcoreGame):void {
   }
   for(const egg of Object.values(game.eggs)){
     if(egg.status!=="incubating"||!egg.lifecycle||game.turn<egg.lifecycle.dueTurn)continue;
-    const success=egg.lifecycle.fertilized&&seededRandom(egg.seed,"hatch")()<egg.hatchChance;
+    const failure=eggFailure(egg),success=failure===null;
     egg.status=success?"hatched":"failed";egg.resolvedDate=egg.dueDate;
-    egg.lifecycle.failure=success?null:egg.lifecycle.fertilized?"hatch":"infertile";
-    if(success){game.individuals[egg.embryo.id]=structuredClone(egg.embryo);game.notices.push(egg.embryo.name+" 부화 · 정확히 12턴 후 성체");}
-    else game.notices.push(egg.lifecycle.failure==="infertile"?"무정란 확정 · 공간 해제":"수정란 부화 실패 · 공간 해제");
+    egg.lifecycle.failure=failure;
+    if(success){game.individuals[egg.embryo.id]=bornIndividual(egg.embryo);game.notices.push(egg.embryo.name+" 부화 · 정확히 12턴 후 성체");}
+    else game.notices.push(failure==='genetic'?"유전적 비생존으로 부화 실패 · 공간 해제":failure==='health'?"배아 발달 실패 · 공간 해제":failure==="infertile"?"무정란 확정 · 공간 해제":"수정란 부화 실패 · 공간 해제");
   }
   for(const m of Object.values(game.matings))observeMating(game,m);
 }

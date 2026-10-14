@@ -1,3 +1,4 @@
+import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test,expect,type Page,type Locator } from "@playwright/test";
@@ -15,7 +16,7 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
   const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
   return new Promise(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});
 });}
-async function restore(page:Page,text:string,mobile:boolean){await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
+async function restore(page:Page,text:string,mobile:boolean){await closeBreeding(page,mobile);await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
   await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"phase5.json",mimeType:"application/json",buffer:Buffer.from(text)});
   await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
 }
@@ -44,10 +45,10 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"Ax 해칭 구매",exact:true}),mobile);
   await buyFood(page,mobile,1000);await tab(page,"컬렉션",mobile);for(let t=0;t<12;t++)await day(page,mobile);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(fixture.father);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(fixture.mother);
-  await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("Axanthic");
+  await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("Axanthic");
   await page.getByTestId("hardcore-forecast").scrollIntoViewIfNeeded();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath("phase5-forecast.png"),scale:"css"});
-  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
+  await closeGenetics(page,mobile);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
   await day(page,mobile);await tab(page,"컬렉션",mobile);await feedCollection(page,mobile);
   await day(page,mobile);const eggs=(await saved(page)).eggs;expect(Object.keys(eggs)).toHaveLength(2);
   for(let t=0;t<4;t++)await day(page,mobile);const hatched=await saved(page);expect(hatched.individuals[fixture.father].genetics!.knowledge.loci.axanthic.probabilities).toEqual({"A/ax":1});
@@ -69,10 +70,10 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test("learning calculator shows risky multi-allelic outcomes without creating offspring or changing saved genomes",async({page},info)=>{
-  const mobile=info.project.name.startsWith("mobile");await tab(page,"교배",mobile);await click(page.getByText("유전학 도감",{exact:true}),mobile);await click(page.getByText("독립 좌위 학습 계산기",{exact:true}),mobile);
+  const mobile=info.project.name.startsWith("mobile");await tab(page,"교배",mobile);await inspectGenetics(page,mobile);await click(page.getByText("유전학 도감",{exact:true}),mobile);await click(page.getByText("독립 좌위 학습 계산기",{exact:true}),mobile);
   const before=await saved(page);await page.getByRole("combobox",{name:"cappuccino-complex 수컷",exact:true}).selectOption("n/C");
-  await page.getByRole("combobox",{name:"cappuccino-complex 암컷",exact:true}).selectOption("n/S");await expect(page.locator(".game-tab-content")).toContainText("Luwak");
-  await expect(page.locator(".game-tab-content")).toContainText("차단 조합 발생 25.0%");expect(await saved(page)).toEqual(before);
+  await page.getByRole("combobox",{name:"cappuccino-complex 암컷",exact:true}).selectOption("n/S");await expect(page.getByRole("dialog",{name:"유전 정보",exact:true})).toContainText("Luwak");
+  await expect(page.getByRole("dialog",{name:"유전 정보",exact:true})).toContainText("주의 조합 발생 25.0%");expect(await saved(page)).toEqual(before);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test("actual v4 IndexedDB slot migrates and archives atomically without inventing virtual alleles",async({page},info)=>{
@@ -81,7 +82,7 @@ test("actual v4 IndexedDB slot migrates and archives atomically without inventin
   for(const i of [...Object.values(old.individuals),...Object.values(old.shop.offers).map(o=>o.individual)])delete i.genetics;
   await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});},
     {save:{format:"gecko-lab-save",version:4,checksum:checksum(old),game:old},writeRevision:7});
-  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(8);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(9);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("과거 가상 대립유전자는 복원할 수 없어 미확인");
   const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});return new Promise<string[]>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").getAllKeys();r.onsuccess=()=>resolve(r.result.map(String));tx.oncomplete=()=>db.close();});});expect(archive).toContain("archive-v4-8");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

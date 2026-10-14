@@ -1,29 +1,62 @@
 "use client";
-import { breedingCheck, ovulating, nextOvulation } from "@/game/hardcore/breeding";
-import { owned,freeSlots,reserved } from "@/game/hardcore/survival";
-import { Sprite, Hearts, SectionHeading, type ViewProps } from "./common";
-import { morph } from "@/game/hardcore/adapter";
-import { knowledgeLabel } from "@/genetics/advanced/inference";
-import { publicKnowledge } from "@/game/hardcore/genetics";
-import { GeneticForecast, GeneticsGuide } from "./genetics-panel";
-import { addDays } from "@/game/hardcore/time";
-import { ageTurns,lifeStage } from "@/game/hardcore/lifecycle";
-export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted}:ViewProps & {
-  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;
+import { useMemo, useState } from 'react';
+import { breedingCheck } from '@/game/hardcore/breeding';
+import { breedingRisk } from '@/game/hardcore/breeding-risk';
+import { owned, freeSlots } from '@/game/hardcore/survival';
+import { ageTurns, lifeStage } from '@/game/hardcore/lifecycle';
+import { visualName } from '@/game/hardcore/adapter';
+import { appearanceProfile } from '@/game/hardcore/appearance';
+import { familyTree } from '@/game/hardcore/family-album';
+import { Sprite, Dialog, type ViewProps } from './common';
+import { HomeIcon } from './home-icons';
+import { GeneticForecast, GeneticsGuide } from './genetics-panel';
+import type { Gecko } from '@/game/hardcore/model';
+
+export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted,onClose}:ViewProps & {
+  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;onClose:()=>void;
 }) {
-  const males = owned(game).filter(g=>g.sex === "male" && g.stage === "adult"), females = owned(game).filter(g=>g.sex === "female" && g.stage === "adult");
-  const father = game.individuals[fatherId], mother = game.individuals[motherId], check = breedingCheck(game,fatherId,motherId);
-  return <section className="hc-breeding"><SectionHeading title="브리딩" eyebrow="다음 세대의 시작" icon="dna"/><p className="game-section-copy">12~59턴 성체가 교배할 수 있습니다. 교배 1회에 인큐베이터 2칸을 예약하고 한 번만 산란합니다. 유전 결과는 교배 성공 시 확정하고, 첫 산란은 2턴 후입니다.</p>
-    <div className="parent-picker-grid"><label>수컷 부모<select aria-label="수컷 부모" value={fatherId} onChange={e=>onFather(e.target.value)}><option value="">수컷 선택</option>{males.map(g=><option key={g.id} value={g.id}>{g.name} · Gen {g.generation}</option>)}</select></label>
-      <label>암컷 부모<select aria-label="암컷 부모" value={motherId} onChange={e=>onMother(e.target.value)}><option value="">암컷 선택</option>{females.map(g=><option key={g.id} value={g.id}>{g.name} · {ovulating(g,game) ? "교배 가능" : "휴식·은퇴"}</option>)}</select></label></div>
-    <div className="hc-grid">{[father,mother].map((g,index)=><div className="parent-summary" key={index}><span className="eyebrow">{index===0?"수컷 부모":"암컷 부모"}</span>{g ? <><div className="parent-art"><Sprite gecko={g}/></div><strong>{g.name}</strong><span>{morph(g)}</span><span>Gen {g.generation} · {ageTurns(game,g)}턴 · {lifeStage(game,g)}</span><Hearts gecko={g}/><span>{knowledgeLabel(publicKnowledge(g))}</span>{g.sex === "female" && <span>{ovulating(g,game) ? "교배 가능" : "다음 교배 가능 " + nextOvulation(g,game)}</span>}<button className="game-secondary full-width" onClick={()=>onDetail(g.id)}>상세 정보</button></> : <p>부모를 선택하세요</p>}</div>)}</div>
-    <div className="hc-event"><strong>게임용 성공 확률</strong><span>알별 무정란 5% · 수정란 부화 성공 95% · 전체 알 기준 부화 90.25%</span></div>
-    {father&&mother&&<GeneticForecast father={father} mother={mother}/>}
-    {check.reasons.length>0 && <div className="game-warning">{check.reasons.map(r=><p key={r}>{r}</p>)}</div>}
-    <p className="game-section-copy" data-testid="breeding-slots">인큐베이터 빈 슬롯 {freeSlots(game)}개 · 필요 2개 · 알·교배 예약 {reserved(game)}개</p>
-    <button className="game-primary full-width breed-button" disabled={busy || !!check.reasons.length} onClick={async()=>{if(await play({type:"breed",fatherId,motherId})) onStarted();}}>교배 일정 시작 · 공간 2칸 예약</button>
-    <ol className="hc-timeline"><li>첫 산란 +2턴 · {addDays(game.lastDate,14)}</li><li>교배당 1회 산란 · 정확히 2알 · 빈 슬롯에 자동 배치</li><li>알별 부화 판정 산란 +4턴 · 첫 부화 {addDays(game.lastDate,42)}</li><li>성체 부화 +12턴 · 첫 성체 {addDays(game.lastDate,126)}</li><li>산란 +4턴까지 휴식 · 신규 교배 60턴 은퇴</li></ol>
-    <div className="game-model-note">Lilly White와 동일 계통 Axanthic은 브리더 관찰 기반 작업 모델입니다. 복합 계통은 미검증입니다. 60개 가상 좌위의 외형 상속, 성별 50:50, 일정은 게임용 모델입니다.</div>
-    <GeneticsGuide/>
-  </section>;
+  const [information,setInformation]=useState<'genetics'|'family'|null>(null),[confirmation,setConfirmation]=useState<string|null>(null);
+  const father=game.individuals[fatherId],mother=game.individuals[motherId],check=breedingCheck(game,fatherId,motherId);
+  const risk=useMemo(()=>father&&mother?breedingRisk(game,father,mother):null,[game,father,mother]);
+  const available=owned(game).filter(g=>g.stage==='adult');
+  async function mate(acknowledged?:string){
+    if(await play({type:'breed',fatherId,motherId,riskAcknowledgement:acknowledged}))onStarted();
+  }
+  function Parent({g,sex}:{g:Gecko|undefined;sex:'male'|'female'}){
+    const traits=g?appearanceProfile(g)?.names.features.slice(0,3)??[]:[];
+    return <article className={'parent-summary breed-parent '+sex}>
+      <div className="breed-parent-heading"><HomeIcon name={sex}/><strong>{g?.name??(sex==='male'?'수컷 선택':'암컷 선택')}</strong>
+        {g&&<small title={g.id}>#{g.id.split('-').slice(-2).join('-')}</small>}
+        <button disabled={!g||busy} aria-label={(sex==='male'?'수컷':'암컷')+' 상세 정보'} onClick={()=>g&&onDetail(g.id)}><HomeIcon name="search"/></button></div>
+      <div className="breed-parent-art">{g?<Sprite gecko={g} large/>:<div className="breed-parent-empty"><HomeIcon name="leaf" size={52}/><span>부모를 선택해주세요</span></div>}</div>
+      <div className="breed-parent-caption"><strong title={g?visualName(g):''}>{g?visualName(g):'나의 게코'}</strong>
+        <span>{g?`${lifeStage(game,g)} · ${ageTurns(game,g)}턴 (${ageTurns(game,g)*7}일)`:'성체 개체를 선택하세요'}</span>
+        {g&&<small className="breed-parent-id" title={g.id}>#{g.id.split("-").slice(-2).join("-")}</small>}
+        <div className="breed-trait-chips">{traits.map(t=><span key={t}>{t}</span>)}{g&&<span>{g.generation}세대</span>}</div>
+      </div>
+      <label className="breed-change"><HomeIcon name="refresh"/><span>개체 변경</span><select aria-label={sex==='male'?'수컷 부모':'암컷 부모'} disabled={busy} value={sex==='male'?fatherId:motherId} onChange={e=>{setConfirmation(null);(sex==='male'?onFather:onMother)(e.target.value);}}>
+        <option value="">{sex==='male'?'수컷 선택':'암컷 선택'}</option>{available.filter(g=>g.sex===sex).map(g=><option key={g.id} value={g.id}>{g.name} · {ageTurns(game,g)}턴 · {g.generation}세대</option>)}
+      </select></label>
+    </article>;
+  }
+  return <Dialog title={<><HomeIcon name="heart"/><span>교배</span><HomeIcon name="leaf"/></>} onClose={onClose} className="breed-dialog"><section className="hc-breeding breed-reference">
+    <div className="breed-parent-grid"><Parent g={father} sex="male"/><div className="breed-pair-symbol" aria-hidden="true"><HomeIcon name="heart"/><span>×</span></div><Parent g={mother} sex="female"/></div>
+    <div className="breed-status-grid">
+      <div className={check.reasons.length?'breed-unavailable':'breed-ready'}><span className="breed-status-icon">{check.reasons.length?'!':'✓'}</span><strong>{check.reasons.length?'조건 확인':'교배 가능'}</strong><small>{check.reasons.length?'일반 교배 조건을 확인하세요.':risk?.warnings.length?'주의 사항 확인 후 진행합니다.':'두 개체 모두 교배 조건을 충족합니다.'}</small></div>
+      <div><HomeIcon name="heart"/><strong>혈연 관계</strong><small data-testid="breeding-relationship">{risk?.relationship??'부모 선택 대기'}{risk&&<span>기록 기준 F {(risk.pedigree.coefficient*100).toFixed(2)}%</span>}</small></div>
+      <div><HomeIcon name="egg"/><strong>인큐베이터</strong><small data-testid="breeding-slots">빈 슬롯 {freeSlots(game)}개<span> · 필요 2개</span></small></div>
+    </div>
+    {check.reasons.length>0&&<div className="game-warning" role="status">{check.reasons.map(r=><p key={r}>{r}</p>)}</div>}
+    {risk?.warnings.length?<p className="breed-caution" data-testid="breeding-caution">{risk.warnings.map(w=>w.title).join(' · ')} · 실행 전 확인</p>:null}
+    <div className="breed-info-actions"><button aria-label="혈통 비교" disabled={!father||!mother||busy} onClick={()=>setInformation('family')}><HomeIcon name="tree"/><span><strong>혈통 비교</strong><small>부모와 조상 확인</small></span><HomeIcon name="chevron"/></button>
+      <button aria-label="유전 정보" disabled={busy} onClick={()=>setInformation('genetics')}><HomeIcon name="dna"/><span><strong>유전 정보</strong><small>형질과 유전 가능성</small></span><HomeIcon name="chevron"/></button></div>
+    <button className="breed-submit breed-button" aria-label="교배하기" data-testid="breed-submit" disabled={busy||!!check.reasons.length} onClick={()=>{if(risk?.warnings.length)setConfirmation(risk.acknowledgement);else void mate();}}><HomeIcon name="heart"/><span>교배하기</span></button>
+    {information==='genetics'&&<Dialog title="유전 정보" onClose={()=>setInformation(null)}>{father&&mother?<GeneticForecast father={father} mother={mother}/>:<p>부모를 선택하면 공개 정보에 따른 자손 확률을 확인할 수 있습니다.</p>}<p>교배 1회 · 2칸 예약 · 2턴 후 알 2개 산란 · 산란 후 4턴 판정 · 부화 후 12턴 성체</p><p>기본 무정란 5% · 생존 가능한 수정란의 기본 부화 성공률 95%. 실제 배아별 유전적 영향이 추가로 적용될 수 있습니다.</p><GeneticsGuide/></Dialog>}
+    {information==='family'&&father&&mother&&<Dialog title="혈통 비교" onClose={()=>setInformation(null)}><div className="breed-family-comparison">{[father,mother].map(g=>{const tree=familyTree(game,g.id),roles:Record<string,string>={current:'선택한 부모',father:'아버지',mother:'어머니',paternalGrandfather:'친가 할아버지',paternalGrandmother:'친가 할머니',maternalGrandfather:'외가 할아버지',maternalGrandmother:'외가 할머니'};return <section key={g.id}><h3>{g.name}</h3>{Object.entries(tree).map(([role,relative])=><div key={role}><small>{roles[role]}</small>{relative?<><Sprite gecko={relative}/><strong>{relative.name}</strong><small>{relative.id}</small><span>{visualName(relative)}</span></>:<span>정보 없음</span>}</div>)}</section>;})}</div><p>{risk?.relationship} · 예상 자손 F {((risk?.pedigree.coefficient??0)*100).toFixed(2)}%</p><p>기록 없는 시조와 부모 {risk?.pedigree.founderAssumptions}개를 비근친·상호 비혈연으로 가정한 계산입니다. 실제 비혈연이 확인되었다는 뜻은 아닙니다.</p></Dialog>}
+    {risk&&confirmation===risk.acknowledgement&&<Dialog title="교배 전 위험 확인" onClose={()=>setConfirmation(null)} className="breed-risk-dialog">
+      {risk.warnings.map(w=><section key={w.code}><h3>{w.title}</h3><p>{w.message}</p></section>)}
+      <p className="game-small-note">기록 없는 조상은 비근친·상호 비혈연으로 가정합니다. 숨은 유전 정보는 공개하지 않습니다. 실제 결과는 각 알의 상속된 유전형에 따라 달라집니다.</p>
+      <div className="breed-risk-actions"><button className="game-secondary" disabled={busy} onClick={()=>setConfirmation(null)}>취소</button><button className="game-primary" disabled={busy} onClick={()=>void mate(confirmation)}>위험을 확인하고 교배하기</button></div>
+    </Dialog>}
+  </section></Dialog>;
 }

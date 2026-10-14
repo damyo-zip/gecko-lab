@@ -43,6 +43,9 @@ export interface GeneticsRecord {
   genome: Genome | null;
   knowledge: Knowledge;
   appearanceVersion: "legacy-1" | "5.0" | "patterns-1";
+  /** v9 mixed legacy crosses retain actual transmitted complex alleles.
+   * null is genuinely unknown; it is never silently substituted with wild type. */
+  unresolvedComplex?: readonly [string|null,string|null];
 }
 export interface JointOutcome {
   loci: Record<string, AllelePair>;

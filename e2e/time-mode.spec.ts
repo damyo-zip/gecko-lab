@@ -1,3 +1,5 @@
+import {bornIndividual} from '../src/game/hardcore/egg-outcome';
+import {closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
@@ -36,7 +38,7 @@ test.beforeEach(async({page},info)=>{
   const list:string[]=[];errors.set(page,list);page.on("pageerror",e=>list.push(e.message));page.on("console",m=>{if(m.type()==="error")list.push(m.text());});
   await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
   await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
-  await tab(page,"교배",info.project.name.startsWith("mobile"));await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toBeVisible();
+  await tab(page,"컬렉션",info.project.name.startsWith("mobile"));await expect(page.getByRole("button",{name:"턴 넘기기",exact:true})).toBeVisible();
 });
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
@@ -49,13 +51,13 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   await buyFood(page,mobile,1000);
   const [father,mother]=Object.values((await saved(page)).individuals);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(father.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(mother.id);
-  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
+  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
   const pending=await saved(page);expect(Object.values(pending.matings)[0].lifecycle!.offspring).toHaveLength(2);
   await page.clock.setFixedTime(new Date(addDays(DATE,700)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");expect(await saved(page)).toEqual(pending);
   await endTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
   await endTurn(page,mobile);const eggs=Object.values((await saved(page)).eggs);expect(eggs).toHaveLength(2);const embryo=eggs[0].embryo;
   for(let t=3;t<6;t++){await endTurn(page,mobile);expect((await saved(page)).eggs[eggs[0].id].status).toBe("incubating");}
-  await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id]).toEqual(embryo);
+  await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id]).toEqual(bornIndividual(embryo));
   await click(page.getByRole("button",{name:embryo.name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
   for(let t=7;t<=17;t++)await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id].stage).toBe("juvenile");
   await endTurn(page,mobile);const g=await saved(page);expect(g.individuals[embryo.id]).toMatchObject({stage:"adult",hearts:5});expect(g.lastDate).toBe(addDays(DATE,18*7));
@@ -78,7 +80,7 @@ test("v3 active slot migrates to manual v8 without changing records or applying 
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:{format:"gecko-lab-save",version:3,game:legacy,checksum:checksum(legacy)},writeRevision:10});
   await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");
-  const migrated=await saved(page);expect(migrated.saveVersion).toBe(8);expect(migrated.time.mode).toBe("turn");
+  const migrated=await saved(page);expect(migrated.saveVersion).toBe(9);expect(migrated.time.mode).toBe("turn");
   for(const id of Object.keys(legacy.individuals)){expect(migrated.individuals[id].genotype).toEqual(legacy.individuals[id].genotype);expect(migrated.individuals[id].potential).toEqual(legacy.individuals[id].potential);}expect(migrated.individuals[offer.id].genetics?.genome).toBeNull();
   expect(migrated.lastDate).toBe(DATE);expect(migrated.money).toBe(original.money);
 });

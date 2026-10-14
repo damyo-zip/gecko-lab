@@ -31,14 +31,14 @@ export function ParentSummary({ individual, title }: { individual: Individual | 
       <span className={"game-stage " + individual.stage}>{STAGE_LABELS[individual.stage]}</span></> : <p>부모를 선택하세요.</p>}
   </div>;
 }
-export function Dialog({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+export function Dialog({ title, onClose, children, className = '' }: { title: React.ReactNode; onClose: () => void; children: React.ReactNode; className?:string }) {
   const ref = useRef<HTMLDialogElement>(null), titleId = useId();
   useEffect(() => {
     const dialog = ref.current;
     if (dialog && !dialog.open) dialog.showModal();
     return () => { if (dialog?.open) dialog.close(); };
   }, []);
-  return <dialog ref={ref} className="game-dialog" aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }}>
+  return <dialog ref={ref} className={'game-dialog '+className} aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }}>
     <div className="dialog-heading"><h2 id={titleId}>{title}</h2><button type="button" onClick={onClose} aria-label="상세 창 닫기">×</button></div>
     {children}
   </dialog>;

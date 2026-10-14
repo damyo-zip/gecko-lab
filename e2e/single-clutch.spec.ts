@@ -1,3 +1,5 @@
+import {preRiskRecord} from '../tests/helpers/risk-projection';
+import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {newGame,act} from './fixtures/legacy-catalog';
@@ -23,7 +25,7 @@ for(const available of [0,1,2])test(`${available} free slots: exact shortage, tw
  await restore(page,g,mobile);await navigateGame(page,'교배',mobile);
  await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(father);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(mother);
  await expect(page.getByTestId('breeding-slots')).toContainText(`빈 슬롯 ${available}개 · 필요 2개`);
- const button=page.getByRole('button',{name:'교배 일정 시작 · 공간 2칸 예약',exact:true});
+ const button=page.getByRole('button',{name:'교배하기',exact:true});
  if(available<2){await expect(button).toBeDisabled();await expect(page.locator('.game-warning')).toContainText(`${2-available}개 부족`);expect(await saved(page)).toEqual(g);}
  else {
   await expect(button).toBeEnabled();await page.screenshot({path:info.outputPath('two-slot-breeding.png'),fullPage:true,scale:'css'});await touch(button,mobile);await expect(page.getByRole('heading',{name:'인큐베이터',exact:true})).toBeVisible();
@@ -35,7 +37,7 @@ for(const available of [0,1,2])test(`${available} free slots: exact shortage, tw
   for(let turn=3;turn<=10;turn++){
    await finishTurn(page,mobile);g=await saved(page);expect(Object.values(g.eggs)).toHaveLength(2);
    if(turn<6)expect(Object.values(g.eggs).every(e=>e.status==='incubating')).toBe(true);
-   if(turn===6){expect(Object.values(g.eggs).every(e=>e.status==='hatched')).toBe(true);for(const o of fixed)expect(g.individuals[o.embryo.id]).toEqual(o.embryo);}
+   if(turn===6){expect(Object.values(g.eggs).every(e=>e.status==='hatched')).toBe(true);for(const o of fixed)expect(g.individuals[o.embryo.id]).toEqual(bornIndividual(o.embryo));}
   }
   expect(g.matings[m.id].lifecycle!.offspring).toEqual(fixed);await page.reload();await expect(page.getByTestId('game-day')).toHaveText('10');expect(await saved(page)).toEqual(g);
  }
@@ -45,7 +47,7 @@ for(const key of ['beforeLaying','laid1'] as const)test(`real v6 ${key}: atomic 
  const mobile=info.project.name.startsWith('mobile'),record={save:oldSaves[key],writeRevision:17},errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(record.save.game.turn));let g=await saved(page);const m=Object.values(g.matings)[0],old=Object.values(record.save.game.matings)[0];
- expect(g.rulesVersion).toBe(4);expect(g.eggs).toEqual(record.save.game.eggs);expect(m.lifecycle!.offspring).toEqual(old.lifecycle!.offspring.slice(0,2));expect(g.individuals[m.parents.motherId].nextBreedTurn).toBe(6);expect(reserved(g)).toBe(2);
+ expect(g.rulesVersion).toBe(4);expect(preRiskRecord(g.eggs)).toEqual(record.save.game.eggs);expect(preRiskRecord(m.lifecycle!.offspring)).toEqual(old.lifecycle!.offspring.slice(0,2));expect(g.individuals[m.parents.motherId].nextBreedTurn).toBe(6);expect(reserved(g)).toBe(2);
  for(const id of Object.keys(record.save.game.individuals)){expect(g.individuals[id].genetics).toEqual(record.save.game.individuals[id].genetics);}
  const archives=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise<unknown[]>(resolve=>{const tx=db.transaction('games','readonly'),items:unknown[]=[],r=tx.objectStore('games').openCursor();r.onsuccess=()=>{const c=r.result;if(!c)return;if(String(c.key).startsWith('archive-'))items.push({key:c.key,value:c.value});c.continue();};tx.oncomplete=()=>{db.close();resolve(items);};});});
  expect(archives).toEqual([{key:'archive-v6-18',value:record}]);await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(g.turn));expect(await saved(page)).toEqual(g);

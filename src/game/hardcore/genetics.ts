@@ -7,6 +7,7 @@ import type { GeneticsRecord, Knowledge, Scores } from "@/genetics/advanced/mode
 import { observedLoci } from "@/genetics/advanced/phenotype";
 import { founderPoly, inheritPoly, polyScores } from "@/genetics/advanced/polygenic";
 import type { Gecko, HardcoreGame, Mating } from "./model";
+import { seededRandom } from '@/genetics/random';
 
 /** Existing explicit loci remain recorded; missing Ax/virtual alleles are NOT reconstructed. */
 export function legacyRecord(g:Pick<Gecko,"genotype">):GeneticsRecord {
@@ -21,13 +22,23 @@ export function founderRecord(genotype:Genotype,seed:string,subdued=false,appear
   for(const l of LOCI)knowledge.loci[l.id]=belief({[pairKey(mendelian.loci[l.id],l)]:1},"seller","판매자 제공 게임 유전 기록");
   return {version:1,genome,knowledge,appearanceVersion};
 }
-export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype,seed:string,id:string,newPatterns=false):GeneticsRecord {
-  if(!father.genome||!mother.genome){const result=legacyRecord({genotype});
+export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype|null,seed:string,id:string,newPatterns=false,allowPartial=false):GeneticsRecord {
+  if(!father.genome||!mother.genome){
+    if(!genotype)throw new Error('이전 부모의 기본 유전 상속 기록이 필요합니다.');
+    const result=legacyRecord({genotype});
     const seen:Record<string,string>={};for(const l of LOCI){const pair=genotype.loci[l.id];if(pair)seen[l.id]=l.phenotypes[pairKey(pair,l)];}
-    result.knowledge=childKnowledge(father.knowledge,mother.knowledge,seen,id);return result;
+    if(allowPartial){
+      const rng=seededRandom(seed,'advanced-locus:cappuccino-complex');
+      const f=father.genome?.mendelian.loci['cappuccino-complex']??father.unresolvedComplex??[null,null];
+      const m=mother.genome?.mendelian.loci['cappuccino-complex']??mother.unresolvedComplex??[null,null];
+      result.unresolvedComplex=[f[rng()<.5?0:1],m[rng()<.5?0:1]];
+      if(result.unresolvedComplex.every(a=>a!==null))seen['cappuccino-complex']=LOCI[2].phenotypes[pairKey(result.unresolvedComplex as readonly [string,string],LOCI[2])];
+    }
+    result.knowledge=genotype.loci['lilly-white'].every(a=>a==='Lw')?unknownKnowledge():childKnowledge(father.knowledge,mother.knowledge,seen,id);return result;
   }
   const genome={version:1 as const,mendelian:inherit(father.genome.mendelian,mother.genome.mendelian,seed),polygenic:inheritPoly(father.genome.polygenic,mother.genome.polygenic,seed)};
-  return {version:1,genome,knowledge:childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),
+  const nonViable=LOCI.some(l=>l.nonViable.includes(pairKey(genome.mendelian.loci[l.id],l)));
+  return {version:1,genome,knowledge:nonViable?unknownKnowledge():childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),
     appearanceVersion:newPatterns||father.appearanceVersion==="patterns-1"||mother.appearanceVersion==="patterns-1"?"patterns-1":"5.0"};
 }
 export function cachedGenotype(record:GeneticsRecord,fallback:Genotype):Genotype {

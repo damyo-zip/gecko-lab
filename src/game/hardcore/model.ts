@@ -3,6 +3,7 @@ import type { Genotype } from "@/genetics/mendel";
 import type { PotentialTraits, TraitVariation } from "@/genetics/traits";
 import type { GameDate } from "./time";
 import type { GeneticsRecord, Knowledge } from "@/genetics/advanced/model";
+import type { HealthGenome } from '@/genetics/health';
 
 export type Ownership = "owned" | "sold" | "dead" | "pedigree";
 export const TIME_MODES = ["turn", "realtime"] as const;
@@ -25,7 +26,11 @@ export interface Gecko extends Individual {
   genetics?: GeneticsRecord;
   deathCause?: "starvation" | "natural" | null;
   lastProcessedTurn?: number;
+  /** Hidden, fictional recessive health loci; independent of F and appearance. */
+  healthGenome?: HealthGenome;
 }
+/** A pre-hatch candidate, never a live collection individual until viability is checked. */
+export type Embryo = Gecko & { development?: { version:1; viable:boolean; causes:string[] } };
 export interface Rules {
   fertilizationChance: number;
   hatchChance: number;
@@ -61,8 +66,10 @@ export interface Mating {
   /** v1.2 immutable fertilization results; null for completed legacy records. */
   lifecycle?: {
     startTurn: number; nextLayTurn: number; clutchesLaid: number; maxClutches: number;
-    offspring: { embryo: Gecko; fertilized: boolean }[];
+    offspring: { embryo: Embryo; fertilized: boolean }[];
   } | null;
+  /** Null preserves completed/pending historical conception outcomes. */
+  riskModel?: {version:1; father:HealthGenome; mother:HealthGenome} | null;
   genetics?: {
     father: GeneticsRecord; mother: GeneticsRecord;
     observedIds: string[];
@@ -74,12 +81,12 @@ export interface TimedEgg {
   matingId: string | null;
   laidDate: GameDate;
   dueDate: GameDate;
-  embryo: Gecko;
+  embryo: Embryo;
   hatchChance: number;
   seed: string;
   status: "incubating" | "hatched" | "failed";
   resolvedDate: GameDate | null;
-  lifecycle?: { laidTurn: number; dueTurn: number; fertilized: boolean; failure: "infertile" | "hatch" | null } | null;
+  lifecycle?: { laidTurn: number; dueTurn: number; fertilized: boolean; failure: "infertile" | "hatch" | "genetic" | "health" | null } | null;
 }
 export interface Sale {
   id: string; individualId: string; date: GameDate; price: number;
@@ -98,7 +105,7 @@ export interface NamedLineage {
   favorite?: boolean;
 }
 export interface HardcoreGame {
-  saveVersion: 5 | 6 | 7 | 8;
+  saveVersion: 5 | 6 | 7 | 8 | 9;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
@@ -129,7 +136,7 @@ export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 
 export type GameplayAction =
   | { type: "feed"; id: string }
   | { type: "feedAll" }
-  | { type: "breed"; fatherId: string; motherId: string }
+  | { type: "breed"; fatherId: string; motherId: string; riskAcknowledgement?:string }
   | { type: "buyFood"; amount: number }
   | { type: "buyGecko"; offerId: string }
   | { type: "refreshShop" }

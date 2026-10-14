@@ -33,7 +33,7 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
   switch (action.type) {
     case "feed": feed(game, action.id); break;
     case "feedAll": feedAll(game); break;
-    case "breed": startMating(game, action.fatherId, action.motherId); break;
+    case "breed": startMating(game, action.fatherId, action.motherId,action.riskAcknowledgement); break;
     case "buyFood": buyFood(game, action.amount); break;
     case "refreshShop": {
       if(game.saveVersion<7)throw new Error("현재 상점으로 이전한 뒤 발품팔기를 사용할 수 있습니다.");

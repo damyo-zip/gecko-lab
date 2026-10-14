@@ -49,8 +49,9 @@ test('registering during a pending mating updates real embryos and eggs and reta
 });
 test('actual v7 upgrade preserves all data except lineage metadata and version, derives a unique actual founder, and is idempotent',()=>{
  const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),original=structuredClone(envelope),game=readSave(envelope,DATE);
- expect(envelope).toEqual(original);expect(game.saveVersion).toBe(8);
+ expect(envelope).toEqual(original);expect(game.saveVersion).toBe(9);
  const stripped={...structuredClone(game),saveVersion:7};for(const line of Object.values(stripped.lineages)){delete line.founderId;delete line.favorite;}
+ for(const g of [...Object.values(stripped.individuals),...Object.values(stripped.eggs).map(e=>e.embryo),...Object.values(stripped.shop.offers).flatMap(o=>[o.individual,...(o.family?[o.family.father,o.family.mother]:[])]),...Object.values(stripped.matings).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])])delete g.healthGenome;for(const m of Object.values(stripped.matings))delete m.riskModel;
  expect(stripped).toEqual(original.game);expect(game.lineages[Object.keys(game.lineages)[0]].founderId).toBe(JSON.parse(readFileSync('docs/lineage-reference/baseline.json','utf8')).fatherId);
  for(const g of Object.values(game.individuals)){expect(renderSprite(specimen(g)).pixels).toEqual(renderSprite(specimen(original.game.individuals[g.id])).pixels);expect(visualName(g)).toBe(visualName(original.game.individuals[g.id]));}
  expect(migrateAlbum(game)).toBe(game);expect(readSave(makeSave(game),DATE)).toBe(game);

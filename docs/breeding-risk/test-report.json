@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-14",
+  "saveVersion": 9,
+  "rulesVersion": 4,
+  "riskModelVersion": 1,
+  "artHashes": "matched",
+  "typecheck": "passed",
+  "build": "passed",
+  "unit": {
+    "files": 19,
+    "passed": 232,
+    "failed": 0,
+    "skipped": 0
+  },
+  "e2e": {
+    "passed": 130,
+    "failed": 0,
+    "skipped": 0,
+    "duration": "5.7m",
+    "projects": [
+      "mobile-chromium",
+      "desktop-chromium"
+    ],
+    "mobileViewports": [
+      [
+        360,
+        800
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        932
+      ]
+    ]
+  },
+  "reviewSeed": "real-risk-family-89",
+  "simulations": {
+    "lilly": 20000,
+    "fictionalHealth": 20000,
+    "retainedMendel": 100000
+  },
+  "limitations": [
+    "Real device/Safari not tested",
+    "Health loci are fictional game models",
+    "C/S/H allelism provisional; no fabricated mortality probabilities",
+    "Missing founders assumed unrelated/non-inbred",
+    "Legacy missing virtual appearance genomes remain unresolved"
+  ]
+}
