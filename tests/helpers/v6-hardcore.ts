@@ -1,5 +1,5 @@
 /** Historical v6/rules4 fixtures retain the prior catalog, while using production gameplay.
- * Latest v7 market and v2–v6 migrations are covered in shop-family.test.ts. */
+ * Latest v8 market and v2–v6 migrations are covered in shop-family.test.ts. */
 import {createV6Game} from '@/game/hardcore/create';
 import {refreshLegacyShop} from '@/game/hardcore/shop';
 import {validateGame} from '@/game/hardcore/validation';

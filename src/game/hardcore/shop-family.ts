@@ -69,7 +69,7 @@ export function refreshFamilyShop(game:HardcoreGame,table:PriceTable=MARKET):voi
 
 /** Preserve actual old offers and their unknown parentage; never invent their relatives. */
 export function migrateShop(game:HardcoreGame):HardcoreGame {
-  if(game.saveVersion===7)return game;
+  if(game.saveVersion>=7)return game;
   const next=structuredClone(game);next.saveVersion=7;
   const offers=Object.values(next.shop.offers).slice(0,SHOP_SIZE).map(o=>({...o,family:null,purchased:false}));
   for(let n=offers.length;n<SHOP_SIZE;n++)offers.push(familyOffer(next,0,n) as typeof offers[number]);

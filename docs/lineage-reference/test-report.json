@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-14",
+  "branch": "feat/reference-lineage",
+  "baseCommit": "b93dee773e210a86fedf00f3802df86f5e11e254",
+  "typecheck": "passed",
+  "build": "passed (Next.js 16.4 webpack)",
+  "authoredArtHashes": "unchanged; compile-gecko-art.mjs --check passed",
+  "unit": {
+    "files": 18,
+    "tests": 210,
+    "result": "passed",
+    "finalAlbumTestsAfterUnknownFounderDisplayAdjustment": 9
+  },
+  "e2e": {
+    "fullSuiteTests": 122,
+    "result": "passed",
+    "projects": [
+      "mobile-chromium",
+      "desktop-chromium"
+    ],
+    "viewportWidths": [
+      360,
+      390,
+      430
+    ],
+    "finalAffectedAlbumTests": 14,
+    "finalAffectedAlbumResult": "passed after all source changes",
+    "browserErrors": 0
+  },
+  "storage": {
+    "currentVersion": 8,
+    "rulesVersion": 4,
+    "legacyVersions": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "migrationPreservesBiologicalAndEconomicRecords": true,
+    "rawV7ArchiveVerified": true
+  },
+  "rendering": {
+    "sevenRealFamilyNodesMatchRendererPixels": true,
+    "archivedComparisonMatchesPixels": true,
+    "smoothing": false
+  },
+  "geneticsRendererMarketSourceChanges": false,
+  "latestUIChange": {
+    "banner": "removed",
+    "favoriteCards": "two per view, horizontal native swipe, append at end",
+    "widths": [
+      360,
+      390,
+      430
+    ],
+    "realTouchSwipe": "passed",
+    "registerNinthAtOldEnd": "passed",
+    "gameRulesAndSaveSchemaChanges": false
+  }
+}

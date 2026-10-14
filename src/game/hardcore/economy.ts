@@ -18,7 +18,7 @@ export function buyGecko(g: HardcoreGame, offerId: string): void {
   spend(g, offer.askPrice);
   g.individuals[offerId] = structuredClone(offer.individual);
   for(const parent of parents)if(!g.individuals[parent.id])g.individuals[parent.id]=structuredClone(parent);
-  if(g.saveVersion===7)offer.purchased=true;else delete g.shop.offers[offerId];
+  if(g.saveVersion>=7)offer.purchased=true;else delete g.shop.offers[offerId];
 }
 export function sellGecko(g: HardcoreGame, id: string, table: PriceTable = MARKET): void {
   const i = g.individuals[id]; if (!i || i.status !== "owned" || i.hearts === 0) throw new Error("보유 중인 생존 개체만 분양할 수 있습니다.");

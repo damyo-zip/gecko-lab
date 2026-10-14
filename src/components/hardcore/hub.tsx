@@ -25,8 +25,8 @@ export default function HardcoreHub() {
   const [father,setFather]=useState(""),[mother,setMother]=useState(""),[lineage,setLineage]=useState("");
   const g=game?.individuals[detail],disabled=busy||conflict;
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
-  const isCollection=tab==="collection",isIncubator=tab==="incubator",isShop=tab==="shop",isReference=isCollection||isIncubator||isShop;
-  return <main className={"lab-shell game-shell hc-shell"+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":"")}><OfflineShell/>
+  const isCollection=tab==="collection",isIncubator=tab==="incubator",isShop=tab==="shop",isLineage=tab==="lineage",isReference=isCollection||isIncubator||isShop||isLineage;
+  return <main className={"lab-shell game-shell hc-shell"+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":isLineage?" lineage-shell":"")}><OfflineShell/>
     {isReference?<HomeHeader game={game} disabled={loading||busy} onSettings={()=>setSettings(true)} onShop={()=>setTab("shop")} onFood={()=>setResources(true)}/>:<header className="site-header game-header"><a href="/" className="wordmark" aria-label="GECKO LAB 홈"><span className="logo-tile"><Icon name="leaf" size={22}/></span><span><img src="/ui/gecko-lab-mark.svg" alt="" width={190} height={26}/><small>나만의 크레스티드 게코 연구소</small></span></a><button className="settings-button" aria-label="저장 및 게임 설정" disabled={loading||busy} onClick={()=>setSettings(true)}><Icon name="sliders" size={21}/></button></header>}
     {!isReference&&game && <div className="hc-stats" aria-label="연구소 자원"><div><span><Icon name="sun" size={13}/>게임 자금</span><b data-testid="game-money">{won(game.money)}</b></div><div><span><Icon name="leaf" size={13}/>먹이</span><b data-testid="game-food">{game.food}개</b></div><div><span><Icon name="grid" size={13}/>사육장 / 예약</span><b>{owned(game).length}+{reserved(game)} / {game.capacity}</b></div></div>}
     <div className={isReference?"sr-only":"hc-control-bar "+(game?.time.mode === "realtime"||tab!=="breeding" ? "is-realtime" : "")}>
@@ -39,9 +39,9 @@ export default function HardcoreHub() {
       {tab==="home" && <Dashboard {...props} onTab={setTab}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")} onFood={()=>setResources(true)}/>}
       {tab==="breeding" && <Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onStarted={()=>setTab("incubator")}/>}
       {tab==="incubator" && <Incubator {...props} onTab={setTab} onFood={()=>setResources(true)}/>}{tab==="shop" && <Shop {...props} onFood={()=>setResources(true)}/>}
-      {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}
+      {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage} onFood={()=>setResources(true)}/>}
     </div> : <section className="game-loading"><h1>저장 데이터를 불러오지 못했습니다</h1><p>기존 저장을 덮어쓰지 않았습니다. 복구 전 원본을 아카이브에 남깁니다.</p><button className="game-primary" onClick={()=>setSettings(true)}>백업 복원 또는 새 게임</button></section>}
-    {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v7 · 가격표는 현재 임시 추정</span></footer>}
+    {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v8 · 가격표는 현재 임시 추정</span></footer>}
     <nav className={"game-bottom-nav hc-nav"+(isReference?" home-nav":"")} aria-label="게임 탭">{isReference?HOME_TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><HomeIcon name={t.icon} size={33}/><span>{t.label}</span></button>):TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>
     {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setTab("breeding");}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}

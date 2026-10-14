@@ -90,8 +90,15 @@ export interface ShopFamily { version: 1; seed: string; matingTurn: number; fath
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string;
   family?: ShopFamily | null; purchased?: boolean;
 }
+/** v8 adds album metadata to the existing lineage, never a second pedigree. */
+export interface NamedLineage {
+  id: string; name: string; createdDate: GameDate;
+  /** Null only when an old save cannot identify a unique actual founder. */
+  founderId?: string | null;
+  favorite?: boolean;
+}
 export interface HardcoreGame {
-  saveVersion: 5 | 6 | 7;
+  saveVersion: 5 | 6 | 7 | 8;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
@@ -110,7 +117,7 @@ export interface HardcoreGame {
   matings: Record<string, Mating>;
   eggs: Record<string, TimedEgg>;
   sales: Sale[];
-  lineages: Record<string, { id: string; name: string; createdDate: GameDate }>;
+  lineages: Record<string, NamedLineage>;
   nextLineage: number;
   shop: { date: GameDate; offers: Record<string, ShopOffer>; batch?: number };
   marketVersion: string;
@@ -129,7 +136,9 @@ export type GameplayAction =
   | { type: "sell"; id: string }
   | { type: "expand" }
   | { type: "rename"; id: string; name: string }
-  | { type: "lineage"; id: string; name: string };
+  | { type: "lineage"; id: string; name: string }
+  | { type: "renameLineage"; lineageId: string; name: string }
+  | { type: "unfavoriteLineage"; lineageId: string };
 export type Action = GameplayAction
   | { type: "endTurn" }
   | { type: "setTimeMode"; mode: TimeMode };

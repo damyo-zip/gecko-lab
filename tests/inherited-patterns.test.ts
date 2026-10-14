@@ -103,14 +103,14 @@ test("new-model game egg identity, naming, rendered pixels, ancestry and quotati
 });
 test("actual pre-upgrade v7 save preserves frozen appearance version, all genomes, quotations and pending breeding records",()=>{
  const envelope=JSON.parse(readFileSync("tests/fixtures/pre-pattern-v7.json","utf8")),loaded=parseBackup(JSON.stringify(envelope),"2026-10-14");
- expect(loaded).toEqual(envelope.game);
+ expect({...loaded,saveVersion:7}).toEqual(envelope.game);
  for(const o of Object.values(loaded.shop.offers)){expect(o.individual.genetics!.appearanceVersion).toBe("5.0");expect(specimen(o.individual).appearance.patterns).toBeUndefined();expect(renderSprite(specimen(o.individual)).version).toBe("2.0.1");}
 });
-test("pending actual v5 and historical v6 embryos replay their saved appearance version in v7 validation without rerolling",()=>{
+test("pending actual v5 and historical v6 embryos replay their saved appearance version in v8 validation without rerolling",()=>{
  let old=oldGame("v5-live","2026-10-14",{initialCapacity:20});const [f,m]=Object.keys(old.shop.offers);
  for(const id of [f,m])old=oldAct(old,{type:"buyGecko",offerId:id},old.lastDate);
  old=oldAct(old,{type:"breed",fatherId:f,motherId:m},old.lastDate);old.time.mode="realtime";
- const upgraded=parseBackup(exportBackup(old),"2026-10-14");expect(upgraded.saveVersion).toBe(7);
+ const upgraded=parseBackup(exportBackup(old),"2026-10-14");expect(upgraded.saveVersion).toBe(8);
  const frozen=Object.values(upgraded.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}));
  const reread=parseBackup(exportBackup(upgraded),"2026-10-14");expect(reread).toEqual(upgraded);
  expect(Object.values(reread.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}))).toEqual(frozen);

@@ -1,4 +1,4 @@
-/** Historical v5 regression fixtures. Production readSave migrates these to v7;
+/** Historical v5 regression fixtures. Production readSave migrates these to v8;
  * v1.2 behavior and migration are covered separately in lifecycle tests. */
 import { createLegacyGame } from "@/game/hardcore/create";
 import { refreshShop } from "@/game/hardcore/shop";

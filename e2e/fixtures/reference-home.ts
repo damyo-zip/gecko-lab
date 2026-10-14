@@ -1,3 +1,4 @@
+import {migrateAlbum} from "../../src/game/hardcore/migrate-album";
 import {migrateShop} from "../../src/game/hardcore/shop-family";
 import { newGame } from "../../tests/helpers/v6-hardcore";
 import { legacyRecord } from "../../src/game/hardcore/genetics";
@@ -33,5 +34,5 @@ export function referenceHomeGame() {
   game.shop.offers = {};
   game.food = 38;
   validateGame(game);
-  return migrateShop(game);
+  return migrateAlbum(migrateShop(game));
 }

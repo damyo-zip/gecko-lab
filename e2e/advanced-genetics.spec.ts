@@ -65,7 +65,7 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);for(let t=0;t<12;t++)await day(page,mobile);
   const final=await saved(page);expect(final.individuals[child.id].stage).toBe("adult");expect(final.individuals[child.id].genetics!.genome).toEqual(eggs[child.id+"-egg"].embryo.genetics!.genome);
   await page.reload();await expect(page.getByTestId("game-day")).toHaveText("30");expect(await saved(page)).toEqual(final);
-  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await expect(page.locator(".ancestor-list")).toContainText("100% het Ax");
+  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await expect(page.locator(".ancestor-list")).toContainText("노멀 수컷");await click(page.getByRole("button",{name:"아버지 노멀 수컷 혈통 보기",exact:true}),mobile);await click(page.getByRole("button",{name:"상세 정보",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("100% het Ax");await page.keyboard.press("Escape");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test("learning calculator shows risky multi-allelic outcomes without creating offspring or changing saved genomes",async({page},info)=>{
@@ -81,7 +81,7 @@ test("actual v4 IndexedDB slot migrates and archives atomically without inventin
   for(const i of [...Object.values(old.individuals),...Object.values(old.shop.offers).map(o=>o.individual)])delete i.genetics;
   await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});},
     {save:{format:"gecko-lab-save",version:4,checksum:checksum(old),game:old},writeRevision:7});
-  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(7);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(8);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("과거 가상 대립유전자는 복원할 수 없어 미확인");
   const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});return new Promise<string[]>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").getAllKeys();r.onsuccess=()=>resolve(r.result.map(String));tx.oncomplete=()=>db.close();});});expect(archive).toContain("archive-v4-8");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

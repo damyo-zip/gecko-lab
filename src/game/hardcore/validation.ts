@@ -12,6 +12,7 @@ import type { GeneticsRecord } from "@/genetics/advanced/model";
 import type { Gecko, HardcoreGame } from "./model";
 import { validateV4, validateLifecycleBase, validateGeckoRecord } from "./legacy-validation";
 import { validateLifecycle } from "./lifecycle-validation";
+import {pedigreeIndex,descendantIds} from './family-album';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
 function fail():never {throw new Error("저장 유전체·공개 지식·유전 상속 기록이 손상되었습니다.");}
@@ -30,9 +31,19 @@ export function validateGenetics(record:GeneticsRecord|undefined):asserts record
     if(probabilities&&!probabilities[pairKey(record!.genome.mendelian.loci[l.id],l)])fail();}
 }
 export function validateGame(value:unknown):asserts value is HardcoreGame {
-  if(!value||typeof value!=="object"||![5,6,7].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
+  if(!value||typeof value!=="object"||![5,6,7,8].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
-  const catalog=game.saveVersion===7;
+  const catalog=game.saveVersion>=7;
+  if(game.saveVersion===8){
+    const index=pedigreeIndex(game);
+    for(const [id,line] of Object.entries(game.lineages)){
+      keys(line,'id name createdDate founderId favorite');
+      if(typeof line.favorite!=='boolean'||line.founderId!==null&&(typeof line.founderId!=='string'||!Object.hasOwn(game.individuals,line.founderId)))fail();
+      if(line.founderId){const family=descendantIds(index,line.founderId);family.add(line.founderId);
+        if(!game.individuals[line.founderId].lineageIds.includes(id)||Object.values(game.individuals).some(g=>g.lineageIds.includes(id)&&!family.has(g.id)))fail();}
+      const projected=(base.lineages as HardcoreGame['lineages'])[id];delete projected.founderId;delete projected.favorite;
+    }
+  }
   const relatives=Object.values(game.shop?.offers??{}).flatMap(o=>o.family?[o.family.father,o.family.mother]:[]);
   const individuals={...Object.fromEntries(relatives.map(p=>[p.id,p])),...game.individuals};
   const all=[...relatives,...Object.values(game.individuals??{}),...Object.values(game.eggs??{}).map(e=>e.embryo),...Object.values(game.shop?.offers??{}).map(o=>o.individual),...Object.values(game.matings??{}).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])];

@@ -1,7 +1,10 @@
-export type HomeIconName = "gear" | "leaf" | "coin" | "food" | "plus" | "pen" | "grid" | "heart" | "clock" | "chevron" | "dna" | "collection" | "egg" | "tree" | "shop" | "female" | "male" | "cart" | "calendar" | "refresh";
+export type HomeIconName = "gear" | "leaf" | "coin" | "food" | "plus" | "pen" | "grid" | "heart" | "clock" | "chevron" | "dna" | "collection" | "egg" | "tree" | "shop" | "female" | "male" | "cart" | "calendar" | "refresh" | "star" | "search" | "compare";
 /** Stepped, filled silhouettes used only by the reference home UI. */
 export function HomeIcon({name,size=24}:{name:HomeIconName;size?:number}) {
   const shapes:Record<HomeIconName,string> = {
+    star:"M10 0h4v7h7v3h3v4h-6v3h2v7h-4v-3h-3v-3h-2v3H8v3H4v-7h2v-3H0v-4h3V7h7Z",
+    search:"M4 0h10v2h4v4h2v8h-2v3h-2v2h3v2h3v3h-4v-3h-3v-3H4v-2H1V4h3ZM5 4v10h10V4Z",
+    compare:"M1 13h5v11H1ZM9 7h5v17H9ZM17 0h6v24h-6Z",
     cart:"M0 1h5v4h17v3h-2v9H6v-3H4V5H0ZM7 8v6h10V8ZM6 19h4v5H6ZM16 19h4v5h-4Z",
     calendar:"M4 0h3v4h10V0h3v4h3v20H1V4h3ZM4 9v12h16V9ZM6 11h3v3H6ZM11 11h3v3h-3ZM16 11h3v3h-3ZM6 16h3v3H6ZM11 16h3v3h-3Z",
     refresh:"M7 1h10v2h4v5h3v3h-9V8h3V5h-3V4H8v2H5v5H2V7h2V3h3ZM0 13h9v3H6v3h3v1h7v-2h3v-5h3v4h-2v4h-3v2H7v-2H3v-5H0Z",
