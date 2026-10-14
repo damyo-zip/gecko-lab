@@ -6,6 +6,7 @@ import {newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
 import {exportBackup,readSave} from '../src/game/hardcore/save';
 import {familyTree} from '../src/game/hardcore/family-album';
+import {ancestors} from '../src/game/hardcore/lineage';
 import {renderSprite} from '../src/engine/render';
 import {specimen,visualName} from '../src/game/hardcore/adapter';
 import {navigateGame,touch} from './helpers/hardcore-navigation';
@@ -28,7 +29,7 @@ async function restore(page:Page,game:HardcoreGame,mobile:boolean){
  await touch(page.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);
  await page.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'album.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(game))});
  await touch(page.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);
- await navigateGame(page,'혈통도',mobile);await expect(page.getByRole('heading',{name:'혈통도',exact:true})).toBeVisible();
+ await navigateGame(page,'혈통도',mobile);await expect(page.getByRole('region',{name:'혈통 앨범',exact:true})).toBeVisible();
 }
 async function sameSprite(canvas:Locator,g:Gecko){
  await expect.poll(async()=>hash(await canvas.evaluate(el=>{const c=el as HTMLCanvasElement,ctx=c.getContext('2d')!,scale=c.width/96,raw=ctx.getImageData(0,0,c.width,c.height).data,out:number[]=[];
@@ -112,11 +113,54 @@ test('actual v7 active migration archives original record once, preserves geneal
  await restore(page,game,mobile);expect(await saved(page)).toEqual(game);await touch(page.getByRole('button',{name:'다른 개체 보기',exact:true}),mobile);await page.getByLabel('이름 또는 고유 ID',{exact:true}).fill('없는 개체');await expect(page.getByRole('dialog')).toContainText('일치하는 개체 기록이 없습니다');
 });
 
-test('offline PWA reload keeps the album, live sprites and foliage banner available without progressing real time',async({page,context},info)=>{
+test('offline PWA reload keeps the album, live sprites and terrarium available without progressing real time',async({page,context},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=lineageFixture();await restore(page,f.game,mobile);
  await page.evaluate(()=>navigator.serviceWorker.ready);await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
  await context.setOffline(true);await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');await navigateGame(page,'혈통도',mobile);
  await page.getByRole('combobox',{name:'혈통을 볼 개체',exact:true}).selectOption(f.selectedId);await sameSprite(page.locator('.lineage-root canvas'),f.game.individuals[f.selectedId]);
- expect(await page.evaluate(async()=>{const r=await fetch('/ui/shop-banner.png');return r.ok&&(await r.blob()).size>1000;})).toBe(true);
+ expect(await page.evaluate(async()=>{const r=await fetch('/ui/home-terrarium.png');return r.ok&&(await r.blob()).size>1000;})).toBe(true);
  await expect(page.locator('.album-favorite')).toHaveCount(2);expect(await saved(page)).toEqual(f.game);await context.setOffline(false);
+});
+
+test('no title banner, two favorite cards per view, real horizontal swipe for three families and automatic continuation beyond eight',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),f=lineageFixture();await restore(page,f.game,mobile);
+ await expect(page.locator('.album-banner')).toHaveCount(0);
+ const originalHeight=(await page.locator('.album-favorites').boundingBox())!.height;
+ let game=act(f.game,{type:'lineage',id:f.selectedId,name:'새싹 가문'},f.game.lastDate);await restore(page,game,mobile);
+ const rail=page.getByRole('region',{name:'관심 혈통 카드',exact:true});await expect(rail.locator('.album-favorite')).toHaveCount(3);
+ const scrollbarHeight=await rail.evaluate(el=>(el as HTMLElement).offsetHeight-el.clientHeight);
+ expect((await page.locator('.album-favorites').boundingBox())!.height).toBeLessThanOrEqual(originalHeight+scrollbarHeight+1);
+ for(const width of [360,390,430]){
+  await page.setViewportSize({width,height:844});await rail.evaluate(el=>{el.scrollLeft=0;});
+  await expect.poll(()=>rail.evaluate(el=>el.scrollLeft)).toBe(0);
+  const r=(await rail.boundingBox())!,cards=await rail.locator('.album-favorite').all(),boxes=await Promise.all(cards.map(c=>c.boundingBox()));
+  expect(boxes[0]!.y).toBe(boxes[1]!.y);expect(boxes[1]!.y).toBe(boxes[2]!.y);
+  expect(boxes[1]!.x+boxes[1]!.width).toBeLessThanOrEqual(r.x+r.width+1);expect(boxes[2]!.x).toBeGreaterThanOrEqual(r.x+r.width);
+  if(mobile){const session=await page.context().newCDPSession(page),start=r.x+r.width*.8,y=r.y+r.height*.4;
+   await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:start,y,id:1}]});
+   for(let step=1;step<=12;step++){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start-r.width*.6*step/12,y,id:1}]});await page.evaluate(()=>new Promise(requestAnimationFrame));}
+   await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await session.detach();}
+  else {await rail.hover();await page.mouse.wheel(r.width,0);}
+  await expect.poll(()=>rail.evaluate(el=>el.scrollLeft)).toBeGreaterThan(20);
+  await expect.poll(async()=>{const last=(await cards[2].boundingBox())!;return last.x+last.width<=r.x+r.width+1;}).toBe(true);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(await saved(page)).toEqual(game);
+  if(mobile&&width===390)await page.screenshot({path:'docs/lineage-reference/favorites-slider-390.png',scale:'css'});
+ }
+ await touch(page.getByRole('button',{name:'새싹 가문 혈통 열기',exact:true}),mobile);await expect(page.locator('.lineage-root')).toHaveAttribute('data-id',f.selectedId);
+ await touch(page.getByRole('button',{name:'새싹 가문 관리',exact:true}),mobile);await expect(page.getByRole('dialog',{name:'관심 혈통 관리',exact:true})).toBeVisible();await page.keyboard.press('Escape');
+ // Additional real shop records provide distinct founders; metadata alone changes.
+ const offer=Object.values(game.shop.offers).find(o=>o.askPrice<=game.money)!;game=act(game,{type:'buyGecko',offerId:offer.id},game.lastDate);
+ for(const g of Object.values(game.individuals))if(!Object.values(game.lineages).some(l=>l.founderId===g.id))game=act(game,{type:'lineage',id:g.id,name:'가문 '+g.id},game.lastDate);
+ expect(Object.keys(game.lineages).length).toBeGreaterThan(8);await restore(page,game,mobile);await expect(rail.locator('.album-favorite')).toHaveCount(8);
+ await rail.evaluate(el=>{el.scrollLeft=el.scrollWidth;});await expect(rail.locator('.album-favorite')).toHaveCount(Object.keys(game.lineages).length);
+ await rail.evaluate(el=>{el.scrollLeft=el.scrollWidth;});const lastName=Object.values(game.lineages).at(-1)!.name;
+ await touch(page.getByRole('button',{name:lastName+' 혈통 열기',exact:true}),mobile);const chosen=(await page.locator('.lineage-root').getAttribute('data-id'))!,founderId=Object.values(game.lineages).at(-1)!.founderId!;expect(chosen===founderId||ancestors(game,chosen).has(founderId)).toBe(true);
+ expect(await saved(page)).toEqual(game);
+ // A ninth registration while already at the old end must be reachable immediately.
+ const archived=Object.values(game.lineages).slice(8);for(const line of archived)game=act(game,{type:'unfavoriteLineage',lineageId:line.id},game.lastDate);
+ await restore(page,game,mobile);await expect(rail.locator('.album-favorite')).toHaveCount(8);await rail.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
+ const nextLine=archived[0];await page.getByRole('combobox',{name:'혈통을 볼 개체',exact:true}).selectOption(nextLine.founderId!);
+ await touch(page.getByRole('button',{name:'관심 혈통 등록',exact:true}),mobile);await page.getByLabel('혈통 이름',{exact:true}).fill('이어지는 가문');await touch(page.getByRole('button',{name:'혈통 이름 등록',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);
+ await expect(rail.locator('.album-favorite')).toHaveCount(9);await rail.evaluate(el=>{el.scrollLeft=el.scrollWidth;});await touch(page.getByRole('button',{name:'이어지는 가문 혈통 열기',exact:true}),mobile);
+ const registered=await saved(page);expect(registered.nextLineage).toBe(game.nextLineage);expect(registered.individuals).toEqual(game.individuals);expect(registered.money).toBe(game.money);
 });

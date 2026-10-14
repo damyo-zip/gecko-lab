@@ -19,7 +19,7 @@ await comparison(reference,actual,refMeta,actualMeta,'REFERENCE','IMPLEMENTATION
 await comparison(before,after,bm,am,'BEFORE','AFTER','before-after.png');
 const baseline=JSON.parse(await readFile(dir+'/baseline.json','utf8'));
 const captures=[];
-for(const file of ['before-390.png','after-390.png','after-390-full.png','comparison-390.png','after-720.png','after-720-full.png','overview-720.png']){
+for(const file of ['before-390.png','after-390.png','after-390-full.png','comparison-390.png','after-720.png','after-720-full.png','overview-720.png','favorites-slider-390.png']){
  const buffer=await readFile(dir+'/'+file),m=await sharp(buffer).metadata();captures.push({file,width:m.width,height:m.height,sha256:hash(buffer)});
 }
 await writeFile(dir+'/capture-report.json',JSON.stringify({baselineCommit:baseline.baselineCommit,viewports:[{width:390,height:844},{width:720,height:1280},{width:720,height:actualMeta.height,purpose:'Full album at its natural document height, without a fixed nav covering the comparison panel'}],selectedId:baseline.selectedId,sameBiologicalRecords:true,saveUpgrade:'v7 → v8, founder ID and favorite status only',comparison:{scale:1,labelsOutsideImages:true,referenceOSBarsIncluded:true,implementationOSBarsNotInvented:true},reference:{path:'references/gecko-lineage-ui.jpg',width:refMeta.width,height:refMeta.height,sha256:hash(reference)},captures},null,2)+'\n');

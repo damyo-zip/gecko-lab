@@ -34,6 +34,8 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect,onFood}:Vie
  const [picker,setPicker]=useState<'root'|'left'|'right'|null>(null),[comparison,setComparison]=useState<{left:string;right:string}|null>(null);
  const [editor,setEditor]=useState<{id:string|null;name:string;rootId:string}|null>(null),[remove,setRemove]=useState(false);
  const favorites=Object.values(game.lineages).filter(l=>l.favorite!==false),summaries=useMemo(()=>new Map(Object.values(game.lineages).filter(l=>l.favorite!==false).map(l=>[l.id,familySummary(game,l,index)])),[game,index]);
+ const favoriteScroll=useRef<HTMLDivElement>(null);
+ useEffect(()=>{const node=favoriteScroll.current;if(node&&node.scrollWidth-node.clientWidth-node.scrollLeft<32&&favoriteLimit<favorites.length)setFavoriteLimit(n=>Math.min(favorites.length,n+8));},[favorites.length,favoriteLimit]);
  const families=root?favorites.filter(l=>summaries.get(l.id)?.members.includes(root.id)):[];
  const currentLine=families.find(l=>l.id===activeLine)??families[0],lineSummary=currentLine?summaries.get(currentLine.id):undefined;
  const future=useMemo(()=>root?[...descendantIds(index,root.id)]:[],[index,root]);
@@ -51,16 +53,15 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect,onFood}:Vie
  const quickOptions=records.slice(0,24);if(root&&!quickOptions.some(g=>g.id===root.id))quickOptions.push(root);
  const age=root?recordedAge(game,root):null;
  return <section className="album-reference" aria-label="혈통 앨범">
-  <div className="album-banner album-metal"><HomeIcon name="leaf"/><HomeIcon name="tree" size={33}/><h1>혈통도</h1><HomeIcon name="leaf"/></div>
+  <h1 className="sr-only">혈통도</h1>
   <div className="album-toolbar album-metal"><div><HomeIcon name="star" size={27}/><strong>관심 혈통 <em>{favorites.length}개</em></strong></div><p>좋아하는 가문을 모아보고<br/>혈통을 확인하세요.</p><EndTurnButton game={game} busy={busy} play={play} onShop={onFood} className="album-turn-cta"><HomeIcon name="refresh" size={24}/>턴 넘기기</EndTurnButton></div>
   <section className="album-favorites album-metal" aria-labelledby="album-favorites-title">
-   <div className="album-section-title"><HomeIcon name="star"/><h2 id="album-favorites-title">관심 혈통</h2><span>내가 좋아하는 가문을 등록해보세요.</span>{root&&<button className="album-small-button" disabled={busy} onClick={()=>{setEditor({id:null,name:'',rootId:root.id});setRemove(false);}} aria-label="관심 혈통 등록"><HomeIcon name="plus" size={15}/>등록</button>}</div>
-   {favorites.length?<div className="album-favorite-grid">{favorites.slice(0,favoriteLimit).map(l=>{const summary=summaries.get(l.id)!;return <article className="album-favorite" key={l.id}>
+   <div className="album-section-title"><HomeIcon name="star"/><h2 id="album-favorites-title">관심 혈통</h2><span>{favorites.length>2?'옆으로 밀어 가문을 살펴보세요.':'내가 좋아하는 가문을 등록해보세요.'}</span>{root&&<button className="album-small-button" disabled={busy} onClick={()=>{setEditor({id:null,name:'',rootId:root.id});setRemove(false);}} aria-label="관심 혈통 등록"><HomeIcon name="plus" size={15}/>등록</button>}</div>
+   {favorites.length?<div className="album-favorite-grid" ref={favoriteScroll} role="region" aria-label="관심 혈통 카드" tabIndex={favorites.length>2?0:undefined} onScroll={e=>{const node=e.currentTarget;if(node.scrollWidth-node.clientWidth-node.scrollLeft<32&&favoriteLimit<favorites.length)setFavoriteLimit(n=>Math.min(favorites.length,n+8));}}>{favorites.slice(0,favoriteLimit).map(l=>{const summary=summaries.get(l.id)!;return <article className="album-favorite" key={l.id}>
     <button className="album-family-open" onClick={()=>openFamily(l.id)} disabled={!summary.representative} aria-label={l.name+' 혈통 열기'} aria-pressed={currentLine?.id===l.id}>
      <div className="album-art">{summary.representative&&<Sprite gecko={summary.representative}/>}<HomeIcon name="heart" size={14}/></div><span><strong>{l.name}</strong><small>{summary.maxGeneration}세대 · {summary.founder?summary.descendantCount+'후손':summary.members.length+'기록'}</small><small>{summary.founder?'시조 '+summary.founder.name:'시조 기록 미확인'}</small></span><HomeIcon name="chevron" size={16}/>
     </button><button className="album-family-manage" disabled={busy} aria-label={l.name+' 관리'} onClick={()=>{setEditor({id:l.id,name:l.name,rootId:l.founderId??''});setRemove(false);}}><HomeIcon name="pen" size={14}/></button>
    </article>;})}</div>:<div className="album-empty"><HomeIcon name="heart"/><p>좋아하는 게코를 시조로 등록해<br/>우리 가문의 첫 페이지를 시작하세요.</p></div>}
-   {favorites.length>favoriteLimit&&<button className="album-small-button" onClick={()=>setFavoriteLimit(n=>n+8)}>관심 혈통 더 보기</button>}
   </section>
   {root&&tree&&age?<>
    <section className="album-selected album-metal" aria-labelledby="album-selected-title">

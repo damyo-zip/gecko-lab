@@ -11,7 +11,7 @@
     },
     {
       "width": 720,
-      "height": 1632,
+      "height": 1548,
       "purpose": "Full album at its natural document height, without a fixed nav covering the comparison panel"
     }
   ],
@@ -41,37 +41,43 @@
       "file": "after-390.png",
       "width": 390,
       "height": 844,
-      "sha256": "15874d588f79dd398236b137bbfb35d2399c46ef0489efd07c2424e44b3f698e"
+      "sha256": "7f86373eaf37d69b5312167c112ebad787d004eb50af7f86f10ce9137503c075"
     },
     {
       "file": "after-390-full.png",
       "width": 390,
-      "height": 1614,
-      "sha256": "9a3355024c1ba040daa9b6f358087dc04bd469f4a909f85387d500d2264eacea"
+      "height": 1561,
+      "sha256": "fbb68b3c0c7a4c6b31011ef2f888c1dab434453e4176922b379e0a9f9ff98707"
     },
     {
       "file": "comparison-390.png",
       "width": 390,
       "height": 844,
-      "sha256": "ec6d60eea6d8c8b323ffc2f5188b2e8fce022e74562abea6ef68c81990837c42"
+      "sha256": "1ab890c776b093b0cd50c8e4b77610efdd3d9290de0cd3632ccab297c7434134"
     },
     {
       "file": "after-720.png",
       "width": 720,
       "height": 1280,
-      "sha256": "5a23997199808c16e2db15ddc88517bcb05640f1242d02383e17ec69577ba0f0"
+      "sha256": "ee6fa65baa27c01ae40e94f43340553c1eb87fc4418a2a1e82691d1aebc4e4ec"
     },
     {
       "file": "after-720-full.png",
       "width": 720,
-      "height": 1632,
-      "sha256": "05eae095ea4fb9a2aea55423c0050f17f6baeae47c89c2fefc8f14766d13dce3"
+      "height": 1548,
+      "sha256": "569b237613a084b5d66703b492b57046beea2f82ed9d6a9ef774817df3a4fdf3"
     },
     {
       "file": "overview-720.png",
       "width": 720,
-      "height": 1632,
-      "sha256": "465026f69f2c431ab9ccbfff34df192cbca9202e4fc345df04c94850b7e46f93"
+      "height": 1548,
+      "sha256": "4816079bfb924e4b1fb9f3c5dcb1b1bd8fbb1d08b20e2c2b80e106252e055cb0"
+    },
+    {
+      "file": "favorites-slider-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "20b334073a0ec9a29c0de717b6a5d639cb0e969a4c71edc862e44a0516b9b76c"
     }
   ]
 }

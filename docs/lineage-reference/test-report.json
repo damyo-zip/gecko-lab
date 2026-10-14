@@ -12,7 +12,7 @@
     "finalAlbumTestsAfterUnknownFounderDisplayAdjustment": 9
   },
   "e2e": {
-    "fullSuiteTests": 120,
+    "fullSuiteTests": 122,
     "result": "passed",
     "projects": [
       "mobile-chromium",
@@ -23,7 +23,7 @@
       390,
       430
     ],
-    "finalAffectedAlbumTests": 12,
+    "finalAffectedAlbumTests": 14,
     "finalAffectedAlbumResult": "passed after all source changes",
     "browserErrors": 0
   },
@@ -46,5 +46,17 @@
     "archivedComparisonMatchesPixels": true,
     "smoothing": false
   },
-  "geneticsRendererMarketSourceChanges": false
+  "geneticsRendererMarketSourceChanges": false,
+  "latestUIChange": {
+    "banner": "removed",
+    "favoriteCards": "two per view, horizontal native swipe, append at end",
+    "widths": [
+      360,
+      390,
+      430
+    ],
+    "realTouchSwipe": "passed",
+    "registerNinthAtOldEnd": "passed",
+    "gameRulesAndSaveSchemaChanges": false
+  }
 }
