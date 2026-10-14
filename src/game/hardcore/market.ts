@@ -4,6 +4,8 @@ import { axanthicState } from "@/genetics/hardcore";
 import { dateNumber } from "./time";
 import { carrierProbability } from "@/genetics/advanced/inference";
 import { publicKnowledge } from "./genetics";
+import { appearanceProfile } from "./appearance";
+import { PATTERN_PRICE_RULES } from "@/phenotype/rules";
 
 export interface PriceTable {
   schemaVersion: number; version: string; effectiveDate: string; currency: string; status: string;
@@ -24,11 +26,17 @@ const round = (value: number) => Math.max(1000, Math.round(value / 1000) * 1000)
 export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   validatePriceTable(table);
   const ax = axanthicState(g.genotype), lilly = g.genotype.loci["lilly-white"].includes("Lw"), t = g.potential;
-  const bucket = ax === "visual" ? lilly ? "axanthic-lilly" : "axanthic" : lilly ? "lilly" :
+  const profile=appearanceProfile(g);
+  const bucket = ax === "visual" ? lilly ? "axanthic-lilly" : "axanthic" : lilly ? "lilly" : profile?"normal":
     t.spotDensity >= .5 ? "dalmatian" : t.flankIntensity > .62 && t.creamCoverage > .35 ? "harlequin" :
     t.redIntensity > .7 && t.creamCoverage > .45 ? "tricolor" : "normal";
   const marketBase = table.bases[bucket];
-  const appearance = .8 + .2 * t.redIntensity + .15 * t.creamCoverage + .15 * (t.dorsalIntensity + t.flankIntensity) / 2;
+  const appearance = profile?(()=>{
+    const o=profile.observation,r=PATTERN_PRICE_RULES;
+    // One term per observable dimension; no premium based on generated labels.
+    return .85+r.pattern*(o.dorsal+o.flank+o.limbs)/3+r.continuity*o.pin.reduce((n,l)=>n+l.longestRun/l.length,0)/2+
+      r.spots*Math.min(1,o.spots/100)+r.contrast*profile.traits.contrast;
+  })():.8 + .2 * t.redIntensity + .15 * t.creamCoverage + .15 * (t.dorsalIntensity + t.flankIntensity) / 2;
   // Genotype, game appearance, disclosed sex, age and documented pedigree; never lineage NAME.
   const knowledge=publicKnowledge(g),knownCarrier=carrierProbability(knowledge);
   const reliability=knowledge.loci.axanthic.source==="seller"?.5:1;
@@ -38,7 +46,7 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   const pedigree = g.provenance === "known" && g.parents ? 1.05 : 1;
   const valuation = round(marketBase * appearance * carrier * sex * age * pedigree);
   return { bucket, marketBase, valuation, ask: round(valuation * table.buyMultiplier),
-    sell: round(valuation * table.sellMultiplier), marketVersion: table.version,
+    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(profile?"/patterns-1":""),
     provisional: table.status === "provisional-game-prices" };
 }
 export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): void {
@@ -46,6 +54,6 @@ export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): vo
   for (const offer of Object.values(game.shop.offers)) {
     if(offer.purchased)continue;
     const quote = valueGecko(offer.individual, table);
-    offer.askPrice = quote.ask; offer.marketBase = quote.marketBase; offer.marketVersion = table.version;
+    offer.askPrice = quote.ask; offer.marketBase = quote.marketBase; offer.marketVersion = quote.marketVersion;
   }
 }

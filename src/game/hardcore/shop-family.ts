@@ -7,7 +7,7 @@ import { polyScores } from '@/genetics/advanced/polygenic';
 import { founderRecord, advancedSafety } from './genetics';
 import { createEmbryo } from './offspring';
 import { addDays } from './time';
-import { morph } from './adapter';
+import { visualName } from './adapter';
 import { MARKET, valueGecko, type PriceTable } from './market';
 import type { Gecko, HardcoreGame, Mating, ShopOffer } from './model';
 
@@ -54,10 +54,10 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   if(!child)throw new Error('매물 생성 실패');
   child.stage=age>=12?'adult':age>=6?'juvenile':'hatchling';
   child.nextBreedTurn=Math.max(0,birthTurn+12);child.lastProcessedTurn=game.turn;
-  const label=morph(child).split(' · ')[0].replace('일반형','Normal').replace('릴리화이트 이형접합체','Lilly White');
+  const label=visualName(child);
   child.name=(label==='Normal'?'노멀':label==='Lilly White'?'릴리':label==='Axanthic'?'Ax':label).slice(0,16)+' '+(child.stage==='adult'?child.sex==='male'?'수컷':'암컷':child.stage==='hatchling'?'해칭':'아성체');
   const quote=valueGecko(child,table);
-  return {id,individual:child,askPrice:quote.ask,marketBase:quote.marketBase,marketVersion:table.version,
+  return {id,individual:child,askPrice:quote.ask,marketBase:quote.marketBase,marketVersion:quote.marketVersion,
     purchased:false,family:{version:1,seed:childSeed,matingTurn,father,mother}};
 }
 

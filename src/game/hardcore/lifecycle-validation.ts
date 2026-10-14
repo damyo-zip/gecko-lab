@@ -45,7 +45,9 @@ export function validateLifecycle(game:HardcoreGame):void {
       const historical=game.rulesVersion===4&&clutch>1;
       const birthTurn=historical?egg?.lifecycle?.dueTurn:s.startTurn+2+(clutch-1)*4+4;
       assert(birthTurn!==undefined&&o.embryo.birthTurn===birthTurn&&o.embryo.birthDate===(historical?egg?.dueDate:addDays(m.date,(birthTurn-s.startTurn)*7)));
-      const expected=createEmbryo(game,m,seed,o.embryo.id,o.embryo.name,birthTurn,o.embryo.birthDate);
+      // Replay the validated saved appearance version, not the current factory
+      // default. Pending old embryos must keep their original pixels after upgrade.
+      const expected=createEmbryo(game,m,seed,o.embryo.id,o.embryo.name,birthTurn,o.embryo.birthDate,o.embryo.genetics?.appearanceVersion==="patterns-1");
       // Exp-derived phenotype scores can differ by one ULP between JS engines.
       // Genomes, seeds, all discrete records and the stored values remain exact.
       assert(TRAIT_KEYS.every(k=>Number.isFinite(o.embryo.potential[k])&&Math.abs(o.embryo.potential[k]-expected.potential[k])<=1e-12));

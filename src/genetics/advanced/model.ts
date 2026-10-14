@@ -42,7 +42,7 @@ export interface GeneticsRecord {
   /** Old numeric traits cannot reconstruct virtual alleles. null preserves the old model. */
   genome: Genome | null;
   knowledge: Knowledge;
-  appearanceVersion: "legacy-1" | "5.0";
+  appearanceVersion: "legacy-1" | "5.0" | "patterns-1";
 }
 export interface JointOutcome {
   loci: Record<string, AllelePair>;

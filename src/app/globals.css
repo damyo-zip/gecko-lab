@@ -438,3 +438,8 @@ button:disabled, fieldset:disabled { opacity: .5; cursor: not-allowed; }
 
 .art-version-controls { margin: 12px 16px; }
 .art-version-controls button { min-height: 44px; }
+/* Independent pattern research view; game screen layout is unchanged. */
+.pattern-lab input{background:#101e26;color:#e1eedf;border:1px solid #607768;border-radius:6px;padding:8px;max-width:100%}
+.pattern-lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:18px}
+.pattern-lab-art{display:flex;justify-content:center;background:radial-gradient(ellipse at 50% 60%,#233831,#091520 72%);border:1px solid #344653}
+.pattern-lab-art canvas{max-width:100%;height:auto!important;image-rendering:pixelated}

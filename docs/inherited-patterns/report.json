@@ -1,0 +1,1833 @@
+{
+  "rulesVersion": 1,
+  "seed": "patterns-v1",
+  "legacy": [
+    {
+      "id": "normal",
+      "sha256": "8565b939a9834ac7b44169cbdf30ffd8c0c09b0b6ce49a6f2fe53c0e0fb14450"
+    },
+    {
+      "id": "lilly",
+      "sha256": "dbd7a7e162a06736ca8930593448b7629ff89f75d5fd6f17144fa053c1ad4955"
+    },
+    {
+      "id": "axanthic",
+      "sha256": "cc2546471afd492141715413c1c7fc6bdc59e1fb0dc0bb3acb3ffc9d564ff646"
+    },
+    {
+      "id": "dalmatian",
+      "sha256": "cf40fb0a7c56f834d4f59d3e75fbf0c5db31d7a81f32e91f3f6d497dbf9b80b7"
+    },
+    {
+      "id": "harlequin",
+      "sha256": "f443d4dff0bb93ffc6560975628c2a6629dcbc9b60e57cf5c093d55a085a8dde"
+    },
+    {
+      "id": "tricolor",
+      "sha256": "11d03b806cd807133fc5ced8b129c8503186908de4c3f756d580d240c8c5d7d3"
+    }
+  ],
+  "diversity": [
+    {
+      "seed": "pattern-diversity-0",
+      "sha256": "a8ae9d0cbc3b393240f6626619716b5752791a4db6b1bcfeaf3dc93686d6bfc1"
+    },
+    {
+      "seed": "pattern-diversity-1",
+      "sha256": "766d8493be8923ebf711f9a296d517d7df107610e3a99054ef55635d46b89c08"
+    },
+    {
+      "seed": "pattern-diversity-2",
+      "sha256": "598744c7bea0f7e57b8b6e556de7e7e9bb610c17b0779e1dac8d1ffb2fb8b209"
+    },
+    {
+      "seed": "pattern-diversity-3",
+      "sha256": "2cc5b27a86b75383f8df78d8053dd55449ea9a0f770f660e8197d0fe680c3b37"
+    },
+    {
+      "seed": "pattern-diversity-4",
+      "sha256": "b1757b26672cdaaa8608e242265b4c3f2c962560e315b147506c31f0cc83fd2c"
+    },
+    {
+      "seed": "pattern-diversity-5",
+      "sha256": "dae2495f8731c89cfbca2798c8ff718deab700cad2ae2a4d337d5b596024258a"
+    },
+    {
+      "seed": "pattern-diversity-6",
+      "sha256": "cc95bce74fccd166eb5e71359c06370f71462e6df23a1cfbc20b21490683d128"
+    },
+    {
+      "seed": "pattern-diversity-7",
+      "sha256": "433959002dfbd841bb63b03af3e541a05ea88ff304b2a21c9eebe6ac169214eb"
+    },
+    {
+      "seed": "pattern-diversity-8",
+      "sha256": "c251e4da3aec8d827f8ee35f354c66c6bfba91bc7d0c0abb9144c0d0803ceec9"
+    },
+    {
+      "seed": "pattern-diversity-9",
+      "sha256": "03d05a367e50ceb78460de8c9a8532073a049b1071a9925d7965b4d1ad9ec93a"
+    },
+    {
+      "seed": "pattern-diversity-10",
+      "sha256": "256b030824a22adcb69071ddfc416e19fbf3d0904a6771837bd8e60753b1c9d4"
+    },
+    {
+      "seed": "pattern-diversity-11",
+      "sha256": "53b50394dfe3ed4eaf5f755384f1b62b655e2004a07f8f1e5411ae43197d53fa"
+    }
+  ],
+  "selection": [
+    {
+      "seed": "pin-selection-a",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.51865211187738,
+          "fullRate": 0,
+          "visibleQuality": 0.2743389423076923
+        },
+        {
+          "generation": 1,
+          "mean": 0.6529245974773003,
+          "fullRate": 0,
+          "visibleQuality": 0.4175180288461539
+        },
+        {
+          "generation": 2,
+          "mean": 0.7332182148209756,
+          "fullRate": 0,
+          "visibleQuality": 0.5402644230769229
+        },
+        {
+          "generation": 3,
+          "mean": 0.7809719078171516,
+          "fullRate": 0,
+          "visibleQuality": 0.608173076923077
+        },
+        {
+          "generation": 4,
+          "mean": 0.8444136866497501,
+          "fullRate": 0.015625,
+          "visibleQuality": 0.718299278846154
+        },
+        {
+          "generation": 5,
+          "mean": 0.8618125534435691,
+          "fullRate": 0.09375,
+          "visibleQuality": 0.7765925480769228
+        },
+        {
+          "generation": 6,
+          "mean": 0.900989960668821,
+          "fullRate": 0.265625,
+          "visibleQuality": 0.8942307692307692
+        },
+        {
+          "generation": 7,
+          "mean": 0.9282676790951944,
+          "fullRate": 0.734375,
+          "visibleQuality": 0.9658954326923077
+        },
+        {
+          "generation": 8,
+          "mean": 0.9362464149378986,
+          "fullRate": 0.84375,
+          "visibleQuality": 0.9888822115384615
+        },
+        {
+          "generation": 9,
+          "mean": 0.940077586366514,
+          "fullRate": 0.90625,
+          "visibleQuality": 0.9926382211538459
+        },
+        {
+          "generation": 10,
+          "mean": 0.940829587298852,
+          "fullRate": 0.984375,
+          "visibleQuality": 0.9975961538461539
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.51865211187738,
+          "fullRate": 0,
+          "visibleQuality": 0.2743389423076923
+        },
+        {
+          "generation": 1,
+          "mean": 0.49915232556992734,
+          "fullRate": 0,
+          "visibleQuality": 0.2588641826923077
+        },
+        {
+          "generation": 2,
+          "mean": 0.49734742532701814,
+          "fullRate": 0,
+          "visibleQuality": 0.2542067307692308
+        },
+        {
+          "generation": 3,
+          "mean": 0.5108482356041748,
+          "fullRate": 0,
+          "visibleQuality": 0.2693810096153847
+        },
+        {
+          "generation": 4,
+          "mean": 0.5054931893146424,
+          "fullRate": 0,
+          "visibleQuality": 0.2714843750000001
+        },
+        {
+          "generation": 5,
+          "mean": 0.5142026009001206,
+          "fullRate": 0,
+          "visibleQuality": 0.2684795673076923
+        },
+        {
+          "generation": 6,
+          "mean": 0.5045575993643667,
+          "fullRate": 0,
+          "visibleQuality": 0.27539062499999994
+        },
+        {
+          "generation": 7,
+          "mean": 0.5091469164980307,
+          "fullRate": 0,
+          "visibleQuality": 0.27794471153846156
+        },
+        {
+          "generation": 8,
+          "mean": 0.4874104076877189,
+          "fullRate": 0,
+          "visibleQuality": 0.2481971153846153
+        },
+        {
+          "generation": 9,
+          "mean": 0.4913372900782449,
+          "fullRate": 0,
+          "visibleQuality": 0.24218750000000003
+        },
+        {
+          "generation": 10,
+          "mean": 0.5055535322890807,
+          "fullRate": 0,
+          "visibleQuality": 0.27043269230769224
+        }
+      ]
+    },
+    {
+      "seed": "pin-selection-b",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.4962678140223946,
+          "fullRate": 0,
+          "visibleQuality": 0.2454927884615385
+        },
+        {
+          "generation": 1,
+          "mean": 0.6335468742030845,
+          "fullRate": 0,
+          "visibleQuality": 0.40054086538461536
+        },
+        {
+          "generation": 2,
+          "mean": 0.7043732791383681,
+          "fullRate": 0,
+          "visibleQuality": 0.4729567307692308
+        },
+        {
+          "generation": 3,
+          "mean": 0.7826114372697452,
+          "fullRate": 0,
+          "visibleQuality": 0.5940504807692307
+        },
+        {
+          "generation": 4,
+          "mean": 0.8172444915018556,
+          "fullRate": 0,
+          "visibleQuality": 0.6634615384615387
+        },
+        {
+          "generation": 5,
+          "mean": 0.8575258289737375,
+          "fullRate": 0,
+          "visibleQuality": 0.7373798076923077
+        },
+        {
+          "generation": 6,
+          "mean": 0.8950635382518826,
+          "fullRate": 0.125,
+          "visibleQuality": 0.838341346153846
+        },
+        {
+          "generation": 7,
+          "mean": 0.9123625355511462,
+          "fullRate": 0.421875,
+          "visibleQuality": 0.9140624999999999
+        },
+        {
+          "generation": 8,
+          "mean": 0.9266095010857512,
+          "fullRate": 0.609375,
+          "visibleQuality": 0.9601862980769228
+        },
+        {
+          "generation": 9,
+          "mean": 0.9279386757595453,
+          "fullRate": 0.625,
+          "visibleQuality": 0.9493689903846153
+        },
+        {
+          "generation": 10,
+          "mean": 0.933773977833189,
+          "fullRate": 0.796875,
+          "visibleQuality": 0.978966346153846
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.4962678140223946,
+          "fullRate": 0,
+          "visibleQuality": 0.2454927884615385
+        },
+        {
+          "generation": 1,
+          "mean": 0.5018842557033152,
+          "fullRate": 0,
+          "visibleQuality": 0.2518028846153846
+        },
+        {
+          "generation": 2,
+          "mean": 0.4986794140023708,
+          "fullRate": 0,
+          "visibleQuality": 0.25180288461538464
+        },
+        {
+          "generation": 3,
+          "mean": 0.5107484995357183,
+          "fullRate": 0,
+          "visibleQuality": 0.26652644230769224
+        },
+        {
+          "generation": 4,
+          "mean": 0.5247993508717401,
+          "fullRate": 0,
+          "visibleQuality": 0.26757812499999994
+        },
+        {
+          "generation": 5,
+          "mean": 0.5310042189886846,
+          "fullRate": 0,
+          "visibleQuality": 0.27884615384615397
+        },
+        {
+          "generation": 6,
+          "mean": 0.5417026125764263,
+          "fullRate": 0,
+          "visibleQuality": 0.2919170673076923
+        },
+        {
+          "generation": 7,
+          "mean": 0.5426695293827201,
+          "fullRate": 0,
+          "visibleQuality": 0.29266826923076916
+        },
+        {
+          "generation": 8,
+          "mean": 0.5417822603910765,
+          "fullRate": 0,
+          "visibleQuality": 0.2956730769230768
+        },
+        {
+          "generation": 9,
+          "mean": 0.5477428700329796,
+          "fullRate": 0,
+          "visibleQuality": 0.30318509615384615
+        },
+        {
+          "generation": 10,
+          "mean": 0.5418989205256023,
+          "fullRate": 0,
+          "visibleQuality": 0.3027343749999999
+        }
+      ]
+    },
+    {
+      "seed": "pin-selection-c",
+      "selected": [
+        {
+          "generation": 0,
+          "mean": 0.5150964220677705,
+          "fullRate": 0,
+          "visibleQuality": 0.2726862980769232
+        },
+        {
+          "generation": 1,
+          "mean": 0.6290422091442072,
+          "fullRate": 0,
+          "visibleQuality": 0.3973858173076923
+        },
+        {
+          "generation": 2,
+          "mean": 0.7187815125237123,
+          "fullRate": 0,
+          "visibleQuality": 0.5186298076923076
+        },
+        {
+          "generation": 3,
+          "mean": 0.8213048524035831,
+          "fullRate": 0.015625,
+          "visibleQuality": 0.6805889423076924
+        },
+        {
+          "generation": 4,
+          "mean": 0.8776335368585853,
+          "fullRate": 0.078125,
+          "visibleQuality": 0.8108473557692305
+        },
+        {
+          "generation": 5,
+          "mean": 0.907146283932561,
+          "fullRate": 0.234375,
+          "visibleQuality": 0.8880709134615385
+        },
+        {
+          "generation": 6,
+          "mean": 0.927048458096783,
+          "fullRate": 0.59375,
+          "visibleQuality": 0.9547776442307693
+        },
+        {
+          "generation": 7,
+          "mean": 0.9363156415670248,
+          "fullRate": 0.78125,
+          "visibleQuality": 0.98046875
+        },
+        {
+          "generation": 8,
+          "mean": 0.9388845132829131,
+          "fullRate": 0.90625,
+          "visibleQuality": 0.9915865384615384
+        },
+        {
+          "generation": 9,
+          "mean": 0.9416660117066562,
+          "fullRate": 0.828125,
+          "visibleQuality": 0.9803185096153846
+        },
+        {
+          "generation": 10,
+          "mean": 0.9428557544216803,
+          "fullRate": 0.890625,
+          "visibleQuality": 0.990985576923077
+        }
+      ],
+      "neutral": [
+        {
+          "generation": 0,
+          "mean": 0.5150964220677705,
+          "fullRate": 0,
+          "visibleQuality": 0.2726862980769232
+        },
+        {
+          "generation": 1,
+          "mean": 0.5208768386867993,
+          "fullRate": 0,
+          "visibleQuality": 0.28425480769230765
+        },
+        {
+          "generation": 2,
+          "mean": 0.5261324333922435,
+          "fullRate": 0,
+          "visibleQuality": 0.2874098557692307
+        },
+        {
+          "generation": 3,
+          "mean": 0.5359379525268103,
+          "fullRate": 0,
+          "visibleQuality": 0.2884615384615386
+        },
+        {
+          "generation": 4,
+          "mean": 0.5448366876753065,
+          "fullRate": 0,
+          "visibleQuality": 0.30378605769230765
+        },
+        {
+          "generation": 5,
+          "mean": 0.5350138685192396,
+          "fullRate": 0,
+          "visibleQuality": 0.2932692307692308
+        },
+        {
+          "generation": 6,
+          "mean": 0.525763164998622,
+          "fullRate": 0,
+          "visibleQuality": 0.2901141826923076
+        },
+        {
+          "generation": 7,
+          "mean": 0.5152803900025194,
+          "fullRate": 0,
+          "visibleQuality": 0.27704326923076916
+        },
+        {
+          "generation": 8,
+          "mean": 0.5105695454336581,
+          "fullRate": 0,
+          "visibleQuality": 0.272235576923077
+        },
+        {
+          "generation": 9,
+          "mean": 0.5077860068365148,
+          "fullRate": 0,
+          "visibleQuality": 0.26307091346153844
+        },
+        {
+          "generation": 10,
+          "mean": 0.49932737773923586,
+          "fullRate": 0,
+          "visibleQuality": 0.26096754807692313
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "patternless",
+      "target": "패턴리스",
+      "primary": "옐로 패턴리스",
+      "features": [],
+      "base": "패턴리스",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            191,
+            157,
+            64
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0,
+        "flank": 0.022341650110655746,
+        "limbs": 0.01263786078424994,
+        "cream": 0.026646845068667872,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.41425321739709425,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0,
+          0
+        ],
+        "drippy": 0.0002751942561170094,
+        "wall": 0.00030374320533612303,
+        "tiger": 0.01679757640747162,
+        "brindle": 0.3108637761639694,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 1,
+        "creamArea": 0,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "c07c83fb2a1ebda2225094d3a1714b38daf2636b74d4e018575ed2da272b32ec"
+    },
+    {
+      "id": "flame",
+      "target": "플레임",
+      "primary": "옐로 플레임",
+      "features": [],
+      "base": "플레임",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            193,
+            158,
+            64
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.8932745484795055,
+        "flank": 0.02393789438276292,
+        "limbs": 0.016438917457205146,
+        "cream": 0.2689414213699951,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.0735684221500732,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.0108511316793381,
+          0.0108511316793381
+        ],
+        "drippy": 0.005541029284827696,
+        "wall": 0.005978247215426438,
+        "tiger": 0.027910809490856645,
+        "brindle": 0.03975943517438142,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.5981675392670157,
+        "flank": 0.0017482517482517483,
+        "limbs": 0,
+        "baseArea": 0.625,
+        "creamArea": 0.375,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "1877d3c90cdd4313fb408ff73154377053dd7c2519b56104e747d30e53118cb2"
+    },
+    {
+      "id": "harlequin",
+      "target": "할리퀸",
+      "primary": "오렌지 할리퀸",
+      "features": [],
+      "base": "할리퀸",
+      "color": "오렌지",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "오렌지",
+        "palette": {
+          "base": [
+            205,
+            116,
+            41
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.6199708254359553,
+        "limbs": 0.6496874422186921,
+        "cream": 0.2689414213699951,
+        "complexity": 0.8309209536349248,
+        "contrast": 0.5108236264085265,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.41287018661664654,
+          0.41287018661664654
+        ],
+        "drippy": 0.1435078810420805,
+        "wall": 0.1548314484784832,
+        "tiger": 0.30372594565911815,
+        "brindle": 0.5,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.5340314136125655,
+        "flank": 0.46503496503496505,
+        "limbs": 0.5885486018641811,
+        "baseArea": 0.35737704918032787,
+        "creamArea": 0.6426229508196721,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 3,
+            "gapCount": 6,
+            "length": 26
+          },
+          {
+            "coverage": 0.11538461538461539,
+            "longestRun": 1,
+            "gapCount": 3,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "6cf66820b394b963ffdb40c270b196b6733bf2a64622784549a0d814b9661d6c"
+    },
+    {
+      "id": "extreme",
+      "target": "익스트림 할리퀸",
+      "primary": "옐로 익스트림 할리퀸",
+      "features": [
+        "드리피"
+      ],
+      "base": "익스트림 할리퀸",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            209,
+            171,
+            70
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.8932745484795055,
+        "flank": 0.87342443395671,
+        "limbs": 0.9122943614085639,
+        "cream": 0.5742073569286619,
+        "complexity": 0.9602405648256185,
+        "contrast": 0.47836288641128427,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.6713735692328077,
+          0.6713735692328077
+        ],
+        "drippy": 0.5212636955865638,
+        "wall": 0.5420621418449613,
+        "tiger": 0.20443168404070736,
+        "brindle": 0.5,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.6230366492146597,
+        "flank": 0.5786713286713286,
+        "limbs": 0.8255659121171771,
+        "baseArea": 0.31188524590163935,
+        "creamArea": 0.6881147540983606,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.5,
+            "longestRun": 3,
+            "gapCount": 6,
+            "length": 26
+          },
+          {
+            "coverage": 0.6923076923076923,
+            "longestRun": 6,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "drips": 5,
+        "wall": 0.17307692307692307,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "205df1bdd9152a92f960b13b240cb5dc52a7f258722126333ad024694f558b9a"
+    },
+    {
+      "id": "tricolor",
+      "target": "트라이컬러",
+      "primary": "레드 트라이컬러 익스트림 할리퀸",
+      "features": [
+        "드리피"
+      ],
+      "base": "트라이컬러 익스트림 할리퀸",
+      "color": "레드",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "레드",
+        "palette": {
+          "base": [
+            188,
+            63,
+            40
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.87342443395671,
+        "limbs": 0.9122943614085639,
+        "cream": 0.5742073569286619,
+        "complexity": 0.9602405648256185,
+        "contrast": 0.9307376652185766,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.6713735692328077,
+          0.6713735692328077
+        ],
+        "drippy": 0.5212636955865638,
+        "wall": 0.5420621418449613,
+        "tiger": 0.3397331397125964,
+        "brindle": 0.9602405648256185,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.6178010471204188,
+        "flank": 0.5594405594405595,
+        "limbs": 0.848202396804261,
+        "baseArea": 0.2610655737704918,
+        "creamArea": 0.5086065573770492,
+        "secondaryArea": 0.230327868852459,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.5769230769230769,
+            "longestRun": 4,
+            "gapCount": 7,
+            "length": 26
+          },
+          {
+            "coverage": 0.5384615384615384,
+            "longestRun": 6,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "drips": 5,
+        "wall": 0.17307692307692307,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0
+      },
+      "sha256": "39b3a1be26ff833d6ad99a0ef0853b10dc35f9fc645e810c7f2086f1d66b64fc"
+    },
+    {
+      "id": "tiger",
+      "target": "타이거",
+      "primary": "옐로 타이거",
+      "features": [],
+      "base": "타이거",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            213,
+            174,
+            71
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.8932745484795055,
+        "flank": 0.022341650110655746,
+        "limbs": 0.01263786078424994,
+        "cream": 0.026646845068667872,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.7629884998529197,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0,
+          0
+        ],
+        "drippy": 0.0002751942561170094,
+        "wall": 0.00030374320533612303,
+        "tiger": 0.7766229143573528,
+        "brindle": 0.8309209536349248,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.09424083769633508,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9110655737704918,
+        "creamArea": 0,
+        "secondaryArea": 0.0889344262295082,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "bc821e8735abae3eed9abf8d2eae0e81f23b6d99224876ea01eaab2cd0e1fde7"
+    },
+    {
+      "id": "brindle",
+      "target": "브린들",
+      "primary": "옐로 브린들",
+      "features": [],
+      "base": "브린들",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            191,
+            157,
+            64
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.8932745484795055,
+        "flank": 0.022341650110655746,
+        "limbs": 0.01263786078424994,
+        "cream": 0.026646845068667872,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.9361164957698769,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0,
+          0
+        ],
+        "drippy": 0.0002751942561170094,
+        "wall": 0.00030374320533612303,
+        "tiger": 0.8974919006154638,
+        "brindle": 0.9602405648256185,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.0831151832460733,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9229508196721311,
+        "creamArea": 0,
+        "secondaryArea": 0.07704918032786885,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": true,
+        "spots": 0
+      },
+      "sha256": "3cf3d914a7c8a5274e8c81718f4be11ebcf0437dd3f4a1a70501443e5fee684c"
+    },
+    {
+      "id": "partial",
+      "target": "파셜 핀스트라이프",
+      "primary": "옐로 플레임",
+      "features": [
+        "파셜 핀스트라이프"
+      ],
+      "base": "플레임",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            193,
+            158,
+            64
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.28261559305339573,
+        "limbs": 0.2737273814591853,
+        "cream": 0.2689414213699951,
+        "complexity": 0.5,
+        "contrast": 0.5162322700647226,
+        "pin": [
+          0.8309209536349248,
+          0.8309209536349248
+        ],
+        "side": [
+          0.3650101431949552,
+          0.3650101431949552
+        ],
+        "drippy": 0.0654185055885883,
+        "wall": 0.07058038836632825,
+        "tiger": 0.30372594565911815,
+        "brindle": 0.5,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.49607329842931935,
+        "flank": 0.1381118881118881,
+        "limbs": 0.24900133155792276,
+        "baseArea": 0.5885245901639344,
+        "creamArea": 0.41147540983606556,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0.9230769230769231,
+            "longestRun": 11,
+            "gapCount": 2,
+            "length": 26
+          },
+          {
+            "coverage": 0.8076923076923077,
+            "longestRun": 6,
+            "gapCount": 5,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.23076923076923078,
+            "longestRun": 2,
+            "gapCount": 6,
+            "length": 26
+          },
+          {
+            "coverage": 0.11538461538461539,
+            "longestRun": 1,
+            "gapCount": 3,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "ab7e32f8d5cef92562ca1cad02b5eb069751c138a60f8d7c26dea222d549a017"
+    },
+    {
+      "id": "full",
+      "target": "풀 핀스트라이프",
+      "primary": "옐로 플레임",
+      "features": [
+        "풀 핀스트라이프"
+      ],
+      "base": "플레임",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            200,
+            164,
+            67
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.28261559305339573,
+        "limbs": 0.2737273814591853,
+        "cream": 0.2689414213699951,
+        "complexity": 0.5,
+        "contrast": 0.3678931560926971,
+        "pin": [
+          0.9602405648256185,
+          0.9602405648256185
+        ],
+        "side": [
+          0.4012762961760747,
+          0.4012762961760747
+        ],
+        "drippy": 0.0654185055885883,
+        "wall": 0.07058038836632825,
+        "tiger": 0.1027073864967487,
+        "brindle": 0.5659537802053429,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.4397905759162304,
+        "flank": 0.19755244755244755,
+        "limbs": 0.2010652463382157,
+        "baseArea": 0.6286885245901639,
+        "creamArea": 0.37131147540983606,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.07692307692307693,
+            "longestRun": 1,
+            "gapCount": 3,
+            "length": 26
+          },
+          {
+            "coverage": 0.3076923076923077,
+            "longestRun": 3,
+            "gapCount": 5,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "258e9c17f61b50a8bcc4b47ed74da07f375be3cdda2beedf9a43923144fce029"
+    },
+    {
+      "id": "quad",
+      "target": "쿼드 핀스트라이프",
+      "primary": "크림 익스트림 할리퀸",
+      "features": [
+        "쿼드 핀스트라이프",
+        "드리피",
+        "화이트월"
+      ],
+      "base": "익스트림 할리퀸",
+      "color": "크림",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "크림",
+        "palette": {
+          "base": [
+            218,
+            192,
+            146
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.8780578037096278,
+        "limbs": 0.9233275731326995,
+        "cream": 0.8317493373710256,
+        "complexity": 0.9602405648256185,
+        "contrast": 0.5324303602690976,
+        "pin": [
+          0.9602405648256185,
+          0.9602405648256185
+        ],
+        "side": [
+          0.9897591940190416,
+          0.9897591940190416
+        ],
+        "drippy": 0.7719381034882241,
+        "wall": 0.7809195318365869,
+        "tiger": 0.07912203692341789,
+        "brindle": 0.5659537802053429,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.5955497382198953,
+        "flank": 0.6486013986013986,
+        "limbs": 0.8415446071904128,
+        "baseArea": 0.3172131147540984,
+        "creamArea": 0.6827868852459016,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          }
+        ],
+        "drips": 5,
+        "wall": 0.24125874125874125,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "1d8921e7eb53d7ec170731709e7d630ac9175ca9ff0e226401e37669e9c84da2"
+    },
+    {
+      "id": "drippy",
+      "target": "드리피",
+      "primary": "옐로 할리퀸",
+      "features": [
+        "드리피"
+      ],
+      "base": "할리퀸",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            202,
+            165,
+            67
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.8211956868928434,
+        "limbs": 0.7879246574627317,
+        "cream": 0.41326579750942993,
+        "complexity": 0.8309209536349248,
+        "contrast": 0.4945875526484202,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.606996945465115,
+          0.606996945465115
+        ],
+        "drippy": 0.7219481888944121,
+        "wall": 0.052094247928645365,
+        "tiger": 0.24376487153184578,
+        "brindle": 0.5,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.5634816753926701,
+        "flank": 0.527972027972028,
+        "limbs": 0.6790945406125166,
+        "baseArea": 0.3483606557377049,
+        "creamArea": 0.6516393442622951,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.46153846153846156,
+            "longestRun": 4,
+            "gapCount": 8,
+            "length": 26
+          },
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 3,
+            "gapCount": 6,
+            "length": 26
+          }
+        ],
+        "drips": 5,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "d5995da3e050cdda07a8db5255a7925da718768229dbdf74dbafb51b99269d41"
+    },
+    {
+      "id": "wall",
+      "target": "화이트월",
+      "primary": "오렌지 익스트림 할리퀸",
+      "features": [
+        "화이트월"
+      ],
+      "base": "익스트림 할리퀸",
+      "color": "오렌지",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "오렌지",
+        "palette": {
+          "base": [
+            215,
+            122,
+            43
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0.7409567059588038,
+        "flank": 0.8706835829663085,
+        "limbs": 0.9057677099876704,
+        "cream": 0.41326579750942993,
+        "complexity": 0.9602405648256185,
+        "contrast": 0.4891763735914735,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0.606996945465115,
+          0.606996945465115
+        ],
+        "drippy": 0.050280979611612146,
+        "wall": 0.7743611105274165,
+        "tiger": 0.24376487153184578,
+        "brindle": 0.5,
+        "spots": {
+          "count": 0,
+          "size": 0.03975943517438142
+        }
+      },
+      "observation": {
+        "dorsal": 0.5281413612565445,
+        "flank": 0.5874125874125874,
+        "limbs": 0.7656458055925432,
+        "baseArea": 0.3188524590163935,
+        "creamArea": 0.6811475409836065,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0.6538461538461539,
+            "longestRun": 6,
+            "gapCount": 5,
+            "length": 26
+          },
+          {
+            "coverage": 0.6153846153846154,
+            "longestRun": 7,
+            "gapCount": 4,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.24125874125874125,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0
+      },
+      "sha256": "6cfa72d9c2dcc97300c9689e5577c5b49ee96fa2915eadea97dcaed3271ec3a8"
+    },
+    {
+      "id": "dalmatian",
+      "target": "달마시안",
+      "primary": "옐로 달마시안",
+      "features": [],
+      "base": "달마시안",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            206,
+            169,
+            69
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0,
+        "flank": 0.022341650110655746,
+        "limbs": 0.01263786078424994,
+        "cream": 0.026646845068667872,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.4300963014351092,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0,
+          0
+        ],
+        "drippy": 0.0002751942561170094,
+        "wall": 0.00030374320533612303,
+        "tiger": 0.014332469777211445,
+        "brindle": 0.5,
+        "spots": {
+          "count": 36,
+          "size": 0.8309209536349248
+        }
+      },
+      "observation": {
+        "dorsal": 0,
+        "flank": 0.0017482517482517483,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.9717213114754099,
+        "creamArea": 0.0004098360655737705,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 36
+      },
+      "sha256": "f21442393db7b3ef60320c8e3469c2e2fc42b7464378db4a893a8fbf62c1ac29"
+    },
+    {
+      "id": "superdal",
+      "target": "슈퍼달마시안",
+      "primary": "옐로 슈퍼달마시안",
+      "features": [],
+      "base": "슈퍼달마시안",
+      "color": "옐로",
+      "rulesVersion": 1,
+      "traits": {
+        "version": 1,
+        "color": "옐로",
+        "palette": {
+          "base": [
+            200,
+            164,
+            67
+          ],
+          "secondary": [
+            106,
+            58,
+            32
+          ],
+          "cream": [
+            251,
+            223,
+            161
+          ]
+        },
+        "dorsal": 0,
+        "flank": 0.022341650110655746,
+        "limbs": 0.01263786078424994,
+        "cream": 0.026646845068667872,
+        "complexity": 0.03975943517438142,
+        "contrast": 0.6321068439073029,
+        "pin": [
+          0.03975943517438142,
+          0.03975943517438142
+        ],
+        "side": [
+          0,
+          0
+        ],
+        "drippy": 0.0002751942561170094,
+        "wall": 0.00030374320533612303,
+        "tiger": 0.026669552335966882,
+        "brindle": 0.6296516725857729,
+        "spots": {
+          "count": 79,
+          "size": 0.9602405648256185
+        }
+      },
+      "observation": {
+        "dorsal": 0,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9356557377049181,
+        "creamArea": 0,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 79
+      },
+      "sha256": "c7c17177f9984295c9b0a2ed292d975ff98a4f65f9c1d00ecc162961062758d7"
+    }
+  ]
+}

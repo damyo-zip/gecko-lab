@@ -1,6 +1,7 @@
 export const SPRITE_SIZE = 96;
 export const PIXEL_COUNT = SPRITE_SIZE * SPRITE_SIZE;
 export const ENGINE_VERSION = "2.0.1";
+export const PATTERN_ENGINE_VERSION = "2.1.0";
 
 export type BodyColor = "orange" | "brown" | "cream" | "slate";
 export type PatternStyle = "normal" | "lilly" | "axanthic" | "dalmatian" | "harlequin" | "tricolor";
@@ -21,6 +22,8 @@ export interface AppearanceTraits {
   dorsalCoverage: number;
   flankCoverage: number;
   spotCount: number;
+  /** Versioned procedural skin plan. Absent in all preserved v1/v2 sprites. */
+  patterns?: import("@/phenotype/model").PatternTraits;
   /** Render-only adapter values from Phase 5's existing scores. Never stored as genes. */
   expression?: {
     red: number; orange: number; brightness: number; cream: number;
@@ -69,4 +72,11 @@ export function validateSpecimen(specimen: GeckoSpecimen): void {
     throw new Error("반점 수는 0~70의 정수여야 합니다.");
   if(traits.expression){const keys=["red","orange","brightness","cream","harlequin","pinstripe","contrast"] as const;
     if(Object.keys(traits.expression).length!==keys.length||keys.some(k=>!Number.isFinite(traits.expression![k])||traits.expression![k]<0||traits.expression![k]>1))throw new Error("아트 표현형은 0~1의 유한 수치여야 합니다.");}
+  if(traits.patterns){const p=traits.patterns;
+    const numbers=[p.dorsal,p.flank,p.limbs,p.complexity,p.cream,p.contrast,p.drippy,p.wall,p.tiger,p.brindle,...p.pin,...p.side,p.spots.size];
+    if(p.version!==1||numbers.some(n=>!Number.isFinite(n)||n<0||n>1)||p.pin.length!==2||p.side.length!==2||
+      !Number.isInteger(p.spots.count)||p.spots.count<0||p.spots.count>100||
+      !["레드","오렌지","옐로","크림","다크","회색"].includes(p.color)||
+      Object.values(p.palette).some(c=>c.length!==3||c.some(n=>!Number.isFinite(n)||n<0||n>255)))throw new Error("무늬 표현형 오류");
+  }
 }

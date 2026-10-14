@@ -51,7 +51,7 @@ function winningGame() {
   const first=successfulPair("mobile-v12-"+n+"-",DATE),original=first.original;let g=original;
   for(const id of [first.father,first.mother])g=act(g,{type:"buyGecko",offerId:id},g.lastDate);
   g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=act(g,{type:"breed",fatherId:first.father,motherId:first.mother},g.lastDate);g=turns(g,18);
-  const child=Object.values(g.individuals).filter(i=>i.parents&&i.stage==='adult')[1],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.name.startsWith('노멀'))!;
+  const child=Object.values(g.individuals).filter(i=>i.parents&&i.stage==='adult')[1],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
   if(!child||!partner)continue;
   g=act(g,{type:"buyGecko",offerId:partner.id},g.lastDate);g=act(g,{type:"breed",fatherId:child.sex==='male'?child.id:partner.id,motherId:child.sex==='female'?child.id:partner.id},g.lastDate);g=turns(g,6);
   if(Object.values(g.individuals).some(i=>i.generation===3))return original;
@@ -84,7 +84,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  for(let t=0;t<12;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
  const beforeSale=(await saved(page)).money;await click(page.getByRole("button",{name:/^분양 준비/}),mobile);await click(page.getByRole("button",{name:"분양 확정",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("판매 완료");expect((await saved(page)).money).toBeGreaterThan(beforeSale);await page.keyboard.press("Escape");
  await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
- const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.name.startsWith('노멀'))!;
+ const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
  await click(page.getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
  await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(child.sex==='male'?child.id:partner.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
  await tab(page,"컬렉션",mobile);for(let t=0;t<6;t++)await finishTurn(page,mobile);g=await saved(page);const grandchild=Object.values(g.individuals).find(i=>i.generation===3)!;expect(grandchild).toBeDefined();
@@ -150,7 +150,7 @@ test("stale tabs cannot overwrite money or daily care, all six screens fit 360px
 
 test("offline production shell reload preserves paused IndexedDB and allows explicit player turns",async({page,context},info)=>{
   const mobile=info.project.name.startsWith("mobile");await tab(page,"상점",mobile);
-  await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);
+  const offer=Object.values((await saved(page)).shop.offers)[0];await click(page.getByRole("button",{name:offer.individual.name+" 구매",exact:true}),mobile);
   const before=await saved(page);
   await page.evaluate(async()=>{await navigator.serviceWorker.ready; if(!navigator.serviceWorker.controller)await new Promise<void>(resolve=>navigator.serviceWorker.addEventListener("controllerchange",()=>resolve(),{once:true}));});
   await context.setOffline(true);await page.clock.setFixedTime(new Date(addDays(DATE,2)+"T03:00:00Z"));await page.reload();

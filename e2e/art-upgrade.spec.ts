@@ -20,7 +20,7 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
 async function canvasVisible(page:Page){
  const canvases=page.locator("canvas");expect(await canvases.count()).toBeGreaterThan(0);
  for(const canvas of await canvases.all()){
-  await expect(canvas).toHaveAttribute("data-renderer-version","2.0.1");
+  await expect(canvas).toHaveAttribute("data-renderer-version",/^2\.(0\.1|1\.0)$/);
   const result=await canvas.evaluate(node=>{const c=node as HTMLCanvasElement,ctx=c.getContext("2d")!,p=ctx.getImageData(0,0,c.width,c.height).data,r=c.getBoundingClientRect();
    return {opaque:p.some((v,i)=>i%4===3&&v>0),smoothing:ctx.imageSmoothingEnabled,integerSize:c.width%96===0&&c.height%96===0,fits:r.width<=innerWidth};});
   expect(result).toEqual({opaque:true,smoothing:false,integerSize:true,fits:true});

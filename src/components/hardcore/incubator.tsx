@@ -7,6 +7,7 @@ import {EndTurnButton} from './end-turn';
 import {IncubatorEgg} from './incubator-egg';
 import {incubatorState,eggProgress,eggNumber} from './incubator-state';
 import {V12} from '@/game/hardcore/lifecycle';
+import {morph} from '@/game/hardcore/adapter';
 const MATING_LABEL={pending:'수정 결과 대기',fertilized:'수정 성공',failed:'수정 실패',laid:'산란 완료',cancelled:'산란 전 취소'};
 
 export function Incubator({game,busy,play,onDetail,onTab,onFood}:ViewProps&{onTab:(tab:string)=>void;onFood?:()=>void}){
@@ -50,7 +51,7 @@ export function Incubator({game,busy,play,onDetail,onTab,onFood}:ViewProps&{onTa
    {game.notices.length>0&&<div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
    {completed.length>0&&<section className="inc-results"><h2>부화 결과 · {completed.length}</h2><div className="hc-grid">{completed.slice(0,limit).map(e=><article className={'egg-card '+e.status} key={e.id} data-testid={'hc-egg-'+e.id}>
     <span>{eggNumber(game,e)} · {e.status==='hatched'?'부화 완료':e.lifecycle?.failure==='infertile'?'무정란':'부화 실패'}</span>
-    {e.status==='hatched'?<><div className="hc-hatch-art"><Sprite gecko={game.individuals[e.embryo.id]}/></div><h3>{game.individuals[e.embryo.id].name}</h3><span>부화 성공 · {e.resolvedDate}</span><button className="game-secondary" onClick={()=>onDetail(e.embryo.id)}>자손 이름과 상세 정보</button></>:<><IncubatorEgg seed={e.seed}/><h3>{e.lifecycle?.failure==='infertile'?'무정란':'부화 실패'}</h3><span>결과 확정 · 공간 해제</span></>}
+    {e.status==='hatched'?<><div className="hc-hatch-art"><Sprite gecko={game.individuals[e.embryo.id]}/></div><h3>{game.individuals[e.embryo.id].name}</h3><span className="game-morph">{morph(game.individuals[e.embryo.id])}</span><span>부화 성공 · {e.resolvedDate}</span><button className="game-secondary" onClick={()=>onDetail(e.embryo.id)}>자손 이름과 상세 정보</button></>:<><IncubatorEgg seed={e.seed}/><h3>{e.lifecycle?.failure==='infertile'?'무정란':'부화 실패'}</h3><span>결과 확정 · 공간 해제</span></>}
     <p>부모: {parents(e.embryo.parents!.fatherId,e.embryo.parents!.motherId)}</p><span>Gen {e.embryo.generation}</span>
    </article>)}</div></section>}
    {matings.length>0&&<section className="hc-mating-history"><h2>교배·산란 기록</h2>{matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={'mating-'+m.id}><strong>{game.individuals[m.parents.motherId].name} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.lifecycle?m.status==='fertilized'?` · 산란 0/1 · 산란 예정 TURN ${m.lifecycle.nextLayTurn}`:` · 산란 일정 종료 · 보존된 알 ${Object.values(game.eggs).filter(e=>e.matingId===m.id).length}개`:''}</span><BreedingRecord mating={m} game={game}/></div>)}</section>}

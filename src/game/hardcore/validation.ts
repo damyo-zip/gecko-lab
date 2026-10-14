@@ -23,7 +23,7 @@ export function validateGenetics(record:GeneticsRecord|undefined):asserts record
   keys(record,"version genome knowledge appearanceVersion");if(record!.version!==1)fail();
   validateKnowledge(record!.knowledge);
   if(record!.genome===null){if(record!.appearanceVersion!=="legacy-1")fail();return;}
-  if(record!.appearanceVersion!=="5.0")fail();keys(record!.genome,"version mendelian polygenic");if(record!.genome.version!==1)fail();
+  if(!["5.0","patterns-1"].includes(record!.appearanceVersion))fail();keys(record!.genome,"version mendelian polygenic");if(record!.genome.version!==1)fail();
   validateMendelian(record!.genome.mendelian);validatePoly(record!.genome.polygenic);
   if(risks(record!.genome.mendelian).length)fail();
   for(const l of LOCI){const probabilities=record!.knowledge.loci[l.id].probabilities;
@@ -42,6 +42,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
       if(!equal(cachedGenotype(g.genetics,g.genotype),g.genotype)||TRAIT_KEYS.some(k=>!Number.isFinite(g.potential[k])||Math.abs(expected[k]-g.potential[k])>1e-12))fail();}
     if(g.parents){const f=individuals[g.parents.fatherId],m=individuals[g.parents.motherId];if(!f||!m)fail();
       if(g.genetics.genome){const fp=f.genetics?.genome?.polygenic,mp=m.genetics?.genome?.polygenic;if(!fp||!mp)fail();
+        if((f.genetics!.appearanceVersion==="patterns-1"||m.genetics!.appearanceVersion==="patterns-1")&&g.genetics.appearanceVersion!=="patterns-1")fail();
         for(const id of POLY_IDS){const [a,b]=g.genetics.genome.polygenic.loci[id];if(!fp.loci[id].includes(a)||!mp.loci[id].includes(b))fail();}}
     }
   }

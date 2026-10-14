@@ -4,11 +4,15 @@ import type { Gecko } from "./model";
 import { carrierProbability } from "@/genetics/advanced/inference";
 import { publicKnowledge } from "./genetics";
 import { phenotype } from "@/genetics/advanced/phenotype";
+import { appearanceProfile } from "./appearance";
 
 function legacyView(g: Gecko) {
   return { ...g, genotype: { modelVersion: 1 as const, loci: { "lilly-white": g.genotype.loci["lilly-white"] } } };
 }
 export function morph(g: Gecko): string {
+  const profile=appearanceProfile(g);
+  if(profile){const p=carrierProbability(publicKnowledge(g));
+    return [profile.names.primary,...profile.names.features].join(" · ")+(p===null?" · 유전 정보 미확인":p>1-1e-9?" · 100% het Ax":p>0?" · "+(p*100).toFixed(1)+"% possible het Ax":"");}
   const lilly = g.genotype.loci["lilly-white"].includes("Lw"), ax = axanthicState(g.genotype);
   if (ax === "visual") return lilly ? "Axanthic + Lilly (복합 외형)" : "Axanthic";
   const label = phenotypeOf(legacyView(g)).description;
@@ -29,8 +33,20 @@ export function specimen(g: Gecko,fire:"up"|"down"="up") {
     result.appearance.bodyColor = "slate";
     if (!g.genotype.loci["lilly-white"].includes("Lw")) result.appearance.patternStyle = "axanthic";
   }
+  const profile=appearanceProfile(g);
+  if(profile){const t=profile.traits;
+    result.appearance.patterns=t;
+    const lilly=g.genotype.loci["lilly-white"].includes("Lw"),ax=axanthicState(g.genotype)==="visual";
+    result.appearance.patternStyle=lilly?"lilly":ax?"axanthic":profile.names.base.includes("트라이컬러")?"tricolor":profile.names.base.includes("할리퀸")?"harlequin":profile.names.base.includes("달마시안")?"dalmatian":"normal";
+    result.appearance.dorsalCoverage=t.dorsal;result.appearance.flankCoverage=t.flank;result.appearance.spotCount=Math.min(70,t.spots.count);
+  }
   result.state.fire=fire;
   return result;
+}
+/** Compact representative name, shared by shop/collection; full traits remain in details. */
+export function visualName(g:Gecko):string {
+  return appearanceProfile(g)?.names.primary??morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,
+    {normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"}[specimen(g).appearance.patternStyle]).split(" · ").filter(s=>!s.includes("het")&&!s.includes("유전 정보")).join(" · ");
 }
 export function disclosedSex(g: Gecko): string {
   return g.stage === "adult" ? g.sex === "male" ? "수컷 ♂" : "암컷 ♀" : "미구분 · 성체 때 공개";
