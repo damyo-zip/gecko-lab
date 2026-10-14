@@ -1,0 +1,17 @@
+/* Keep the original card geometry; native action buttons are siblings of selection. */
+.home-shell .home-card { --status-inset-x:8px; --status-inset-y:7px; }
+.home-shell .home-status-placeholder { visibility:hidden; }
+.home-shell .home-card-status-action { position:absolute; left:var(--status-inset-x); right:var(--status-inset-x); bottom:var(--status-inset-y); height:44px; min-height:44px; display:flex; align-items:flex-end; padding:0; border:0; border-radius:0; background:transparent; text-align:left; }
+.home-card-status-action>.home-status { width:100%; line-height:16px; font-size:10px; letter-spacing:-.2px; gap:3px; }
+.home-card-status-action .home-status svg { width:11px; height:12px; }
+.home-card-select>strong,.home-card-select>.home-morph { position:relative; z-index:1; }
+.home-shell .home-card-more { z-index:2; }
+/* More keeps its own touch area; visible status text remains directly tappable. */
+.home-card-status-action .home-status-label { position:relative; z-index:3; }
+.home-status-label { min-width:0; white-space:nowrap; }
+@media(max-width:370px) { .home-shell .home-card { --status-inset-x:6px; } }
+@media(min-width:600px) {
+  .home-shell .home-card { --status-inset-x:14px; --status-inset-y:8px; }
+  .home-card-status-action>.home-status { font-size:16px; line-height:22px; }
+  .home-card-status-action .home-status svg { width:18px; height:18px; }
+}

@@ -1,0 +1,5548 @@
+{
+  "format": "gecko-lab-save",
+  "version": 9,
+  "checksum": "0b988477",
+  "game": {
+    "saveVersion": 9,
+    "rulesVersion": 4,
+    "gameId": "h-a9f7163a",
+    "seed": "home-reference-review",
+    "revision": 5,
+    "turn": 4,
+    "nextClutch": 2,
+    "startedDate": "2026-10-14",
+    "lastDate": "2026-11-11",
+    "rules": {
+      "fertilizationChance": 0.95,
+      "hatchChance": 0.95,
+      "ovulationCycleDays": 6,
+      "ovulationWindowDays": 2,
+      "recoveryDays": 4,
+      "juvenileAfter": 6,
+      "adultAfter": 12,
+      "traitVariation": {
+        "bodyTone": 0.12,
+        "redIntensity": 0.1,
+        "creamCoverage": 0.12,
+        "dorsalIntensity": 0.1,
+        "flankIntensity": 0.12,
+        "spotDensity": 0.16
+      },
+      "initialMoney": 12450,
+      "initialCapacity": 20,
+      "foodUnitPrice": 1000,
+      "expansionSlots": 4,
+      "expansionBasePrice": 100000,
+      "maxCapacity": 3000
+    },
+    "time": {
+      "mode": "turn",
+      "realtimeAnchorDate": "2026-10-14"
+    },
+    "money": 2000000,
+    "food": 176,
+    "capacity": 20,
+    "expansions": 0,
+    "individuals": {
+      "h-a9f7163a-shop-20261014-1": {
+        "id": "h-a9f7163a-shop-20261014-1",
+        "name": "모카",
+        "sex": "female",
+        "birthTurn": -12,
+        "stage": "adult",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "Lw"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.65,
+          "redIntensity": 0.2,
+          "creamCoverage": 0.86,
+          "dorsalIntensity": 0.85,
+          "flankIntensity": 0.75,
+          "spotDensity": 0
+        },
+        "visualSeed": "home-reference-0",
+        "nextBreedTurn": 6,
+        "birthDate": "2026-10-13",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-10-14",
+        "recoverUntil": "2026-11-25",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/Lw": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "A/A": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "N"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      },
+      "h-a9f7163a-shop-20261014-2": {
+        "id": "h-a9f7163a-shop-20261014-2",
+        "name": "같은 이름",
+        "sex": "male",
+        "birthTurn": -12,
+        "stage": "adult",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.65,
+          "redIntensity": 0.6,
+          "creamCoverage": 0.12,
+          "dorsalIntensity": 0.35,
+          "flankIntensity": 0.4,
+          "spotDensity": 0
+        },
+        "visualSeed": "home-reference-1",
+        "nextBreedTurn": 0,
+        "birthDate": "2026-10-13",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-10-14",
+        "recoverUntil": "2026-10-14",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/n": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "A/A": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "N"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      },
+      "h-a9f7163a-shop-20261014-3": {
+        "id": "h-a9f7163a-shop-20261014-3",
+        "name": "그레이",
+        "sex": "male",
+        "birthTurn": -6,
+        "stage": "juvenile",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "ax",
+              "ax"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.5,
+          "redIntensity": 0.15,
+          "creamCoverage": 0.3,
+          "dorsalIntensity": 0.5,
+          "flankIntensity": 0.4,
+          "spotDensity": 0
+        },
+        "visualSeed": "home-reference-2",
+        "nextBreedTurn": 6,
+        "birthDate": "2026-09-02",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-11-25",
+        "recoverUntil": "2026-11-25",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/n": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "ax/ax": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "N"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      },
+      "h-a9f7163a-shop-20261014-4": {
+        "id": "h-a9f7163a-shop-20261014-4",
+        "name": "도트",
+        "sex": "female",
+        "birthTurn": -12,
+        "stage": "adult",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.8,
+          "redIntensity": 0.2,
+          "creamCoverage": 0.82,
+          "dorsalIntensity": 0.12,
+          "flankIntensity": 0.08,
+          "spotDensity": 0.65
+        },
+        "visualSeed": "home-reference-3",
+        "nextBreedTurn": 0,
+        "birthDate": "2026-10-13",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-10-14",
+        "recoverUntil": "2026-10-14",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/n": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "A/A": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "N"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      },
+      "h-a9f7163a-shop-20261014-5": {
+        "id": "h-a9f7163a-shop-20261014-5",
+        "name": "같은 이름",
+        "sex": "male",
+        "birthTurn": -12,
+        "stage": "adult",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.3,
+          "redIntensity": 0.3,
+          "creamCoverage": 0.5,
+          "dorsalIntensity": 0.7,
+          "flankIntensity": 0.8,
+          "spotDensity": 0
+        },
+        "visualSeed": "home-reference-4",
+        "nextBreedTurn": 1,
+        "birthDate": "2026-10-13",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-10-14",
+        "recoverUntil": "2026-10-14",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/n": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "A/A": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "v"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      },
+      "h-a9f7163a-shop-20261014-6": {
+        "id": "h-a9f7163a-shop-20261014-6",
+        "name": "트리",
+        "sex": "female",
+        "birthTurn": -12,
+        "stage": "adult",
+        "parents": null,
+        "generation": 1,
+        "genotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "potential": {
+          "bodyTone": 0.7,
+          "redIntensity": 0.85,
+          "creamCoverage": 0.6,
+          "dorsalIntensity": 0.8,
+          "flankIntensity": 0.6,
+          "spotDensity": 0
+        },
+        "visualSeed": "home-reference-5",
+        "nextBreedTurn": 0,
+        "birthDate": "2026-10-13",
+        "status": "owned",
+        "hearts": 5,
+        "lastFedDate": "2026-11-11",
+        "diedDate": null,
+        "cycleAnchor": "2026-10-14",
+        "recoverUntil": "2026-10-14",
+        "lineageIds": [],
+        "provenance": "unverified",
+        "genetics": {
+          "version": 1,
+          "genome": null,
+          "knowledge": {
+            "version": 1,
+            "loci": {
+              "lilly-white": {
+                "probabilities": {
+                  "n/n": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "axanthic": {
+                "probabilities": {
+                  "A/A": 1
+                },
+                "source": "legacy",
+                "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                "evidenceIds": []
+              },
+              "cappuccino-complex": {
+                "probabilities": null,
+                "source": "unknown",
+                "note": "확률을 계산할 근거가 없습니다.",
+                "evidenceIds": []
+              }
+            }
+          },
+          "appearanceVersion": "legacy-1"
+        },
+        "deathCause": null,
+        "lastProcessedTurn": 4,
+        "healthGenome": {
+          "version": 1,
+          "loci": {
+            "embryonic-vigor": [
+              "N",
+              "N"
+            ],
+            "fertility": [
+              "N",
+              "N"
+            ]
+          }
+        }
+      }
+    },
+    "matings": {
+      "h-a9f7163a-m1": {
+        "id": "h-a9f7163a-m1",
+        "ordinal": 1,
+        "date": "2026-10-14",
+        "parents": {
+          "fatherId": "h-a9f7163a-shop-20261014-2",
+          "motherId": "h-a9f7163a-shop-20261014-1"
+        },
+        "fatherGenotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "n"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "motherGenotype": {
+          "modelVersion": 1,
+          "loci": {
+            "lilly-white": [
+              "n",
+              "Lw"
+            ],
+            "axanthic": [
+              "A",
+              "A"
+            ]
+          }
+        },
+        "fatherTraits": {
+          "bodyTone": 0.65,
+          "redIntensity": 0.6,
+          "creamCoverage": 0.12,
+          "dorsalIntensity": 0.35,
+          "flankIntensity": 0.4,
+          "spotDensity": 0
+        },
+        "motherTraits": {
+          "bodyTone": 0.65,
+          "redIntensity": 0.2,
+          "creamCoverage": 0.86,
+          "dorsalIntensity": 0.85,
+          "flankIntensity": 0.75,
+          "spotDensity": 0
+        },
+        "generation": 2,
+        "lineageIds": [],
+        "seed": "home-reference-review|mating:1|h-a9f7163a-shop-20261014-2|h-a9f7163a-shop-20261014-1",
+        "fertilizationChance": 0.95,
+        "hatchChance": 0.95,
+        "status": "laid",
+        "resolvedDate": "2026-10-28",
+        "genetics": {
+          "father": {
+            "version": 1,
+            "genome": null,
+            "knowledge": {
+              "version": 1,
+              "loci": {
+                "lilly-white": {
+                  "probabilities": {
+                    "n/n": 1
+                  },
+                  "source": "legacy",
+                  "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                  "evidenceIds": []
+                },
+                "axanthic": {
+                  "probabilities": {
+                    "A/A": 1
+                  },
+                  "source": "legacy",
+                  "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                  "evidenceIds": []
+                },
+                "cappuccino-complex": {
+                  "probabilities": null,
+                  "source": "unknown",
+                  "note": "확률을 계산할 근거가 없습니다.",
+                  "evidenceIds": []
+                }
+              }
+            },
+            "appearanceVersion": "legacy-1"
+          },
+          "mother": {
+            "version": 1,
+            "genome": null,
+            "knowledge": {
+              "version": 1,
+              "loci": {
+                "lilly-white": {
+                  "probabilities": {
+                    "n/Lw": 1
+                  },
+                  "source": "legacy",
+                  "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                  "evidenceIds": []
+                },
+                "axanthic": {
+                  "probabilities": {
+                    "A/A": 1
+                  },
+                  "source": "legacy",
+                  "note": "이전 게임에 명시된 유전형 · 가상 외형 대립유전자는 복원 불가",
+                  "evidenceIds": []
+                },
+                "cappuccino-complex": {
+                  "probabilities": null,
+                  "source": "unknown",
+                  "note": "확률을 계산할 근거가 없습니다.",
+                  "evidenceIds": []
+                }
+              }
+            },
+            "appearanceVersion": "legacy-1"
+          },
+          "observedIds": [],
+          "updates": []
+        },
+        "riskModel": {
+          "version": 1,
+          "father": {
+            "version": 1,
+            "loci": {
+              "embryonic-vigor": [
+                "N",
+                "N"
+              ],
+              "fertility": [
+                "N",
+                "N"
+              ]
+            }
+          },
+          "mother": {
+            "version": 1,
+            "loci": {
+              "embryonic-vigor": [
+                "N",
+                "N"
+              ],
+              "fertility": [
+                "N",
+                "N"
+              ]
+            }
+          }
+        },
+        "lifecycle": {
+          "startTurn": 0,
+          "nextLayTurn": 2,
+          "clutchesLaid": 1,
+          "maxClutches": 1,
+          "offspring": [
+            {
+              "embryo": {
+                "id": "h-a9f7163a-c1-1-1",
+                "name": "해칭 1-1-1",
+                "sex": "male",
+                "birthTurn": 6,
+                "birthDate": "2026-11-25",
+                "stage": "hatchling",
+                "parents": {
+                  "fatherId": "h-a9f7163a-shop-20261014-2",
+                  "motherId": "h-a9f7163a-shop-20261014-1"
+                },
+                "generation": 2,
+                "genotype": {
+                  "modelVersion": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "n",
+                      "Lw"
+                    ],
+                    "axanthic": [
+                      "A",
+                      "A"
+                    ]
+                  }
+                },
+                "genetics": {
+                  "version": 1,
+                  "genome": null,
+                  "knowledge": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": {
+                        "probabilities": {
+                          "n/Lw": 1
+                        },
+                        "source": "parents",
+                        "note": "부모 공개 정보와 외형으로 조건부 계산",
+                        "evidenceIds": [
+                          "h-a9f7163a-c1-1-1"
+                        ]
+                      },
+                      "axanthic": {
+                        "probabilities": {
+                          "A/A": 1
+                        },
+                        "source": "parents",
+                        "note": "부모 공개 정보와 외형으로 조건부 계산",
+                        "evidenceIds": [
+                          "h-a9f7163a-c1-1-1"
+                        ]
+                      },
+                      "cappuccino-complex": {
+                        "probabilities": null,
+                        "source": "unknown",
+                        "note": "확률을 계산할 근거가 없습니다.",
+                        "evidenceIds": []
+                      }
+                    }
+                  },
+                  "appearanceVersion": "legacy-1",
+                  "unresolvedComplex": [
+                    null,
+                    null
+                  ]
+                },
+                "potential": {
+                  "bodyTone": 0.7204285621456802,
+                  "redIntensity": 0.3454210699535907,
+                  "creamCoverage": 0.596035926900804,
+                  "dorsalIntensity": 0.6711458607111126,
+                  "flankIntensity": 0.6173462814092636,
+                  "spotDensity": 0.02558353178203106
+                },
+                "visualSeed": "h-a9f7163a-c1-1-1-3a665a08",
+                "nextBreedTurn": 18,
+                "status": "owned",
+                "hearts": 5,
+                "lastFedDate": null,
+                "diedDate": null,
+                "cycleAnchor": "2027-02-17",
+                "recoverUntil": "2027-02-17",
+                "lineageIds": [],
+                "provenance": "known",
+                "deathCause": null,
+                "lastProcessedTurn": 6,
+                "healthGenome": {
+                  "version": 1,
+                  "loci": {
+                    "embryonic-vigor": [
+                      "N",
+                      "N"
+                    ],
+                    "fertility": [
+                      "N",
+                      "N"
+                    ]
+                  }
+                },
+                "development": {
+                  "version": 1,
+                  "viable": true,
+                  "causes": []
+                }
+              },
+              "fertilized": true
+            },
+            {
+              "embryo": {
+                "id": "h-a9f7163a-c1-1-2",
+                "name": "해칭 1-1-2",
+                "sex": "male",
+                "birthTurn": 6,
+                "birthDate": "2026-11-25",
+                "stage": "hatchling",
+                "parents": {
+                  "fatherId": "h-a9f7163a-shop-20261014-2",
+                  "motherId": "h-a9f7163a-shop-20261014-1"
+                },
+                "generation": 2,
+                "genotype": {
+                  "modelVersion": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "n",
+                      "Lw"
+                    ],
+                    "axanthic": [
+                      "A",
+                      "A"
+                    ]
+                  }
+                },
+                "genetics": {
+                  "version": 1,
+                  "genome": null,
+                  "knowledge": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": {
+                        "probabilities": {
+                          "n/Lw": 1
+                        },
+                        "source": "parents",
+                        "note": "부모 공개 정보와 외형으로 조건부 계산",
+                        "evidenceIds": [
+                          "h-a9f7163a-c1-1-2"
+                        ]
+                      },
+                      "axanthic": {
+                        "probabilities": {
+                          "A/A": 1
+                        },
+                        "source": "parents",
+                        "note": "부모 공개 정보와 외형으로 조건부 계산",
+                        "evidenceIds": [
+                          "h-a9f7163a-c1-1-2"
+                        ]
+                      },
+                      "cappuccino-complex": {
+                        "probabilities": null,
+                        "source": "unknown",
+                        "note": "확률을 계산할 근거가 없습니다.",
+                        "evidenceIds": []
+                      }
+                    }
+                  },
+                  "appearanceVersion": "legacy-1",
+                  "unresolvedComplex": [
+                    null,
+                    null
+                  ]
+                },
+                "potential": {
+                  "bodyTone": 0.6785517636500299,
+                  "redIntensity": 0.38281544689089064,
+                  "creamCoverage": 0.5664157080277801,
+                  "dorsalIntensity": 0.5590468024369329,
+                  "flankIntensity": 0.45665131650865076,
+                  "spotDensity": 0.06360658220946788
+                },
+                "visualSeed": "h-a9f7163a-c1-1-2-29ceb35b",
+                "nextBreedTurn": 18,
+                "status": "owned",
+                "hearts": 5,
+                "lastFedDate": null,
+                "diedDate": null,
+                "cycleAnchor": "2027-02-17",
+                "recoverUntil": "2027-02-17",
+                "lineageIds": [],
+                "provenance": "known",
+                "deathCause": null,
+                "lastProcessedTurn": 6,
+                "healthGenome": {
+                  "version": 1,
+                  "loci": {
+                    "embryonic-vigor": [
+                      "N",
+                      "N"
+                    ],
+                    "fertility": [
+                      "N",
+                      "N"
+                    ]
+                  }
+                },
+                "development": {
+                  "version": 1,
+                  "viable": true,
+                  "causes": []
+                }
+              },
+              "fertilized": false
+            }
+          ]
+        }
+      }
+    },
+    "eggs": {
+      "h-a9f7163a-c1-1-1-egg": {
+        "id": "h-a9f7163a-c1-1-1-egg",
+        "matingId": "h-a9f7163a-m1",
+        "laidDate": "2026-10-28",
+        "dueDate": "2026-11-25",
+        "embryo": {
+          "id": "h-a9f7163a-c1-1-1",
+          "name": "해칭 1-1-1",
+          "sex": "male",
+          "birthTurn": 6,
+          "birthDate": "2026-11-25",
+          "stage": "hatchling",
+          "parents": {
+            "fatherId": "h-a9f7163a-shop-20261014-2",
+            "motherId": "h-a9f7163a-shop-20261014-1"
+          },
+          "generation": 2,
+          "genotype": {
+            "modelVersion": 1,
+            "loci": {
+              "lilly-white": [
+                "n",
+                "Lw"
+              ],
+              "axanthic": [
+                "A",
+                "A"
+              ]
+            }
+          },
+          "genetics": {
+            "version": 1,
+            "genome": null,
+            "knowledge": {
+              "version": 1,
+              "loci": {
+                "lilly-white": {
+                  "probabilities": {
+                    "n/Lw": 1
+                  },
+                  "source": "parents",
+                  "note": "부모 공개 정보와 외형으로 조건부 계산",
+                  "evidenceIds": [
+                    "h-a9f7163a-c1-1-1"
+                  ]
+                },
+                "axanthic": {
+                  "probabilities": {
+                    "A/A": 1
+                  },
+                  "source": "parents",
+                  "note": "부모 공개 정보와 외형으로 조건부 계산",
+                  "evidenceIds": [
+                    "h-a9f7163a-c1-1-1"
+                  ]
+                },
+                "cappuccino-complex": {
+                  "probabilities": null,
+                  "source": "unknown",
+                  "note": "확률을 계산할 근거가 없습니다.",
+                  "evidenceIds": []
+                }
+              }
+            },
+            "appearanceVersion": "legacy-1",
+            "unresolvedComplex": [
+              null,
+              null
+            ]
+          },
+          "potential": {
+            "bodyTone": 0.7204285621456802,
+            "redIntensity": 0.3454210699535907,
+            "creamCoverage": 0.596035926900804,
+            "dorsalIntensity": 0.6711458607111126,
+            "flankIntensity": 0.6173462814092636,
+            "spotDensity": 0.02558353178203106
+          },
+          "visualSeed": "h-a9f7163a-c1-1-1-3a665a08",
+          "nextBreedTurn": 18,
+          "status": "owned",
+          "hearts": 5,
+          "lastFedDate": null,
+          "diedDate": null,
+          "cycleAnchor": "2027-02-17",
+          "recoverUntil": "2027-02-17",
+          "lineageIds": [],
+          "provenance": "known",
+          "deathCause": null,
+          "lastProcessedTurn": 6,
+          "healthGenome": {
+            "version": 1,
+            "loci": {
+              "embryonic-vigor": [
+                "N",
+                "N"
+              ],
+              "fertility": [
+                "N",
+                "N"
+              ]
+            }
+          },
+          "development": {
+            "version": 1,
+            "viable": true,
+            "causes": []
+          }
+        },
+        "hatchChance": 0.95,
+        "seed": "home-reference-review|mating:1|h-a9f7163a-shop-20261014-2|h-a9f7163a-shop-20261014-1|clutch:1|egg:1",
+        "status": "incubating",
+        "resolvedDate": null,
+        "lifecycle": {
+          "laidTurn": 2,
+          "dueTurn": 6,
+          "fertilized": true,
+          "failure": null
+        }
+      },
+      "h-a9f7163a-c1-1-2-egg": {
+        "id": "h-a9f7163a-c1-1-2-egg",
+        "matingId": "h-a9f7163a-m1",
+        "laidDate": "2026-10-28",
+        "dueDate": "2026-11-25",
+        "embryo": {
+          "id": "h-a9f7163a-c1-1-2",
+          "name": "해칭 1-1-2",
+          "sex": "male",
+          "birthTurn": 6,
+          "birthDate": "2026-11-25",
+          "stage": "hatchling",
+          "parents": {
+            "fatherId": "h-a9f7163a-shop-20261014-2",
+            "motherId": "h-a9f7163a-shop-20261014-1"
+          },
+          "generation": 2,
+          "genotype": {
+            "modelVersion": 1,
+            "loci": {
+              "lilly-white": [
+                "n",
+                "Lw"
+              ],
+              "axanthic": [
+                "A",
+                "A"
+              ]
+            }
+          },
+          "genetics": {
+            "version": 1,
+            "genome": null,
+            "knowledge": {
+              "version": 1,
+              "loci": {
+                "lilly-white": {
+                  "probabilities": {
+                    "n/Lw": 1
+                  },
+                  "source": "parents",
+                  "note": "부모 공개 정보와 외형으로 조건부 계산",
+                  "evidenceIds": [
+                    "h-a9f7163a-c1-1-2"
+                  ]
+                },
+                "axanthic": {
+                  "probabilities": {
+                    "A/A": 1
+                  },
+                  "source": "parents",
+                  "note": "부모 공개 정보와 외형으로 조건부 계산",
+                  "evidenceIds": [
+                    "h-a9f7163a-c1-1-2"
+                  ]
+                },
+                "cappuccino-complex": {
+                  "probabilities": null,
+                  "source": "unknown",
+                  "note": "확률을 계산할 근거가 없습니다.",
+                  "evidenceIds": []
+                }
+              }
+            },
+            "appearanceVersion": "legacy-1",
+            "unresolvedComplex": [
+              null,
+              null
+            ]
+          },
+          "potential": {
+            "bodyTone": 0.6785517636500299,
+            "redIntensity": 0.38281544689089064,
+            "creamCoverage": 0.5664157080277801,
+            "dorsalIntensity": 0.5590468024369329,
+            "flankIntensity": 0.45665131650865076,
+            "spotDensity": 0.06360658220946788
+          },
+          "visualSeed": "h-a9f7163a-c1-1-2-29ceb35b",
+          "nextBreedTurn": 18,
+          "status": "owned",
+          "hearts": 5,
+          "lastFedDate": null,
+          "diedDate": null,
+          "cycleAnchor": "2027-02-17",
+          "recoverUntil": "2027-02-17",
+          "lineageIds": [],
+          "provenance": "known",
+          "deathCause": null,
+          "lastProcessedTurn": 6,
+          "healthGenome": {
+            "version": 1,
+            "loci": {
+              "embryonic-vigor": [
+                "N",
+                "N"
+              ],
+              "fertility": [
+                "N",
+                "N"
+              ]
+            }
+          },
+          "development": {
+            "version": 1,
+            "viable": true,
+            "causes": []
+          }
+        },
+        "hatchChance": 0.95,
+        "seed": "home-reference-review|mating:1|h-a9f7163a-shop-20261014-2|h-a9f7163a-shop-20261014-1|clutch:1|egg:2",
+        "status": "incubating",
+        "resolvedDate": null,
+        "lifecycle": {
+          "laidTurn": 2,
+          "dueTurn": 6,
+          "fertilized": false,
+          "failure": null
+        }
+      }
+    },
+    "sales": [],
+    "lineages": {},
+    "nextLineage": 1,
+    "shop": {
+      "date": "2026-11-11",
+      "batch": 4,
+      "offers": {
+        "h-a9f7163a-store-4-0": {
+          "id": "h-a9f7163a-store-4-0",
+          "individual": {
+            "id": "h-a9f7163a-store-4-0",
+            "name": "옐로 플레임 아성체",
+            "sex": "male",
+            "birthTurn": -6,
+            "birthDate": "2026-09-02",
+            "stage": "juvenile",
+            "parents": {
+              "fatherId": "h-a9f7163a-store-4-0-father",
+              "motherId": "h-a9f7163a-store-4-0-mother"
+            },
+            "generation": 2,
+            "genotype": {
+              "modelVersion": 1,
+              "loci": {
+                "lilly-white": [
+                  "n",
+                  "n"
+                ],
+                "axanthic": [
+                  "A",
+                  "ax"
+                ]
+              }
+            },
+            "genetics": {
+              "version": 1,
+              "genome": {
+                "version": 1,
+                "mendelian": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "n",
+                      "n"
+                    ],
+                    "axanthic": [
+                      "A",
+                      "ax"
+                    ],
+                    "cappuccino-complex": [
+                      "n",
+                      "n"
+                    ]
+                  }
+                },
+                "polygenic": {
+                  "version": 1,
+                  "loci": {
+                    "red-0": [
+                      4,
+                      1
+                    ],
+                    "red-1": [
+                      2,
+                      4
+                    ],
+                    "red-2": [
+                      2,
+                      2
+                    ],
+                    "red-3": [
+                      2,
+                      4
+                    ],
+                    "red-4": [
+                      2,
+                      2
+                    ],
+                    "red-5": [
+                      2,
+                      2
+                    ],
+                    "orange-0": [
+                      2,
+                      0
+                    ],
+                    "orange-1": [
+                      1,
+                      0
+                    ],
+                    "orange-2": [
+                      3,
+                      0
+                    ],
+                    "orange-3": [
+                      2,
+                      1
+                    ],
+                    "orange-4": [
+                      2,
+                      0
+                    ],
+                    "orange-5": [
+                      2,
+                      2
+                    ],
+                    "brightness-0": [
+                      1,
+                      1
+                    ],
+                    "brightness-1": [
+                      2,
+                      3
+                    ],
+                    "brightness-2": [
+                      0,
+                      3
+                    ],
+                    "brightness-3": [
+                      2,
+                      2
+                    ],
+                    "brightness-4": [
+                      2,
+                      2
+                    ],
+                    "brightness-5": [
+                      3,
+                      3
+                    ],
+                    "cream-0": [
+                      2,
+                      2
+                    ],
+                    "cream-1": [
+                      1,
+                      2
+                    ],
+                    "cream-2": [
+                      1,
+                      2
+                    ],
+                    "cream-3": [
+                      2,
+                      3
+                    ],
+                    "cream-4": [
+                      0,
+                      4
+                    ],
+                    "cream-5": [
+                      2,
+                      1
+                    ],
+                    "dorsal-0": [
+                      2,
+                      3
+                    ],
+                    "dorsal-1": [
+                      1,
+                      3
+                    ],
+                    "dorsal-2": [
+                      2,
+                      0
+                    ],
+                    "dorsal-3": [
+                      3,
+                      3
+                    ],
+                    "dorsal-4": [
+                      3,
+                      2
+                    ],
+                    "dorsal-5": [
+                      3,
+                      2
+                    ],
+                    "flank-0": [
+                      3,
+                      0
+                    ],
+                    "flank-1": [
+                      2,
+                      1
+                    ],
+                    "flank-2": [
+                      2,
+                      1
+                    ],
+                    "flank-3": [
+                      2,
+                      2
+                    ],
+                    "flank-4": [
+                      1,
+                      1
+                    ],
+                    "flank-5": [
+                      3,
+                      4
+                    ],
+                    "harlequin-0": [
+                      2,
+                      1
+                    ],
+                    "harlequin-1": [
+                      2,
+                      2
+                    ],
+                    "harlequin-2": [
+                      1,
+                      2
+                    ],
+                    "harlequin-3": [
+                      4,
+                      1
+                    ],
+                    "harlequin-4": [
+                      2,
+                      1
+                    ],
+                    "harlequin-5": [
+                      1,
+                      3
+                    ],
+                    "spots-0": [
+                      4,
+                      2
+                    ],
+                    "spots-1": [
+                      1,
+                      1
+                    ],
+                    "spots-2": [
+                      3,
+                      2
+                    ],
+                    "spots-3": [
+                      1,
+                      3
+                    ],
+                    "spots-4": [
+                      1,
+                      2
+                    ],
+                    "spots-5": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-0": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-1": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-2": [
+                      1,
+                      1
+                    ],
+                    "pinstripe-3": [
+                      2,
+                      3
+                    ],
+                    "pinstripe-4": [
+                      1,
+                      2
+                    ],
+                    "pinstripe-5": [
+                      2,
+                      3
+                    ],
+                    "contrast-0": [
+                      3,
+                      4
+                    ],
+                    "contrast-1": [
+                      1,
+                      0
+                    ],
+                    "contrast-2": [
+                      4,
+                      1
+                    ],
+                    "contrast-3": [
+                      3,
+                      2
+                    ],
+                    "contrast-4": [
+                      0,
+                      1
+                    ],
+                    "contrast-5": [
+                      1,
+                      0
+                    ]
+                  }
+                }
+              },
+              "knowledge": {
+                "version": 1,
+                "loci": {
+                  "lilly-white": {
+                    "probabilities": {
+                      "n/n": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-0"
+                    ]
+                  },
+                  "axanthic": {
+                    "probabilities": null,
+                    "source": "unknown",
+                    "note": "확률을 계산할 근거가 없습니다.",
+                    "evidenceIds": []
+                  },
+                  "cappuccino-complex": {
+                    "probabilities": {
+                      "n/n": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-0"
+                    ]
+                  }
+                }
+              },
+              "appearanceVersion": "patterns-1"
+            },
+            "potential": {
+              "bodyTone": 0.5,
+              "redIntensity": 0.4853206890301628,
+              "creamCoverage": 0.22855185222240232,
+              "dorsalIntensity": 0.5804837452587704,
+              "flankIntensity": 0.2356701827817793,
+              "spotDensity": 0.11920292202211755
+            },
+            "visualSeed": "h-a9f7163a-store-4-0-f904c347",
+            "nextBreedTurn": 6,
+            "status": "owned",
+            "hearts": 5,
+            "lastFedDate": null,
+            "diedDate": null,
+            "cycleAnchor": "2026-11-25",
+            "recoverUntil": "2026-11-25",
+            "lineageIds": [],
+            "provenance": "known",
+            "deathCause": null,
+            "lastProcessedTurn": 4,
+            "healthGenome": {
+              "version": 1,
+              "loci": {
+                "embryonic-vigor": [
+                  "N",
+                  "v"
+                ],
+                "fertility": [
+                  "N",
+                  "N"
+                ]
+              }
+            }
+          },
+          "askPrice": 77000,
+          "marketBase": 80000,
+          "marketVersion": "2026-10-13-provisional-1/patterns-1",
+          "purchased": false,
+          "family": {
+            "version": 1,
+            "seed": "home-reference-review|family-shop:2026-11-11|4|0|child:0",
+            "matingTurn": -12,
+            "father": {
+              "id": "h-a9f7163a-store-4-0-father",
+              "name": "매물 부계",
+              "sex": "male",
+              "birthTurn": -36,
+              "birthDate": "2026-02-04",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "A"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.4729631041948558,
+                "redIntensity": 0.3065057674516448,
+                "creamCoverage": 0.17635132880733895,
+                "dorsalIntensity": 0.6321068439073029,
+                "flankIntensity": 0.30750311198367447,
+                "spotDensity": 0.10829724038209657
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "A"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "H"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        4,
+                        1
+                      ],
+                      "red-1": [
+                        2,
+                        2
+                      ],
+                      "red-2": [
+                        1,
+                        2
+                      ],
+                      "red-3": [
+                        1,
+                        2
+                      ],
+                      "red-4": [
+                        1,
+                        2
+                      ],
+                      "red-5": [
+                        2,
+                        2
+                      ],
+                      "orange-0": [
+                        2,
+                        4
+                      ],
+                      "orange-1": [
+                        1,
+                        1
+                      ],
+                      "orange-2": [
+                        3,
+                        3
+                      ],
+                      "orange-3": [
+                        2,
+                        1
+                      ],
+                      "orange-4": [
+                        4,
+                        2
+                      ],
+                      "orange-5": [
+                        2,
+                        2
+                      ],
+                      "brightness-0": [
+                        1,
+                        1
+                      ],
+                      "brightness-1": [
+                        2,
+                        0
+                      ],
+                      "brightness-2": [
+                        3,
+                        0
+                      ],
+                      "brightness-3": [
+                        4,
+                        2
+                      ],
+                      "brightness-4": [
+                        3,
+                        2
+                      ],
+                      "brightness-5": [
+                        2,
+                        3
+                      ],
+                      "cream-0": [
+                        2,
+                        1
+                      ],
+                      "cream-1": [
+                        1,
+                        1
+                      ],
+                      "cream-2": [
+                        1,
+                        2
+                      ],
+                      "cream-3": [
+                        3,
+                        2
+                      ],
+                      "cream-4": [
+                        1,
+                        0
+                      ],
+                      "cream-5": [
+                        3,
+                        2
+                      ],
+                      "dorsal-0": [
+                        2,
+                        2
+                      ],
+                      "dorsal-1": [
+                        2,
+                        1
+                      ],
+                      "dorsal-2": [
+                        2,
+                        2
+                      ],
+                      "dorsal-3": [
+                        3,
+                        3
+                      ],
+                      "dorsal-4": [
+                        3,
+                        3
+                      ],
+                      "dorsal-5": [
+                        3,
+                        3
+                      ],
+                      "flank-0": [
+                        0,
+                        3
+                      ],
+                      "flank-1": [
+                        2,
+                        2
+                      ],
+                      "flank-2": [
+                        4,
+                        2
+                      ],
+                      "flank-3": [
+                        3,
+                        2
+                      ],
+                      "flank-4": [
+                        1,
+                        1
+                      ],
+                      "flank-5": [
+                        2,
+                        3
+                      ],
+                      "harlequin-0": [
+                        3,
+                        2
+                      ],
+                      "harlequin-1": [
+                        2,
+                        2
+                      ],
+                      "harlequin-2": [
+                        2,
+                        1
+                      ],
+                      "harlequin-3": [
+                        2,
+                        4
+                      ],
+                      "harlequin-4": [
+                        3,
+                        2
+                      ],
+                      "harlequin-5": [
+                        2,
+                        1
+                      ],
+                      "spots-0": [
+                        4,
+                        2
+                      ],
+                      "spots-1": [
+                        3,
+                        1
+                      ],
+                      "spots-2": [
+                        3,
+                        2
+                      ],
+                      "spots-3": [
+                        1,
+                        1
+                      ],
+                      "spots-4": [
+                        1,
+                        2
+                      ],
+                      "spots-5": [
+                        1,
+                        2
+                      ],
+                      "pinstripe-0": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-1": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-2": [
+                        2,
+                        1
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-4": [
+                        0,
+                        1
+                      ],
+                      "pinstripe-5": [
+                        3,
+                        2
+                      ],
+                      "contrast-0": [
+                        3,
+                        1
+                      ],
+                      "contrast-1": [
+                        1,
+                        2
+                      ],
+                      "contrast-2": [
+                        4,
+                        0
+                      ],
+                      "contrast-3": [
+                        3,
+                        1
+                      ],
+                      "contrast-4": [
+                        0,
+                        0
+                      ],
+                      "contrast-5": [
+                        1,
+                        1
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-0-father"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/H": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-0-father"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-0-father-ffe3c671",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-07-22",
+              "recoverUntil": "2026-07-22",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            },
+            "mother": {
+              "id": "h-a9f7163a-store-4-0-mother",
+              "name": "매물 모계",
+              "sex": "female",
+              "birthTurn": -49,
+              "birthDate": "2025-11-05",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "ax"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.4729631041948558,
+                "redIntensity": 0.43162102153539456,
+                "creamCoverage": 0.24819669405877573,
+                "dorsalIntensity": 0.5539161421617936,
+                "flankIntensity": 0.3317260252084449,
+                "spotDensity": 0.08909304155410071
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "ax"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "n"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        1,
+                        3
+                      ],
+                      "red-1": [
+                        4,
+                        3
+                      ],
+                      "red-2": [
+                        3,
+                        2
+                      ],
+                      "red-3": [
+                        1,
+                        4
+                      ],
+                      "red-4": [
+                        2,
+                        2
+                      ],
+                      "red-5": [
+                        2,
+                        0
+                      ],
+                      "orange-0": [
+                        2,
+                        0
+                      ],
+                      "orange-1": [
+                        1,
+                        0
+                      ],
+                      "orange-2": [
+                        4,
+                        0
+                      ],
+                      "orange-3": [
+                        1,
+                        2
+                      ],
+                      "orange-4": [
+                        3,
+                        0
+                      ],
+                      "orange-5": [
+                        2,
+                        2
+                      ],
+                      "brightness-0": [
+                        0,
+                        1
+                      ],
+                      "brightness-1": [
+                        3,
+                        0
+                      ],
+                      "brightness-2": [
+                        2,
+                        3
+                      ],
+                      "brightness-3": [
+                        2,
+                        2
+                      ],
+                      "brightness-4": [
+                        2,
+                        2
+                      ],
+                      "brightness-5": [
+                        3,
+                        3
+                      ],
+                      "cream-0": [
+                        2,
+                        2
+                      ],
+                      "cream-1": [
+                        3,
+                        2
+                      ],
+                      "cream-2": [
+                        2,
+                        1
+                      ],
+                      "cream-3": [
+                        0,
+                        3
+                      ],
+                      "cream-4": [
+                        4,
+                        1
+                      ],
+                      "cream-5": [
+                        1,
+                        2
+                      ],
+                      "dorsal-0": [
+                        4,
+                        3
+                      ],
+                      "dorsal-1": [
+                        4,
+                        3
+                      ],
+                      "dorsal-2": [
+                        0,
+                        2
+                      ],
+                      "dorsal-3": [
+                        3,
+                        1
+                      ],
+                      "dorsal-4": [
+                        0,
+                        2
+                      ],
+                      "dorsal-5": [
+                        2,
+                        2
+                      ],
+                      "flank-0": [
+                        2,
+                        0
+                      ],
+                      "flank-1": [
+                        1,
+                        1
+                      ],
+                      "flank-2": [
+                        1,
+                        4
+                      ],
+                      "flank-3": [
+                        4,
+                        2
+                      ],
+                      "flank-4": [
+                        1,
+                        4
+                      ],
+                      "flank-5": [
+                        4,
+                        2
+                      ],
+                      "harlequin-0": [
+                        1,
+                        3
+                      ],
+                      "harlequin-1": [
+                        2,
+                        2
+                      ],
+                      "harlequin-2": [
+                        2,
+                        2
+                      ],
+                      "harlequin-3": [
+                        1,
+                        3
+                      ],
+                      "harlequin-4": [
+                        1,
+                        4
+                      ],
+                      "harlequin-5": [
+                        3,
+                        2
+                      ],
+                      "spots-0": [
+                        2,
+                        2
+                      ],
+                      "spots-1": [
+                        1,
+                        1
+                      ],
+                      "spots-2": [
+                        2,
+                        0
+                      ],
+                      "spots-3": [
+                        3,
+                        1
+                      ],
+                      "spots-4": [
+                        3,
+                        2
+                      ],
+                      "spots-5": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-0": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-1": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-2": [
+                        1,
+                        4
+                      ],
+                      "pinstripe-3": [
+                        3,
+                        3
+                      ],
+                      "pinstripe-4": [
+                        0,
+                        2
+                      ],
+                      "pinstripe-5": [
+                        3,
+                        4
+                      ],
+                      "contrast-0": [
+                        2,
+                        4
+                      ],
+                      "contrast-1": [
+                        0,
+                        2
+                      ],
+                      "contrast-2": [
+                        1,
+                        4
+                      ],
+                      "contrast-3": [
+                        2,
+                        2
+                      ],
+                      "contrast-4": [
+                        1,
+                        2
+                      ],
+                      "contrast-5": [
+                        0,
+                        2
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-0-mother"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-0-mother"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-0-mother-a5f731b6",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-07-22",
+              "recoverUntil": "2026-07-22",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "v",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "h-a9f7163a-store-4-1": {
+          "id": "h-a9f7163a-store-4-1",
+          "individual": {
+            "id": "h-a9f7163a-store-4-1",
+            "name": "아잔틱 플레임 해칭",
+            "sex": "female",
+            "birthTurn": 3,
+            "birthDate": "2026-11-04",
+            "stage": "hatchling",
+            "parents": {
+              "fatherId": "h-a9f7163a-store-4-1-father",
+              "motherId": "h-a9f7163a-store-4-1-mother"
+            },
+            "generation": 2,
+            "genotype": {
+              "modelVersion": 1,
+              "loci": {
+                "lilly-white": [
+                  "n",
+                  "n"
+                ],
+                "axanthic": [
+                  "ax",
+                  "ax"
+                ]
+              }
+            },
+            "genetics": {
+              "version": 1,
+              "genome": {
+                "version": 1,
+                "mendelian": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "n",
+                      "n"
+                    ],
+                    "axanthic": [
+                      "ax",
+                      "ax"
+                    ],
+                    "cappuccino-complex": [
+                      "n",
+                      "n"
+                    ]
+                  }
+                },
+                "polygenic": {
+                  "version": 1,
+                  "loci": {
+                    "red-0": [
+                      3,
+                      2
+                    ],
+                    "red-1": [
+                      1,
+                      2
+                    ],
+                    "red-2": [
+                      1,
+                      2
+                    ],
+                    "red-3": [
+                      1,
+                      3
+                    ],
+                    "red-4": [
+                      1,
+                      0
+                    ],
+                    "red-5": [
+                      2,
+                      2
+                    ],
+                    "orange-0": [
+                      2,
+                      2
+                    ],
+                    "orange-1": [
+                      0,
+                      0
+                    ],
+                    "orange-2": [
+                      1,
+                      2
+                    ],
+                    "orange-3": [
+                      2,
+                      4
+                    ],
+                    "orange-4": [
+                      3,
+                      1
+                    ],
+                    "orange-5": [
+                      2,
+                      2
+                    ],
+                    "brightness-0": [
+                      0,
+                      3
+                    ],
+                    "brightness-1": [
+                      1,
+                      4
+                    ],
+                    "brightness-2": [
+                      2,
+                      1
+                    ],
+                    "brightness-3": [
+                      2,
+                      2
+                    ],
+                    "brightness-4": [
+                      3,
+                      3
+                    ],
+                    "brightness-5": [
+                      4,
+                      2
+                    ],
+                    "cream-0": [
+                      2,
+                      2
+                    ],
+                    "cream-1": [
+                      3,
+                      2
+                    ],
+                    "cream-2": [
+                      2,
+                      3
+                    ],
+                    "cream-3": [
+                      3,
+                      3
+                    ],
+                    "cream-4": [
+                      2,
+                      3
+                    ],
+                    "cream-5": [
+                      1,
+                      4
+                    ],
+                    "dorsal-0": [
+                      3,
+                      0
+                    ],
+                    "dorsal-1": [
+                      4,
+                      2
+                    ],
+                    "dorsal-2": [
+                      3,
+                      4
+                    ],
+                    "dorsal-3": [
+                      1,
+                      0
+                    ],
+                    "dorsal-4": [
+                      2,
+                      4
+                    ],
+                    "dorsal-5": [
+                      2,
+                      2
+                    ],
+                    "flank-0": [
+                      3,
+                      2
+                    ],
+                    "flank-1": [
+                      1,
+                      0
+                    ],
+                    "flank-2": [
+                      1,
+                      2
+                    ],
+                    "flank-3": [
+                      1,
+                      0
+                    ],
+                    "flank-4": [
+                      2,
+                      1
+                    ],
+                    "flank-5": [
+                      3,
+                      4
+                    ],
+                    "harlequin-0": [
+                      2,
+                      2
+                    ],
+                    "harlequin-1": [
+                      2,
+                      2
+                    ],
+                    "harlequin-2": [
+                      3,
+                      2
+                    ],
+                    "harlequin-3": [
+                      4,
+                      2
+                    ],
+                    "harlequin-4": [
+                      1,
+                      2
+                    ],
+                    "harlequin-5": [
+                      1,
+                      1
+                    ],
+                    "spots-0": [
+                      2,
+                      1
+                    ],
+                    "spots-1": [
+                      3,
+                      1
+                    ],
+                    "spots-2": [
+                      1,
+                      2
+                    ],
+                    "spots-3": [
+                      2,
+                      3
+                    ],
+                    "spots-4": [
+                      1,
+                      1
+                    ],
+                    "spots-5": [
+                      1,
+                      3
+                    ],
+                    "pinstripe-0": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-1": [
+                      3,
+                      4
+                    ],
+                    "pinstripe-2": [
+                      3,
+                      2
+                    ],
+                    "pinstripe-3": [
+                      1,
+                      1
+                    ],
+                    "pinstripe-4": [
+                      3,
+                      2
+                    ],
+                    "pinstripe-5": [
+                      4,
+                      0
+                    ],
+                    "contrast-0": [
+                      2,
+                      3
+                    ],
+                    "contrast-1": [
+                      4,
+                      3
+                    ],
+                    "contrast-2": [
+                      2,
+                      2
+                    ],
+                    "contrast-3": [
+                      4,
+                      3
+                    ],
+                    "contrast-4": [
+                      4,
+                      0
+                    ],
+                    "contrast-5": [
+                      2,
+                      1
+                    ]
+                  }
+                }
+              },
+              "knowledge": {
+                "version": 1,
+                "loci": {
+                  "lilly-white": {
+                    "probabilities": {
+                      "n/n": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-1"
+                    ]
+                  },
+                  "axanthic": {
+                    "probabilities": {
+                      "ax/ax": 1
+                    },
+                    "source": "appearance",
+                    "note": "열성 외형 발현",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-1"
+                    ]
+                  },
+                  "cappuccino-complex": {
+                    "probabilities": {
+                      "n/n": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-1"
+                    ]
+                  }
+                }
+              },
+              "appearanceVersion": "patterns-1"
+            },
+            "potential": {
+              "bodyTone": 0.5804837452587704,
+              "redIntensity": 0.2625004460964013,
+              "creamCoverage": 0.41326579750942993,
+              "dorsalIntensity": 0.5804837452587704,
+              "flankIntensity": 0.226745452358942,
+              "spotDensity": 0.08909304155410071
+            },
+            "visualSeed": "h-a9f7163a-store-4-1-7cdce166",
+            "nextBreedTurn": 15,
+            "status": "owned",
+            "hearts": 5,
+            "lastFedDate": null,
+            "diedDate": null,
+            "cycleAnchor": "2027-01-27",
+            "recoverUntil": "2027-01-27",
+            "lineageIds": [],
+            "provenance": "known",
+            "deathCause": null,
+            "lastProcessedTurn": 4,
+            "healthGenome": {
+              "version": 1,
+              "loci": {
+                "embryonic-vigor": [
+                  "N",
+                  "N"
+                ],
+                "fertility": [
+                  "N",
+                  "f"
+                ]
+              }
+            }
+          },
+          "askPrice": 404000,
+          "marketBase": 500000,
+          "marketVersion": "2026-10-13-provisional-1/patterns-1",
+          "purchased": false,
+          "family": {
+            "version": 1,
+            "seed": "home-reference-review|family-shop:2026-11-11|4|1|child:0",
+            "matingTurn": -3,
+            "father": {
+              "id": "h-a9f7163a-store-4-1-father",
+              "name": "매물 부계",
+              "sex": "male",
+              "birthTurn": -27,
+              "birthDate": "2026-04-08",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "ax"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.4460838578382063,
+                "redIntensity": 0.35434369377420455,
+                "creamCoverage": 0.2907494757543558,
+                "dorsalIntensity": 0.6321068439073029,
+                "flankIntensity": 0.2843011767101215,
+                "spotDensity": 0.08909304155410071
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "ax"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "n"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        0,
+                        3
+                      ],
+                      "red-1": [
+                        1,
+                        1
+                      ],
+                      "red-2": [
+                        4,
+                        1
+                      ],
+                      "red-3": [
+                        2,
+                        1
+                      ],
+                      "red-4": [
+                        1,
+                        4
+                      ],
+                      "red-5": [
+                        2,
+                        4
+                      ],
+                      "orange-0": [
+                        2,
+                        2
+                      ],
+                      "orange-1": [
+                        0,
+                        2
+                      ],
+                      "orange-2": [
+                        1,
+                        1
+                      ],
+                      "orange-3": [
+                        1,
+                        2
+                      ],
+                      "orange-4": [
+                        3,
+                        1
+                      ],
+                      "orange-5": [
+                        2,
+                        2
+                      ],
+                      "brightness-0": [
+                        0,
+                        2
+                      ],
+                      "brightness-1": [
+                        3,
+                        1
+                      ],
+                      "brightness-2": [
+                        0,
+                        2
+                      ],
+                      "brightness-3": [
+                        2,
+                        1
+                      ],
+                      "brightness-4": [
+                        3,
+                        2
+                      ],
+                      "brightness-5": [
+                        4,
+                        2
+                      ],
+                      "cream-0": [
+                        2,
+                        2
+                      ],
+                      "cream-1": [
+                        3,
+                        2
+                      ],
+                      "cream-2": [
+                        2,
+                        2
+                      ],
+                      "cream-3": [
+                        2,
+                        3
+                      ],
+                      "cream-4": [
+                        2,
+                        2
+                      ],
+                      "cream-5": [
+                        1,
+                        2
+                      ],
+                      "dorsal-0": [
+                        3,
+                        1
+                      ],
+                      "dorsal-1": [
+                        1,
+                        4
+                      ],
+                      "dorsal-2": [
+                        4,
+                        3
+                      ],
+                      "dorsal-3": [
+                        1,
+                        4
+                      ],
+                      "dorsal-4": [
+                        3,
+                        2
+                      ],
+                      "dorsal-5": [
+                        2,
+                        1
+                      ],
+                      "flank-0": [
+                        3,
+                        3
+                      ],
+                      "flank-1": [
+                        1,
+                        2
+                      ],
+                      "flank-2": [
+                        2,
+                        1
+                      ],
+                      "flank-3": [
+                        1,
+                        1
+                      ],
+                      "flank-4": [
+                        2,
+                        3
+                      ],
+                      "flank-5": [
+                        3,
+                        2
+                      ],
+                      "harlequin-0": [
+                        0,
+                        2
+                      ],
+                      "harlequin-1": [
+                        2,
+                        2
+                      ],
+                      "harlequin-2": [
+                        3,
+                        3
+                      ],
+                      "harlequin-3": [
+                        4,
+                        4
+                      ],
+                      "harlequin-4": [
+                        0,
+                        1
+                      ],
+                      "harlequin-5": [
+                        1,
+                        2
+                      ],
+                      "spots-0": [
+                        2,
+                        2
+                      ],
+                      "spots-1": [
+                        2,
+                        3
+                      ],
+                      "spots-2": [
+                        3,
+                        1
+                      ],
+                      "spots-3": [
+                        2,
+                        2
+                      ],
+                      "spots-4": [
+                        1,
+                        1
+                      ],
+                      "spots-5": [
+                        1,
+                        1
+                      ],
+                      "pinstripe-0": [
+                        2,
+                        4
+                      ],
+                      "pinstripe-1": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-2": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        1
+                      ],
+                      "pinstripe-4": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-5": [
+                        1,
+                        4
+                      ],
+                      "contrast-0": [
+                        2,
+                        2
+                      ],
+                      "contrast-1": [
+                        4,
+                        3
+                      ],
+                      "contrast-2": [
+                        2,
+                        3
+                      ],
+                      "contrast-3": [
+                        2,
+                        4
+                      ],
+                      "contrast-4": [
+                        4,
+                        1
+                      ],
+                      "contrast-5": [
+                        2,
+                        2
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-1-father"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-1-father"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-1-father-f38fd310",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-09-23",
+              "recoverUntil": "2026-09-23",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            },
+            "mother": {
+              "id": "h-a9f7163a-store-4-1-mother",
+              "name": "매물 모계",
+              "sex": "female",
+              "birthTurn": -31,
+              "birthDate": "2026-03-11",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "ax"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.41951625474122956,
+                "redIntensity": 0.4853206890301628,
+                "creamCoverage": 0.46655635984875976,
+                "dorsalIntensity": 0.6321068439073029,
+                "flankIntensity": 0.27439692968681517,
+                "spotDensity": 0.05385883093262529
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "ax"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "n"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        3,
+                        2
+                      ],
+                      "red-1": [
+                        1,
+                        2
+                      ],
+                      "red-2": [
+                        2,
+                        4
+                      ],
+                      "red-3": [
+                        3,
+                        3
+                      ],
+                      "red-4": [
+                        0,
+                        4
+                      ],
+                      "red-5": [
+                        2,
+                        3
+                      ],
+                      "orange-0": [
+                        1,
+                        2
+                      ],
+                      "orange-1": [
+                        2,
+                        0
+                      ],
+                      "orange-2": [
+                        1,
+                        2
+                      ],
+                      "orange-3": [
+                        3,
+                        4
+                      ],
+                      "orange-4": [
+                        1,
+                        2
+                      ],
+                      "orange-5": [
+                        2,
+                        0
+                      ],
+                      "brightness-0": [
+                        0,
+                        3
+                      ],
+                      "brightness-1": [
+                        4,
+                        4
+                      ],
+                      "brightness-2": [
+                        1,
+                        0
+                      ],
+                      "brightness-3": [
+                        0,
+                        2
+                      ],
+                      "brightness-4": [
+                        2,
+                        3
+                      ],
+                      "brightness-5": [
+                        0,
+                        2
+                      ],
+                      "cream-0": [
+                        2,
+                        1
+                      ],
+                      "cream-1": [
+                        3,
+                        2
+                      ],
+                      "cream-2": [
+                        2,
+                        3
+                      ],
+                      "cream-3": [
+                        3,
+                        4
+                      ],
+                      "cream-4": [
+                        3,
+                        3
+                      ],
+                      "cream-5": [
+                        2,
+                        4
+                      ],
+                      "dorsal-0": [
+                        0,
+                        4
+                      ],
+                      "dorsal-1": [
+                        2,
+                        3
+                      ],
+                      "dorsal-2": [
+                        1,
+                        4
+                      ],
+                      "dorsal-3": [
+                        0,
+                        4
+                      ],
+                      "dorsal-4": [
+                        3,
+                        4
+                      ],
+                      "dorsal-5": [
+                        2,
+                        2
+                      ],
+                      "flank-0": [
+                        4,
+                        2
+                      ],
+                      "flank-1": [
+                        0,
+                        2
+                      ],
+                      "flank-2": [
+                        2,
+                        2
+                      ],
+                      "flank-3": [
+                        2,
+                        0
+                      ],
+                      "flank-4": [
+                        1,
+                        2
+                      ],
+                      "flank-5": [
+                        3,
+                        4
+                      ],
+                      "harlequin-0": [
+                        2,
+                        2
+                      ],
+                      "harlequin-1": [
+                        2,
+                        2
+                      ],
+                      "harlequin-2": [
+                        2,
+                        2
+                      ],
+                      "harlequin-3": [
+                        2,
+                        2
+                      ],
+                      "harlequin-4": [
+                        2,
+                        1
+                      ],
+                      "harlequin-5": [
+                        1,
+                        1
+                      ],
+                      "spots-0": [
+                        1,
+                        0
+                      ],
+                      "spots-1": [
+                        1,
+                        1
+                      ],
+                      "spots-2": [
+                        2,
+                        2
+                      ],
+                      "spots-3": [
+                        3,
+                        0
+                      ],
+                      "spots-4": [
+                        1,
+                        1
+                      ],
+                      "spots-5": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-0": [
+                        1,
+                        2
+                      ],
+                      "pinstripe-1": [
+                        0,
+                        4
+                      ],
+                      "pinstripe-2": [
+                        2,
+                        1
+                      ],
+                      "pinstripe-3": [
+                        1,
+                        2
+                      ],
+                      "pinstripe-4": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-5": [
+                        0,
+                        2
+                      ],
+                      "contrast-0": [
+                        3,
+                        0
+                      ],
+                      "contrast-1": [
+                        3,
+                        3
+                      ],
+                      "contrast-2": [
+                        2,
+                        2
+                      ],
+                      "contrast-3": [
+                        2,
+                        3
+                      ],
+                      "contrast-4": [
+                        0,
+                        0
+                      ],
+                      "contrast-5": [
+                        2,
+                        1
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-1-mother"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-1-mother"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-1-mother-ffdb4e8b",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-09-23",
+              "recoverUntil": "2026-09-23",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "N"
+                  ],
+                  "fertility": [
+                    "f",
+                    "N"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "h-a9f7163a-store-4-2": {
+          "id": "h-a9f7163a-store-4-2",
+          "individual": {
+            "id": "h-a9f7163a-store-4-2",
+            "name": "Cappuccino 옐로 플레 아성체",
+            "sex": "male",
+            "birthTurn": -7,
+            "birthDate": "2026-08-26",
+            "stage": "juvenile",
+            "parents": {
+              "fatherId": "h-a9f7163a-store-4-2-father",
+              "motherId": "h-a9f7163a-store-4-2-mother"
+            },
+            "generation": 2,
+            "genotype": {
+              "modelVersion": 1,
+              "loci": {
+                "lilly-white": [
+                  "n",
+                  "n"
+                ],
+                "axanthic": [
+                  "A",
+                  "A"
+                ]
+              }
+            },
+            "genetics": {
+              "version": 1,
+              "genome": {
+                "version": 1,
+                "mendelian": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "n",
+                      "n"
+                    ],
+                    "axanthic": [
+                      "A",
+                      "A"
+                    ],
+                    "cappuccino-complex": [
+                      "C",
+                      "n"
+                    ]
+                  }
+                },
+                "polygenic": {
+                  "version": 1,
+                  "loci": {
+                    "red-0": [
+                      1,
+                      2
+                    ],
+                    "red-1": [
+                      2,
+                      3
+                    ],
+                    "red-2": [
+                      2,
+                      2
+                    ],
+                    "red-3": [
+                      2,
+                      4
+                    ],
+                    "red-4": [
+                      4,
+                      0
+                    ],
+                    "red-5": [
+                      0,
+                      2
+                    ],
+                    "orange-0": [
+                      2,
+                      2
+                    ],
+                    "orange-1": [
+                      4,
+                      3
+                    ],
+                    "orange-2": [
+                      0,
+                      3
+                    ],
+                    "orange-3": [
+                      1,
+                      0
+                    ],
+                    "orange-4": [
+                      0,
+                      3
+                    ],
+                    "orange-5": [
+                      1,
+                      3
+                    ],
+                    "brightness-0": [
+                      1,
+                      1
+                    ],
+                    "brightness-1": [
+                      1,
+                      2
+                    ],
+                    "brightness-2": [
+                      4,
+                      4
+                    ],
+                    "brightness-3": [
+                      1,
+                      2
+                    ],
+                    "brightness-4": [
+                      2,
+                      2
+                    ],
+                    "brightness-5": [
+                      0,
+                      2
+                    ],
+                    "cream-0": [
+                      2,
+                      3
+                    ],
+                    "cream-1": [
+                      1,
+                      3
+                    ],
+                    "cream-2": [
+                      2,
+                      1
+                    ],
+                    "cream-3": [
+                      2,
+                      3
+                    ],
+                    "cream-4": [
+                      2,
+                      2
+                    ],
+                    "cream-5": [
+                      4,
+                      2
+                    ],
+                    "dorsal-0": [
+                      1,
+                      2
+                    ],
+                    "dorsal-1": [
+                      2,
+                      3
+                    ],
+                    "dorsal-2": [
+                      2,
+                      2
+                    ],
+                    "dorsal-3": [
+                      1,
+                      2
+                    ],
+                    "dorsal-4": [
+                      4,
+                      0
+                    ],
+                    "dorsal-5": [
+                      2,
+                      1
+                    ],
+                    "flank-0": [
+                      3,
+                      2
+                    ],
+                    "flank-1": [
+                      3,
+                      2
+                    ],
+                    "flank-2": [
+                      2,
+                      2
+                    ],
+                    "flank-3": [
+                      2,
+                      3
+                    ],
+                    "flank-4": [
+                      4,
+                      0
+                    ],
+                    "flank-5": [
+                      1,
+                      4
+                    ],
+                    "harlequin-0": [
+                      4,
+                      1
+                    ],
+                    "harlequin-1": [
+                      1,
+                      2
+                    ],
+                    "harlequin-2": [
+                      1,
+                      3
+                    ],
+                    "harlequin-3": [
+                      4,
+                      1
+                    ],
+                    "harlequin-4": [
+                      1,
+                      2
+                    ],
+                    "harlequin-5": [
+                      4,
+                      3
+                    ],
+                    "spots-0": [
+                      2,
+                      3
+                    ],
+                    "spots-1": [
+                      1,
+                      2
+                    ],
+                    "spots-2": [
+                      2,
+                      1
+                    ],
+                    "spots-3": [
+                      3,
+                      1
+                    ],
+                    "spots-4": [
+                      3,
+                      3
+                    ],
+                    "spots-5": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-0": [
+                      0,
+                      1
+                    ],
+                    "pinstripe-1": [
+                      3,
+                      1
+                    ],
+                    "pinstripe-2": [
+                      3,
+                      2
+                    ],
+                    "pinstripe-3": [
+                      0,
+                      2
+                    ],
+                    "pinstripe-4": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-5": [
+                      1,
+                      2
+                    ],
+                    "contrast-0": [
+                      2,
+                      2
+                    ],
+                    "contrast-1": [
+                      2,
+                      1
+                    ],
+                    "contrast-2": [
+                      1,
+                      3
+                    ],
+                    "contrast-3": [
+                      2,
+                      2
+                    ],
+                    "contrast-4": [
+                      2,
+                      2
+                    ],
+                    "contrast-5": [
+                      1,
+                      4
+                    ]
+                  }
+                }
+              },
+              "knowledge": {
+                "version": 1,
+                "loci": {
+                  "lilly-white": {
+                    "probabilities": {
+                      "n/n": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-2"
+                    ]
+                  },
+                  "axanthic": {
+                    "probabilities": null,
+                    "source": "unknown",
+                    "note": "확률을 계산할 근거가 없습니다.",
+                    "evidenceIds": []
+                  },
+                  "cappuccino-complex": {
+                    "probabilities": {
+                      "n/C": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-2"
+                    ]
+                  }
+                }
+              },
+              "appearanceVersion": "patterns-1"
+            },
+            "potential": {
+              "bodyTone": 0.4460838578382063,
+              "redIntensity": 0.35434369377420455,
+              "creamCoverage": 0.3373244060683086,
+              "dorsalIntensity": 0.4460838578382063,
+              "flankIntensity": 0.38437907233791796,
+              "spotDensity": 0.13104542589098842
+            },
+            "visualSeed": "h-a9f7163a-store-4-2-0e73a6a1",
+            "nextBreedTurn": 5,
+            "status": "owned",
+            "hearts": 5,
+            "lastFedDate": null,
+            "diedDate": null,
+            "cycleAnchor": "2026-11-18",
+            "recoverUntil": "2026-11-18",
+            "lineageIds": [],
+            "provenance": "known",
+            "deathCause": null,
+            "lastProcessedTurn": 4,
+            "healthGenome": {
+              "version": 1,
+              "loci": {
+                "embryonic-vigor": [
+                  "v",
+                  "N"
+                ],
+                "fertility": [
+                  "N",
+                  "N"
+                ]
+              }
+            }
+          },
+          "askPrice": 79000,
+          "marketBase": 80000,
+          "marketVersion": "2026-10-13-provisional-1/patterns-1",
+          "purchased": false,
+          "family": {
+            "version": 1,
+            "seed": "home-reference-review|family-shop:2026-11-11|4|2|child:0",
+            "matingTurn": -13,
+            "father": {
+              "id": "h-a9f7163a-store-4-2-father",
+              "name": "매물 부계",
+              "sex": "male",
+              "birthTurn": -45,
+              "birthDate": "2025-12-03",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "A"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.5,
+                "redIntensity": 0.43162102153539456,
+                "creamCoverage": 0.2907494757543558,
+                "dorsalIntensity": 0.3678931560926971,
+                "flankIntensity": 0.3613507363323025,
+                "spotDensity": 0.2639144364102893
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "A"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "C"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        4,
+                        1
+                      ],
+                      "red-1": [
+                        2,
+                        2
+                      ],
+                      "red-2": [
+                        2,
+                        4
+                      ],
+                      "red-3": [
+                        1,
+                        2
+                      ],
+                      "red-4": [
+                        3,
+                        4
+                      ],
+                      "red-5": [
+                        0,
+                        2
+                      ],
+                      "orange-0": [
+                        1,
+                        2
+                      ],
+                      "orange-1": [
+                        2,
+                        4
+                      ],
+                      "orange-2": [
+                        0,
+                        2
+                      ],
+                      "orange-3": [
+                        0,
+                        1
+                      ],
+                      "orange-4": [
+                        1,
+                        0
+                      ],
+                      "orange-5": [
+                        2,
+                        1
+                      ],
+                      "brightness-0": [
+                        3,
+                        1
+                      ],
+                      "brightness-1": [
+                        1,
+                        3
+                      ],
+                      "brightness-2": [
+                        3,
+                        4
+                      ],
+                      "brightness-3": [
+                        2,
+                        1
+                      ],
+                      "brightness-4": [
+                        2,
+                        3
+                      ],
+                      "brightness-5": [
+                        0,
+                        1
+                      ],
+                      "cream-0": [
+                        1,
+                        2
+                      ],
+                      "cream-1": [
+                        1,
+                        2
+                      ],
+                      "cream-2": [
+                        2,
+                        2
+                      ],
+                      "cream-3": [
+                        2,
+                        0
+                      ],
+                      "cream-4": [
+                        2,
+                        4
+                      ],
+                      "cream-5": [
+                        4,
+                        3
+                      ],
+                      "dorsal-0": [
+                        1,
+                        4
+                      ],
+                      "dorsal-1": [
+                        1,
+                        2
+                      ],
+                      "dorsal-2": [
+                        0,
+                        2
+                      ],
+                      "dorsal-3": [
+                        0,
+                        1
+                      ],
+                      "dorsal-4": [
+                        4,
+                        2
+                      ],
+                      "dorsal-5": [
+                        2,
+                        0
+                      ],
+                      "flank-0": [
+                        2,
+                        3
+                      ],
+                      "flank-1": [
+                        2,
+                        3
+                      ],
+                      "flank-2": [
+                        2,
+                        2
+                      ],
+                      "flank-3": [
+                        2,
+                        2
+                      ],
+                      "flank-4": [
+                        2,
+                        4
+                      ],
+                      "flank-5": [
+                        1,
+                        2
+                      ],
+                      "harlequin-0": [
+                        4,
+                        2
+                      ],
+                      "harlequin-1": [
+                        1,
+                        1
+                      ],
+                      "harlequin-2": [
+                        2,
+                        1
+                      ],
+                      "harlequin-3": [
+                        1,
+                        4
+                      ],
+                      "harlequin-4": [
+                        3,
+                        1
+                      ],
+                      "harlequin-5": [
+                        3,
+                        4
+                      ],
+                      "spots-0": [
+                        2,
+                        4
+                      ],
+                      "spots-1": [
+                        4,
+                        1
+                      ],
+                      "spots-2": [
+                        3,
+                        2
+                      ],
+                      "spots-3": [
+                        3,
+                        2
+                      ],
+                      "spots-4": [
+                        3,
+                        4
+                      ],
+                      "spots-5": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-0": [
+                        0,
+                        2
+                      ],
+                      "pinstripe-1": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-2": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        0
+                      ],
+                      "pinstripe-4": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-5": [
+                        3,
+                        1
+                      ],
+                      "contrast-0": [
+                        2,
+                        2
+                      ],
+                      "contrast-1": [
+                        2,
+                        0
+                      ],
+                      "contrast-2": [
+                        1,
+                        1
+                      ],
+                      "contrast-3": [
+                        2,
+                        2
+                      ],
+                      "contrast-4": [
+                        2,
+                        1
+                      ],
+                      "contrast-5": [
+                        1,
+                        1
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-2-father"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/C": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-2-father"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-2-father-82e21427",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-07-15",
+              "recoverUntil": "2026-07-15",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "v",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            },
+            "mother": {
+              "id": "h-a9f7163a-store-4-2-mother",
+              "name": "매물 모계",
+              "sex": "female",
+              "birthTurn": -43,
+              "birthDate": "2025-12-17",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "A"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.5,
+                "redIntensity": 0.43162102153539456,
+                "creamCoverage": 0.2907494757543558,
+                "dorsalIntensity": 0.5270368958051441,
+                "flankIntensity": 0.33991600298253205,
+                "spotDensity": 0.13104542589098842
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "A"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "n"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        3,
+                        2
+                      ],
+                      "red-1": [
+                        3,
+                        3
+                      ],
+                      "red-2": [
+                        2,
+                        2
+                      ],
+                      "red-3": [
+                        2,
+                        4
+                      ],
+                      "red-4": [
+                        3,
+                        0
+                      ],
+                      "red-5": [
+                        1,
+                        2
+                      ],
+                      "orange-0": [
+                        0,
+                        2
+                      ],
+                      "orange-1": [
+                        3,
+                        0
+                      ],
+                      "orange-2": [
+                        3,
+                        0
+                      ],
+                      "orange-3": [
+                        4,
+                        0
+                      ],
+                      "orange-4": [
+                        4,
+                        3
+                      ],
+                      "orange-5": [
+                        1,
+                        3
+                      ],
+                      "brightness-0": [
+                        1,
+                        2
+                      ],
+                      "brightness-1": [
+                        2,
+                        2
+                      ],
+                      "brightness-2": [
+                        4,
+                        2
+                      ],
+                      "brightness-3": [
+                        1,
+                        2
+                      ],
+                      "brightness-4": [
+                        2,
+                        2
+                      ],
+                      "brightness-5": [
+                        2,
+                        2
+                      ],
+                      "cream-0": [
+                        3,
+                        2
+                      ],
+                      "cream-1": [
+                        3,
+                        2
+                      ],
+                      "cream-2": [
+                        1,
+                        2
+                      ],
+                      "cream-3": [
+                        3,
+                        1
+                      ],
+                      "cream-4": [
+                        2,
+                        2
+                      ],
+                      "cream-5": [
+                        2,
+                        2
+                      ],
+                      "dorsal-0": [
+                        2,
+                        3
+                      ],
+                      "dorsal-1": [
+                        3,
+                        2
+                      ],
+                      "dorsal-2": [
+                        2,
+                        2
+                      ],
+                      "dorsal-3": [
+                        2,
+                        2
+                      ],
+                      "dorsal-4": [
+                        0,
+                        4
+                      ],
+                      "dorsal-5": [
+                        1,
+                        2
+                      ],
+                      "flank-0": [
+                        2,
+                        2
+                      ],
+                      "flank-1": [
+                        2,
+                        4
+                      ],
+                      "flank-2": [
+                        3,
+                        2
+                      ],
+                      "flank-3": [
+                        3,
+                        3
+                      ],
+                      "flank-4": [
+                        0,
+                        0
+                      ],
+                      "flank-5": [
+                        2,
+                        4
+                      ],
+                      "harlequin-0": [
+                        2,
+                        1
+                      ],
+                      "harlequin-1": [
+                        3,
+                        2
+                      ],
+                      "harlequin-2": [
+                        0,
+                        3
+                      ],
+                      "harlequin-3": [
+                        3,
+                        1
+                      ],
+                      "harlequin-4": [
+                        3,
+                        2
+                      ],
+                      "harlequin-5": [
+                        3,
+                        1
+                      ],
+                      "spots-0": [
+                        4,
+                        3
+                      ],
+                      "spots-1": [
+                        3,
+                        2
+                      ],
+                      "spots-2": [
+                        1,
+                        0
+                      ],
+                      "spots-3": [
+                        1,
+                        2
+                      ],
+                      "spots-4": [
+                        3,
+                        3
+                      ],
+                      "spots-5": [
+                        2,
+                        1
+                      ],
+                      "pinstripe-0": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-1": [
+                        1,
+                        3
+                      ],
+                      "pinstripe-2": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-4": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-5": [
+                        2,
+                        2
+                      ],
+                      "contrast-0": [
+                        3,
+                        2
+                      ],
+                      "contrast-1": [
+                        0,
+                        1
+                      ],
+                      "contrast-2": [
+                        3,
+                        3
+                      ],
+                      "contrast-3": [
+                        2,
+                        2
+                      ],
+                      "contrast-4": [
+                        2,
+                        4
+                      ],
+                      "contrast-5": [
+                        2,
+                        4
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-2-mother"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-2-mother"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-2-mother-d01fa8f5",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-07-15",
+              "recoverUntil": "2026-07-15",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "h-a9f7163a-store-4-3": {
+          "id": "h-a9f7163a-store-4-3",
+          "individual": {
+            "id": "h-a9f7163a-store-4-3",
+            "name": "릴리화이트 + Sable 옐로 수컷",
+            "sex": "male",
+            "birthTurn": -18,
+            "birthDate": "2026-06-10",
+            "stage": "adult",
+            "parents": {
+              "fatherId": "h-a9f7163a-store-4-3-father",
+              "motherId": "h-a9f7163a-store-4-3-mother"
+            },
+            "generation": 2,
+            "genotype": {
+              "modelVersion": 1,
+              "loci": {
+                "lilly-white": [
+                  "Lw",
+                  "n"
+                ],
+                "axanthic": [
+                  "A",
+                  "A"
+                ]
+              }
+            },
+            "genetics": {
+              "version": 1,
+              "genome": {
+                "version": 1,
+                "mendelian": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": [
+                      "Lw",
+                      "n"
+                    ],
+                    "axanthic": [
+                      "A",
+                      "A"
+                    ],
+                    "cappuccino-complex": [
+                      "n",
+                      "S"
+                    ]
+                  }
+                },
+                "polygenic": {
+                  "version": 1,
+                  "loci": {
+                    "red-0": [
+                      2,
+                      2
+                    ],
+                    "red-1": [
+                      2,
+                      3
+                    ],
+                    "red-2": [
+                      2,
+                      2
+                    ],
+                    "red-3": [
+                      2,
+                      1
+                    ],
+                    "red-4": [
+                      0,
+                      2
+                    ],
+                    "red-5": [
+                      2,
+                      1
+                    ],
+                    "orange-0": [
+                      1,
+                      2
+                    ],
+                    "orange-1": [
+                      2,
+                      3
+                    ],
+                    "orange-2": [
+                      2,
+                      0
+                    ],
+                    "orange-3": [
+                      2,
+                      2
+                    ],
+                    "orange-4": [
+                      2,
+                      4
+                    ],
+                    "orange-5": [
+                      2,
+                      4
+                    ],
+                    "brightness-0": [
+                      1,
+                      0
+                    ],
+                    "brightness-1": [
+                      3,
+                      2
+                    ],
+                    "brightness-2": [
+                      2,
+                      3
+                    ],
+                    "brightness-3": [
+                      1,
+                      1
+                    ],
+                    "brightness-4": [
+                      3,
+                      3
+                    ],
+                    "brightness-5": [
+                      3,
+                      3
+                    ],
+                    "cream-0": [
+                      1,
+                      2
+                    ],
+                    "cream-1": [
+                      4,
+                      0
+                    ],
+                    "cream-2": [
+                      1,
+                      1
+                    ],
+                    "cream-3": [
+                      0,
+                      1
+                    ],
+                    "cream-4": [
+                      0,
+                      3
+                    ],
+                    "cream-5": [
+                      3,
+                      0
+                    ],
+                    "dorsal-0": [
+                      2,
+                      3
+                    ],
+                    "dorsal-1": [
+                      4,
+                      3
+                    ],
+                    "dorsal-2": [
+                      2,
+                      1
+                    ],
+                    "dorsal-3": [
+                      2,
+                      2
+                    ],
+                    "dorsal-4": [
+                      1,
+                      2
+                    ],
+                    "dorsal-5": [
+                      3,
+                      2
+                    ],
+                    "flank-0": [
+                      2,
+                      3
+                    ],
+                    "flank-1": [
+                      0,
+                      0
+                    ],
+                    "flank-2": [
+                      1,
+                      4
+                    ],
+                    "flank-3": [
+                      2,
+                      2
+                    ],
+                    "flank-4": [
+                      1,
+                      3
+                    ],
+                    "flank-5": [
+                      0,
+                      3
+                    ],
+                    "harlequin-0": [
+                      0,
+                      4
+                    ],
+                    "harlequin-1": [
+                      4,
+                      4
+                    ],
+                    "harlequin-2": [
+                      0,
+                      1
+                    ],
+                    "harlequin-3": [
+                      0,
+                      2
+                    ],
+                    "harlequin-4": [
+                      0,
+                      3
+                    ],
+                    "harlequin-5": [
+                      0,
+                      3
+                    ],
+                    "spots-0": [
+                      4,
+                      2
+                    ],
+                    "spots-1": [
+                      3,
+                      2
+                    ],
+                    "spots-2": [
+                      2,
+                      2
+                    ],
+                    "spots-3": [
+                      2,
+                      2
+                    ],
+                    "spots-4": [
+                      3,
+                      0
+                    ],
+                    "spots-5": [
+                      4,
+                      1
+                    ],
+                    "pinstripe-0": [
+                      2,
+                      0
+                    ],
+                    "pinstripe-1": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-2": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-3": [
+                      2,
+                      2
+                    ],
+                    "pinstripe-4": [
+                      2,
+                      0
+                    ],
+                    "pinstripe-5": [
+                      3,
+                      3
+                    ],
+                    "contrast-0": [
+                      2,
+                      3
+                    ],
+                    "contrast-1": [
+                      2,
+                      2
+                    ],
+                    "contrast-2": [
+                      0,
+                      4
+                    ],
+                    "contrast-3": [
+                      1,
+                      2
+                    ],
+                    "contrast-4": [
+                      2,
+                      2
+                    ],
+                    "contrast-5": [
+                      3,
+                      1
+                    ]
+                  }
+                }
+              },
+              "knowledge": {
+                "version": 1,
+                "loci": {
+                  "lilly-white": {
+                    "probabilities": {
+                      "n/Lw": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-3"
+                    ]
+                  },
+                  "axanthic": {
+                    "probabilities": null,
+                    "source": "unknown",
+                    "note": "확률을 계산할 근거가 없습니다.",
+                    "evidenceIds": []
+                  },
+                  "cappuccino-complex": {
+                    "probabilities": {
+                      "n/S": 1
+                    },
+                    "source": "parents",
+                    "note": "부모 공개 정보와 외형으로 조건부 계산",
+                    "evidenceIds": [
+                      "h-a9f7163a-store-4-3"
+                    ]
+                  }
+                }
+              },
+              "appearanceVersion": "patterns-1"
+            },
+            "potential": {
+              "bodyTone": 0.5270368958051441,
+              "redIntensity": 0.2839891013717916,
+              "creamCoverage": 0.13400228664344538,
+              "dorsalIntensity": 0.5804837452587704,
+              "flankIntensity": 0.2095579330392368,
+              "spotDensity": 0.15772673771136222
+            },
+            "visualSeed": "h-a9f7163a-store-4-3-0b1025cf",
+            "nextBreedTurn": 0,
+            "status": "owned",
+            "hearts": 5,
+            "lastFedDate": null,
+            "diedDate": null,
+            "cycleAnchor": "2026-09-02",
+            "recoverUntil": "2026-09-02",
+            "lineageIds": [],
+            "provenance": "known",
+            "deathCause": null,
+            "lastProcessedTurn": 4,
+            "healthGenome": {
+              "version": 1,
+              "loci": {
+                "embryonic-vigor": [
+                  "v",
+                  "N"
+                ],
+                "fertility": [
+                  "f",
+                  "N"
+                ]
+              }
+            }
+          },
+          "askPrice": 339000,
+          "marketBase": 250000,
+          "marketVersion": "2026-10-13-provisional-1/patterns-1",
+          "purchased": false,
+          "family": {
+            "version": 1,
+            "seed": "home-reference-review|family-shop:2026-11-11|4|3|child:0",
+            "matingTurn": -24,
+            "father": {
+              "id": "h-a9f7163a-store-4-3-father",
+              "name": "매물 부계",
+              "sex": "male",
+              "birthTurn": -46,
+              "birthDate": "2025-11-26",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "Lw"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "A"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.39340715611099863,
+                "redIntensity": 0.4052845485080662,
+                "creamCoverage": 0.2100275221969877,
+                "dorsalIntensity": 0.6321068439073029,
+                "flankIntensity": 0.14022201001432194,
+                "spotDensity": 0.18866101421386233
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "Lw"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "A"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "n"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        3,
+                        2
+                      ],
+                      "red-1": [
+                        2,
+                        2
+                      ],
+                      "red-2": [
+                        2,
+                        3
+                      ],
+                      "red-3": [
+                        3,
+                        2
+                      ],
+                      "red-4": [
+                        2,
+                        0
+                      ],
+                      "red-5": [
+                        2,
+                        3
+                      ],
+                      "orange-0": [
+                        2,
+                        1
+                      ],
+                      "orange-1": [
+                        2,
+                        4
+                      ],
+                      "orange-2": [
+                        2,
+                        2
+                      ],
+                      "orange-3": [
+                        0,
+                        2
+                      ],
+                      "orange-4": [
+                        2,
+                        3
+                      ],
+                      "orange-5": [
+                        2,
+                        2
+                      ],
+                      "brightness-0": [
+                        2,
+                        1
+                      ],
+                      "brightness-1": [
+                        3,
+                        0
+                      ],
+                      "brightness-2": [
+                        0,
+                        2
+                      ],
+                      "brightness-3": [
+                        1,
+                        2
+                      ],
+                      "brightness-4": [
+                        3,
+                        2
+                      ],
+                      "brightness-5": [
+                        1,
+                        3
+                      ],
+                      "cream-0": [
+                        3,
+                        1
+                      ],
+                      "cream-1": [
+                        4,
+                        2
+                      ],
+                      "cream-2": [
+                        1,
+                        1
+                      ],
+                      "cream-3": [
+                        0,
+                        3
+                      ],
+                      "cream-4": [
+                        0,
+                        2
+                      ],
+                      "cream-5": [
+                        3,
+                        1
+                      ],
+                      "dorsal-0": [
+                        1,
+                        2
+                      ],
+                      "dorsal-1": [
+                        3,
+                        4
+                      ],
+                      "dorsal-2": [
+                        2,
+                        2
+                      ],
+                      "dorsal-3": [
+                        4,
+                        2
+                      ],
+                      "dorsal-4": [
+                        3,
+                        1
+                      ],
+                      "dorsal-5": [
+                        3,
+                        2
+                      ],
+                      "flank-0": [
+                        2,
+                        3
+                      ],
+                      "flank-1": [
+                        2,
+                        0
+                      ],
+                      "flank-2": [
+                        1,
+                        1
+                      ],
+                      "flank-3": [
+                        0,
+                        2
+                      ],
+                      "flank-4": [
+                        1,
+                        2
+                      ],
+                      "flank-5": [
+                        3,
+                        0
+                      ],
+                      "harlequin-0": [
+                        4,
+                        0
+                      ],
+                      "harlequin-1": [
+                        0,
+                        4
+                      ],
+                      "harlequin-2": [
+                        0,
+                        0
+                      ],
+                      "harlequin-3": [
+                        4,
+                        0
+                      ],
+                      "harlequin-4": [
+                        2,
+                        0
+                      ],
+                      "harlequin-5": [
+                        0,
+                        1
+                      ],
+                      "spots-0": [
+                        1,
+                        4
+                      ],
+                      "spots-1": [
+                        3,
+                        2
+                      ],
+                      "spots-2": [
+                        2,
+                        2
+                      ],
+                      "spots-3": [
+                        4,
+                        2
+                      ],
+                      "spots-4": [
+                        0,
+                        3
+                      ],
+                      "spots-5": [
+                        2,
+                        4
+                      ],
+                      "pinstripe-0": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-1": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-2": [
+                        0,
+                        2
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        2
+                      ],
+                      "pinstripe-4": [
+                        2,
+                        3
+                      ],
+                      "pinstripe-5": [
+                        3,
+                        2
+                      ],
+                      "contrast-0": [
+                        2,
+                        2
+                      ],
+                      "contrast-1": [
+                        3,
+                        2
+                      ],
+                      "contrast-2": [
+                        0,
+                        0
+                      ],
+                      "contrast-3": [
+                        3,
+                        1
+                      ],
+                      "contrast-4": [
+                        3,
+                        2
+                      ],
+                      "contrast-5": [
+                        3,
+                        2
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/Lw": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-3-father"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-3-father"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-3-father-2de32a7a",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-04-29",
+              "recoverUntil": "2026-04-29",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "v"
+                  ],
+                  "fertility": [
+                    "N",
+                    "f"
+                  ]
+                }
+              }
+            },
+            "mother": {
+              "id": "h-a9f7163a-store-4-3-mother",
+              "name": "매물 모계",
+              "sex": "female",
+              "birthTurn": -52,
+              "birthDate": "2025-10-15",
+              "stage": "adult",
+              "parents": null,
+              "generation": 1,
+              "genotype": {
+                "modelVersion": 1,
+                "loci": {
+                  "lilly-white": [
+                    "n",
+                    "n"
+                  ],
+                  "axanthic": [
+                    "A",
+                    "A"
+                  ]
+                }
+              },
+              "potential": {
+                "bodyTone": 0.5804837452587704,
+                "redIntensity": 0.35434369377420455,
+                "creamCoverage": 0.17635132880733895,
+                "dorsalIntensity": 0.5539161421617936,
+                "flankIntensity": 0.3144354779030595,
+                "spotDensity": 0.0982779752038603
+              },
+              "genetics": {
+                "version": 1,
+                "genome": {
+                  "version": 1,
+                  "mendelian": {
+                    "version": 1,
+                    "loci": {
+                      "lilly-white": [
+                        "n",
+                        "n"
+                      ],
+                      "axanthic": [
+                        "A",
+                        "A"
+                      ],
+                      "cappuccino-complex": [
+                        "n",
+                        "S"
+                      ]
+                    }
+                  },
+                  "polygenic": {
+                    "version": 1,
+                    "loci": {
+                      "red-0": [
+                        2,
+                        3
+                      ],
+                      "red-1": [
+                        3,
+                        3
+                      ],
+                      "red-2": [
+                        3,
+                        2
+                      ],
+                      "red-3": [
+                        2,
+                        1
+                      ],
+                      "red-4": [
+                        1,
+                        2
+                      ],
+                      "red-5": [
+                        1,
+                        1
+                      ],
+                      "orange-0": [
+                        3,
+                        2
+                      ],
+                      "orange-1": [
+                        2,
+                        3
+                      ],
+                      "orange-2": [
+                        0,
+                        0
+                      ],
+                      "orange-3": [
+                        2,
+                        2
+                      ],
+                      "orange-4": [
+                        2,
+                        4
+                      ],
+                      "orange-5": [
+                        4,
+                        4
+                      ],
+                      "brightness-0": [
+                        0,
+                        4
+                      ],
+                      "brightness-1": [
+                        4,
+                        2
+                      ],
+                      "brightness-2": [
+                        4,
+                        3
+                      ],
+                      "brightness-3": [
+                        1,
+                        2
+                      ],
+                      "brightness-4": [
+                        3,
+                        1
+                      ],
+                      "brightness-5": [
+                        0,
+                        3
+                      ],
+                      "cream-0": [
+                        2,
+                        2
+                      ],
+                      "cream-1": [
+                        3,
+                        0
+                      ],
+                      "cream-2": [
+                        2,
+                        1
+                      ],
+                      "cream-3": [
+                        1,
+                        1
+                      ],
+                      "cream-4": [
+                        3,
+                        1
+                      ],
+                      "cream-5": [
+                        3,
+                        0
+                      ],
+                      "dorsal-0": [
+                        4,
+                        3
+                      ],
+                      "dorsal-1": [
+                        3,
+                        2
+                      ],
+                      "dorsal-2": [
+                        1,
+                        2
+                      ],
+                      "dorsal-3": [
+                        2,
+                        2
+                      ],
+                      "dorsal-4": [
+                        2,
+                        2
+                      ],
+                      "dorsal-5": [
+                        1,
+                        2
+                      ],
+                      "flank-0": [
+                        3,
+                        1
+                      ],
+                      "flank-1": [
+                        1,
+                        0
+                      ],
+                      "flank-2": [
+                        3,
+                        4
+                      ],
+                      "flank-3": [
+                        2,
+                        2
+                      ],
+                      "flank-4": [
+                        3,
+                        1
+                      ],
+                      "flank-5": [
+                        2,
+                        3
+                      ],
+                      "harlequin-0": [
+                        4,
+                        2
+                      ],
+                      "harlequin-1": [
+                        2,
+                        4
+                      ],
+                      "harlequin-2": [
+                        1,
+                        2
+                      ],
+                      "harlequin-3": [
+                        1,
+                        2
+                      ],
+                      "harlequin-4": [
+                        3,
+                        1
+                      ],
+                      "harlequin-5": [
+                        2,
+                        3
+                      ],
+                      "spots-0": [
+                        2,
+                        3
+                      ],
+                      "spots-1": [
+                        2,
+                        2
+                      ],
+                      "spots-2": [
+                        2,
+                        4
+                      ],
+                      "spots-3": [
+                        1,
+                        2
+                      ],
+                      "spots-4": [
+                        0,
+                        2
+                      ],
+                      "spots-5": [
+                        1,
+                        1
+                      ],
+                      "pinstripe-0": [
+                        1,
+                        0
+                      ],
+                      "pinstripe-1": [
+                        3,
+                        2
+                      ],
+                      "pinstripe-2": [
+                        2,
+                        1
+                      ],
+                      "pinstripe-3": [
+                        2,
+                        3
+                      ],
+                      "pinstripe-4": [
+                        0,
+                        1
+                      ],
+                      "pinstripe-5": [
+                        3,
+                        4
+                      ],
+                      "contrast-0": [
+                        3,
+                        0
+                      ],
+                      "contrast-1": [
+                        1,
+                        2
+                      ],
+                      "contrast-2": [
+                        1,
+                        4
+                      ],
+                      "contrast-3": [
+                        2,
+                        2
+                      ],
+                      "contrast-4": [
+                        2,
+                        0
+                      ],
+                      "contrast-5": [
+                        1,
+                        3
+                      ]
+                    }
+                  }
+                },
+                "knowledge": {
+                  "version": 1,
+                  "loci": {
+                    "lilly-white": {
+                      "probabilities": {
+                        "n/n": 1
+                      },
+                      "source": "appearance",
+                      "note": "안전 유전형의 외형 발현",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-3-mother"
+                      ]
+                    },
+                    "axanthic": {
+                      "probabilities": null,
+                      "source": "unknown",
+                      "note": "확률을 계산할 근거가 없습니다.",
+                      "evidenceIds": []
+                    },
+                    "cappuccino-complex": {
+                      "probabilities": {
+                        "n/S": 1
+                      },
+                      "source": "appearance",
+                      "note": "게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델",
+                      "evidenceIds": [
+                        "h-a9f7163a-store-4-3-mother"
+                      ]
+                    }
+                  }
+                },
+                "appearanceVersion": "patterns-1"
+              },
+              "visualSeed": "h-a9f7163a-store-4-3-mother-3802ad39",
+              "nextBreedTurn": 0,
+              "status": "pedigree",
+              "hearts": 5,
+              "lastFedDate": null,
+              "diedDate": null,
+              "cycleAnchor": "2026-04-29",
+              "recoverUntil": "2026-04-29",
+              "lineageIds": [],
+              "provenance": "unverified",
+              "deathCause": null,
+              "lastProcessedTurn": 4,
+              "healthGenome": {
+                "version": 1,
+                "loci": {
+                  "embryonic-vigor": [
+                    "N",
+                    "N"
+                  ],
+                  "fertility": [
+                    "N",
+                    "N"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "marketVersion": "2026-10-13-provisional-1",
+    "notices": [
+      "자동 급여 6마리 · 사료 6개 소비"
+    ],
+    "migration": null
+  }
+}

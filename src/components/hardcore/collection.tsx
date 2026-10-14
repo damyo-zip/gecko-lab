@@ -1,28 +1,18 @@
 "use client";
 import {useMemo,useState} from "react";
-import {owned,feedable,freeSlots,reserved} from "@/game/hardcore/survival";
-import {ovulating} from "@/game/hardcore/breeding";
+import {owned,feedable,reserved} from "@/game/hardcore/survival";
 import {morph,specimen,disclosedSex} from "@/game/hardcore/adapter";
 import {STAGE_LABELS} from "@/game/model";
 import type {Gecko,HardcoreGame} from "@/game/hardcore/model";
 import {SpriteCanvas} from "../sprite-canvas";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
-import {isV12,ageTurns,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
+import {isV12,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
 import {PATTERN_FILTERS} from "@/phenotype/rules";
 import {collectionEntries,collectionMorph,COLLECTION_MORPHS,COLLECTION_SORTS,type CollectionSort} from "./collection-query";
 import {CollectionCatalog} from "./collection-catalog";
+import {collectionStatus,type CollectionStatus} from "./collection-status";
 
-function breedingStatus(game:HardcoreGame,g:Gecko) {
-  if(isV12(game)&&ageTurns(game,g)>=60)return {ready:false,label:"번식 은퇴"};
-  if(g.stage!=="adult")return {ready:false,label:"성장 중"};
-  if(g.hearts<=2)return {ready:false,label:"급여 필요"};
-  if(g.nextBreedTurn>game.turn||game.lastDate<g.recoverUntil)return {ready:false,label:"대기 중"};
-  if(g.sex==="female"&&Object.values(game.matings).some(m=>m.parents.motherId===g.id&&["pending","fertilized"].includes(m.status)))return {ready:false,label:"번식 진행 중"};
-  if(g.sex==="female"&&!ovulating(g,game))return {ready:false,label:"배란 대기"};
-  if(freeSlots(game)<2)return {ready:false,label:"공간 확보 필요"};
-  return {ready:true,label:"브리딩 가능"};
-}
 function Sex({gecko:g}:{gecko:Gecko}) {
   const sex=g.stage==="adult"?g.sex:"unknown";
   return <span className={"home-sex "+sex} aria-label={disclosedSex(g)}>{sex==="unknown"?"?":<HomeIcon name={sex} size={19}/>}</span>;
@@ -30,12 +20,11 @@ function Sex({gecko:g}:{gecko:Gecko}) {
 function HomeHearts({gecko}:{gecko:Gecko}) {
   return <span className="home-heart-icons" aria-label={"하트 "+gecko.hearts+"/5"}>{[0,1,2,3,4].map(n=><i key={n} className={n<gecko.hearts?"filled":"empty"}><HomeIcon name="heart" size={15}/></i>)}</span>;
 }
-function Status({game,gecko}:{game:HardcoreGame;gecko:Gecko}) {
-  const status=breedingStatus(game,gecko);
-  return <span className={"home-status "+(status.ready?"ready":"waiting")}><HomeIcon name={status.ready?"heart":"clock"} size={14}/>{status.label}</span>;
+function Status({status,placeholder=false,testId}:{status:CollectionStatus;placeholder?:boolean;testId?:string}) {
+  return <span className={"home-status "+(status.ready?"ready":"waiting")+(placeholder?" home-status-placeholder":"")} aria-hidden={placeholder||undefined} data-testid={testId}><HomeIcon name={status.ready?"heart":"clock"} size={14}/><span className="home-status-label">{status.label}</span></span>;
 }
 
-export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()=>void}) {
+export function Collection({game,busy,play,onDetail,onShop,onResources,onBreed}:ViewProps&{onShop:()=>void;onResources:()=>void;onBreed:(id:string)=>void}) {
   const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
   const [filter,setFilter]=useState("all"),[sort,setSort]=useState<CollectionSort>("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false),[catalog,setCatalog]=useState(false);
   const animals=useMemo(()=>owned(game),[game.individuals]),selected=animals.find(g=>g.id===selectedId)??animals[0];
@@ -52,7 +41,7 @@ export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()
       <button className="home-arrow next home-frame" aria-label="다음 개체" disabled={animals.length<2||busy} onClick={()=>move(1)}><HomeIcon name="chevron"/></button>
       <div className="home-info home-frame">
         {selected?<><div className="home-name"><button aria-label="선택 개체 상세 정보" onClick={()=>onDetail(selected.id)}><strong title={selected.name}>{selected.name}</strong><HomeIcon name="pen" size={14}/></button><Sex gecko={selected}/></div>
-          <dl className="home-facts"><div><dt>모프</dt><dd title={morph(selected)}>{collectionMorph(selected)}</dd></div><div><dt>세대</dt><dd>{selected.generation}세대 (Gen {selected.generation})</dd></div><div><dt>크기</dt><dd>96×96 ({STAGE_LABELS[selected.stage]})</dd></div><div><dt>성장</dt><dd>{isV12(game)?lifeStage(game,selected):STAGE_LABELS[selected.stage]}</dd></div><div><dt>상태</dt><dd><Status game={game} gecko={selected}/></dd></div></dl></>:<div className="home-info-empty"><strong>나의 컬렉션</strong><p>개체를 선택하면<br/>브리딩 정보를 볼 수 있어요.</p></div>}
+          <dl className="home-facts"><div><dt>모프</dt><dd title={morph(selected)}>{collectionMorph(selected)}</dd></div><div><dt>세대</dt><dd>{selected.generation}세대 (Gen {selected.generation})</dd></div><div><dt>크기</dt><dd>96×96 ({STAGE_LABELS[selected.stage]})</dd></div><div><dt>성장</dt><dd>{isV12(game)?lifeStage(game,selected):STAGE_LABELS[selected.stage]}</dd></div><div><dt>상태</dt><dd><Status status={collectionStatus(game,selected)}/></dd></div></dl></>:<div className="home-info-empty"><strong>나의 컬렉션</strong><p>개체를 선택하면<br/>브리딩 정보를 볼 수 있어요.</p></div>}
         <div className="home-heart-row">{selected?<HomeHearts gecko={selected}/>:<span>컨디션 관리</span>}<button className="home-frame" aria-label="컨디션 관리" onClick={()=>setCare(true)}>?</button></div>
       </div>
     </div>
@@ -62,12 +51,14 @@ export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()
           <select aria-label="개체 정렬" value={sort} onChange={e=>setSort(e.target.value as CollectionSort)}>{Object.entries(COLLECTION_SORTS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select>
           <button className="home-frame" aria-label={columns===3?"2열로 보기":"3열로 보기"} onClick={()=>setColumns(columns===3?2:3)}><HomeIcon name="grid" size={18}/></button></div>
       </div>
-      <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=><article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
+      <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=>{const status=collectionStatus(game,g);return <article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
         <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={g.id===selected?.id} onClick={()=>setSelected(g.id)}>
           <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
-          <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status game={game} gecko={g}/>
-        </button><button className="home-card-more home-frame" aria-label={g.name+" 상세보기"} onClick={()=>onDetail(g.id)}><span aria-hidden="true">···</span></button>
-      </article>)}</div>
+          <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
+        </button>
+        {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><Status status={status}/></button>}
+        <button className="home-card-more home-frame" aria-label={g.name+" 상세보기"} onClick={()=>onDetail(g.id)}><span aria-hidden="true">···</span></button>
+      </article>;})}</div>
       {!visible.length&&<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
       {visible.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>개체 더 보기</button>}
     </div>
