@@ -8,6 +8,7 @@ import { founderRecord } from "./genetics";
 import { belief } from "@/genetics/advanced/inference";
 import { legacyTraits } from "@/genetics/advanced/phenotype";
 import { polyScores } from "@/genetics/advanced/polygenic";
+import { isV12, V12 } from "./lifecycle";
 
 /** Real specimens, fixed per date/seed. First two offers are affordable unrelated adult normals. */
 export function refreshShop(game: HardcoreGame, table: PriceTable = MARKET): void {
@@ -26,13 +27,14 @@ export function refreshShop(game: HardcoreGame, table: PriceTable = MARKET): voi
     if(n===5)genetics.knowledge.loci.axanthic=belief({"A/A":1/3,"A/ax":2/3},"seller","판매자 부모 기록: Aa × Aa, 외형 Normal · 66.7% possible het");
     const potential=legacyTraits(polyScores(genetics.genome!.polygenic));
     const stage = n === 6 ? "hatchling" : "adult", age = stage === "adult" ? game.rules.adultAfter : 0;
+    const daysPerTurn=isV12(game)?V12.daysPerTurn:1;
     const individual: Gecko = { id, name: ["노멀 수컷", "노멀 암컷", "릴리 암컷", "Ax 보인 수컷", "Ax 보인 암컷", "Ax 해칭"][n-1],
       sex: n === 1 || n === 4 ? "male" : n === 6 ? seededRandom(seed, "sex")() < .5 ? "male" : "female" : "female",
       birthTurn: game.turn - age, stage, parents: null, generation: 1, genotype, potential,
       visualSeed: id + "-" + seedId(seed, "visual"), nextBreedTurn: game.turn + (stage === "adult" ? 0 : game.rules.adultAfter),
-      birthDate: addDays(game.lastDate, -age), status: "owned", hearts: 5, lastFedDate: null, diedDate: null,
-      cycleAnchor: addDays(game.lastDate, stage === "adult" ? 0 : game.rules.adultAfter),
-      recoverUntil: game.lastDate, lineageIds: [], provenance: "unverified", genetics };
+      birthDate: addDays(game.lastDate, -age*daysPerTurn), status: "owned", hearts: 5, lastFedDate: null, diedDate: null,
+      cycleAnchor: addDays(game.lastDate, stage === "adult" ? 0 : game.rules.adultAfter*daysPerTurn),
+      recoverUntil: game.lastDate, lineageIds: [], provenance: "unverified", genetics, ...(isV12(game)?{deathCause:null,lastProcessedTurn:game.turn}:{}) };
     // A restored market snapshot must not re-offer a specimen already bought that day.
     if (game.individuals[id]) continue;
     const quote = valueGecko(individual, table);

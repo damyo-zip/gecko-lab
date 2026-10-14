@@ -2,7 +2,8 @@ import type { Gecko, HardcoreGame } from "./model";
 
 export function owned(game: Pick<HardcoreGame,"individuals">): Gecko[] { return Object.values(game.individuals).filter(g => g.status === "owned"); }
 export function reserved(game: Pick<HardcoreGame,"matings"|"eggs">): number {
-  return Object.values(game.matings).filter(m => m.status === "pending" || m.status === "fertilized").length * 2 +
+  return Object.values(game.matings).filter(m => m.status === "pending" || m.status === "fertilized")
+    .reduce((total,m)=>total+(m.lifecycle?(m.lifecycle.maxClutches-m.lifecycle.clutchesLaid)*2:2),0) +
     Object.values(game.eggs).filter(e => e.status === "incubating").length;
 }
 export function freeSlots(game: Pick<HardcoreGame,"individuals"|"matings"|"eggs"|"capacity">): number { return game.capacity - owned(game).length - reserved(game); }

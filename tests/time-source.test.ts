@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
-import { newGame } from "@/game/hardcore/play";
+import { newGame } from "./helpers/legacy-hardcore";
 import { actWithTime, synchronizeTime } from "@/game/hardcore/time-source";
 import { addDays } from "@/game/hardcore/time";
-import { checksum, exportBackup, makeSave, parseBackup, readSave } from "@/game/hardcore/save";
+import { checksum, exportBackup, makeSave, parseBackup, readSave } from "./helpers/legacy-hardcore";
 import type { HardcoreGame, LegacyHardcoreGame } from "@/game/hardcore/model";
 
 const DATE = "2026-10-13";

@@ -1,21 +1,23 @@
-import { forecastCross, inheritGenotype } from "@/genetics/mendel";
+import { forecastCross } from "@/genetics/mendel";
 import { expandedGenotype, HARDCORE_LOCI } from "@/genetics/hardcore";
-import { seedId, seededRandom } from "@/genetics/random";
-import { inheritTraits } from "@/genetics/traits";
+import { seededRandom } from "@/genetics/random";
 import { checkKinship } from "@/game/lineage";
 import type { Gecko, HardcoreGame, Mating } from "./model";
 import { addDays, daysBetween } from "./time";
 import { freeSlots } from "./survival";
-import { advancedSafety, cachedGenotype, legacyRecord, observeMating, offspringRecord } from "./genetics";
-import { legacyTraits } from "@/genetics/advanced/phenotype";
-import { polyScores } from "@/genetics/advanced/polygenic";
+import { advancedSafety, legacyRecord, observeMating } from "./genetics";
+import { isV12, ageTurns } from "./lifecycle";
+import { fertilizeSeason, seasonEvents } from "./season";
+import { createEmbryo } from "./offspring";
 
 export function ovulating(g: Gecko, game: HardcoreGame): boolean {
+  if(isV12(game))return g.sex==="female"&&g.status==="owned"&&g.stage==="adult"&&ageTurns(game,g)>=12&&ageTurns(game,g)<60&&game.turn>=g.nextBreedTurn&&!Object.values(game.matings).some(m=>m.parents.motherId===g.id&&m.status==="fertilized");
   const offset = daysBetween(g.cycleAnchor, game.lastDate);
   return g.sex === "female" && g.status === "owned" && g.stage === "adult" &&
     game.lastDate >= g.recoverUntil && offset >= 0 && offset % game.rules.ovulationCycleDays < game.rules.ovulationWindowDays;
 }
 export function nextOvulation(g: Gecko, game: HardcoreGame): string {
+  if(isV12(game))return ageTurns(game,g)>=60?"번식 은퇴":addDays(game.lastDate,Math.max(0,g.nextBreedTurn-game.turn)*7);
   let date = [game.lastDate, g.recoverUntil, addDays(g.birthDate, game.rules.adultAfter), g.cycleAnchor].sort().at(-1)!;
   for (let i = 0; i < game.rules.ovulationCycleDays; i++) {
     if (daysBetween(g.cycleAnchor, date) % game.rules.ovulationCycleDays < game.rules.ovulationWindowDays) return date;
@@ -30,7 +32,8 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   if (father.sex !== "male" || mother.sex !== "female") reasons.push("성체 수컷과 암컷을 선택해야 합니다.");
   for (const parent of [father,mother]) {
     if (parent.status !== "owned" || parent.hearts < 1) reasons.push(parent.name + ": 보유 중인 생존 개체만 교배할 수 있습니다.");
-    if (parent.stage !== "adult") reasons.push(parent.name + ": 성체가 되어야 합니다.");
+    if (parent.stage !== "adult" || (isV12(game)&&ageTurns(game,parent)<12)) reasons.push(parent.name + ": 12턴 성체가 되어야 합니다.");
+    if(isV12(game)&&ageTurns(game,parent)>=60)reasons.push(parent.name+": 60턴부터 신규 교배가 불가능합니다(번식 은퇴).");
     if (parent.nextBreedTurn > game.turn) reasons.push(parent.name + ": 회복 기간입니다.");
   }
   if (!ovulating(mother, game)) reasons.push("암컷은 배란기여야 합니다. 다음 배란: " + nextOvulation(mother, game));
@@ -39,7 +42,8 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   const forecast = forecastCross(expandedGenotype(father.genotype), expandedGenotype(mother.genotype), HARDCORE_LOCI);
   if (forecast.nonViableProbability > 0) reasons.push("동형접합 비생존 위험 교배를 차단합니다.");
   reasons.push(...advancedSafety(father,mother));
-  if (freeSlots(game) < 2) reasons.push("새끼 2마리의 사육 공간이 필요합니다. 판매하거나 사육장을 확장하세요.");
+  const slots=2,available=freeSlots(game);
+  if (available < slots) reasons.push(`인큐베이터 빈 슬롯 ${available}개 / 필요 ${slots}개 · ${slots-available}개 부족합니다. 사육 공간을 확보하거나 확장하세요.`);
   if (Object.keys(game.individuals).length + Object.keys(game.eggs).length + 2 > 30000) reasons.push("이 슬롯의 기록 한도에 도달했습니다. 백업을 보관하고 새 게임을 시작하세요.");
   return { reasons, forecast };
 }
@@ -58,6 +62,7 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
     status: "pending", resolvedDate: null, genetics: {
       father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
       observedIds:[],updates:[] } };
+  if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 인큐베이터 2칸 예약 · 2턴 후 알 2개 산란 · 유전 결과 확정");return;}
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);
   mother.nextBreedTurn = game.turn + game.rules.recoveryDays;
   game.notices.push("교배 일정 시작 · 새끼 공간 2칸 예약 · 내일 수정 결과 공개");
@@ -67,18 +72,7 @@ function lay(game: HardcoreGame, mating: Mating): void {
   for (let ordinal = 1; ordinal <= 2; ordinal++) {
     const seed = mating.seed + "|egg:" + ordinal;
     const childId = game.gameId + "-c" + mating.ordinal + "-" + ordinal;
-    const inheritance = inheritGenotype(expandedGenotype(mating.fatherGenotype), expandedGenotype(mating.motherGenotype), seed, HARDCORE_LOCI);
-    if (!inheritance.viable) throw new Error("위험 교배 데이터입니다. 비생존 유전형을 개체로 만들지 않습니다.");
-    const genetics=offspringRecord(mating.genetics?.father??legacyRecord({genotype:mating.fatherGenotype}),mating.genetics?.mother??legacyRecord({genotype:mating.motherGenotype}),inheritance.genotype,seed,childId);
-    const embryo: Gecko = { id: childId, name: "해칭 " + mating.ordinal + "-" + ordinal,
-      sex: seededRandom(seed, "sex")() < .5 ? "male" : "female", birthTurn: game.turn + 1,
-      stage: "hatchling", parents: { ...mating.parents }, generation: mating.generation,
-      genotype: cachedGenotype(genetics,inheritance.genotype), genetics,
-      potential: genetics.genome?legacyTraits(polyScores(genetics.genome.polygenic)):inheritTraits(mating.fatherTraits, mating.motherTraits, seed, game.rules.traitVariation),
-      visualSeed: childId + "-" + seedId(seed, "visual"), nextBreedTurn: game.turn + 1 + game.rules.adultAfter,
-      birthDate: dueDate, status: "owned", hearts: 5, lastFedDate: null, diedDate: null,
-      cycleAnchor: addDays(dueDate, game.rules.adultAfter), recoverUntil: addDays(dueDate, game.rules.adultAfter),
-      lineageIds: [...mating.lineageIds], provenance: "known" };
+    const embryo=createEmbryo(game,mating,seed,childId,"해칭 "+mating.ordinal+"-"+ordinal,game.turn+1,dueDate);
     const id = childId + "-egg";
     game.eggs[id] = { id, matingId: mating.id, laidDate: game.lastDate, dueDate, embryo,
       hatchChance: mating.hatchChance, seed, status: "incubating", resolvedDate: null };
@@ -88,6 +82,7 @@ function lay(game: HardcoreGame, mating: Mating): void {
 }
 /** Called after old animals lose hearts; hatchlings enter with five hearts afterwards. */
 export function breedingEvents(game: HardcoreGame): void {
+  if(isV12(game)){seasonEvents(game);return;}
   for (const m of Object.values(game.matings)) {
     if (m.status !== "pending" && m.status !== "fertilized") continue;
     if (game.individuals[m.parents.motherId].status !== "owned") {

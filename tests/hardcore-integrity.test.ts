@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { newGame, act, synchronize } from "@/game/hardcore/play";
-import { makeSave, readSave, checksum } from "@/game/hardcore/save";
+import { newGame, act, synchronize } from "./helpers/legacy-hardcore";
+import { makeSave, readSave, checksum } from "./helpers/legacy-hardcore";
 import { createNewGame, applyAction } from "@/game/play";
 import { makeSave as oldSave } from "@/game/save";
 import { migrateV2 } from "@/game/hardcore/create";

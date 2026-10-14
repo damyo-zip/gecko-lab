@@ -1,6 +1,6 @@
 import { expect,test } from "vitest";
-import { newGame,act,synchronize } from "@/game/hardcore/play";
-import { makeSave,readSave,checksum,exportBackup,parseBackup } from "@/game/hardcore/save";
+import { newGame,act,synchronize } from "./helpers/legacy-hardcore";
+import { makeSave,readSave,checksum,exportBackup,parseBackup } from "./helpers/legacy-hardcore";
 import { breedingCheck } from "@/game/hardcore/breeding";
 import { legacyRecord,publicKnowledge,publicForecast } from "@/game/hardcore/genetics";
 import { carrierProbability } from "@/genetics/advanced/inference";

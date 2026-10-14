@@ -5,6 +5,8 @@ import type { GameDate } from "./time";
 import { validateGame, validateV3, validateV4 } from "./validation";
 import { legacyRecord } from "./genetics";
 import type { LegacyV4Game } from "./model";
+import { migrateV12 } from "./migrate-lifecycle";
+import { migrateSingleClutch } from "./migrate-single-clutch";
 
 export function checksum(value: unknown): string {
   const input = canonicalJSON(value); let hash = 2166136261;
@@ -12,7 +14,7 @@ export function checksum(value: unknown): string {
   return (hash >>> 0).toString(16).padStart(8, "0");
 }
 export function makeSave(game: HardcoreGame) {
-  validateGame(game); return { format: "gecko-lab-save" as const, version: 5 as const, checksum: checksum(game), game };
+  validateGame(game); return { format: "gecko-lab-save" as const, version: game.saveVersion, checksum: checksum(game), game };
 }
 function migrateLegacy(legacy:LegacyV4Game):HardcoreGame {
   const game={...structuredClone(legacy),saveVersion:5 as const};
@@ -22,7 +24,7 @@ function migrateLegacy(legacy:LegacyV4Game):HardcoreGame {
   for(const m of Object.values(game.matings))m.genetics=null;
   validateGame(game);return game;
 }
-export function readSave(value: unknown, date: GameDate): HardcoreGame {
+export function readLegacySave(value: unknown, date: GameDate): HardcoreGame {
   if (!value || typeof value !== "object") throw new Error("GECKO LAB 저장 파일이 아닙니다.");
   const candidate = value as ReturnType<typeof makeSave>;
   if (candidate.format !== "gecko-lab-save") throw new Error("GECKO LAB 저장 파일이 아닙니다.");
@@ -42,6 +44,16 @@ export function readSave(value: unknown, date: GameDate): HardcoreGame {
   validateGame(candidate.game);
   if (candidate.checksum !== checksum(candidate.game)) throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
   return candidate.game;
+}
+export function readSave(value: unknown,date:GameDate):HardcoreGame {
+  const candidate=value as ReturnType<typeof makeSave>|null;
+  if(candidate?.version===6){
+    if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
+    validateGame(candidate.game);
+    if(candidate.game.saveVersion!==6||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
+    const game=migrateSingleClutch(candidate.game);validateGame(game);return game;
+  }
+  const game=migrateV12(readLegacySave(value,date));validateGame(game);return game;
 }
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");

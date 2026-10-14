@@ -23,6 +23,8 @@ export interface Gecko extends Individual {
   lineageIds: string[];
   provenance: "known" | "unverified";
   genetics?: GeneticsRecord;
+  deathCause?: "starvation" | "natural" | null;
+  lastProcessedTurn?: number;
 }
 export interface Rules {
   fertilizationChance: number;
@@ -56,6 +58,11 @@ export interface Mating {
   hatchChance: number;
   status: "pending" | "fertilized" | "failed" | "laid" | "cancelled";
   resolvedDate: GameDate | null;
+  /** v1.2 immutable fertilization results; null for completed legacy records. */
+  lifecycle?: {
+    startTurn: number; nextLayTurn: number; clutchesLaid: number; maxClutches: number;
+    offspring: { embryo: Gecko; fertilized: boolean }[];
+  } | null;
   genetics?: {
     father: GeneticsRecord; mother: GeneticsRecord;
     observedIds: string[];
@@ -72,6 +79,7 @@ export interface TimedEgg {
   seed: string;
   status: "incubating" | "hatched" | "failed";
   resolvedDate: GameDate | null;
+  lifecycle?: { laidTurn: number; dueTurn: number; fertilized: boolean; failure: "infertile" | "hatch" | null } | null;
 }
 export interface Sale {
   id: string; individualId: string; date: GameDate; price: number;
@@ -79,8 +87,8 @@ export interface Sale {
 }
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string }
 export interface HardcoreGame {
-  saveVersion: 5;
-  rulesVersion: 2;
+  saveVersion: 5 | 6;
+  rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
   revision: number;

@@ -20,7 +20,10 @@ export function nameLineage(game: HardcoreGame, id: string, name: string): void 
   for (const child of ids) game.individuals[child].lineageIds.push(lineId);
   // Existing pending matings/eggs must also retain a new ancestral line.
   for (const m of Object.values(game.matings))
-    if (ids.has(m.parents.fatherId) || ids.has(m.parents.motherId)) m.lineageIds.push(lineId);
+    if (ids.has(m.parents.fatherId) || ids.has(m.parents.motherId)) {
+      m.lineageIds.push(lineId);
+      for(const o of m.lifecycle?.offspring??[])if(!o.embryo.lineageIds.includes(lineId))o.embryo.lineageIds.push(lineId);
+    }
   for (const e of Object.values(game.eggs)) if (e.embryo.parents && (ids.has(e.embryo.parents.fatherId) || ids.has(e.embryo.parents.motherId)))
     if (!e.embryo.lineageIds.includes(lineId)) e.embryo.lineageIds.push(lineId);
 }
