@@ -131,7 +131,11 @@ test('no title banner, two favorite cards per view, real horizontal swipe for th
  const scrollbarHeight=await rail.evaluate(el=>(el as HTMLElement).offsetHeight-el.clientHeight);
  expect((await page.locator('.album-favorites').boundingBox())!.height).toBeLessThanOrEqual(originalHeight+scrollbarHeight+1);
  for(const width of [360,390,430]){
-  await page.setViewportSize({width,height:844});await rail.evaluate(el=>{el.scrollLeft=0;});
+  // A previous swipe's compositor snap can survive a resize in Chromium 156.
+  // Reopen the real tab for each viewport to start an independent scroll session.
+  await navigateGame(page,'컬렉션',mobile);
+  await page.setViewportSize({width,height:844});
+  await navigateGame(page,'혈통도',mobile);
   await expect.poll(()=>rail.evaluate(el=>el.scrollLeft)).toBe(0);
   const r=(await rail.boundingBox())!,cards=await rail.locator('.album-favorite').all(),boxes=await Promise.all(cards.map(c=>c.boundingBox()));
   expect(boxes[0]!.y).toBe(boxes[1]!.y);expect(boxes[1]!.y).toBe(boxes[2]!.y);
