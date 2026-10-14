@@ -62,12 +62,12 @@ test("all morphs and extreme expression values protect face/outline and stay ins
     }expect(outside).toBe(0);expect(protectedPaint).toBe(0);expect(r.layers.map(l=>l.name)).toEqual(LAYER_ORDER);
   }
 });
-test("existing Phase 5 phenotype supplies art parameters without modifying game identity, prices or save data",()=>{
+test("existing Phase 5 scores still supply art parameters, with new versioned patterns and no renderer mutation of game data",()=>{
   const game=newGame("art-contract","2026-10-14"),before=JSON.stringify(game);
   for(const offer of Object.values(game.shop.offers)){
     const g=offer.individual,quote=valueGecko(g),wire=geckoSprite(g),scores=phenotype(g.genetics!.genome!).scores;
     expect(wire.appearance.expression).toEqual({red:scores.red,orange:scores.orange,brightness:scores.brightness,cream:scores.cream,harlequin:scores.harlequin,pinstripe:scores.pinstripe,contrast:scores.contrast});
-    expect(renderSprite(wire).version).toBe("2.0.1");expect(renderSprite(geckoSprite(g,"down")).pixels).not.toEqual(renderSprite(wire).pixels);
+    expect(wire.appearance.patterns?.version).toBe(1);expect(renderSprite(wire).version).toBe("2.1.0");expect(renderSprite(geckoSprite(g,"down")).pixels).not.toEqual(renderSprite(wire).pixels);
     expect(valueGecko(g)).toEqual(quote);
   }expect(JSON.stringify(game)).toBe(before);expect(readSave(makeSave(game),game.lastDate)).toEqual(game);
 });

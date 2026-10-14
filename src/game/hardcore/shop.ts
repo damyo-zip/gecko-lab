@@ -23,7 +23,7 @@ export function refreshLegacyShop(game: HardcoreGame, table: PriceTable = MARKET
     // Hidden truth is fixed before purchase; public evidence never looks it up.
     if(n===1)genotype.loci.axanthic=seededRandom(seed,"hidden-carrier")()<.5?["A","ax"]:["A","A"];
     if(n===5)genotype.loci.axanthic=seededRandom(seed,"hidden-carrier")()<2/3?["A","ax"]:["A","A"];
-    const genetics=founderRecord(genotype,seed,n<=2);
+    const genetics=founderRecord(genotype,seed,n<=2,"5.0");
     if(n===1)genetics.knowledge.loci.axanthic=belief({"A/A":.5,"A/ax":.5},"seller","판매자 부모 기록: Aa × AA, 외형 Normal · 50% possible het");
     if(n===5)genetics.knowledge.loci.axanthic=belief({"A/A":1/3,"A/ax":2/3},"seller","판매자 부모 기록: Aa × Aa, 외형 Normal · 66.7% possible het");
     const potential=legacyTraits(polyScores(genetics.genome!.polygenic));

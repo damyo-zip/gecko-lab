@@ -2,7 +2,7 @@
 import {useState} from "react";
 import {owned,feedable,freeSlots,reserved} from "@/game/hardcore/survival";
 import {ovulating} from "@/game/hardcore/breeding";
-import {morph,specimen,disclosedSex} from "@/game/hardcore/adapter";
+import {morph,specimen,disclosedSex,visualName} from "@/game/hardcore/adapter";
 import {STAGE_LABELS} from "@/game/model";
 import type {Gecko,HardcoreGame} from "@/game/hardcore/model";
 import {SpriteCanvas} from "../sprite-canvas";
@@ -10,11 +10,15 @@ import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
 import {EndTurnButton} from "./end-turn";
 import {isV12,ageTurns,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
+import {appearanceProfile} from "@/game/hardcore/appearance";
+import {PATTERN_FILTERS} from "@/phenotype/rules";
 
 const MORPHS={normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"};
 function visualMorph(g:Gecko) {
-  // Translate the visual class while retaining every existing genetic morph and public carrier annotation.
-  return morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,MORPHS[specimen(g).appearance.patternStyle]);
+  const profile=appearanceProfile(g);
+  if(!profile)return morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,MORPHS[specimen(g).appearance.patternStyle]);
+  const evidence=morph(g).split(" · ").filter(s=>s.includes("het")||s.includes("유전 정보"));
+  return [visualName(g),...evidence].join(" · ");
 }
 function breedingStatus(game:HardcoreGame,g:Gecko) {
   if(isV12(game)&&ageTurns(game,g)>=60)return {ready:false,label:"번식 은퇴"};
@@ -42,7 +46,9 @@ export function Collection({game,busy,play,onDetail,onShop,onFood}:ViewProps&{on
   const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
   const [filter,setFilter]=useState("all"),[sort,setSort]=useState("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false);
   const animals=owned(game),selected=animals.find(g=>g.id===selectedId)??animals[0];
-  const visible=animals.filter(g=>(filter==="all"||specimen(g).appearance.patternStyle===filter)&&(stage==="all"||g.stage===stage));
+  const visible=animals.filter(g=>{const p=filter.startsWith("pattern:")?appearanceProfile(g):null;
+    const matches=filter==="all"||(filter.startsWith("pattern:")?!!p&&[p.names.base,p.names.color,...p.names.features].some(n=>n.includes(filter.slice(8))):specimen(g).appearance.patternStyle===filter);
+    return matches&&(stage==="all"||g.stage===stage);});
   if(sort==="name")visible.sort((a,b)=>a.name.localeCompare(b.name,"ko"));
   if(sort==="generation")visible.sort((a,b)=>b.generation-a.generation||a.id.localeCompare(b.id));
   if(sort==="hearts")visible.sort((a,b)=>a.hearts-b.hearts||a.id.localeCompare(b.id));
@@ -63,7 +69,7 @@ export function Collection({game,busy,play,onDetail,onShop,onFood}:ViewProps&{on
     </div>
     <div className="home-inventory home-frame">
       <div className="home-inventory-heading"><h1><HomeIcon name="leaf" size={21}/>보유 개체 <small>{animals.length} / {game.capacity}</small></h1>
-        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>{setFilter(e.target.value);setLimit(12);}}><option value="all">모프 전체</option>{Object.entries(MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select>
+        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>{setFilter(e.target.value);setLimit(12);}}><option value="all">모프 전체</option>{Object.entries(MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{PATTERN_FILTERS.map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select>
           <select aria-label="개체 정렬" value={sort} onChange={e=>setSort(e.target.value)}><option value="default">기본순</option><option value="name">이름순</option><option value="generation">세대순</option><option value="hearts">하트순</option></select>
           <button className="home-frame" aria-label={columns===3?"2열로 보기":"3열로 보기"} onClick={()=>setColumns(columns===3?2:3)}><HomeIcon name="grid" size={18}/></button></div>
       </div>

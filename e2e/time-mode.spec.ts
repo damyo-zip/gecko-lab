@@ -64,7 +64,7 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
 });
 
 test("v1.2 keeps the realtime option disabled and wall-clock signals never advance a saved game",async({page},info)=>{
- const mobile=info.project.name.startsWith("mobile");await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await endTurn(page,mobile);const before=await saved(page);
+ const mobile=info.project.name.startsWith("mobile");await tab(page,"상점",mobile);const offer=Object.values((await saved(page)).shop.offers)[0];await click(page.getByRole("button",{name:offer.individual.name+" 구매",exact:true}),mobile);await endTurn(page,mobile);const before=await saved(page);
  await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);await expect(page.getByRole("combobox",{name:"시간 진행 방식",exact:true}).locator('option[value="realtime"]')).toHaveJSProperty('disabled',true);await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
  await page.clock.setFixedTime(new Date(addDays(DATE,100)+"T03:00:00Z"));await page.evaluate(()=>window.dispatchEvent(new Event("focus")));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("1");expect(await saved(page)).toEqual(before);
 });

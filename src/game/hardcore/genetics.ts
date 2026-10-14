@@ -15,19 +15,20 @@ export function legacyRecord(g:Pick<Gecko,"genotype">):GeneticsRecord {
   }return {version:1,genome:null,knowledge,appearanceVersion:"legacy-1"};
 }
 export const publicKnowledge=(g:Gecko):Knowledge=>g.genetics?.knowledge??legacyRecord(g).knowledge;
-export function founderRecord(genotype:Genotype,seed:string,subdued=false):GeneticsRecord {
+export function founderRecord(genotype:Genotype,seed:string,subdued=false,appearanceVersion:"5.0"|"patterns-1"="patterns-1"):GeneticsRecord {
   const mendelian=wildGenome();Object.assign(mendelian.loci,expandedGenotype(genotype).loci);
   const genome={version:1 as const,mendelian,polygenic:founderPoly(seed,subdued)},knowledge=unknownKnowledge();
   for(const l of LOCI)knowledge.loci[l.id]=belief({[pairKey(mendelian.loci[l.id],l)]:1},"seller","판매자 제공 게임 유전 기록");
-  return {version:1,genome,knowledge,appearanceVersion:"5.0"};
+  return {version:1,genome,knowledge,appearanceVersion};
 }
-export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype,seed:string,id:string):GeneticsRecord {
+export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype,seed:string,id:string,newPatterns=false):GeneticsRecord {
   if(!father.genome||!mother.genome){const result=legacyRecord({genotype});
     const seen:Record<string,string>={};for(const l of LOCI){const pair=genotype.loci[l.id];if(pair)seen[l.id]=l.phenotypes[pairKey(pair,l)];}
     result.knowledge=childKnowledge(father.knowledge,mother.knowledge,seen,id);return result;
   }
   const genome={version:1 as const,mendelian:inherit(father.genome.mendelian,mother.genome.mendelian,seed),polygenic:inheritPoly(father.genome.polygenic,mother.genome.polygenic,seed)};
-  return {version:1,genome,knowledge:childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),appearanceVersion:"5.0"};
+  return {version:1,genome,knowledge:childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),
+    appearanceVersion:newPatterns||father.appearanceVersion==="patterns-1"||mother.appearanceVersion==="patterns-1"?"patterns-1":"5.0"};
 }
 export function cachedGenotype(record:GeneticsRecord,fallback:Genotype):Genotype {
   return record.genome?{modelVersion:1,loci:{"lilly-white":record.genome.mendelian.loci["lilly-white"],axanthic:record.genome.mendelian.loci.axanthic}}:fallback;
