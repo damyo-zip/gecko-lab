@@ -43,7 +43,7 @@ test("reference home binds six real specimens, preserves read-only state and adv
   expect(await nav.getByRole("button").allTextContents()).toEqual(["컬렉션","인큐베이터","혈통도","상점"]);
   const [hero,art,panel,inventory,cta]=await Promise.all([".home-hero",".home-hero-art",".home-info",".home-inventory",".home-turn-cta"].map(s=>page.locator(s).boundingBox()));
   expect(art!.x).toBeLessThan(panel!.x);expect(panel!.x).toBeGreaterThan(hero!.x+hero!.width*.5);
-  expect(inventory!.y).toBeGreaterThan(hero!.y+hero!.height);expect(cta!.y).toBeGreaterThan(inventory!.y+inventory!.height);
+  expect(inventory!.y).toBeGreaterThan(hero!.y+hero!.height);const content=await page.locator(".reference-content").boundingBox();expect(cta!.y).toBeGreaterThanOrEqual(content!.y+content!.height);
   const cards=await page.locator(".home-card").all();
   expect((await cards[0].boundingBox())!.y).toBe((await cards[2].boundingBox())!.y);
   expect((await cards[3].boundingBox())!.y).toBeGreaterThan((await cards[0].boundingBox())!.y);

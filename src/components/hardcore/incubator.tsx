@@ -3,14 +3,13 @@ import {useState} from 'react';
 import {BreedingRecord} from './genetics-panel';
 import {Dialog,Sprite,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
-import {EndTurnButton} from './end-turn';
 import {IncubatorEgg} from './incubator-egg';
 import {incubatorState,eggProgress,eggNumber} from './incubator-state';
 import {V12} from '@/game/hardcore/lifecycle';
 import {morph} from '@/game/hardcore/adapter';
 const MATING_LABEL={pending:'수정 결과 대기',fertilized:'수정 성공',failed:'수정 실패',laid:'산란 완료',cancelled:'산란 전 취소'};
 
-export function Incubator({game,busy,play,onDetail,onTab,onFood}:ViewProps&{onTab:(tab:string)=>void;onFood?:()=>void}){
+export function Incubator({game,busy,play,onDetail,onTab}:ViewProps&{onTab:(tab:string)=>void}){
  const [page,setPage]=useState(0),[limit,setLimit]=useState(12),[help,setHelp]=useState(false),[inspect,setInspect]=useState('');
  const state=incubatorState(game),pages=Math.max(1,Math.ceil(state.slots.length/6)),current=Math.min(page,pages-1);
  const slots=state.slots.slice(current*6,current*6+6),completed=Object.values(game.eggs).filter(e=>e.status!=='incubating').reverse();
@@ -45,7 +44,6 @@ export function Incubator({game,busy,play,onDetail,onTab,onFood}:ViewProps&{onTa
    {pages>1&&<div className="inc-pagination"><button disabled={busy||current===0} onClick={()=>setPage(current-1)}>이전 슬롯</button><span>{current+1} / {pages}</span><button disabled={busy||current===pages-1} onClick={()=>setPage(current+1)}>다음 슬롯</button></div>}
    <p className="sr-only" data-testid="incubator-slots">빈 슬롯 {state.available}개 · 교배당 2개 예약 · 산란 시 알 2개 자동 배치 · 교배 예약 {state.booked}개</p>
   </section>
-  <div className="inc-cta-wrap"><EndTurnButton game={game} busy={busy} play={play} onShop={onFood??(()=>onTab('shop'))} className="inc-turn-cta"><HomeIcon name="dna"/><HomeIcon name="heart"/><span>턴 넘기기</span><HomeIcon name="chevron"/><HomeIcon name="heart"/><HomeIcon name="dna"/></EndTurnButton></div>
   <div className="inc-extra"><nav className="inc-tools" aria-label="연구소 도구"><button className="game-secondary" disabled={busy} onClick={()=>onTab('breeding')}>교배</button><button className="game-secondary" disabled={busy} onClick={()=>onTab('home')}>오늘</button></nav>
    <p className="inc-rule-note">1턴 {V12.daysPerTurn}일 · TURN {game.turn} · 교배당 2알 · 산란 후 {V12.hatchAfter}턴 부화</p>
    {game.notices.length>0&&<div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}

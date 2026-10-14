@@ -1,8 +1,7 @@
 "use client";
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 import {Dialog,Sprite,won,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
-import {EndTurnButton} from './end-turn';
 import {freeSlots} from '@/game/hardcore/survival';
 import {visualName,disclosedSex} from '@/game/hardcore/adapter';
 import {ageTurns,V12} from '@/game/hardcore/lifecycle';
@@ -15,9 +14,8 @@ import {appearanceProfile} from '@/game/hardcore/appearance';
 export function shopMorph(g:Gecko):string {
  return visualName(g);
 }
-export function Shop({game,busy,play,onFood}:ViewProps&{onFood:()=>void}){
+export function Shop({game,busy,play}:ViewProps){
  const [inspect,setInspect]=useState(''),[confirm,setConfirm]=useState(false);
- useEffect(()=>{window.scrollTo({top:0,behavior:'instant'});},[]);
  const offers=Object.values(game.shop.offers),selected=game.shop.offers[inspect];
  const reroll=async()=>{if(await play({type:'refreshShop'})){setConfirm(false);setInspect('');}};
  return <section className="shop-reference" aria-label="상점 화면">
@@ -33,7 +31,6 @@ export function Shop({game,busy,play,onFood}:ViewProps&{onFood:()=>void}){
     <button className="shop-buy" aria-label={g.name+' 구매'} aria-description={buyLabel} disabled={unavailable} onClick={()=>void play({type:'buyGecko',offerId:o.id})}><HomeIcon name="cart"/><span>{buyLabel}</span></button>
    </article>;
   })}</div>
-  <div className="shop-cta-wrap"><EndTurnButton game={game} busy={busy} play={play} onShop={onFood} className="shop-turn-cta"><HomeIcon name="dna"/><HomeIcon name="heart"/><span>턴 넘기기</span><HomeIcon name="chevron"/><HomeIcon name="heart"/><HomeIcon name="dna"/></EndTurnButton></div>
   {game.notices.length>0&&<div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
   <p className="shop-market-note">{MARKET.status==='provisional-game-prices'?'임시 게임 가격 · 국내 시세 미검증':'검토된 시장 추정가'} · {MARKET.version}<br/>턴 진행 시 매물 갱신 · 성별은 성체 때 공개</p>
   {confirm&&<Dialog title="발품팔기 확인" onClose={()=>setConfirm(false)}><p>현재 매물을 새로운 게코 4마리로 바꿉니다. 게임 자금 {won(SHOP_REFRESH_PRICE)}을 소비하며 턴은 진행하지 않습니다.</p><p>보유 자금 {won(game.money)} · 실행 후 {won(game.money-SHOP_REFRESH_PRICE)}</p><button className="game-primary full-width" disabled={busy||game.money<SHOP_REFRESH_PRICE} onClick={()=>void reroll()}>2,000원 사용하고 매물 갱신</button><button className="game-secondary full-width" disabled={busy} onClick={()=>setConfirm(false)}>취소</button></Dialog>}
