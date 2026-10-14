@@ -4,7 +4,7 @@ import { catchUp } from "./calendar";
 import { feed, feedAll } from "./survival";
 import { startMating } from "./breeding";
 import { buyFood, buyGecko, sellGecko, expand } from "./economy";
-import { nameLineage } from "./lineage";
+import { nameLineage,renameLineage,unfavoriteLineage } from "./lineage";
 import { SHOP_REFRESH_PRICE } from "./shop-family";
 import { refreshShop } from "./shop";
 import { MARKET, updateMarket, type PriceTable } from "./market";
@@ -36,7 +36,7 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
     case "breed": startMating(game, action.fatherId, action.motherId); break;
     case "buyFood": buyFood(game, action.amount); break;
     case "refreshShop": {
-      if(game.saveVersion!==7)throw new Error("현재 상점으로 이전한 뒤 발품팔기를 사용할 수 있습니다.");
+      if(game.saveVersion<7)throw new Error("현재 상점으로 이전한 뒤 발품팔기를 사용할 수 있습니다.");
       if(game.money<SHOP_REFRESH_PRICE)throw new Error("발품팔기 자금이 부족합니다. 2,000원이 필요합니다.");
       game.money-=SHOP_REFRESH_PRICE;refreshShop(game,table);break;
     }
@@ -44,6 +44,8 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
     case "sell": sellGecko(game, action.id, table); break;
     case "expand": expand(game); break;
     case "lineage": nameLineage(game, action.id, action.name); break;
+    case "renameLineage": renameLineage(game,action.lineageId,action.name);break;
+    case "unfavoriteLineage": unfavoriteLineage(game,action.lineageId);break;
     case "rename": {
       const i = game.individuals[action.id], name = action.name.trim();
       if (!i || !name || name.length > 24) throw new Error("개체 이름은 1~24자여야 합니다.");

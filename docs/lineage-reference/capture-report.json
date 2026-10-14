@@ -1,0 +1,77 @@
+{
+  "baselineCommit": "b93dee773e210a86fedf00f3802df86f5e11e254",
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "width": 720,
+      "height": 1632,
+      "purpose": "Full album at its natural document height, without a fixed nav covering the comparison panel"
+    }
+  ],
+  "selectedId": "h-31ff4413-c1-1-1",
+  "sameBiologicalRecords": true,
+  "saveUpgrade": "v7 → v8, founder ID and favorite status only",
+  "comparison": {
+    "scale": 1,
+    "labelsOutsideImages": true,
+    "referenceOSBarsIncluded": true,
+    "implementationOSBarsNotInvented": true
+  },
+  "reference": {
+    "path": "references/gecko-lineage-ui.jpg",
+    "width": 720,
+    "height": 1280,
+    "sha256": "def1d1f91e51fc81b1945c0c8f06ae5a0ed5abfbd08c3ae332ab016cf24b10ea"
+  },
+  "captures": [
+    {
+      "file": "before-390.png",
+      "width": 390,
+      "height": 1963,
+      "sha256": "dde4f7dbffe3dfe255d7bed9d3944682ed4df13b374f667144e8cf6602dfdf9a"
+    },
+    {
+      "file": "after-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "15874d588f79dd398236b137bbfb35d2399c46ef0489efd07c2424e44b3f698e"
+    },
+    {
+      "file": "after-390-full.png",
+      "width": 390,
+      "height": 1614,
+      "sha256": "9a3355024c1ba040daa9b6f358087dc04bd469f4a909f85387d500d2264eacea"
+    },
+    {
+      "file": "comparison-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "ec6d60eea6d8c8b323ffc2f5188b2e8fce022e74562abea6ef68c81990837c42"
+    },
+    {
+      "file": "after-720.png",
+      "width": 720,
+      "height": 1280,
+      "sha256": "5a23997199808c16e2db15ddc88517bcb05640f1242d02383e17ec69577ba0f0"
+    },
+    {
+      "file": "after-720-full.png",
+      "width": 720,
+      "height": 1632,
+      "sha256": "05eae095ea4fb9a2aea55423c0050f17f6baeae47c89c2fefc8f14766d13dce3"
+    },
+    {
+      "file": "overview-720.png",
+      "width": 720,
+      "height": 1632,
+      "sha256": "465026f69f2c431ab9ccbfff34df192cbca9202e4fc345df04c94850b7e46f93"
+    }
+  ]
+}

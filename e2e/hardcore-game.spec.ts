@@ -72,7 +72,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await buyFood(page,mobile,1000);
  for(const name of ["노멀 수컷 구매","노멀 암컷 구매"])await click(page.getByRole("button",{name,exact:true}),mobile);
  let g=await saved(page);const [father,mother]=Object.values(g.individuals);await page.screenshot({path:info.outputPath("phase3-shop.png"),scale:"css"});
- await tab(page,"혈통",mobile);await page.getByLabel("혈통 이름",{exact:true}).fill("Moonlight Line");await click(page.getByRole("button",{name:"혈통 이름 등록",exact:true}),mobile);
+ await tab(page,"혈통",mobile);await click(page.getByRole("button",{name:"관심 혈통 등록",exact:true}),mobile);await page.getByLabel("혈통 이름",{exact:true}).fill("Moonlight Line");await click(page.getByRole("button",{name:"혈통 이름 등록",exact:true}),mobile);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(father.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(mother.id);
  await expect(page.getByTestId("hardcore-forecast")).toContainText("100%");await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
  expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
@@ -142,7 +142,7 @@ test("stale tabs cannot overwrite money or daily care, all six screens fit 360px
   await expect(other.getByRole("alert").filter({hasText:"다른 창"})).toBeVisible();expect((await saved(page)).food).toBe(10);await other.close();
   for(const name of ["오늘","컬렉션","교배","부화","상점","혈통"]) {
     await tab(page,name,mobile);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    const label=name==='부화'?'인큐베이터':name;
+    const label=name==='부화'?'인큐베이터':name==='혈통'?'혈통도':name;
     const box=await page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name:label,exact:true}).boundingBox();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThanOrEqual(44);
   }
   await expect(page.getByRole("button",{name:"1턴 진행",exact:true})).toHaveCount(0);await expect(page.getByRole("button",{name:"+5턴",exact:true})).toHaveCount(0);
