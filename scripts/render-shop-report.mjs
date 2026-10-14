@@ -13,3 +13,9 @@ const labels=Buffer.from(`<svg width="${width}" height="32"><rect width="100%" h
 await sharp({create:{width,height,channels:4,background:'#06121c'}}).composite([{input:labels,left:0,top:0},{input:left,left:16,top:32},{input:right,left:422,top:32}]).png().toFile(folder+'/before-after.png');
 await writeFile(folder+'/capture-report.json',JSON.stringify({baselineCommit:'093ee6decc402a677cc97dfa6636912e80c87fc7',viewport:{width:390,height:844},sameGameState:false,reason:'Original six-offer market versus new four-offer real-family market; actual game data differs.',comparison:{scale:1,labelsOutsideImages:true},captures:[{file:'before-390.png',width:l.width,height:l.height,sha256:hash(left)},{file:'after-390.png',width:r.width,height:r.height,sha256:hash(right)}]},null,2)+'\n');
 console.log('390px real browser comparison composed without changing screenshot pixels.');
+
+const compactBefore=await readFile(folder+'/before-compact-390.png'),bm=await sharp(compactBefore).metadata();
+const baseline=JSON.parse(await readFile(folder+'/compact-baseline.json','utf8')),state=JSON.parse(await readFile(folder+'/state.json','utf8'));
+if(baseline.gameChecksum!==state.checksum)throw new Error('Compact comparison game states differ');
+await sharp({create:{width,height:Math.max(bm.height,r.height)+48,channels:4,background:'#06121c'}}).composite([{input:labels,left:0,top:0},{input:compactBefore,left:16,top:32},{input:right,left:422,top:32}]).png().toFile(folder+'/compact-comparison.png');
+console.log('Compact comparison uses identical saved game data.');
