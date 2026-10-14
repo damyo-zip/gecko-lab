@@ -14,7 +14,7 @@ const captures=[];
 for(const [width,height] of [[390,844],[360,800],[430,932],[607,1280]]){
  await page.setViewportSize({width,height});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:folder+`/after-${width}.png`,scale:'css',animations:'disabled'});
  if(width===390)await page.screenshot({path:folder+'/after-390-full.png',fullPage:true,scale:'css'});
- captures.push(await page.evaluate(()=>({width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth>innerWidth,hero:document.querySelector('.inc-hero').getBoundingClientRect().toJSON(),grid:getComputedStyle(document.querySelector('.inc-slot-grid')).gridTemplateColumns,cta:document.querySelector('.inc-turn-cta').getBoundingClientRect().toJSON(),nav:document.querySelector('.home-nav').getBoundingClientRect().toJSON()})));
+ captures.push(await page.evaluate(()=>({width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth>innerWidth,hero:document.querySelector('.inc-hero').getBoundingClientRect().toJSON(),grid:getComputedStyle(document.querySelector('.inc-slot-grid')).gridTemplateColumns,cta:document.querySelector('.home-turn-cta').getBoundingClientRect().toJSON(),nav:document.querySelector('.home-nav').getBoundingClientRect().toJSON()})));
 }
 const game=await page.evaluate(async()=>{const db=await new Promise(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});});
 if(JSON.stringify(game)!==JSON.stringify(original))throw new Error('UI changed original game records');

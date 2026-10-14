@@ -51,7 +51,7 @@ test('live family album matches actual seven nodes, recenters across generations
  await expect(page.locator('.lineage-trends,.genetic-panel')).toHaveCount(0);
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  for(const b of await page.locator('.album-turn-cta,.album-small-button,.album-tree-card,.album-compare-select,.album-family-manage').all()){const box=await b.boundingBox();expect(box!.height).toBeGreaterThanOrEqual(44);}
+  for(const b of await page.locator('.home-turn-cta,.album-small-button,.album-tree-card,.album-compare-select,.album-family-manage').all()){const box=await b.boundingBox();expect(box!.height).toBeGreaterThanOrEqual(44);}
   await expect.poll(async()=>{const r=await page.locator('.album-tree .is-current').boundingBox(),v=await page.locator('.album-tree-scroll').boundingBox();return r!.x>=v!.x&&r!.x+r!.width<=v!.x+v!.width;}).toBe(true);
   await page.screenshot({path:info.outputPath('album-'+width+'.png'),fullPage:true,scale:'css'});
  }

@@ -8,7 +8,6 @@ import type {Gecko,HardcoreGame} from "@/game/hardcore/model";
 import {SpriteCanvas} from "../sprite-canvas";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
-import {EndTurnButton} from "./end-turn";
 import {isV12,ageTurns,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
 import {appearanceProfile} from "@/game/hardcore/appearance";
 import {PATTERN_FILTERS} from "@/phenotype/rules";
@@ -42,7 +41,7 @@ function Status({game,gecko}:{game:HardcoreGame;gecko:Gecko}) {
   return <span className={"home-status "+(status.ready?"ready":"waiting")}><HomeIcon name={status.ready?"heart":"clock"} size={14}/>{status.label}</span>;
 }
 
-export function Collection({game,busy,play,onDetail,onShop,onFood}:ViewProps&{onShop:()=>void;onFood?:()=>void}) {
+export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()=>void}) {
   const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
   const [filter,setFilter]=useState("all"),[sort,setSort]=useState("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false);
   const animals=owned(game),selected=animals.find(g=>g.id===selectedId)??animals[0];
@@ -82,7 +81,6 @@ export function Collection({game,busy,play,onDetail,onShop,onFood}:ViewProps&{on
       {!visible.length&&<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
       {visible.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>개체 더 보기</button>}
     </div>
-    <div className="home-cta-surround"><EndTurnButton game={game} busy={busy} play={play} onShop={onFood??onShop} className="home-turn-cta"><HomeIcon name="dna" size={42}/><HomeIcon name="heart" size={12}/><span>턴 넘기기</span><HomeIcon name="chevron" size={24}/><HomeIcon name="heart" size={12}/><HomeIcon name="dna" size={42}/></EndTurnButton></div>
     {care&&<Dialog title="컨디션 관리" onClose={()=>setCare(false)}><p className="game-section-copy">{game.lastDate} · TURN {game.turn} · {game.time.mode==="turn"?"턴 방식":"한국 자정"}<br/>사육장 {animals.length}+예약 {reserved(game)} / {game.capacity}</p><p className="game-section-copy">하트는 게임용 컨디션입니다. 1턴은 7일이며 생존 개체당 사료 1개를 자동 급여합니다. 미급여 시 하트가 1 감소하고, 0이면 영구 폐사합니다. 상단 먹이 + 버튼에서 사료를 확보하세요. 교배 실행 시 부모 조합의 유전 위험과 근친 여부를 추가로 검사합니다.</p>
       {isV12(game)?<p className="game-section-copy">다음 턴 필요 사료 {foodDemand(game).needed}개 · 재고 {game.food}개 · 부족 {foodDemand(game).missing}개</p>:<button className="game-primary full-width" disabled={busy||!game.food||!animals.some(g=>feedable(game,g))} onClick={()=>play({type:"feedAll"})}>수동 전체 급여 · 먹이 {game.food}개</button>}
       <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>{setStage(e.target.value);setLimit(12);}}><option value="all">전체 성장 단계</option><option value="hatchling">해칭</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>

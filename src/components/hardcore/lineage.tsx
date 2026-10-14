@@ -6,7 +6,6 @@ import {STAGE_LABELS} from '@/game/model';
 import type {Gecko} from '@/game/hardcore/model';
 import {Sprite,STATUS,Dialog,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
-import {EndTurnButton} from './end-turn';
 import {AlbumPicker} from './album-picker';
 
 function Sex({g}:{g:Gecko}){
@@ -21,7 +20,7 @@ function TreeCard({g,role,current=false,onSelect}:{g:Gecko|undefined;role:string
   </button>:<div className="album-tree-missing"><HomeIcon name="tree" size={24}/><span>정보 없음</span></div>}
  </div>;
 }
-export function Lineage({game,busy,play,onDetail,selectedId,onSelect,onFood}:ViewProps&{selectedId:string;onSelect:(id:string)=>void;onFood:()=>void}){
+export function Lineage({game,busy,play,onDetail,selectedId,onSelect}:ViewProps&{selectedId:string;onSelect:(id:string)=>void}){
  const index=useMemo(()=>pedigreeIndex(game),[game]),records=useMemo(()=>Object.values(game.individuals),[game]);
  const root=game.individuals[selectedId]??records.find(g=>g.status==='owned')??records[0];
  const treeScroll=useRef<HTMLDivElement>(null);
@@ -54,7 +53,7 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect,onFood}:Vie
  const age=root?recordedAge(game,root):null;
  return <section className="album-reference" aria-label="혈통 앨범">
   <h1 className="sr-only">혈통도</h1>
-  <div className="album-toolbar album-metal"><div><HomeIcon name="star" size={27}/><strong>관심 혈통 <em>{favorites.length}개</em></strong></div><p>좋아하는 가문을 모아보고<br/>혈통을 확인하세요.</p><EndTurnButton game={game} busy={busy} play={play} onShop={onFood} className="album-turn-cta"><HomeIcon name="refresh" size={24}/>턴 넘기기</EndTurnButton></div>
+  <div className="album-toolbar album-metal"><div><HomeIcon name="star" size={27}/><strong>관심 혈통 <em>{favorites.length}개</em></strong></div><p>좋아하는 가문을 모아보고<br/>혈통을 확인하세요.</p></div>
   <section className="album-favorites album-metal" aria-labelledby="album-favorites-title">
    <div className="album-section-title"><HomeIcon name="star"/><h2 id="album-favorites-title">관심 혈통</h2><span>{favorites.length>2?'옆으로 밀어 가문을 살펴보세요.':'내가 좋아하는 가문을 등록해보세요.'}</span>{root&&<button className="album-small-button" disabled={busy} onClick={()=>{setEditor({id:null,name:'',rootId:root.id});setRemove(false);}} aria-label="관심 혈통 등록"><HomeIcon name="plus" size={15}/>등록</button>}</div>
    {favorites.length?<div className="album-favorite-grid" ref={favoriteScroll} role="region" aria-label="관심 혈통 카드" tabIndex={favorites.length>2?0:undefined} onScroll={e=>{const node=e.currentTarget;if(node.scrollWidth-node.clientWidth-node.scrollLeft<32&&favoriteLimit<favorites.length)setFavoriteLimit(n=>Math.min(favorites.length,n+8));}}>{favorites.slice(0,favoriteLimit).map(l=>{const summary=summaries.get(l.id)!;return <article className="album-favorite" key={l.id}>

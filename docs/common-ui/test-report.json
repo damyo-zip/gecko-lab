@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "typecheck": "passed",
+    "build": "passed",
+    "artHash": "passed",
+    "unit": {
+      "files": 19,
+      "passed": 232,
+      "failed": 0,
+      "skipped": 0
+    },
+    "e2e": {
+      "passed": 134,
+      "failed": 0,
+      "skipped": 0,
+      "duration": "5.5m",
+      "workers": 3
+    }
+  },
+  "commands": [
+    "npm run typecheck",
+    "npm test",
+    "npm run build",
+    "node scripts/compile-gecko-art.mjs --check",
+    "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e -- --workers=3"
+  ],
+  "mobile": {
+    "engine": "system Chromium; mobile touch emulation",
+    "viewports": [
+      [
+        360,
+        800
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        932
+      ],
+      [
+        360,
+        640
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "safeInsetsSimulation": {
+      "top": 44,
+      "bottom": 34,
+      "left": 20,
+      "right": 20
+    },
+    "geometryCases": 40,
+    "exactChromeGeometry": true,
+    "persistentHeaderFooter": true,
+    "scrollKeepsChrome": true
+  },
+  "regressions": [
+    "turn actions in all four tabs",
+    "duplicate-click prevention",
+    "food shortage warning and cancellation",
+    "resource values and IndexedDB reload",
+    "Mendelian and health genetics",
+    "breeding, incubation, growth, lineage, shop",
+    "prior save migrations and offline PWA"
+  ],
+  "saveVersion": 9,
+  "saveMigrationAdded": false,
+  "limitations": [
+    "Physical phones and Safari were not available; safe insets simulated with CSS."
+  ]
+}
