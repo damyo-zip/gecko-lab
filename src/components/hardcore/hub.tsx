@@ -34,7 +34,7 @@ export default function HardcoreHub() {
     {error && <div className="game-error-banner" role="alert">{error}{conflict && <button className="game-secondary full-width" onClick={()=>location.reload()}>저장 상태 새로고침</button>}</div>}
     {!isCollection&&game && game.notices.length>0 && <div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
     {loading ? <section className="game-loading"><h1>연구소를 여는 중</h1><p>날짜와 저장된 혈통을 확인합니다.</p></section> : props ? <div className="game-tab-content" data-view={tab} aria-busy={busy}>
-      {tab==="home" && <Dashboard {...props} onTab={setTab}/>}{tab==="collection" && <Collection {...props} onBreed={()=>setTab("breeding")} onShop={()=>setTab("shop")}/>}
+      {tab==="home" && <Dashboard {...props} onTab={setTab}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")}/>}
       {tab==="breeding" && <Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onStarted={()=>setTab("incubator")}/>}
       {tab==="incubator" && <Incubator {...props}/>}{tab==="shop" && <Shop {...props}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}

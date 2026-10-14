@@ -2,10 +2,11 @@ import {test,expect,type Page} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {createHash} from "node:crypto";
 import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
-import {navigateGame,touch} from "./helpers/hardcore-navigation";
+import {touch} from "./helpers/hardcore-navigation";
 import {exportBackup} from "../src/game/hardcore/save";
 import {legacyRecord} from "../src/game/hardcore/genetics";
 import type {HardcoreGame} from "../src/game/hardcore/model";
+import {addDays} from "../src/game/hardcore/time";
 
 async function saved(page:Page):Promise<HardcoreGame> {
   return page.evaluate(async()=>{
@@ -28,7 +29,7 @@ async function noOverflow(page:Page) {
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 }
 
-test("reference home binds six real specimens, preserves read-only state and moves daily turns to breeding",async({page},info)=>{
+test("reference home binds six real specimens, preserves read-only state and advances a day without leaving collection",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile"),errors:string[]=[];
   page.on("pageerror",e=>errors.push(e.message));page.on("console",m=>{if(m.type()==="error")errors.push(m.text());});
   if(mobile)await page.setViewportSize({width:390,height:844});
@@ -40,7 +41,7 @@ test("reference home binds six real specimens, preserves read-only state and mov
   await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
   const nav=page.getByRole("navigation",{name:"게임 탭"});
   expect(await nav.getByRole("button").allTextContents()).toEqual(["컬렉션","인큐베이터","혈통도","상점"]);
-  const [hero,art,panel,inventory,cta]=await Promise.all([".home-hero",".home-hero-art",".home-info",".home-inventory",".home-breed-cta"].map(s=>page.locator(s).boundingBox()));
+  const [hero,art,panel,inventory,cta]=await Promise.all([".home-hero",".home-hero-art",".home-info",".home-inventory",".home-turn-cta"].map(s=>page.locator(s).boundingBox()));
   expect(art!.x).toBeLessThan(panel!.x);expect(panel!.x).toBeGreaterThan(hero!.x+hero!.width*.5);
   expect(inventory!.y).toBeGreaterThan(hero!.y+hero!.height);expect(cta!.y).toBeGreaterThan(inventory!.y+inventory!.height);
   const cards=await page.locator(".home-card").all();
@@ -57,19 +58,19 @@ test("reference home binds six real specimens, preserves read-only state and mov
     await page.screenshot({path:info.outputPath("home-390-full.png"),fullPage:true,animations:"disabled",scale:"css"});
     await page.setViewportSize({width:390,height:693});await noOverflow(page);await page.screenshot({path:info.outputPath("home-390x693.png"),animations:"disabled",scale:"css"});
     await page.setViewportSize({width:360,height:800});await noOverflow(page);await page.screenshot({path:info.outputPath("home-360x800.png"),animations:"disabled",scale:"css"});
-    const smallCta=await page.locator(".home-breed-cta").boundingBox(),smallNav=await nav.boundingBox();expect(smallCta!.y+smallCta!.height).toBeLessThanOrEqual(smallNav!.y);
+    const smallCta=await page.locator(".home-turn-cta").boundingBox(),smallNav=await nav.boundingBox();expect(smallCta!.y+smallCta!.height).toBeLessThanOrEqual(smallNav!.y);
     await page.setViewportSize({width:720,height:1280});await noOverflow(page);await page.screenshot({path:info.outputPath("home-720x1280.png"),animations:"disabled",scale:"css"});
     await page.setViewportSize({width:390,height:844});
     const safe=await page.addStyleTag({content:".hc-shell.home-shell { --home-safe-top:44px; --home-safe-bottom:34px; }"});
     expect(await page.locator(".home-shell").evaluate(el=>getComputedStyle(el).getPropertyValue("--home-safe-top").trim())).toBe("44px");
     expect(await page.locator(".home-shell").evaluate(el=>getComputedStyle(el).getPropertyValue("--home-safe-bottom").trim())).toBe("34px");
-    const safeCta=await page.locator(".home-breed-cta").boundingBox(),safeNav=await nav.boundingBox();
+    const safeCta=await page.locator(".home-turn-cta").boundingBox(),safeNav=await nav.boundingBox();
     expect(safeCta!.y+safeCta!.height).toBeLessThanOrEqual(safeNav!.y);
     const safePanel=await page.locator(".home-info").boundingBox(),safeHearts=await page.locator(".home-heart-row").boundingBox();
     expect(safeHearts!.y+safeHearts!.height).toBeLessThanOrEqual(safePanel!.y+safePanel!.height);
     await page.screenshot({path:info.outputPath("home-safe-area-390.png"),animations:"disabled",scale:"css"});
     await page.setViewportSize({width:360,height:800});
-    const safeSmallCta=await page.locator(".home-breed-cta").boundingBox(),safeSmallNav=await nav.boundingBox(),safeSmallPanel=await page.locator(".home-info").boundingBox(),safeSmallHearts=await page.locator(".home-heart-row").boundingBox();
+    const safeSmallCta=await page.locator(".home-turn-cta").boundingBox(),safeSmallNav=await nav.boundingBox(),safeSmallPanel=await page.locator(".home-info").boundingBox(),safeSmallHearts=await page.locator(".home-heart-row").boundingBox();
     expect(safeSmallCta!.y+safeSmallCta!.height).toBeLessThanOrEqual(safeSmallNav!.y);
     expect(safeSmallHearts!.y+safeSmallHearts!.height).toBeLessThanOrEqual(safeSmallPanel!.y+safeSmallPanel!.height);
     await page.screenshot({path:info.outputPath("home-safe-area-360.png"),animations:"disabled",scale:"css"});
@@ -90,17 +91,30 @@ test("reference home binds six real specimens, preserves read-only state and mov
   await touch(page.getByRole("button",{name:"3열로 보기",exact:true}),mobile);
   await touch(page.getByRole("button",{name:"그레이 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.keyboard.press("Escape");
   expect(await saved(page)).toEqual(original);
-  await touch(page.getByRole("button",{name:"교배하러 가기",exact:true}),mobile);
-  await expect(page.getByRole("heading",{name:"브리딩",exact:true})).toBeVisible();
-  await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toBeVisible();
-  await touch(page.getByRole("button",{name:"턴 마치기",exact:true}),mobile);await expect(page.getByTestId("game-day")).toHaveText("1");
+  const turn=page.getByRole("button",{name:"턴 넘기기",exact:true});await expect(turn).toBeEnabled();
+  // Hold a real writer so the CTA must stay disabled until the daily result is saved.
+  await page.evaluate(async()=>{
+    const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
+    const tx=db.transaction("games","readwrite"),store=tx.objectStore("games");let hold=true;
+    const pump=()=>{const r=store.get("hold-home-turn");r.onsuccess=()=>{if(hold)pump();};};pump();
+    (window as unknown as {releaseHomeTurn:()=>void}).releaseHomeTurn=()=>{hold=false;};tx.oncomplete=()=>db.close();
+  });
+  await touch(turn,mobile);await expect(turn).toBeDisabled();await expect(page.getByTestId("game-day")).toHaveText("0");
+  await page.evaluate(()=>(window as unknown as {releaseHomeTurn:()=>void}).releaseHomeTurn());
+  await expect(page.getByTestId("game-day")).toHaveText("1");await expect(turn).toBeEnabled();
+  await expect(page.getByTestId("game-date")).toHaveText(addDays(original.lastDate,1));
+  await expect(page.locator(".game-tab-content")).toHaveAttribute("data-view","collection");
+  await expect(page.getByRole("heading",{name:"브리딩",exact:true})).toHaveCount(0);
   const next=await saved(page);for(const id of Object.keys(original.individuals)){expect(next.individuals[id].hearts).toBe(original.individuals[id].hearts-1);expect(next.individuals[id].genetics).toEqual(original.individuals[id].genetics);expect(next.individuals[id].visualSeed).toBe(original.individuals[id].visualSeed);}
-  await navigateGame(page,"컬렉션",mobile);await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
+  await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);
   await touch(page.getByRole("button",{name:/^수동 전체 급여/}),mobile);await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await page.keyboard.press("Escape");
   const fed=await saved(page);expect(fed.food).toBe(32);expect(fed.individuals[Object.keys(original.individuals)[0]].hearts).toBe(3);
   await touch(page.getByRole("button",{name:"모카 상세보기",exact:true}),mobile);await page.getByLabel("개체 이름",{exact:true}).fill("모카 연구소");await touch(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"모카 연구소 상세",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const final=await saved(page);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();expect(await saved(page)).toEqual(final);await expect(page.locator(".home-name")).toContainText("모카 연구소");
+  await touch(page.getByRole("button",{name:"모카 연구소 상세보기",exact:true}),mobile);await touch(page.getByRole("button",{name:"부모로 선택",exact:true}),mobile);
+  await expect(page.getByRole("heading",{name:"브리딩",exact:true})).toBeVisible();await expect(page.getByRole("combobox",{name:"암컷 부모",exact:true})).toHaveValue(Object.keys(original.individuals)[0]);
+  expect(await saved(page)).toEqual(final);
   expect(errors).toEqual([]);
 });
 
