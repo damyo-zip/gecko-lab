@@ -1,3 +1,4 @@
+import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test,expect,type Page,type Locator } from "@playwright/test";
 import { newGame,act,synchronize } from "../src/game/hardcore/play";
 import { exportBackup,checksum } from "../src/game/hardcore/save";
@@ -6,7 +7,7 @@ import { addDays } from "../src/game/hardcore/time";
 const DATE="2026-10-13",errors=new WeakMap<Page,string[]>();
 test.setTimeout(90_000);
 async function click(l:Locator,mobile:boolean){if(mobile)await l.tap();else await l.click();}
-async function tab(page:Page,name:string,mobile:boolean){await click(page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}),mobile);}
+async function tab(page:Page,name:string,mobile:boolean){await navigateGame(page,name,mobile);}
 async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async()=>{
   const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
   return new Promise(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").get("active");r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});
@@ -15,7 +16,7 @@ async function restore(page:Page,text:string,mobile:boolean){await click(page.ge
   await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"phase5.json",mimeType:"application/json",buffer:Buffer.from(text)});
   await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
 }
-async function day(page:Page,mobile:boolean){const before=Number(await page.getByTestId("game-day").textContent());await click(page.getByRole("button",{name:"턴 마치기",exact:true}),mobile);
+async function day(page:Page,mobile:boolean){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);
   await expect(page.getByTestId("game-day")).toHaveText(String(before+1));await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
 }
 function scenario(){
@@ -29,7 +30,7 @@ function scenario(){
   }throw new Error("seeded evidence scenario missing");
 }
 test.beforeEach(async({page})=>{const list:string[]=[];errors.set(page,list);page.on("pageerror",e=>list.push(e.message));page.on("console",m=>{if(m.type()==="error")list.push(m.text());});
-  await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+  await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
 });
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
@@ -43,7 +44,7 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await page.getByTestId("hardcore-forecast").scrollIntoViewIfNeeded();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath("phase5-forecast.png"),scale:"css"});
   await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
-  await day(page,mobile);await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:/^수동 전체 급여/}),mobile);
+  await day(page,mobile);await tab(page,"컬렉션",mobile);await feedCollection(page,mobile);
   await day(page,mobile);const eggs=(await saved(page)).eggs;expect(Object.keys(eggs)).toHaveLength(2);
   await day(page,mobile);const hatched=await saved(page);expect(hatched.individuals[fixture.father].genetics!.knowledge.loci.axanthic.probabilities).toEqual({"A/ax":1});
   await tab(page,"부화",mobile);await click(page.getByText("교배 당시 예측·자손·추론 기록",{exact:true}),mobile);

@@ -1,3 +1,4 @@
+import {navigateGame,feedCollection} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { newGame, act, synchronize } from "../src/game/hardcore/play";
@@ -12,7 +13,7 @@ import type { TimeMode } from "../src/game/hardcore/model";
 test.setTimeout(90_000);
 const DATE = "2026-10-13", errors = new WeakMap<Page,string[]>();
 async function click(locator:Locator,mobile:boolean) { if(mobile) await locator.tap(); else await locator.click(); }
-async function tab(page:Page,name:string,mobile:boolean) { await click(page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}),mobile); }
+async function tab(page:Page,name:string,mobile:boolean){await navigateGame(page,name,mobile);}
 async function saved(page:Page):Promise<HardcoreGame> {
   return page.evaluate(async()=>{
     const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
@@ -34,7 +35,7 @@ async function timeMode(page:Page,mode:TimeMode,mobile:boolean) {
 }
 async function care(page:Page,mobile:boolean) {
   await tab(page,"컬렉션",mobile);
-  await click(page.getByRole("button",{name:/^수동 전체 급여/}),mobile);
+  await feedCollection(page,mobile);
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
 }
 async function restore(page:Page,input:string,mobile:boolean) {
@@ -62,7 +63,7 @@ test.beforeEach(async({page},info)=>{
   const list:string[]=[];errors.set(page,list);page.on("pageerror",e=>list.push(e.message));
   page.on("console",message=>{if(message.type()==="error")list.push(message.text());});
   await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
-  await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+  await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
   // Preserve all original real-time scenarios while the live default is now manual turns.
   await timeMode(page,"realtime",info.project.name.startsWith("mobile"));
 });
@@ -125,7 +126,7 @@ test("real mobile purchases, daily care, two generations, hidden sex, sale, expa
   await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");
   await page.locator(".ancestor-list").evaluate(node=>node.scrollIntoView({block:"start"}));
   await page.screenshot({path:info.outputPath("phase3-lineage.png"),scale:"css"});
-  await page.reload();await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();expect(await saved(page)).toEqual(g);
+  await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();expect(await saved(page)).toEqual(g);
   await page.screenshot({path:info.outputPath("phase3-dashboard.png"),scale:"css"});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
@@ -136,7 +137,7 @@ test("five offline midnights kill once, dead animals cannot feed/sell/breed, rec
   await page.clock.setFixedTime(new Date(addDays(DATE,5)+"T03:00:00Z"));await page.reload();
   await expect(page.getByTestId("game-date")).toHaveText(addDays(DATE,5));let g=await saved(page);
   expect(g.turn).toBe(5);expect(g.individuals[offer.id]).toMatchObject({status:"dead",hearts:0});
-  await page.reload();await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();expect(await saved(page)).toEqual(g);
+  await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();expect(await saved(page)).toEqual(g);
   await tab(page,"혈통",mobile);await click(page.getByRole("button",{name:"상세 정보",exact:true}),mobile);
   await expect(page.getByRole("dialog")).toContainText("폐사");await expect(page.getByRole("button",{name:"먹이 1개 급여",exact:true})).toHaveCount(0);
   await expect(page.getByRole("button",{name:/분양 준비/})).toHaveCount(0);
@@ -172,9 +173,9 @@ test("backup, corruption rejection, recovery archive and new-game separation",as
   await expect(page.getByRole("dialog")).toContainText("보존된 이전 게임 1개");
 });
 
-test("stale tabs cannot overwrite money or daily care, all six tabs fit 360px and have touch targets",async({page,context},info)=>{
+test("stale tabs cannot overwrite money or daily care, all six screens fit 360px and have touch targets",async({page,context},info)=>{
   const mobile=info.project.name.startsWith("mobile"),other=await context.newPage();await other.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await other.goto("/");
-  await expect(other.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+  await expect(other.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
   await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
   await tab(other,"상점",mobile);await click(other.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
   await expect(other.getByRole("alert").filter({hasText:"다른 창"})).toBeVisible();expect((await saved(page)).food).toBe(10);await other.close();
@@ -194,7 +195,7 @@ test("offline production shell reload preserves IndexedDB and processes real dat
   await expect(page.getByTestId("game-date")).toHaveText(addDays(DATE,2));const after=await saved(page);
   expect(after.money).toBe(before.money);expect(after.food).toBe(before.food);
   expect(Object.values(after.individuals)[0].hearts).toBe(3);expect(after.turn).toBe(2);
-  await context.setOffline(false);await page.reload();await expect(page.getByRole("heading",{name:"오늘의 연구소",exact:true})).toBeVisible();
+  await context.setOffline(false);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
   expect(await saved(page)).toEqual(after);
 });
 

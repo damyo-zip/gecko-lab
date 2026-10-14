@@ -1,0 +1,76 @@
+{
+  "referenceSha256": "8c3197626d498cf2e1cdce5581c77ffd667b05320081e5f41f0c85014dfece37",
+  "baselineCommit": "0738499102fb3a4684686f8b421f20b0ef88ce0c",
+  "fixtureSha256": "04d36b986f2b3a4742fc1713b06d72ab8b081428135d9c4314d586829bd3eba2",
+  "identicalBeforeAfterGameState": true,
+  "fixture": {
+    "seed": "home-reference-review",
+    "count": 6,
+    "money": 12450,
+    "food": 38,
+    "capacity": 20,
+    "date": "2026-10-14",
+    "legacyNumericTraits": true,
+    "notPlayerDefaults": true
+  },
+  "captures": [
+    {
+      "file": "home-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "725814f2a82dff83bea02bd59e7ae859e8e9cd6bf385566102ae191f59f8efdf"
+    },
+    {
+      "file": "home-360x800.png",
+      "width": 360,
+      "height": 800,
+      "sha256": "b3b937b7cb893db3186778cb0f1bb011043d4371f7b7809bfe18205b0c80f20c"
+    },
+    {
+      "file": "home-720x1280.png",
+      "width": 720,
+      "height": 1280,
+      "sha256": "af03004b2f04562edae0bcee460bdd2eb0e3f25425a44ec6b401351786a4cbca"
+    },
+    {
+      "file": "home-empty-360.png",
+      "width": 360,
+      "height": 800,
+      "sha256": "a0c0961e2bc169bcf4a0e97ef367ae3fd1355f394e595e5aebd003a067e67b55"
+    },
+    {
+      "file": "home-safe-area-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "66b916624c98dfc238a7a5695b3d3bf17b397c0f3b7e2e2695ff0bb982cfc58e"
+    },
+    {
+      "file": "home-safe-area-360.png",
+      "width": 360,
+      "height": 800,
+      "sha256": "0343d5908535d4b39276fd341cf30e5d1224544100f92fcfda9b466ea39532e7"
+    },
+    {
+      "file": "home-two-columns.png",
+      "width": 390,
+      "height": 1155,
+      "sha256": "a0e71bdc400fddbae8e5c607c974bad73a8e093a9ad7e2a12ab6a53cb47d7013"
+    }
+  ],
+  "referenceComparison": {
+    "scale": 1,
+    "sourceWidth": 720,
+    "sourceHeight": 1280,
+    "screenshotWidth": 720,
+    "screenshotHeight": 1280,
+    "labelsOutsideImages": true
+  },
+  "notes": [
+    "Actual mobile-touch Chromium screenshots of live IndexedDB-backed UI. No concept artwork used as a gecko or fake data panel.",
+    "Reference JPEG decoded at native size; implementation PNG copied at native size; pixels are not rescaled, recolored or retouched.",
+    "Native phone status bar is part of the supplied reference, not simulated inside the web game.",
+    "Existing renderer 2.0.1 and game data determine actual geckos, IDs, morphs, resources and breeding state; terrarium background is a separately generated environment asset."
+  ],
+  "beforeSha256": "f95105f7d82142b3305915196aa43a29f66f75c384545a6fbb9baea7518ea5b4",
+  "afterFullSha256": "725814f2a82dff83bea02bd59e7ae859e8e9cd6bf385566102ae191f59f8efdf"
+}
