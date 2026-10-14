@@ -6,6 +6,7 @@ import { validateGame, validateV3, validateV4 } from "./validation";
 import { legacyRecord } from "./genetics";
 import type { LegacyV4Game } from "./model";
 import { migrateV12 } from "./migrate-lifecycle";
+import { migrateSingleClutch } from "./migrate-single-clutch";
 
 export function checksum(value: unknown): string {
   const input = canonicalJSON(value); let hash = 2166136261;
@@ -50,7 +51,7 @@ export function readSave(value: unknown,date:GameDate):HardcoreGame {
     if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
     validateGame(candidate.game);
     if(candidate.game.saveVersion!==6||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
-    return candidate.game;
+    const game=migrateSingleClutch(candidate.game);validateGame(game);return game;
   }
   const game=migrateV12(readLegacySave(value,date));validateGame(game);return game;
 }

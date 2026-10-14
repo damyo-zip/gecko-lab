@@ -11,7 +11,7 @@ const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 function assert(condition:unknown):asserts condition {if(!condition)throw new Error("v1.2 턴·성장·산란·수명 기록이 손상되었습니다.");}
 function keys(value:object,names:string):void {assert(value&&Object.keys(value).sort().join()===names.split(" ").sort().join());}
 export function validateLifecycle(game:HardcoreGame):void {
-  assert(game.saveVersion===6&&game.rulesVersion===3&&game.time.mode==="turn");
+  assert(game.saveVersion===6&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
   assert(game.rules.adultAfter===12&&game.rules.juvenileAfter===6&&game.rules.fertilizationChance===.95&&game.rules.hatchChance===.95&&game.rules.recoveryDays===4);
   for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)]){
     assert(Number.isSafeInteger(g.lastProcessedTurn)&&g.lastProcessedTurn!<=game.turn);
@@ -24,22 +24,32 @@ export function validateLifecycle(game:HardcoreGame):void {
     assert(m.fertilizationChance===V12.fertileChance&&m.hatchChance===V12.hatchChance);
     assert(m.resolvedDate!==null&&m.resolvedDate>=m.date&&m.resolvedDate<=game.lastDate);
     assert(Number.isSafeInteger(s.startTurn)&&s.startTurn<=game.turn&&s.startTurn>=0);
-    assert([1,3].includes(s.maxClutches)&&Number.isSafeInteger(s.clutchesLaid)&&s.clutchesLaid>=0&&s.clutchesLaid<=s.maxClutches);
-    assert(s.nextLayTurn===s.startTurn+2+s.clutchesLaid*4&&s.offspring.length===s.maxClutches*2);
+    assert(Number.isSafeInteger(s.clutchesLaid)&&s.clutchesLaid>=0&&s.clutchesLaid<=s.maxClutches);
+    if(game.rulesVersion===3){
+      // Validate the previous schema before migrating it; never create these schedules.
+      assert([1,3].includes(s.maxClutches)&&s.nextLayTurn===s.startTurn+2+s.clutchesLaid*4);
+    }else{
+      const historical=s.clutchesLaid>1&&["laid","cancelled"].includes(m.status);
+      assert(s.maxClutches===1||historical&&[2,3].includes(s.maxClutches)&&s.maxClutches===s.clutchesLaid);
+      const lastLay=Object.values(game.eggs).filter(e=>e.matingId===m.id).reduce((last,e)=>Math.max(last,e.lifecycle?.laidTurn??last),s.startTurn+2);
+      assert(s.nextLayTurn===(historical?lastLay:s.startTurn+2));
+    }
+    assert(s.offspring.length===s.maxClutches*2);
     assert(m.status!=="pending"&&m.status!=="failed");
     assert(m.status==="laid"?s.clutchesLaid===s.maxClutches:m.status==="cancelled"||s.clutchesLaid<s.maxClutches&&s.nextLayTurn>game.turn);
     for(let i=0;i<s.offspring.length;i++){
       const o=s.offspring[i],clutch=Math.floor(i/2)+1,n=i%2+1,seed=seasonEggSeed(m,clutch,n);
       keys(o,"embryo fertilized");
       assert(o.fertilized===(seededRandom(seed,"fertilization")()<.95));
-      const birthTurn=s.startTurn+2+(clutch-1)*4+4;
-      assert(o.embryo.birthTurn===birthTurn&&o.embryo.birthDate===addDays(m.date,(birthTurn-s.startTurn)*7));
+      const egg=game.eggs[o.embryo.id+"-egg"];
+      const historical=game.rulesVersion===4&&clutch>1;
+      const birthTurn=historical?egg?.lifecycle?.dueTurn:s.startTurn+2+(clutch-1)*4+4;
+      assert(birthTurn!==undefined&&o.embryo.birthTurn===birthTurn&&o.embryo.birthDate===(historical?egg?.dueDate:addDays(m.date,(birthTurn-s.startTurn)*7)));
       const expected=createEmbryo(game,m,seed,o.embryo.id,o.embryo.name,birthTurn,o.embryo.birthDate);
       // Exp-derived phenotype scores can differ by one ULP between JS engines.
       // Genomes, seeds, all discrete records and the stored values remain exact.
       assert(TRAIT_KEYS.every(k=>Number.isFinite(o.embryo.potential[k])&&Math.abs(o.embryo.potential[k]-expected.potential[k])<=1e-12));
       assert(equal({...o.embryo,potential:expected.potential},expected));
-      const egg=game.eggs[o.embryo.id+"-egg"];
       if(clutch<=s.clutchesLaid)assert(egg&&equal(egg.embryo,o.embryo)&&egg.seed===seed&&egg.lifecycle?.fertilized===o.fertilized);
       else assert(!egg);
     }

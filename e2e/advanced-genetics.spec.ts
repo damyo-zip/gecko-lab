@@ -45,7 +45,7 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("Axanthic");
   await page.getByTestId("hardcore-forecast").scrollIntoViewIfNeeded();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath("phase5-forecast.png"),scale:"css"});
-  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 6칸 예약",exact:true}),mobile);
+  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
   await day(page,mobile);await tab(page,"컬렉션",mobile);await feedCollection(page,mobile);
   await day(page,mobile);const eggs=(await saved(page)).eggs;expect(Object.keys(eggs)).toHaveLength(2);
   for(let t=0;t<4;t++)await day(page,mobile);const hatched=await saved(page);expect(hatched.individuals[fixture.father].genetics!.knowledge.loci.axanthic.probabilities).toEqual({"A/ax":1});

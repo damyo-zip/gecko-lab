@@ -26,7 +26,7 @@ function atAge(game:HardcoreGame,g:Gecko,age:number){
  g.nextBreedTurn=Math.max(0,g.birthTurn+12);g.lastProcessedTurn=game.turn;return g;
 }
 test("v1.2 requires player turns, moves seven days, fixes growth/rates and keeps realtime adapter inactive",()=>{
- const g=newGame("clock",DATE,{adultAfter:1,hatchChance:1});expect(g).toMatchObject({saveVersion:6,rulesVersion:3,rules:{adultAfter:12,juvenileAfter:6,hatchChance:.95,fertilizationChance:.95}});
+ const g=newGame("clock",DATE,{adultAfter:1,hatchChance:1});expect(g).toMatchObject({saveVersion:6,rulesVersion:4,rules:{adultAfter:12,juvenileAfter:6,hatchChance:.95,fertilizationChance:.95}});
  expect(synchronizeTime(g,addDays(DATE,700))).toBe(g);expect(end(g)).toMatchObject({turn:1,lastDate:addDays(DATE,7)});
  expect(()=>actWithTime(g,{type:"setTimeMode",mode:"realtime"},DATE)).toThrow("v1.2");
  expect(parseBackup(exportBackup(g),addDays(DATE,700))).toEqual(g);
@@ -50,18 +50,18 @@ test("food shortage is counted before a turn; health-priority feeding is determi
  expect(g.individuals[father]).toMatchObject({status:"dead",deathCause:"starvation",hearts:0});expect(g.individuals[father].genetics).toEqual(genes);
  expect(owned(g)).toHaveLength(1);expect(()=>act(g,{type:"feed",id:mother},g.lastDate)).toThrow("자동 급여");validateGame(g);
 });
-test("fertilization fixes all six genomes; clutches occur at 2/6/10, eggs resolve at 6/10/14 and rest ends at 14",()=>{
+test("fertilization fixes two genomes; one clutch at 2, hatch at 6, four-turn rest, and no further laying",()=>{
  let {g,father,mother}=pair();g=act(g,{type:"breed",fatherId:father,motherId:mother},DATE);
- const m=Object.values(g.matings)[0],snapshot=structuredClone(m.lifecycle!.offspring);expect(reserved(g)).toBe(6);expect(m.status).toBe("fertilized");
+ const m=Object.values(g.matings)[0],snapshot=structuredClone(m.lifecycle!.offspring);expect(reserved(g)).toBe(2);expect(m.status).toBe("fertilized");
  for(let turn=1;turn<=14;turn++){
-  g=end(g);expect(Object.values(g.eggs)).toHaveLength(turn<2?0:turn<6?2:turn<10?4:6);
+  g=end(g);expect(Object.values(g.eggs)).toHaveLength(turn<2?0:2);
   for(const egg of Object.values(g.eggs)){expect(egg.lifecycle!.dueTurn-egg.lifecycle!.laidTurn).toBe(4);expect(egg.dueDate).toBe(addDays(egg.laidDate,28));
    expect(egg.status==="incubating").toBe(turn<egg.lifecycle!.dueTurn);expect(egg.embryo.genetics).toEqual(snapshot.find(o=>o.embryo.id===egg.embryo.id)!.embryo.genetics);
    if(egg.status==="hatched")expect(g.individuals[egg.embryo.id].genetics!.genome).toEqual(egg.embryo.genetics!.genome);
   }
   const before=structuredClone(g);breedingEvents(g);expect(g).toEqual(before);validateGame(g);
  }
- expect(g.matings[m.id].lifecycle!.clutchesLaid).toBe(3);expect(g.matings[m.id].status).toBe("laid");expect(g.individuals[mother].nextBreedTurn).toBe(14);
+ expect(g.matings[m.id].lifecycle!.clutchesLaid).toBe(1);expect(g.matings[m.id].status).toBe("laid");expect(g.individuals[mother].nextBreedTurn).toBe(6);
  expect(breedingCheck(g,father,mother).reasons).toEqual([]);expect(reserved(g)).toBe(0);
 });
 test("actual hatchlings become adults exactly twelve turns after their own hatch, never earlier",()=>{
@@ -81,7 +81,7 @@ test.each([11,12,49,50,59,60])("age %i breeding/adult/senior boundaries are stab
 });
 test("a season begun before retirement completes on schedule after 60, but new matings are blocked",()=>{
  let {g,father,mother}=pair();atAge(g,g.individuals[mother],59);g=act(g,{type:"breed",fatherId:father,motherId:mother},DATE);
- g=advance(g,10);expect(Object.values(g.eggs)).toHaveLength(6);expect(Object.values(g.matings)[0].status).toBe("laid");
+ g=advance(g,10);expect(Object.values(g.eggs)).toHaveLength(2);expect(Object.values(g.matings)[0].status).toBe("laid");
  expect(breedingCheck(g,father,mother).reasons.join()).toContain("은퇴");
 });
 test.each([[64,0],[65,.01],[69,.01],[70,.03],[74,.03],[75,.08],[79,.08],[80,.18],[84,.18],[85,.4],[89,.4],[90,1]])("natural death at age %i has probability %f",(age,p)=>expect(naturalDeathProbability(age)).toBe(p));
@@ -99,7 +99,7 @@ test("v5 migration pauses realtime and preserves genetics, appearances, prices, 
  let old=legacyGame('migrate-v12',DATE,{fertilizationChance:1,hatchChance:1,initialCapacity:20});const [f,m]=Object.keys(old.shop.offers);
  for(const id of [f,m])old=legacyAct(old,{type:'buyGecko',offerId:id},DATE);old=legacyAct(old,{type:'breed',fatherId:f,motherId:m},DATE);
  old.time.mode='realtime';const original=structuredClone(old),next=readSave(makeSave(old),addDays(DATE,100));
- expect(old).toEqual(original);expect(next).toMatchObject({saveVersion:6,rulesVersion:3,turn:0,lastDate:DATE,time:{mode:'turn'}});
+ expect(old).toEqual(original);expect(next).toMatchObject({saveVersion:6,rulesVersion:4,turn:0,lastDate:DATE,time:{mode:'turn'}});
  for(const id of [f,m]){expect(next.individuals[id].genetics).toEqual(old.individuals[id].genetics);expect(specimen(next.individuals[id])).toEqual(specimen(old.individuals[id]));expect(valueGecko(next.individuals[id])).toEqual(valueGecko(old.individuals[id]));}
  expect(next.nextClutch).toBe(old.nextClutch);expect(reserved(next)).toBe(2);expect(Object.values(next.matings)[0].lifecycle!.maxClutches).toBe(1);
  expect(parseBackup(exportBackup(next),DATE)).toEqual(next);expect(synchronizeTime(next,addDays(DATE,100))).toBe(next);
@@ -122,7 +122,7 @@ test("v6 rejects recomputed-checksum corruption of counters, fertility, genomes,
  for(const change of corruptions){const envelope=makeSave(structuredClone(g));change(envelope.game);envelope.checksum=checksum(envelope.game);expect(()=>readSave(envelope,DATE)).toThrow();}
 });
 test("five new generations retain immutable ancestors/genomes through natural death and backup",()=>{
- let {g,father,mother}=pair('five-v12');const founder=father;
+ let {g,father,mother}=pair('five-single');const founder=father;
  for(let gen=1;gen<=5;gen++){
   if(gen>1){const child=g.individuals[father],offer=Object.values(g.shop.offers).find(o=>o.individual.sex!==child.sex&&o.individual.stage==='adult'&&!o.individual.genotype.loci['lilly-white'].includes('Lw'))!;
    g=act(g,{type:'buyGecko',offerId:offer.id},g.lastDate);mother=child.sex==='female'?child.id:offer.id;father=child.sex==='male'?child.id:offer.id;}
@@ -145,10 +145,10 @@ test("actual independent egg fertility and conditional hatching approach 95%/95%
  expect(Math.abs(fertile/total-.95)).toBeLessThan(.015);expect(Math.abs(hatched/fertile-.95)).toBeLessThan(.015);
  expect(Math.abs(bothInfertile/1000-.0025)).toBeLessThan(.006);
 },30000);
-test("new lineage names reach pre-fertilized future clutches without mutating any genotype",()=>{
+test("new lineage names reach the two stored embryos without mutating any genotype",()=>{
  let {g,father,mother}=pair('lineage-v12');g=act(g,{type:'breed',fatherId:father,motherId:mother},DATE);g=advance(g,3);
  const before=Object.values(g.matings)[0].lifecycle!.offspring.map(o=>structuredClone(o.embryo.genetics));
- g=act(g,{type:'lineage',id:father,name:'세 시즌 혈통'},g.lastDate);const line=Object.keys(g.lineages)[0];
+ g=act(g,{type:'lineage',id:father,name:'단일 산란 혈통'},g.lastDate);const line=Object.keys(g.lineages)[0];
  expect(Object.values(g.matings)[0].lifecycle!.offspring.every(o=>o.embryo.lineageIds.includes(line))).toBe(true);
  g=advance(g,11);for(const egg of Object.values(g.eggs))expect(egg.embryo.lineageIds).toContain(line);
  expect(Object.values(g.matings)[0].lifecycle!.offspring.map(o=>o.embryo.genetics)).toEqual(before);validateGame(g);

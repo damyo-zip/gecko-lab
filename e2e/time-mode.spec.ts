@@ -48,8 +48,8 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   await page.getByLabel("먹이 구매 수량",{exact:true}).fill("1000");await click(page.getByRole("button",{name:"먹이 구입 · ₩1,000,000",exact:true}),mobile);
   const [father,mother]=Object.values((await saved(page)).individuals);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(father.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(mother.id);
-  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 6칸 예약",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
-  const pending=await saved(page);expect(Object.values(pending.matings)[0].lifecycle!.offspring).toHaveLength(6);
+  await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
+  const pending=await saved(page);expect(Object.values(pending.matings)[0].lifecycle!.offspring).toHaveLength(2);
   await page.clock.setFixedTime(new Date(addDays(DATE,700)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");expect(await saved(page)).toEqual(pending);
   await endTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
   await endTurn(page,mobile);const eggs=Object.values((await saved(page)).eggs);expect(eggs).toHaveLength(2);const embryo=eggs[0].embryo;

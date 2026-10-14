@@ -42,9 +42,9 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   const forecast = forecastCross(expandedGenotype(father.genotype), expandedGenotype(mother.genotype), HARDCORE_LOCI);
   if (forecast.nonViableProbability > 0) reasons.push("동형접합 비생존 위험 교배를 차단합니다.");
   reasons.push(...advancedSafety(father,mother));
-  const slots=isV12(game)?6:2;
-  if (freeSlots(game) < slots) reasons.push(`새끼 ${slots}마리의 사육 공간이 필요합니다. 판매하거나 사육장을 확장하세요.`);
-  if (Object.keys(game.individuals).length + Object.keys(game.eggs).length + (isV12(game)?6:2) > 30000) reasons.push("이 슬롯의 기록 한도에 도달했습니다. 백업을 보관하고 새 게임을 시작하세요.");
+  const slots=2,available=freeSlots(game);
+  if (available < slots) reasons.push(`인큐베이터 빈 슬롯 ${available}개 / 필요 ${slots}개 · ${slots-available}개 부족합니다. 사육 공간을 확보하거나 확장하세요.`);
+  if (Object.keys(game.individuals).length + Object.keys(game.eggs).length + 2 > 30000) reasons.push("이 슬롯의 기록 한도에 도달했습니다. 백업을 보관하고 새 게임을 시작하세요.");
   return { reasons, forecast };
 }
 /** Day 0 snapshot. Fertilization result is revealed tomorrow; no embryos before laying. */
@@ -62,7 +62,7 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
     status: "pending", resolvedDate: null, genetics: {
       father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
       observedIds:[],updates:[] } };
-  if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 시즌 최대 3회 산란 · 자손 6칸 예약 · 유전 결과 확정");return;}
+  if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 인큐베이터 2칸 예약 · 2턴 후 알 2개 산란 · 유전 결과 확정");return;}
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);
   mother.nextBreedTurn = game.turn + game.rules.recoveryDays;
   game.notices.push("교배 일정 시작 · 새끼 공간 2칸 예약 · 내일 수정 결과 공개");

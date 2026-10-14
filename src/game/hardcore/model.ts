@@ -88,7 +88,7 @@ export interface Sale {
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string }
 export interface HardcoreGame {
   saveVersion: 5 | 6;
-  rulesVersion: 2 | 3;
+  rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
   revision: number;

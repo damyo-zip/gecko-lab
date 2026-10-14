@@ -4,9 +4,9 @@ import { owned } from "./survival";
 
 /** Confirmed v1.2 game rules. Probabilities describe the game, not veterinary advice. */
 export const V12 = Object.freeze({ daysPerTurn: 7, juvenileAfter: 6, adultAfter: 12,
-  firstLayAfter: 2, clutchInterval: 4, eggsPerClutch: 2, maxClutches: 3, restAfter: 4,
+  firstLayAfter: 2, eggsPerClutch: 2, maxClutches: 1, restAfter: 4,
   hatchAfter: 4, fertileChance: .95, hatchChance: .95, seniorAfter: 50, retireAfter: 60 });
-export const isV12 = (game: Pick<HardcoreGame,"rulesVersion">) => game.rulesVersion === 3;
+export const isV12 = (game: Pick<HardcoreGame,"rulesVersion">) => game.rulesVersion >= 3;
 export const ageTurns = (game: Pick<HardcoreGame,"turn">, gecko: Pick<Gecko,"birthTurn">) => Math.max(0, game.turn - gecko.birthTurn);
 export function naturalDeathProbability(age: number): number {
   return age < 65 ? 0 : age < 70 ? .01 : age < 75 ? .03 : age < 80 ? .08 : age < 85 ? .18 : age < 90 ? .4 : 1;

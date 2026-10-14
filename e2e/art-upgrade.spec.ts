@@ -81,7 +81,7 @@ test("real collection/details/shop/hatching/pedigree use new art while turns, ge
  await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await canvasVisible(page);await page.getByRole("dialog").screenshot({path:info.outputPath("art-detail.png"),scale:"css"});
  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(parents[0].id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(parents[1].id);
- await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 6칸 예약",exact:true}),mobile);
+ await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
  for(let day=0;day<6;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
  await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
  for(let i=0;i<2;i++){expect(game.individuals[parents[i].id].genetics!.genome).toEqual(genomes[i]);expect(game.individuals[parents[i].id].visualSeed).toBe(parentSeeds[i]);}

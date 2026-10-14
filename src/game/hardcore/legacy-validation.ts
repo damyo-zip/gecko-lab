@@ -60,7 +60,7 @@ function gecko(g: Gecko,lifecycle=false): void {
 function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false): void {
   keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration" + (version === 4 ? " time" : ""));
   const g = value as LegacyV4Game;
-  if ((g.saveVersion as number) !== version || g.rulesVersion !== (lifecycle?3:2)) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
+  if ((g.saveVersion as number) !== version || (lifecycle?![3,4].includes(g.rulesVersion):g.rulesVersion!==2)) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
   if (version === 4) {
     keys(g.time, "mode realtimeAnchorDate");
     if (!TIME_MODES.includes(g.time.mode)) fail();

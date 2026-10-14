@@ -19,7 +19,7 @@ export function createLegacyGame(seed: string, date: GameDate, overrides: Partia
 export function createGame(seed: string, date: GameDate, overrides: Partial<Rules> = {}, timeMode: TimeMode = "turn"): HardcoreGame {
   if(timeMode!=="turn")throw new Error("v1.2는 플레이어가 턴을 마쳐야 진행됩니다.");
   const game=createLegacyGame(seed,date,overrides);
-  game.saveVersion=6;game.rulesVersion=3;
+  game.saveVersion=6;game.rulesVersion=4;
   game.rules={...game.rules,fertilizationChance:BALANCE.fertilizationChance,hatchChance:BALANCE.hatchChance,
     adultAfter:BALANCE.adultAfter,juvenileAfter:BALANCE.juvenileAfter,recoveryDays:BALANCE.recoveryDays};
   return game;

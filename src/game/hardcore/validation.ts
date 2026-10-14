@@ -52,9 +52,9 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     keys(m.genetics,"father mother observedIds updates");validateGenetics(m.genetics!.father);validateGenetics(m.genetics!.mother);
     const f=game.individuals[m.parents.fatherId],mo=game.individuals[m.parents.motherId];
     if(!equal(f.genetics?.genome,m.genetics!.father.genome)||!equal(mo.genetics?.genome,m.genetics!.mother.genome)||advancedSafety(f,mo).length)fail();
-    const observed=m.genetics!.observedIds,eggs=Object.values(game.eggs).filter(e=>e.matingId===m.id);
-    if(!Array.isArray(observed)||new Set(observed).size!==observed.length||observed.length>(m.lifecycle?6:2)||observed.some(id=>!eggs.some(e=>e.embryo.id===id&&e.status==="hatched")))fail();
-    if(!Array.isArray(m.genetics!.updates)||m.genetics!.updates.length>(m.lifecycle?12:4))fail();
+    const observed=m.genetics!.observedIds,eggs=Object.values(game.eggs).filter(e=>e.matingId===m.id),maxObserved=m.lifecycle?.offspring.length??2;
+    if(!Array.isArray(observed)||new Set(observed).size!==observed.length||observed.length>maxObserved||observed.some(id=>!eggs.some(e=>e.embryo.id===id&&e.status==="hatched")))fail();
+    if(!Array.isArray(m.genetics!.updates)||m.genetics!.updates.length>maxObserved*2)fail();
     for(const u of m.genetics!.updates){keys(u,"id before after");if(u.id!==f.id&&u.id!==mo.id)fail();validateKnowledge(u.before);validateKnowledge(u.after);}
     const fg=m.genetics!.father.genome,mg=m.genetics!.mother.genome;
     for(const e of eggs){const child=e.embryo.genetics!.genome;

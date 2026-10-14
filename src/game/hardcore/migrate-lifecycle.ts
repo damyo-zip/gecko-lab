@@ -7,7 +7,7 @@ import { fertilizeSeason } from "./season";
 export function migrateV12(source:HardcoreGame):HardcoreGame {
   if(source.saveVersion===6)return source;
   const game=structuredClone(source);
-  game.saveVersion=6;game.rulesVersion=3;game.time.mode="turn";
+  game.saveVersion=6;game.rulesVersion=4;game.time.mode="turn";
   game.rules={...game.rules,adultAfter:12,juvenileAfter:6,recoveryDays:4,fertilizationChance:.95,hatchChance:.95};
   const convert=(g:Gecko,future=false)=>{
     if(!future&&g.status==="owned"){
@@ -39,7 +39,7 @@ export function migrateV12(source:HardcoreGame):HardcoreGame {
     if(m.status==="pending"||m.status==="fertilized"){
       const elapsed=Math.min(1,Math.max(0,daysBetween(m.date,game.lastDate))),startTurn=Math.max(0,game.turn-elapsed);
       m.date=addDays(game.lastDate,-(game.turn-startTurn)*7);
-      fertilizeSeason(game,m,startTurn,1);
+      fertilizeSeason(game,m,startTurn);
     }
   }
   game.notices=[...game.notices,"v1.2 이전 완료 · 1턴 7일 · 자동 급여 · 12턴 성체 · 시간은 턴 마치기로만 진행"].slice(-60);

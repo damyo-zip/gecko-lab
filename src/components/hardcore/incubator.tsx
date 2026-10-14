@@ -2,13 +2,15 @@
 import { BreedingRecord } from "./genetics-panel";
 import { useState } from "react";
 import { Sprite, SectionHeading, type ViewProps } from "./common";
+import {freeSlots} from "@/game/hardcore/survival";
 import { addDays } from "@/game/hardcore/time";
 const MATING_LABEL = {pending:"수정 결과 대기",fertilized:"수정 성공",failed:"수정 실패",laid:"산란 완료",cancelled:"산란 전 취소"};
 export function Incubator({game,onDetail}:ViewProps) {
   const [limit,setLimit] = useState(12);
   const eggs = Object.values(game.eggs).reverse(), matings = Object.values(game.matings).reverse();
-  const records=matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={"mating-"+m.id}><strong>{game.individuals[m.parents.motherId].name} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.lifecycle?` · 산란 ${m.lifecycle.clutchesLaid}/${m.lifecycle.maxClutches}${m.status==='fertilized'?' · 다음 산란 TURN '+m.lifecycle.nextLayTurn:''}`:m.status === "pending" ? " · 수정 확인 " + addDays(m.date,1) : m.status === "fertilized" ? " · 산란 " + addDays(m.date,2) : ""}</span><BreedingRecord mating={m} game={game}/></div>);
+  const records=matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={"mating-"+m.id}><strong>{game.individuals[m.parents.motherId].name} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.lifecycle?m.status==='fertilized'?` · 산란 0/1 · 산란 예정 TURN ${m.lifecycle.nextLayTurn}`:` · 산란 일정 종료 · 보존된 알 ${Object.values(game.eggs).filter(e=>e.matingId===m.id).length}개`:m.status === "pending" ? " · 수정 확인 " + addDays(m.date,1) : m.status === "fertilized" ? " · 산란 " + addDays(m.date,2) : ""}</span><BreedingRecord mating={m} game={game}/></div>);
   return <section className="hc-incubator"><SectionHeading title="인큐베이터" eyebrow="새 생명을 기다리는 시간" icon="egg" count={eggs.length}/><p className="game-section-copy">1턴은 7일입니다. 알은 산란 후 정확히 4턴에 무정란/부화 결과를 판정하며 사료를 소비하지 않습니다. 유전형은 수정 시 확정하고 부화한 개체에 그대로 상속합니다.</p>
+    <p className="game-small-note" data-testid="incubator-slots">빈 슬롯 {freeSlots(game)}개 · 교배당 2개 예약 · 산란 시 알 2개 자동 배치</p>
     <div className="hc-incubator-metrics"><div><span>부화 대기</span><strong>{eggs.filter(e=>e.status==="incubating").length}</strong></div><div><span>부화한 자손</span><strong>{eggs.filter(e=>e.status==="hatched").length}</strong></div></div>
     {!eggs.length && records}
     {!eggs.length && <p className="game-empty">아직 산란한 알이 없습니다.</p>}
