@@ -44,6 +44,7 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
 export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): void {
   validatePriceTable(table); game.marketVersion = table.version;
   for (const offer of Object.values(game.shop.offers)) {
+    if(offer.purchased)continue;
     const quote = valueGecko(offer.individual, table);
     offer.askPrice = quote.ask; offer.marketBase = quote.marketBase; offer.marketVersion = table.version;
   }

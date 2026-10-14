@@ -1,4 +1,5 @@
-import { newGame } from "../../src/game/hardcore/play";
+import {migrateShop} from "../../src/game/hardcore/shop-family";
+import { newGame } from "../../tests/helpers/v6-hardcore";
 import { legacyRecord } from "../../src/game/hardcore/genetics";
 import { normalGenotype, lillyGenotype } from "../../src/genetics/mendel";
 import { expandedGenotype } from "../../src/genetics/hardcore";
@@ -32,5 +33,5 @@ export function referenceHomeGame() {
   game.shop.offers = {};
   game.food = 38;
   validateGame(game);
-  return game;
+  return migrateShop(game);
 }

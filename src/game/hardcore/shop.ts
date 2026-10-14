@@ -1,3 +1,4 @@
+import { refreshFamilyShop } from "./shop-family";
 import { normalGenotype, lillyGenotype } from "@/genetics/mendel";
 import { expandedGenotype } from "@/genetics/hardcore";
 import { seedId, seededRandom } from "@/genetics/random";
@@ -11,7 +12,7 @@ import { polyScores } from "@/genetics/advanced/polygenic";
 import { isV12, V12 } from "./lifecycle";
 
 /** Real specimens, fixed per date/seed. First two offers are affordable unrelated adult normals. */
-export function refreshShop(game: HardcoreGame, table: PriceTable = MARKET): void {
+export function refreshLegacyShop(game: HardcoreGame, table: PriceTable = MARKET): void {
   game.shop = { date: game.lastDate, offers: {} };
   for (let n = 1; n <= 6; n++) {
     const seed = game.seed + "|shop:" + game.lastDate + "|" + n;
@@ -41,4 +42,9 @@ export function refreshShop(game: HardcoreGame, table: PriceTable = MARKET): voi
     game.shop.offers[id] = { id, individual, askPrice: quote.ask, marketBase: quote.marketBase, marketVersion: table.version };
   }
   game.marketVersion = table.version;
+}
+
+/** Preserve historical catalogs for old rules; current catalogs have four real families. */
+export function refreshShop(game: HardcoreGame, table: PriceTable = MARKET): void {
+  if(game.saveVersion<7)refreshLegacyShop(game,table);else refreshFamilyShop(game,table);
 }

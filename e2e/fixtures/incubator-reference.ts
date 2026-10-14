@@ -1,4 +1,4 @@
-import {newGame,act} from '../../src/game/hardcore/play';
+import {newGame,act} from './legacy-catalog';
 import {turns} from './lifecycle';
 /** Real played fixture: two unrelated females, staggered single clutches, six usable egg slots. */
 export function incubatorFixture(){

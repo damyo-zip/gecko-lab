@@ -1,6 +1,7 @@
+import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
-import { newGame } from "../src/game/hardcore/play";
+import { newGame } from "./fixtures/legacy-catalog";
 import {newGame as legacyGame} from "../tests/helpers/legacy-hardcore";
 import {successfulPair} from "./fixtures/lifecycle";
 import { actWithTime } from "../src/game/hardcore/time-source";
@@ -45,7 +46,7 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"turn-game.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(fixture.original))});
   await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
   await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"노멀 암컷 구매",exact:true}),mobile);
-  await page.getByLabel("먹이 구매 수량",{exact:true}).fill("1000");await click(page.getByRole("button",{name:"먹이 구입 · ₩1,000,000",exact:true}),mobile);
+  await buyFood(page,mobile,1000);
   const [father,mother]=Object.values((await saved(page)).individuals);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(father.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(mother.id);
   await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
@@ -68,7 +69,7 @@ test("v1.2 keeps the realtime option disabled and wall-clock signals never advan
  await page.clock.setFixedTime(new Date(addDays(DATE,100)+"T03:00:00Z"));await page.evaluate(()=>window.dispatchEvent(new Event("focus")));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("1");expect(await saved(page)).toEqual(before);
 });
 
-test("v3 active slot migrates to manual v6 without changing records or applying absent days",async({page})=>{
+test("v3 active slot migrates to manual v7 without changing records or applying absent days",async({page})=>{
   let original=legacyGame("old-v3-time",DATE);const offer=Object.values(original.shop.offers)[0];original=actWithTime(original,{type:"buyGecko",offerId:offer.id},DATE);
   const {time:_time,...fields}=original;const legacy:LegacyHardcoreGame={...fields,saveVersion:3};
   for(const g of [...Object.values(legacy.individuals),...Object.values(legacy.shop.offers).map(o=>o.individual)])delete g.genetics;
@@ -77,7 +78,7 @@ test("v3 active slot migrates to manual v6 without changing records or applying 
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:{format:"gecko-lab-save",version:3,game:legacy,checksum:checksum(legacy)},writeRevision:10});
   await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");
-  const migrated=await saved(page);expect(migrated.saveVersion).toBe(6);expect(migrated.time.mode).toBe("turn");
+  const migrated=await saved(page);expect(migrated.saveVersion).toBe(7);expect(migrated.time.mode).toBe("turn");
   for(const id of Object.keys(legacy.individuals)){expect(migrated.individuals[id].genotype).toEqual(legacy.individuals[id].genotype);expect(migrated.individuals[id].potential).toEqual(legacy.individuals[id].potential);}expect(migrated.individuals[offer.id].genetics?.genome).toBeNull();
   expect(migrated.lastDate).toBe(DATE);expect(migrated.money).toBe(original.money);
 });
@@ -91,7 +92,7 @@ test("real-date signals during a pending v1.2 save cannot advance turns or repla
     const pump=()=>{const r=store.get("keep-transaction-open");r.onsuccess=()=>{if(hold)pump();};};pump();
     (window as unknown as {releaseTimeTest:()=>void}).releaseTimeTest=()=>{hold=false;};tx.oncomplete=()=>db.close();
   });
-  await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
+  await manageResources(page,mobile);await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","true");
   await page.clock.setFixedTime(new Date(addDays(DATE,1)+"T03:00:00Z"));await page.evaluate(()=>window.dispatchEvent(new Event("focus")));
   await page.evaluate(()=>(window as unknown as {releaseTimeTest:()=>void}).releaseTimeTest());

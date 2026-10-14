@@ -41,12 +41,12 @@ export function validateRules(r: Rules): void {
   integer(r.initialMoney, 0, 1e12); integer(r.maxCapacity, 4, 3000); integer(r.initialCapacity, 2, r.maxCapacity);
   integer(r.foodUnitPrice, 1, 1e9); integer(r.expansionSlots, 1, 100); integer(r.expansionBasePrice, 1, 1e9);
 }
-function gecko(g: Gecko,lifecycle=false): void {
+export function validateGeckoRecord(g: Gecko,lifecycle=false,catalog=false): void {
   keys(g, "id name sex birthTurn stage parents generation genotype potential visualSeed nextBreedTurn birthDate status hearts lastFedDate diedDate cycleAnchor recoverUntil lineageIds provenance"+(lifecycle?" deathCause lastProcessedTurn":""));
   if(lifecycle){if(![null,"starvation","natural"].includes(g.deathCause!))fail();integer(g.lastProcessedTurn,-100000,10000000);if(g.status!=="dead"&&g.deathCause!==null)fail();}
   id(g.id); text(g.name, 24); text(g.visualSeed); integer(g.birthTurn, -100000, 10000000); integer(g.nextBreedTurn);
   if (!["male", "female"].includes(g.sex) || !["hatchling", "juvenile", "adult"].includes(g.stage) ||
-    !["owned", "sold", "dead"].includes(g.status) || !["known", "unverified"].includes(g.provenance)) fail();
+    !["owned", "sold", "dead", ...(catalog?["pedigree"]:[])].includes(g.status) || !["known", "unverified"].includes(g.provenance)) fail();
   integer(g.hearts, 0, 5); integer(g.generation, 1, 30000); validateTraits(g.potential);
   object(g.genotype); object(g.genotype.loci);
   if (Object.keys(g.genotype.loci).some(k => !HARDCORE_LOCI.some(l => l.id === k))) fail();
@@ -57,7 +57,7 @@ function gecko(g: Gecko,lifecycle=false): void {
   strings(g.lineageIds); if (new Set(g.lineageIds).size !== g.lineageIds.length) fail();
   if (g.status === "dead" ? g.hearts !== 0 || g.diedDate === null : g.hearts === 0 || g.diedDate !== null) fail();
 }
-function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false): void {
+function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false,catalog=false): void {
   keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration" + (version === 4 ? " time" : ""));
   const g = value as LegacyV4Game;
   if ((g.saveVersion as number) !== version || (lifecycle?![3,4].includes(g.rulesVersion):g.rulesVersion!==2)) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
@@ -79,7 +79,7 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   const seeds = new Map<string, string>();
   const genesEqual = (a: Gecko["genotype"], b: Gecko["genotype"]) => canonicalJSON(expandedGenotype(a)) === canonicalJSON(expandedGenotype(b));
   const checkIndividual = (i: Gecko, future = false) => {
-    gecko(i,lifecycle);
+    validateGeckoRecord(i,lifecycle,catalog);
     if (!future && (i.birthDate > g.lastDate || i.birthTurn > g.turn)) fail();
     if (!future && i.status === "owned") {
       const age = lifecycle?g.turn-i.birthTurn:daysBetween(i.birthDate, g.lastDate);
@@ -168,7 +168,8 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   keys(g.shop, "date offers"); date(g.shop.date); if (g.shop.date !== g.lastDate) fail(); dictionary(g.shop.offers, 20);
   for (const [key,o] of Object.entries(g.shop.offers)) {
     keys(o, "id individual askPrice marketBase marketVersion"); if (key !== o.id || o.id !== o.individual.id || g.individuals[key]) fail();
-    gecko(o.individual,lifecycle); if (o.individual.parents || o.individual.lineageIds.length || o.individual.status !== "owned") fail();
+    validateGeckoRecord(o.individual,lifecycle,catalog); if ((!catalog&&o.individual.parents) || o.individual.lineageIds.length || o.individual.status !== "owned") fail();
+    if(catalog)checkIndividual(o.individual);
     integer(o.askPrice, 1); integer(o.marketBase, 1); text(o.marketVersion);
   }
   if (freeSlots(g) < 0) throw new Error("사육장 공간 예약이 손상되었습니다.");
@@ -176,4 +177,4 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
 export function validateV4(value: unknown, advancedIds?:Set<string>): asserts value is LegacyV4Game { validateRecord(value, 4, advancedIds); }
 export function validateV3(value: unknown): asserts value is LegacyHardcoreGame { validateRecord(value, 3); }
 
-export function validateLifecycleBase(value:unknown,advancedIds:Set<string>):void {validateRecord(value,4,advancedIds,true);}
+export function validateLifecycleBase(value:unknown,advancedIds:Set<string>,catalog=false):void {validateRecord(value,4,advancedIds,true,catalog);}

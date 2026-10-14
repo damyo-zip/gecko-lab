@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
-import {newGame,act} from '../src/game/hardcore/play';
+import {newGame,act} from './fixtures/legacy-catalog';
 import {exportBackup,type makeSave} from '../src/game/hardcore/save';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';

@@ -3,6 +3,7 @@ import "./globals.css";
 import "./terrarium.css";
 import "./reference-home.css";
 import "./reference-incubator.css";
+import "./reference-shop.css";
 
 export const metadata: Metadata = {
   title: "GECKO LAB — 브리딩 연구소",

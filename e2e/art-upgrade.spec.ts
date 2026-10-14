@@ -1,3 +1,4 @@
+import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Locator,type Page} from "@playwright/test";
 import {createHash} from "node:crypto";
@@ -6,7 +7,7 @@ import {decodePNG} from "../scripts/png.mjs";
 import {renderSprite,renderLegacySprite} from "../src/engine/render";
 import {MORPH_PRESETS,specimenFromPreset} from "../src/engine/presets";
 import {successfulPair} from "./fixtures/lifecycle";
-import {newGame} from "../src/game/hardcore/play";
+import {newGame} from "./fixtures/legacy-catalog";
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";
 const DATE="2026-10-14",errors=new WeakMap<Page,string[]>();
@@ -75,7 +76,7 @@ test("real collection/details/shop/hatching/pedigree use new art while turns, ge
  await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
  await tab(page,"상점",mobile);await canvasVisible(page);await page.locator(".hc-grid").screenshot({path:info.outputPath("art-shop.png"),scale:"css"});
  await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"노멀 암컷 구매",exact:true}),mobile);
- await page.getByLabel("먹이 구매 수량",{exact:true}).fill("100");await click(page.getByRole("button",{name:"먹이 구입 · ₩100,000",exact:true}),mobile);
+ await buyFood(page,mobile,100);
  const parents=Object.values((await saved(page)).individuals),genomes=parents.map(g=>g.genetics!.genome),parentSeeds=parents.map(g=>g.visualSeed);
  await tab(page,"컬렉션",mobile);await canvasVisible(page);await page.locator(".hc-grid").scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath("art-collection.png"),scale:"css"});
  await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await canvasVisible(page);await page.getByRole("dialog").screenshot({path:info.outputPath("art-detail.png"),scale:"css"});

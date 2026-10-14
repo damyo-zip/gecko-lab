@@ -11,10 +11,14 @@ export function buyFood(g: HardcoreGame, amount: number): void {
   spend(g, amount * g.rules.foodUnitPrice); g.food += amount;
 }
 export function buyGecko(g: HardcoreGame, offerId: string): void {
-  const offer = g.shop.offers[offerId]; if (!offer) throw new Error("이미 판매되었거나 갱신된 매물입니다.");
+  const offer = g.shop.offers[offerId]; if (!offer || offer.purchased) throw new Error("이미 판매되었거나 갱신된 매물입니다.");
   if (freeSlots(g) < 1) throw new Error("사육장 공간이 부족합니다. 예약 공간도 사용량에 포함됩니다.");
-  if (Object.keys(g.individuals).length >= 30000) throw new Error("이 슬롯의 개체 기록 한도에 도달했습니다.");
-  spend(g, offer.askPrice); g.individuals[offerId] = structuredClone(offer.individual); delete g.shop.offers[offerId];
+  const parents=offer.family?[offer.family.father,offer.family.mother]:[];
+  if (Object.keys(g.individuals).length + 1 + parents.filter(p=>!g.individuals[p.id]).length > 30000) throw new Error("이 슬롯의 개체 기록 한도에 도달했습니다.");
+  spend(g, offer.askPrice);
+  g.individuals[offerId] = structuredClone(offer.individual);
+  for(const parent of parents)if(!g.individuals[parent.id])g.individuals[parent.id]=structuredClone(parent);
+  if(g.saveVersion===7)offer.purchased=true;else delete g.shop.offers[offerId];
 }
 export function sellGecko(g: HardcoreGame, id: string, table: PriceTable = MARKET): void {
   const i = g.individuals[id]; if (!i || i.status !== "owned" || i.hearts === 0) throw new Error("보유 중인 생존 개체만 분양할 수 있습니다.");

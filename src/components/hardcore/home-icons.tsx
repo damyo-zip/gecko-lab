@@ -1,7 +1,10 @@
-export type HomeIconName = "gear" | "leaf" | "coin" | "food" | "plus" | "pen" | "grid" | "heart" | "clock" | "chevron" | "dna" | "collection" | "egg" | "tree" | "shop" | "female" | "male";
+export type HomeIconName = "gear" | "leaf" | "coin" | "food" | "plus" | "pen" | "grid" | "heart" | "clock" | "chevron" | "dna" | "collection" | "egg" | "tree" | "shop" | "female" | "male" | "cart" | "calendar" | "refresh";
 /** Stepped, filled silhouettes used only by the reference home UI. */
 export function HomeIcon({name,size=24}:{name:HomeIconName;size?:number}) {
   const shapes:Record<HomeIconName,string> = {
+    cart:"M0 1h5v4h17v3h-2v9H6v-3H4V5H0ZM7 8v6h10V8ZM6 19h4v5H6ZM16 19h4v5h-4Z",
+    calendar:"M4 0h3v4h10V0h3v4h3v20H1V4h3ZM4 9v12h16V9ZM6 11h3v3H6ZM11 11h3v3h-3ZM16 11h3v3h-3ZM6 16h3v3H6ZM11 16h3v3h-3Z",
+    refresh:"M7 1h10v2h4v5h3v3h-9V8h3V5h-3V4H8v2H5v5H2V7h2V3h3ZM0 13h9v3H6v3h3v1h7v-2h3v-5h3v4h-2v4h-3v2H7v-2H3v-5H0Z",
     gear:"M9 2h6v3l3 2 3-1 2 5-3 2v3l2 2-3 4-3-2-3 1-1 3H7v-3l-3-2-3 1-2-5 3-2v-3L0 9l3-4 3 2 3-2ZM9 9v6h6V9Z",
     leaf:"M5 1h4v3h3v3h3v4h-4V8H8V5H5ZM16 11h4v4h3v4h-7v-3h-4v-3H8v-2ZM1 13h4v-3h4v4H6v3H2v3H0v-4ZM10 18h4v3h-3v3H7v-3h3Z",
     coin:"M7 1h10v2h4v4h2v10h-2v4h-4v2H7v-2H3v-4H1V7h2V3h4ZM9 5v2H7v10h2v2h6v-2h2V7h-2V5Zm1 4h4v6h-4Z",

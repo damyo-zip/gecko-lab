@@ -5,6 +5,7 @@ import { feed, feedAll } from "./survival";
 import { startMating } from "./breeding";
 import { buyFood, buyGecko, sellGecko, expand } from "./economy";
 import { nameLineage } from "./lineage";
+import { SHOP_REFRESH_PRICE } from "./shop-family";
 import { refreshShop } from "./shop";
 import { MARKET, updateMarket, type PriceTable } from "./market";
 import { validateGame } from "./validation";
@@ -19,7 +20,7 @@ export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTa
   let result = catchUp(source, date);
   if (result !== source || !result.marketVersion || result.marketVersion !== table.version) {
     if (result === source) result = structuredClone(source);
-    if (result.lastDate !== source.lastDate || !result.marketVersion) refreshShop(result, table);
+    if (result.shop.date !== result.lastDate || !result.marketVersion) refreshShop(result, table);
     else updateMarket(result, table);
     if (result.revision === source.revision) result.revision++;
   }
@@ -34,6 +35,11 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
     case "feedAll": feedAll(game); break;
     case "breed": startMating(game, action.fatherId, action.motherId); break;
     case "buyFood": buyFood(game, action.amount); break;
+    case "refreshShop": {
+      if(game.saveVersion!==7)throw new Error("현재 상점으로 이전한 뒤 발품팔기를 사용할 수 있습니다.");
+      if(game.money<SHOP_REFRESH_PRICE)throw new Error("발품팔기 자금이 부족합니다. 2,000원이 필요합니다.");
+      game.money-=SHOP_REFRESH_PRICE;refreshShop(game,table);break;
+    }
     case "buyGecko": buyGecko(game, action.offerId); break;
     case "sell": sellGecko(game, action.id, table); break;
     case "expand": expand(game); break;

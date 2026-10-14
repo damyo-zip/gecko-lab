@@ -1,8 +1,9 @@
+import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,feedCollection,finishTurn} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import {turns,successfulPair} from "./fixtures/lifecycle";
-import { newGame, act, synchronize } from "../src/game/hardcore/play";
+import { newGame, act, synchronize } from "./fixtures/legacy-catalog";
 import { makeSave, exportBackup, parseBackup } from "../src/game/hardcore/save";
 import { createNewGame, applyAction } from "../src/game/play";
 import { makeSave as legacySave } from "../src/game/save";
@@ -51,6 +52,7 @@ function winningGame() {
   for(const id of [first.father,first.mother])g=act(g,{type:"buyGecko",offerId:id},g.lastDate);
   g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=act(g,{type:"breed",fatherId:first.father,motherId:first.mother},g.lastDate);g=turns(g,18);
   const child=Object.values(g.individuals).filter(i=>i.parents&&i.stage==='adult')[1],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.name.startsWith('노멀'))!;
+  if(!child||!partner)continue;
   g=act(g,{type:"buyGecko",offerId:partner.id},g.lastDate);g=act(g,{type:"breed",fatherId:child.sex==='male'?child.id:partner.id,motherId:child.sex==='female'?child.id:partner.id},g.lastDate);g=turns(g,6);
   if(Object.values(g.individuals).some(i=>i.generation===3))return original;
  }throw new Error("two-generation seed unavailable");
@@ -66,8 +68,8 @@ test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
 test("real mobile purchases, automatic care, two generations, hidden sex, sale, expansion and lineage",async({page},info)=>{
  const mobile=info.project.name.startsWith("mobile");await restore(page,exportBackup(winningGame()),mobile);
- await tab(page,"상점",mobile);await expect(page.locator(".hc-card").first()).toContainText("분양 매물");
- await page.getByLabel("먹이 구매 수량",{exact:true}).fill("1000");await click(page.getByRole("button",{name:"먹이 구입 · ₩1,000,000",exact:true}),mobile);
+ await tab(page,"상점",mobile);await expect(page.locator(".shop-offer")).toHaveCount(4);
+ await buyFood(page,mobile,1000);
  for(const name of ["노멀 수컷 구매","노멀 암컷 구매"])await click(page.getByRole("button",{name,exact:true}),mobile);
  let g=await saved(page);const [father,mother]=Object.values(g.individuals);await page.screenshot({path:info.outputPath("phase3-shop.png"),scale:"css"});
  await tab(page,"혈통",mobile);await page.getByLabel("혈통 이름",{exact:true}).fill("Moonlight Line");await click(page.getByRole("button",{name:"혈통 이름 등록",exact:true}),mobile);
@@ -81,7 +83,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await page.getByLabel("개체 이름",{exact:true}).fill("새싹");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"새싹 상세",exact:true})).toBeVisible();await page.getByRole("dialog").screenshot({path:info.outputPath("phase3-hatchling.png"),scale:"css"});await page.keyboard.press("Escape");
  for(let t=0;t<12;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
  const beforeSale=(await saved(page)).money;await click(page.getByRole("button",{name:/^분양 준비/}),mobile);await click(page.getByRole("button",{name:"분양 확정",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("판매 완료");expect((await saved(page)).money).toBeGreaterThan(beforeSale);await page.keyboard.press("Escape");
- await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);g=await saved(page);
+ await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
  const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.name.startsWith('노멀'))!;
  await click(page.getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
  await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(child.sex==='male'?child.id:partner.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
@@ -135,8 +137,8 @@ test("backup, corruption rejection, recovery archive and new-game separation",as
 test("stale tabs cannot overwrite money or daily care, all six screens fit 360px and have touch targets",async({page,context},info)=>{
   const mobile=info.project.name.startsWith("mobile"),other=await context.newPage();await other.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await other.goto("/");
   await expect(other.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
-  await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
-  await tab(other,"상점",mobile);await click(other.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
+  await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
+  await tab(other,"상점",mobile);await manageResources(other,mobile);await click(other.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
   await expect(other.getByRole("alert").filter({hasText:"다른 창"})).toBeVisible();expect((await saved(page)).food).toBe(10);await other.close();
   for(const name of ["오늘","컬렉션","교배","부화","상점","혈통"]) {
     await tab(page,name,mobile);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

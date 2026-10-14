@@ -1,4 +1,4 @@
-import {newGame,act} from "../../src/game/hardcore/play";
+import {newGame,act} from "./legacy-catalog";
 import {actWithTime} from "../../src/game/hardcore/time-source";
 import type {HardcoreGame} from "../../src/game/hardcore/model";
 export function turns(g:HardcoreGame,count:number){for(let n=0;n<count;n++)g=actWithTime(g,{type:"endTurn"},g.time.realtimeAnchorDate);return g;}

@@ -4,7 +4,7 @@ import type { PotentialTraits, TraitVariation } from "@/genetics/traits";
 import type { GameDate } from "./time";
 import type { GeneticsRecord, Knowledge } from "@/genetics/advanced/model";
 
-export type Ownership = "owned" | "sold" | "dead";
+export type Ownership = "owned" | "sold" | "dead" | "pedigree";
 export const TIME_MODES = ["turn", "realtime"] as const;
 export type TimeMode = typeof TIME_MODES[number];
 export interface GameTime {
@@ -85,9 +85,13 @@ export interface Sale {
   id: string; individualId: string; date: GameDate; price: number;
   marketVersion: string; marketBase: number; valuation: number;
 }
-export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string }
+/** External parents are immutable pedigree records, never player livestock. */
+export interface ShopFamily { version: 1; seed: string; matingTurn: number; father: Gecko; mother: Gecko }
+export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string;
+  family?: ShopFamily | null; purchased?: boolean;
+}
 export interface HardcoreGame {
-  saveVersion: 5 | 6;
+  saveVersion: 5 | 6 | 7;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
@@ -108,7 +112,7 @@ export interface HardcoreGame {
   sales: Sale[];
   lineages: Record<string, { id: string; name: string; createdDate: GameDate }>;
   nextLineage: number;
-  shop: { date: GameDate; offers: Record<string, ShopOffer> };
+  shop: { date: GameDate; offers: Record<string, ShopOffer>; batch?: number };
   marketVersion: string;
   notices: string[];
   migration: { from: 2; date: GameDate } | null;
@@ -121,6 +125,7 @@ export type GameplayAction =
   | { type: "breed"; fatherId: string; motherId: string }
   | { type: "buyFood"; amount: number }
   | { type: "buyGecko"; offerId: string }
+  | { type: "refreshShop" }
   | { type: "sell"; id: string }
   | { type: "expand" }
   | { type: "rename"; id: string; name: string }

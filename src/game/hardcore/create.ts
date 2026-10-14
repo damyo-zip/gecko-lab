@@ -16,13 +16,16 @@ export function createLegacyGame(seed: string, date: GameDate, overrides: Partia
     individuals: {}, matings: {}, eggs: {}, sales: [], lineages: {}, nextLineage: 1,
     shop: { date, offers: {} }, marketVersion: "", notices: [], migration: null };
 }
-export function createGame(seed: string, date: GameDate, overrides: Partial<Rules> = {}, timeMode: TimeMode = "turn"): HardcoreGame {
+export function createV6Game(seed: string, date: GameDate, overrides: Partial<Rules> = {}, timeMode: TimeMode = "turn"): HardcoreGame {
   if(timeMode!=="turn")throw new Error("v1.2는 플레이어가 턴을 마쳐야 진행됩니다.");
   const game=createLegacyGame(seed,date,overrides);
   game.saveVersion=6;game.rulesVersion=4;
   game.rules={...game.rules,fertilizationChance:BALANCE.fertilizationChance,hatchChance:BALANCE.hatchChance,
     adultAfter:BALANCE.adultAfter,juvenileAfter:BALANCE.juvenileAfter,recoveryDays:BALANCE.recoveryDays};
   return game;
+}
+export function createGame(seed:string,date:GameDate,overrides:Partial<Rules>={},timeMode:TimeMode="turn"):HardcoreGame {
+  const game=createV6Game(seed,date,overrides,timeMode);game.saveVersion=7;game.shop.batch=0;return game;
 }
 /** Phase 2 had no wall-clock anchor: start daily care at migration, never invent past neglect. */
 export function migrateV2(envelope: unknown, date: GameDate): HardcoreGame {
