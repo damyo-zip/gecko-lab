@@ -140,7 +140,8 @@ test("stale tabs cannot overwrite money or daily care, all six screens fit 360px
   await expect(other.getByRole("alert").filter({hasText:"다른 창"})).toBeVisible();expect((await saved(page)).food).toBe(10);await other.close();
   for(const name of ["오늘","컬렉션","교배","부화","상점","혈통"]) {
     await tab(page,name,mobile);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    const box=await page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name,exact:true}).boundingBox();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThanOrEqual(44);
+    const label=name==='부화'?'인큐베이터':name;
+    const box=await page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name:label,exact:true}).boundingBox();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThanOrEqual(44);
   }
   await expect(page.getByRole("button",{name:"1턴 진행",exact:true})).toHaveCount(0);await expect(page.getByRole("button",{name:"+5턴",exact:true})).toHaveCount(0);
 });

@@ -1,0 +1,55 @@
+{
+  "reference": {
+    "file": "references/gecko-incubator-exact.jpg",
+    "width": 607,
+    "height": 1280,
+    "sha256": "c81874e5e0c54aee57c51b46ede5f08372919e8980dc5464f95e1b63ddd2196f"
+  },
+  "baselineCommit": "90afd5476f4b83ff7307af8851b4698e4485713c",
+  "baselineSha256": "117382c52efd4b8bb6eeb1bb0b7de608a2b5904e3924f0772fb9c6a1c4a9dbf4",
+  "unchangedGame": true,
+  "fixtureSha256": "1096767286655718aa6c21a932441caac32ba3ca5fd71a0be73e842e932ddf8b",
+  "captures": [
+    {
+      "file": "after-360.png",
+      "width": 360,
+      "height": 800,
+      "sha256": "a4b41a5e1caa37b1e338fdd8d8ab6b41ef1b173d65f5eaac720f49c9bfffb1b1"
+    },
+    {
+      "file": "after-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "9c1cf8a37915814ad1b978fdfbf0ed8fc19dcb80e47e882b74966c3e4919ec76"
+    },
+    {
+      "file": "after-430.png",
+      "width": 430,
+      "height": 932,
+      "sha256": "c44d05b65a4e5d96b6ac6a9344c122cafd7a27f3b17e3c202f330345ffa642f4"
+    },
+    {
+      "file": "after-607.png",
+      "width": 607,
+      "height": 1280,
+      "sha256": "98f527a5de00437d24cc3d879e722939de53a415f4dd653aa609f81428a09430"
+    },
+    {
+      "file": "after-390-full.png",
+      "width": 390,
+      "height": 1408,
+      "sha256": "93483107ff604167863e72bcbb9cfbd9acb636e5d7e161ba564fbbaa12346305"
+    }
+  ],
+  "comparison": {
+    "nativeScale": 1,
+    "labelsOutsideScreens": true,
+    "beforeViewportCrop": "top 390×844; original full capture retained"
+  },
+  "notes": [
+    "Actual production app, independent same-origin scene PNG and seeded Canvas shell. Reference screenshot is not an app asset.",
+    "Real fixture has four active eggs and two usable slots from two staggered matings, rather than the reference example of three.",
+    "Empty plus means parent selection; reserved slots are separate and cannot be used.",
+    "95% is conditional fertilized-egg hatch chance. Help shows 5% infertile / 90.25% overall."
+  ]
+}
