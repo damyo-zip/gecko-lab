@@ -7,7 +7,7 @@ import { morph } from "@/game/hardcore/adapter";
 import { Sprite, STATUS, won, type ViewProps } from "./common";
 export function Lineage({game,busy,play,onDetail,selectedId,onSelect}:ViewProps & {selectedId:string;onSelect:(id:string)=>void}) {
   const [name,setName] = useState(""), [limit,setLimit] = useState(24);
-  const individuals = Object.values(game.individuals), root = game.individuals[selectedId] ?? individuals[0];
+  const individuals = Object.values(game.individuals).filter(g=>g.status!=="pedigree"||g.id===selectedId), root = game.individuals[selectedId] ?? individuals[0];
   const prior = root ? [...ancestors(game,root.id)].sort((a,b)=>a[1]-b[1]) : [], future = root ? [...descendants(game,root.id)] : [];
   const related=root?[root,...future.map(id=>game.individuals[id])]:[];
   const generations=[...new Set(related.map(g=>g.generation))].sort((a,b)=>a-b);

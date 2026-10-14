@@ -1,12 +1,12 @@
 import {test,expect} from "vitest";
-import {newGame,act} from "@/game/hardcore/play";
+import {newGame,act} from "./helpers/v6-hardcore";
 import {actWithTime,synchronizeTime} from "@/game/hardcore/time-source";
 import {addDays} from "@/game/hardcore/time";
 import {ageTurns,naturalDeathProbability,processCareAndLifespan,foodDemand,lifeStage} from "@/game/hardcore/lifecycle";
 import {breedingCheck,breedingEvents} from "@/game/hardcore/breeding";
 import {reserved,owned} from "@/game/hardcore/survival";
 import {seededRandom} from "@/genetics/random";
-import {makeSave,readSave,exportBackup,parseBackup,checksum} from "@/game/hardcore/save";
+import {makeSave,readSave,exportBackup,parseBackup,checksum} from "./helpers/v6-hardcore";
 import {newGame as legacyGame,act as legacyAct,synchronize as legacySync} from "./helpers/legacy-hardcore";
 import {validateGame} from "@/game/hardcore/validation";
 import {valueGecko} from "@/game/hardcore/market";

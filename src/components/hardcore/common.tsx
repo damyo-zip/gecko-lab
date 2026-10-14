@@ -8,7 +8,7 @@ export { Dialog } from "../game/common";
 export type Play = (action: Action) => Promise<boolean>;
 export interface ViewProps { game: HardcoreGame; busy: boolean; play: Play; onDetail: (id: string) => void }
 export const won = (n: number) => "₩" + n.toLocaleString("ko-KR");
-export const STATUS = { owned: "보유 중", sold: "판매 완료", dead: "폐사" };
+export const STATUS = { owned: "보유 중", sold: "판매 완료", dead: "폐사", pedigree: "외부 부모 기록" };
 export function SectionHeading({title,eyebrow,icon,count,children}:{title:string;eyebrow:string;icon:React.ComponentProps<typeof Icon>["name"];count?:number;children?:React.ReactNode}){
  return <div className="game-section-heading"><div><p className="eyebrow">{eyebrow}</p><div className="hc-title-line"><h1>{title}</h1>{count!==undefined&&<span className="hc-title-count" aria-label={count+"개"}>{count}</span>}</div></div>{children??<span className="hc-section-icon"><Icon name={icon} size={22}/></span>}</div>;
 }

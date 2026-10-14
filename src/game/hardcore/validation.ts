@@ -5,10 +5,12 @@ import { validateMendelian, LOCI, pairKey } from "@/genetics/advanced/loci";
 import { inherit, risks } from "@/genetics/advanced/inheritance";
 import { inheritPoly, polyScores, POLY_IDS, validatePoly } from "@/genetics/advanced/polygenic";
 import { legacyTraits } from "@/genetics/advanced/phenotype";
+import {seededRandom,seedId} from "@/genetics/random";
+import {addDays} from "./time";
 import { TRAIT_KEYS } from "@/genetics/traits";
 import type { GeneticsRecord } from "@/genetics/advanced/model";
 import type { Gecko, HardcoreGame } from "./model";
-import { validateV4, validateLifecycleBase } from "./legacy-validation";
+import { validateV4, validateLifecycleBase, validateGeckoRecord } from "./legacy-validation";
 import { validateLifecycle } from "./lifecycle-validation";
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
@@ -28,16 +30,29 @@ export function validateGenetics(record:GeneticsRecord|undefined):asserts record
     if(probabilities&&!probabilities[pairKey(record!.genome.mendelian.loci[l.id],l)])fail();}
 }
 export function validateGame(value:unknown):asserts value is HardcoreGame {
-  if(!value||typeof value!=="object"||![5,6].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
+  if(!value||typeof value!=="object"||![5,6,7].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
-  const all=[...Object.values(game.individuals??{}),...Object.values(game.eggs??{}).map(e=>e.embryo),...Object.values(game.shop?.offers??{}).map(o=>o.individual),...Object.values(game.matings??{}).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])];
+  const catalog=game.saveVersion===7;
+  const relatives=Object.values(game.shop?.offers??{}).flatMap(o=>o.family?[o.family.father,o.family.mother]:[]);
+  const individuals={...Object.fromEntries(relatives.map(p=>[p.id,p])),...game.individuals};
+  const all=[...relatives,...Object.values(game.individuals??{}),...Object.values(game.eggs??{}).map(e=>e.embryo),...Object.values(game.shop?.offers??{}).map(o=>o.individual),...Object.values(game.matings??{}).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])];
   for(const g of all){
     if(!Object.hasOwn(g,"genetics"))fail();validateGenetics(g.genetics);
     if(g.genetics.genome){advancedIds.add(g.id);const expected=legacyTraits(polyScores(g.genetics.genome.polygenic));
       if(!equal(cachedGenotype(g.genetics,g.genotype),g.genotype)||TRAIT_KEYS.some(k=>!Number.isFinite(g.potential[k])||Math.abs(expected[k]-g.potential[k])>1e-12))fail();}
-    if(g.parents){const f=game.individuals[g.parents.fatherId],m=game.individuals[g.parents.motherId];if(!f||!m)fail();
+    if(g.parents){const f=individuals[g.parents.fatherId],m=individuals[g.parents.motherId];if(!f||!m)fail();
       if(g.genetics.genome){const fp=f.genetics?.genome?.polygenic,mp=m.genetics?.genome?.polygenic;if(!fp||!mp)fail();
         for(const id of POLY_IDS){const [a,b]=g.genetics.genome.polygenic.loci[id];if(!fp.loci[id].includes(a)||!mp.loci[id].includes(b))fail();}}
+    }
+  }
+  if(catalog){
+    validateShop(game);
+    const projected=base as unknown as HardcoreGame;
+    for(const parent of relatives)if(!projected.individuals[parent.id])projected.individuals[parent.id]=structuredClone(parent);
+    delete projected.shop.batch;
+    for(const [id,offer] of Object.entries(projected.shop.offers)){
+      if(offer.purchased){delete projected.shop.offers[id];continue;}
+      delete offer.family;delete offer.purchased;
     }
   }
   // Reuse the established care/calendar/ID/kinship/sale/egg structural contract.
@@ -46,7 +61,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   for(const e of Object.values(base.eggs as HardcoreGame["eggs"]))delete e.embryo.genetics;
   for(const o of Object.values((base.shop as HardcoreGame["shop"]).offers))delete o.individual.genetics;
   for(const m of Object.values(base.matings as HardcoreGame["matings"])){delete m.genetics;for(const o of m.lifecycle?.offspring??[])delete o.embryo.genetics;}
-  base.saveVersion=4;if(game.saveVersion===6){validateLifecycle(game);validateLifecycleBase(base,advancedIds);}else validateV4(base,advancedIds);
+  base.saveVersion=4;if(game.saveVersion>=6){validateLifecycle(game);validateLifecycleBase(base,advancedIds,catalog);}else validateV4(base,advancedIds);
   for(const m of Object.values(game.matings)){
     if(!Object.hasOwn(m,"genetics"))fail();if(m.genetics===null)continue;
     keys(m.genetics,"father mother observedIds updates");validateGenetics(m.genetics!.father);validateGenetics(m.genetics!.mother);
@@ -63,4 +78,37 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     }
   }
   for(const e of Object.values(game.eggs)){const child=game.individuals[e.embryo.id];if(child&&!equal(child.genetics?.genome,e.embryo.genetics?.genome))fail();}
+}
+
+/** Closed v7 catalog schema and reproducible family evidence. No secret truth becomes public knowledge. */
+function validateShop(game:HardcoreGame):void {
+  keys(game.shop,"date offers batch");
+  if(!Number.isSafeInteger(game.shop.batch)||game.shop.batch!<0||Object.keys(game.shop.offers).length!==4)fail();
+  for(const [id,o] of Object.entries(game.shop.offers)){
+    keys(o,"id individual askPrice marketBase marketVersion family purchased");
+    if(id!==o.id||id!==o.individual.id||typeof o.purchased!=="boolean")fail();
+    if(!Number.isSafeInteger(o.askPrice)||o.askPrice<1||!Number.isSafeInteger(o.marketBase)||o.marketBase<1||typeof o.marketVersion!=="string"||!o.marketVersion||o.marketVersion.length>128)fail();
+    for(const original of [o.individual,...(o.family?[o.family.father,o.family.mother]:[])]){
+      const snapshot={...original};delete snapshot.genetics;validateGeckoRecord(snapshot,true,true);
+    }
+    const child=game.individuals[id];
+    if(o.purchased){
+      if(!child||!equal(child.genetics?.genome,o.individual.genetics?.genome)||!equal(child.genotype,o.individual.genotype)||
+        !equal(child.parents,o.individual.parents)||child.visualSeed!==o.individual.visualSeed||child.birthTurn!==o.individual.birthTurn||child.birthDate!==o.individual.birthDate||child.generation!==o.individual.generation||child.sex!==o.individual.sex)fail();
+    }else if(child)fail();
+    if(o.individual.status!=="owned")fail();
+    if(o.family===null){if(o.individual.parents)fail();continue;}
+    const f=o.family;if(!f)fail();keys(f,"version seed matingTurn father mother");
+    if(f.version!==1||typeof f.seed!=="string"||f.seed.length>512||!Number.isSafeInteger(f.matingTurn)||f.matingTurn!==o.individual.birthTurn-6)fail();
+    if(o.individual.sex!==(seededRandom(f.seed,"sex")()<.5?"male":"female")||
+      o.individual.visualSeed!==id+"-"+seedId(f.seed,"visual")||o.individual.birthDate!==addDays(game.lastDate,(o.individual.birthTurn-game.turn)*7))fail();
+    for(const p of [f.father,f.mother]){
+      if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<12||f.matingTurn-p.birthTurn>=60)fail();
+      const archived=game.individuals[p.id];if(archived&&(!equal(archived.genetics?.genome,p.genetics?.genome)||archived.visualSeed!==p.visualSeed||archived.sex!==p.sex||archived.birthTurn!==p.birthTurn))fail();
+      if(o.purchased&&!archived)fail();
+    }
+    if(f.father.sex!=="male"||f.mother.sex!=="female"||!equal(o.individual.parents,{fatherId:f.father.id,motherId:f.mother.id})||advancedSafety(f.father,f.mother).length)fail();
+    const fg=f.father.genetics?.genome,mg=f.mother.genetics?.genome,cg=o.individual.genetics?.genome;
+    if(!fg||!mg||!cg||!equal(cg.mendelian,inherit(fg.mendelian,mg.mendelian,f.seed))||!equal(cg.polygenic,inheritPoly(fg.polygenic,mg.polygenic,f.seed)))fail();
+  }
 }

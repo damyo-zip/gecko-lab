@@ -19,7 +19,7 @@ export function Settings({game,busy,error,play,replace,onClose,onReplaced}: {
   const [archives,setArchives] = useState<{key:string;data:unknown}[]|null>(null);
   const [mode,setMode] = useState<TimeMode>(game?.time.mode ?? "turn"), [newMode,setNewMode] = useState<TimeMode>("turn");
   return <Dialog title="저장 및 게임 설정" onClose={onClose}>
-    <p className="game-section-copy">IndexedDB 자동 저장 · 저장 v6 · v1.2. v2·v3·v4·v5 백업을 이전하며 과거 외형 대립유전자는 미확인으로 보존합니다. 게임 날짜와 개체·알·혈통 기록을 보존합니다.</p>
+    <p className="game-section-copy">IndexedDB 자동 저장 · 저장 v7 · v1.2. v2·v3·v4·v5·v6 백업을 이전하며 과거 외형 대립유전자는 미확인으로 보존합니다. 게임 날짜와 개체·알·혈통 기록을 보존합니다.</p>
     {(localError || error) && <p className="game-warning" role="alert">{localError || error}</p>}
     {game && <button className="game-secondary full-width" onClick={()=>downloadJSON(exportBackup(game),"gecko-"+game.lastDate+".json")}>JSON 백업 저장</button>}
     {pending ? <div className="replacement-confirm"><h3>{pending.kind==="new" ? "새 게임 시작 확인" : "백업 복원 확인"}</h3><p>기존 진행은 별도 아카이브에 보존합니다. 새 게임은 새 혈통으로 시작하며 이전 개체를 되살리지 않습니다. 복원은 v1.2 수동 턴 방식으로 진행합니다.</p><p>{pending.game.gameId} · {pending.game.lastDate}</p><div className="confirm-actions"><button className="game-secondary" disabled={busy} onClick={()=>setPending(null)}>취소</button><button className="game-primary" disabled={busy} onClick={async()=>{if(await replace(pending.game)) onReplaced();}}>{pending.kind==="new" ? "새 게임 시작" : "복원 실행"}</button></div></div> : <>

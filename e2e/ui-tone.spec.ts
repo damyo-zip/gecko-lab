@@ -2,7 +2,7 @@ import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {turns} from "./fixtures/lifecycle";
-import {newGame,act,synchronize} from "../src/game/hardcore/play";
+import {newGame,act,synchronize} from "./fixtures/legacy-catalog";
 import {addDays} from "../src/game/hardcore/time";
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";

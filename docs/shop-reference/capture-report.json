@@ -1,0 +1,27 @@
+{
+  "baselineCommit": "093ee6decc402a677cc97dfa6636912e80c87fc7",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "sameGameState": false,
+  "reason": "Original six-offer market versus new four-offer real-family market; actual game data differs.",
+  "comparison": {
+    "scale": 1,
+    "labelsOutsideImages": true
+  },
+  "captures": [
+    {
+      "file": "before-390.png",
+      "width": 390,
+      "height": 2462,
+      "sha256": "b6c2422b637a9d461cdbad5bba482831656717c7fc2325dfea595f4d5a8683c6"
+    },
+    {
+      "file": "after-390.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "17c42ea11bcbd6e753714c3aa2d5b8e843d87c317b00b389c9a24126ce80f628"
+    }
+  ]
+}
