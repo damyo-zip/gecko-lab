@@ -5,7 +5,7 @@ import { migrateV2 } from "@/game/hardcore/create";
 import { feed, feedAll, loseHearts } from "@/game/hardcore/survival";
 import { addDays, dateNumber, seoulDate } from "@/game/hardcore/time";
 import { catchUp } from "@/game/hardcore/calendar";
-import { exportBackup, parseBackup } from "@/game/hardcore/save";
+import { exportBackup, parseBackup } from "./helpers/legacy-hardcore";
 
 const start = () => migrateV2(makeSave(createNewGame("survival")), "2026-10-13");
 describe("Korean calendar and care", () => {

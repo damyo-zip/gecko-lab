@@ -18,6 +18,8 @@ export async function finishTurn(page:Page,mobile:boolean) {
   const previousDay=Number(await page.getByTestId("game-day").textContent());
   await navigateGame(page,"컬렉션",mobile);
   await touch(page.getByRole("button",{name:"턴 넘기기",exact:true}),mobile);
+  const shortage=page.getByRole("dialog",{name:"턴 종료 전 사료 부족",exact:true});
+  if(await shortage.count())await touch(shortage.getByRole("button",{name:"사료 부족 상태로 턴 마치기",exact:true}),mobile);
   await expect(page.getByTestId("game-day")).toHaveText(String(previousDay+1));
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
   const screens:Record<string,string>={collection:"컬렉션",breeding:"교배",incubator:"부화",home:"오늘",shop:"상점",lineage:"혈통"};
@@ -26,7 +28,7 @@ export async function finishTurn(page:Page,mobile:boolean) {
 export async function feedCollection(page:Page,mobile:boolean) {
   await navigateGame(page,"컬렉션",mobile);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);
-  await touch(page.getByRole("dialog").getByRole("button",{name:/^수동 전체 급여/}),mobile);
+  await expect(page.getByRole("dialog")).toContainText("자동 급여");
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
   await touch(page.getByRole("dialog").getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
 }

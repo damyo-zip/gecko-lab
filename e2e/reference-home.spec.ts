@@ -102,14 +102,14 @@ test("reference home binds six real specimens, preserves read-only state and adv
   await touch(turn,mobile);await expect(turn).toBeDisabled();await expect(page.getByTestId("game-day")).toHaveText("0");
   await page.evaluate(()=>(window as unknown as {releaseHomeTurn:()=>void}).releaseHomeTurn());
   await expect(page.getByTestId("game-day")).toHaveText("1");await expect(turn).toBeEnabled();
-  await expect(page.getByTestId("game-date")).toHaveText(addDays(original.lastDate,1));
+  await expect(page.getByTestId("game-date")).toHaveText(addDays(original.lastDate,7));
   await expect(page.locator(".game-tab-content")).toHaveAttribute("data-view","collection");
   await expect(page.getByRole("heading",{name:"브리딩",exact:true})).toHaveCount(0);
-  const next=await saved(page);for(const id of Object.keys(original.individuals)){expect(next.individuals[id].hearts).toBe(original.individuals[id].hearts-1);expect(next.individuals[id].genetics).toEqual(original.individuals[id].genetics);expect(next.individuals[id].visualSeed).toBe(original.individuals[id].visualSeed);}
+  const next=await saved(page);for(const id of Object.keys(original.individuals)){expect(next.individuals[id].hearts).toBe(Math.min(5,original.individuals[id].hearts+1));expect(next.individuals[id].genetics).toEqual(original.individuals[id].genetics);expect(next.individuals[id].visualSeed).toBe(original.individuals[id].visualSeed);}
   await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);
-  await touch(page.getByRole("button",{name:/^수동 전체 급여/}),mobile);await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await page.keyboard.press("Escape");
-  const fed=await saved(page);expect(fed.food).toBe(32);expect(fed.individuals[Object.keys(original.individuals)[0]].hearts).toBe(3);
+  await expect(page.getByRole("dialog")).toContainText("자동 급여");await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await page.keyboard.press("Escape");
+  const fed=await saved(page);expect(fed.food).toBe(32);expect(fed.individuals[Object.keys(original.individuals)[0]].hearts).toBe(4);
   await touch(page.getByRole("button",{name:"모카 상세보기",exact:true}),mobile);await page.getByLabel("개체 이름",{exact:true}).fill("모카 연구소");await touch(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"모카 연구소 상세",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const final=await saved(page);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();expect(await saved(page)).toEqual(final);await expect(page.locator(".home-name")).toContainText("모카 연구소");
   await touch(page.getByRole("button",{name:"모카 연구소 상세보기",exact:true}),mobile);await touch(page.getByRole("button",{name:"부모로 선택",exact:true}),mobile);

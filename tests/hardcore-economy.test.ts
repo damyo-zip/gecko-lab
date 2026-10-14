@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { newGame, act, synchronize } from "@/game/hardcore/play";
-import { exportBackup, parseBackup } from "@/game/hardcore/save";
+import { newGame, act, synchronize } from "./helpers/legacy-hardcore";
+import { exportBackup, parseBackup } from "./helpers/legacy-hardcore";
 import { MARKET, valueGecko } from "@/game/hardcore/market";
 import { descendants } from "@/game/hardcore/lineage";
 import { freeSlots } from "@/game/hardcore/survival";

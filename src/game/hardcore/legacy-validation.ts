@@ -41,8 +41,9 @@ export function validateRules(r: Rules): void {
   integer(r.initialMoney, 0, 1e12); integer(r.maxCapacity, 4, 3000); integer(r.initialCapacity, 2, r.maxCapacity);
   integer(r.foodUnitPrice, 1, 1e9); integer(r.expansionSlots, 1, 100); integer(r.expansionBasePrice, 1, 1e9);
 }
-function gecko(g: Gecko): void {
-  keys(g, "id name sex birthTurn stage parents generation genotype potential visualSeed nextBreedTurn birthDate status hearts lastFedDate diedDate cycleAnchor recoverUntil lineageIds provenance");
+function gecko(g: Gecko,lifecycle=false): void {
+  keys(g, "id name sex birthTurn stage parents generation genotype potential visualSeed nextBreedTurn birthDate status hearts lastFedDate diedDate cycleAnchor recoverUntil lineageIds provenance"+(lifecycle?" deathCause lastProcessedTurn":""));
+  if(lifecycle){if(![null,"starvation","natural"].includes(g.deathCause!))fail();integer(g.lastProcessedTurn,-100000,10000000);if(g.status!=="dead"&&g.deathCause!==null)fail();}
   id(g.id); text(g.name, 24); text(g.visualSeed); integer(g.birthTurn, -100000, 10000000); integer(g.nextBreedTurn);
   if (!["male", "female"].includes(g.sex) || !["hatchling", "juvenile", "adult"].includes(g.stage) ||
     !["owned", "sold", "dead"].includes(g.status) || !["known", "unverified"].includes(g.provenance)) fail();
@@ -56,10 +57,10 @@ function gecko(g: Gecko): void {
   strings(g.lineageIds); if (new Set(g.lineageIds).size !== g.lineageIds.length) fail();
   if (g.status === "dead" ? g.hearts !== 0 || g.diedDate === null : g.hearts === 0 || g.diedDate !== null) fail();
 }
-function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>()): void {
+function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false): void {
   keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration" + (version === 4 ? " time" : ""));
   const g = value as LegacyV4Game;
-  if ((g.saveVersion as number) !== version || g.rulesVersion !== 2) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
+  if ((g.saveVersion as number) !== version || g.rulesVersion !== (lifecycle?3:2)) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
   if (version === 4) {
     keys(g.time, "mode realtimeAnchorDate");
     if (!TIME_MODES.includes(g.time.mode)) fail();
@@ -78,10 +79,10 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   const seeds = new Map<string, string>();
   const genesEqual = (a: Gecko["genotype"], b: Gecko["genotype"]) => canonicalJSON(expandedGenotype(a)) === canonicalJSON(expandedGenotype(b));
   const checkIndividual = (i: Gecko, future = false) => {
-    gecko(i);
+    gecko(i,lifecycle);
     if (!future && (i.birthDate > g.lastDate || i.birthTurn > g.turn)) fail();
     if (!future && i.status === "owned") {
-      const age = daysBetween(i.birthDate, g.lastDate);
+      const age = lifecycle?g.turn-i.birthTurn:daysBetween(i.birthDate, g.lastDate);
       const expectedStage = age >= g.rules.adultAfter ? "adult" : age >= g.rules.juvenileAfter ? "juvenile" : "hatchling";
       if (i.stage !== expectedStage) fail();
     }
@@ -108,7 +109,7 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   for (const [key, i] of Object.entries(g.individuals)) { if (i.id !== key) fail(); checkIndividual(i); }
   const ordinals = new Set<number>();
   for (const [key, m] of Object.entries(g.matings)) {
-    keys(m, "id ordinal date parents fatherGenotype motherGenotype fatherTraits motherTraits generation lineageIds seed fertilizationChance hatchChance status resolvedDate");
+    keys(m, "id ordinal date parents fatherGenotype motherGenotype fatherTraits motherTraits generation lineageIds seed fertilizationChance hatchChance status resolvedDate"+(lifecycle?" lifecycle":""));
     if (m.id !== key || !["pending", "fertilized", "failed", "laid", "cancelled"].includes(m.status)) fail();
     integer(m.ordinal, 1, g.nextClutch - 1); date(m.date); nullableDate(m.resolvedDate); text(m.seed, 512);
     if (ordinals.has(m.ordinal)) fail(); ordinals.add(m.ordinal);
@@ -123,22 +124,25 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
     expandedGenotype(m.fatherGenotype); expandedGenotype(m.motherGenotype); validateTraits(m.fatherTraits); validateTraits(m.motherTraits);
     strings(m.lineageIds); if (m.lineageIds.some(l => !g.lineages[l]) || m.date > g.lastDate) fail();
     const age = daysBetween(m.date,g.lastDate);
+    if(!lifecycle||!m.lifecycle){
     if (m.status === "pending" ? age !== 0 || m.resolvedDate !== null :
       m.resolvedDate === null || m.resolvedDate <= m.date || m.resolvedDate > g.lastDate) fail();
     if (m.status === "fertilized" && (age !== 1 || m.resolvedDate !== addDays(m.date,1))) fail();
     if (m.status === "laid" && (age < 2 || m.resolvedDate !== addDays(m.date,2))) fail();
+    }
   }
   const eggCounts = new Map<string,number>();
   for (const [key,e] of Object.entries(g.eggs)) {
-    keys(e, "id matingId laidDate dueDate embryo hatchChance seed status resolvedDate");
+    keys(e, "id matingId laidDate dueDate embryo hatchChance seed status resolvedDate"+(lifecycle?" lifecycle":""));
     if (e.id !== key || !["incubating", "hatched", "failed"].includes(e.status)) fail();
     date(e.laidDate); date(e.dueDate); nullableDate(e.resolvedDate); probability(e.hatchChance); text(e.seed, 512);
     if (e.dueDate < e.laidDate || e.laidDate > g.lastDate || (e.matingId !== null && !g.matings[e.matingId])) fail();
     if (e.matingId) {
       eggCounts.set(e.matingId,(eggCounts.get(e.matingId) ?? 0)+1);
       const m = g.matings[e.matingId];
-      if (m.status !== "laid" || e.laidDate !== addDays(m.date,2) || e.dueDate !== addDays(m.date,3) ||
-        canonicalJSON(e.embryo.parents) !== canonicalJSON(m.parents)) fail();
+      if ((!lifecycle||!e.lifecycle)&&(m.status !== "laid" || e.laidDate !== addDays(m.date,2) || e.dueDate !== addDays(m.date,3) ||
+        canonicalJSON(e.embryo.parents) !== canonicalJSON(m.parents))) fail();
+      if(canonicalJSON(e.embryo.parents)!==canonicalJSON(m.parents))fail();
     }
     checkIndividual(e.embryo, true);
     if (e.embryo.birthDate !== e.dueDate || (e.status === "incubating" ? e.resolvedDate !== null || e.dueDate <= g.lastDate : e.resolvedDate !== e.dueDate)) fail();
@@ -150,7 +154,8 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   }
   for (const m of Object.values(g.matings)) {
     const count = eggCounts.get(m.id) ?? 0;
-    if (m.status === "laid" ? count !== 2 : count !== 0) fail();
+    if(lifecycle&&m.lifecycle){if(count!==m.lifecycle.clutchesLaid*2)fail();}
+    else if (m.status === "laid" ? count !== 2 : count !== 0) fail();
   }
   if (!Array.isArray(g.sales) || g.sales.length > 30000) fail();
   const sold = new Set<string>();
@@ -163,10 +168,12 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   keys(g.shop, "date offers"); date(g.shop.date); if (g.shop.date !== g.lastDate) fail(); dictionary(g.shop.offers, 20);
   for (const [key,o] of Object.entries(g.shop.offers)) {
     keys(o, "id individual askPrice marketBase marketVersion"); if (key !== o.id || o.id !== o.individual.id || g.individuals[key]) fail();
-    gecko(o.individual); if (o.individual.parents || o.individual.lineageIds.length || o.individual.status !== "owned") fail();
+    gecko(o.individual,lifecycle); if (o.individual.parents || o.individual.lineageIds.length || o.individual.status !== "owned") fail();
     integer(o.askPrice, 1); integer(o.marketBase, 1); text(o.marketVersion);
   }
   if (freeSlots(g) < 0) throw new Error("사육장 공간 예약이 손상되었습니다.");
 }
 export function validateV4(value: unknown, advancedIds?:Set<string>): asserts value is LegacyV4Game { validateRecord(value, 4, advancedIds); }
 export function validateV3(value: unknown): asserts value is LegacyHardcoreGame { validateRecord(value, 3); }
+
+export function validateLifecycleBase(value:unknown,advancedIds:Set<string>):void {validateRecord(value,4,advancedIds,true);}

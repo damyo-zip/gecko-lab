@@ -32,9 +32,9 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
         const record = r.result;
         const game = record ? readSave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
         const next = synchronizeTime(game, date);
-        const changed = !record || record.save.version !== 5 || next !== game;
+        const changed = !record || record.save.version !== 6 || next !== game;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
-        if (record && [2,3,4].includes(record.save.version))
+        if (record && [2,3,4,5].includes(record.save.version))
           store.put(record, "archive-v" + record.save.version + "-" + writeRevision);
         if (changed) store.put({ save: makeSave(next), writeRevision }, "active");
         result = { game: next, writeRevision };

@@ -5,6 +5,7 @@ import {readFile} from "node:fs/promises";
 import {decodePNG} from "../scripts/png.mjs";
 import {renderSprite,renderLegacySprite} from "../src/engine/render";
 import {MORPH_PRESETS,specimenFromPreset} from "../src/engine/presets";
+import {successfulPair} from "./fixtures/lifecycle";
 import {newGame} from "../src/game/hardcore/play";
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";
@@ -70,21 +71,21 @@ test("six real face canvases recolor periocular skin while preserving the author
 test("real collection/details/shop/hatching/pedigree use new art while turns, genes, money and reload remain sound",async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith("mobile");await page.clock.setFixedTime(new Date(DATE+"T03:00:00Z"));await page.goto("/");
  await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
- await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"art-test.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(newGame("phase6-mobile",DATE,{fertilizationChance:1,hatchChance:1})))});
+ await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"art-test.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(successfulPair("phase6-mobile-",DATE).original))});
  await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
  await tab(page,"상점",mobile);await canvasVisible(page);await page.locator(".hc-grid").screenshot({path:info.outputPath("art-shop.png"),scale:"css"});
  await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"노멀 암컷 구매",exact:true}),mobile);
- await click(page.getByRole("button",{name:"먹이 구입 · ₩10,000",exact:true}),mobile);
+ await page.getByLabel("먹이 구매 수량",{exact:true}).fill("100");await click(page.getByRole("button",{name:"먹이 구입 · ₩100,000",exact:true}),mobile);
  const parents=Object.values((await saved(page)).individuals),genomes=parents.map(g=>g.genetics!.genome),parentSeeds=parents.map(g=>g.visualSeed);
  await tab(page,"컬렉션",mobile);await canvasVisible(page);await page.locator(".hc-grid").scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath("art-collection.png"),scale:"css"});
  await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await canvasVisible(page);await page.getByRole("dialog").screenshot({path:info.outputPath("art-detail.png"),scale:"css"});
  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(parents[0].id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(parents[1].id);
- await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
- for(let day=0;day<3;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
- await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
+ await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 6칸 예약",exact:true}),mobile);
+ for(let day=0;day<6;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
+ await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
  for(let i=0;i<2;i++){expect(game.individuals[parents[i].id].genetics!.genome).toEqual(genomes[i]);expect(game.individuals[parents[i].id].visualSeed).toBe(parentSeeds[i]);}
  await page.locator(".hc-grid").screenshot({path:info.outputPath("art-hatching.png"),scale:"css"});
  const child=Object.values(game.individuals).find(g=>g.parents)!;await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await canvasVisible(page);
- await page.locator(".lineage-root").screenshot({path:info.outputPath("art-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("3");expect(await saved(page)).toEqual(game);
+ await page.locator(".lineage-root").screenshot({path:info.outputPath("art-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("6");expect(await saved(page)).toEqual(game);
 });

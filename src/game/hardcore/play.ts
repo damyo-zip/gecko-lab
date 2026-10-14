@@ -9,6 +9,7 @@ import { refreshShop } from "./shop";
 import { MARKET, updateMarket, type PriceTable } from "./market";
 import { validateGame } from "./validation";
 import type { GameDate } from "./time";
+import { isV12 } from "./lifecycle";
 
 export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}, table: PriceTable = MARKET, timeMode: TimeMode = "turn"): HardcoreGame {
   const game = createGame(seed, date, rules, timeMode); refreshShop(game, table); validateGame(game); return game;
@@ -27,6 +28,7 @@ export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTa
 /** Daily engine only receives logical dates; the time-source adapter chooses them. */
 export function act(source: HardcoreGame, action: GameplayAction, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   const game = structuredClone(synchronize(source, date, table)); game.notices = [];
+  if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 개체당 사료 1개를 자동 급여합니다.");
   switch (action.type) {
     case "feed": feed(game, action.id); break;
     case "feedAll": feedAll(game); break;
