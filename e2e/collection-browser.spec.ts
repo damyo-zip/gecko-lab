@@ -1,8 +1,9 @@
 import {test,expect,type Page} from "@playwright/test";
 import {mkdir,writeFile} from "node:fs/promises";
 import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
-import {touch,navigateGame} from "./helpers/hardcore-navigation";
+import {touch,navigateGame,openCollectionCatalog} from "./helpers/hardcore-navigation";
 import {exportBackup} from "../src/game/hardcore/save";
+import {specimen} from "../src/game/hardcore/adapter";
 import {valueGecko} from "../src/game/hardcore/market";
 import {addDays} from "../src/game/hardcore/time";
 import type {HardcoreGame} from "../src/game/hardcore/model";
@@ -28,50 +29,44 @@ async function restore(page:Page,game:HardcoreGame,mobile:boolean) {
   await page.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'collection.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(game))});
   await touch(page.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);
 }
-async function settledPage(page:Page,index:number) {
-  await expect.poll(()=>page.locator('.home-card-carousel').evaluate((el,index)=>Math.abs(el.scrollLeft-index*el.clientWidth),index)).toBeLessThan(1);
-  await expect(page.locator('.home-card-page[aria-hidden="false"]')).toHaveAttribute('aria-label',`보유 개체 ${index+1}페이지`);
-}
-async function swipe(page:Page,mobile:boolean) {
-  const rail=page.locator('.home-card-carousel'),r=(await rail.boundingBox())!;
+async function scrollCollection(page:Page,mobile:boolean) {
+  const content=page.locator('.reference-content'),r=(await content.boundingBox())!;
   if(mobile){
-    const cdp=await page.context().newCDPSession(page),x=r.x+r.width*.85,y=r.y+r.height*.35;
+    const cdp=await page.context().newCDPSession(page),x=r.x+r.width*.45,y=r.y+r.height*.8;
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1}]});
-    for(let step=1;step<=12;step++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x-r.width*.7*step/12,y,id:1}]});await page.evaluate(()=>new Promise(requestAnimationFrame));}
+    for(let step=1;step<=12;step++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-r.height*.5*step/12,id:1}]});await page.evaluate(()=>new Promise(requestAnimationFrame));}
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
-  }else{await rail.hover();await page.mouse.wheel(r.width,0);}
+  }else{await content.hover();await page.mouse.wheel(0,300);}
+  await expect.poll(()=>content.evaluate(el=>el.scrollTop)).toBeGreaterThan(0);
 }
 
-test('six full cards fit portrait screens, touch swipes reach later specimens, canvases stay bounded and chrome/data stay fixed',async({page},info)=>{
+test('original grid, two-column view, vertical browsing and more specimens retain fixed chrome and immutable records',async({page},info)=>{
   test.setTimeout(60_000);const mobile=info.project.name.startsWith('mobile'),game=manyGame(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await restore(page,game,mobile);
   const sizes=mobile?[[360,800],[390,844],[430,932],[390,693],[360,640]]:[[720,1280],[1280,900]];
   for(const [width,height] of sizes){
     await navigateGame(page,'인큐베이터',mobile);await page.setViewportSize({width,height});await navigateGame(page,'컬렉션',mobile);
-    const active=page.locator('.home-card-page[aria-hidden="false"]');await expect(active.locator('.home-card')).toHaveCount(6);
+    const grid=page.locator('.home-card-grid');await expect(grid).toHaveClass(/columns-3/);await expect(grid.locator('.home-card')).toHaveCount(12);
+    await expect(page.locator('.home-card-carousel,.home-page-controls')).toHaveCount(0);
     const chrome=await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(el=>el.getBoundingClientRect().toJSON()));
-    expect(await page.locator('.reference-content').evaluate(el=>el.scrollHeight-el.clientHeight)).toBeLessThanOrEqual(1);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&scrollY===0)).toBe(true);
-    const rail=(await page.locator('.home-card-carousel').boundingBox())!;
-    for(const card of await active.locator('.home-card').all()){
-      const r=(await card.boundingBox())!;expect(r.x).toBeGreaterThanOrEqual(rail.x);expect(r.x+r.width).toBeLessThanOrEqual(rail.x+rail.width+.1);expect(r.y+r.height).toBeLessThanOrEqual(rail.y+rail.height+.1);
-      expect(await card.locator('canvas').evaluate(el=>!(el as HTMLCanvasElement).getContext('2d')!.imageSmoothingEnabled)).toBe(true);
-    }
-    await swipe(page,mobile);await settledPage(page,1);await expect(active.locator('.home-card')).toHaveCount(6);
-    const child=Object.values(game.individuals)[6];await touch(page.getByRole('button',{name:child.name+' 선택',exact:true}),mobile);await expect(page.locator('.home-name')).toContainText(child.name);
+    for(const canvas of await grid.locator('canvas').all())expect(await canvas.evaluate(el=>!(el as HTMLCanvasElement).getContext('2d')!.imageSmoothingEnabled)).toBe(true);
+    if(mobile){await mkdir('docs/collection-restore',{recursive:true});await page.screenshot({path:`docs/collection-restore/home-${width}-${height}.png`,scale:'css'});}
+    await scrollCollection(page,mobile);
     expect(await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(el=>el.getBoundingClientRect().toJSON()))).toEqual(chrome);
-    expect(await page.locator('.home-card').count()).toBeLessThanOrEqual(18);
-    if(mobile){await mkdir('docs/collection-browser',{recursive:true});await page.screenshot({path:`docs/collection-browser/swipe-${width}-${height}.png`,scale:'css'});}
+    await touch(page.getByRole('button',{name:'2열로 보기',exact:true}),mobile);await expect(grid).toHaveClass(/columns-2/);
+    await touch(page.getByRole('button',{name:'3열로 보기',exact:true}),mobile);await expect(grid).toHaveClass(/columns-3/);
   }
-  await page.locator('.home-card-carousel').evaluate(el=>el.scrollTo({left:6*el.clientWidth,behavior:'instant'}));await settledPage(page,6);
-  await expect(page.locator('.home-card-page[aria-hidden="false"] .home-card')).toHaveCount(1);await expect(page.getByRole('button',{name:'다음 6마리',exact:true})).toBeDisabled();
-  await page.getByRole('combobox',{name:'모프 필터',exact:true}).selectOption('axanthic');await settledPage(page,0);
+  for(const count of [24,36,37]){await touch(page.getByRole('button',{name:'개체 더 보기',exact:true}),mobile);await expect(page.locator('.home-card')).toHaveCount(count);}
+  await expect(page.getByRole('button',{name:'개체 더 보기',exact:true})).toHaveCount(0);
+  const child=Object.values(game.individuals)[36];await touch(page.getByRole('button',{name:child.name+' 선택',exact:true}),mobile);await expect(page.locator('.home-name')).toContainText(child.name);
+  await page.getByRole('combobox',{name:'모프 필터',exact:true}).selectOption('axanthic');await expect(page.locator('.home-card')).toHaveCount(Object.values(game.individuals).filter(g=>specimen(g).appearance.patternStyle==='axanthic').length);
   expect(await saved(page)).toEqual(game);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('37 / 80');expect(await saved(page)).toEqual(game);expect(errors).toEqual([]);
 });
 
 test('scrolling catalog shows actual sprites, names and sell quotes, supports public filters and price sort, and loads every specimen',async({page},info)=>{
   const mobile=info.project.name.startsWith('mobile'),game=manyGame(),animals=Object.values(game.individuals);await page.setViewportSize({width:390,height:844});await restore(page,game,mobile);
-  await touch(page.getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);const dialog=page.getByRole('dialog',{name:'전체 개체 목록',exact:true});
+  await openCollectionCatalog(page,mobile);const dialog=page.getByRole('dialog',{name:'전체 개체 목록',exact:true});
   await expect(dialog.locator('.collection-list-row')).toHaveCount(24);
   for(const g of animals.slice(0,6)){const row=dialog.getByTestId('collection-list-'+g.id);await expect(row).toContainText(g.name);await expect(row).toContainText('₩'+valueGecko(g).sell.toLocaleString('ko-KR'));expect(await row.locator('canvas').evaluate(el=>{const c=el as HTMLCanvasElement;return !c.getContext('2d')!.imageSmoothingEnabled&&c.getContext('2d')!.getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0);})).toBe(true);}
   await dialog.locator('.collection-list-scroll').evaluate(el=>{el.scrollTop=el.scrollHeight;});await expect(dialog.locator('.collection-list-row')).toHaveCount(37);expect(await dialog.locator('.collection-list-scroll').evaluate(el=>el.scrollTop)).toBeGreaterThan(0);expect(await page.locator('.reference-content').evaluate(el=>el.scrollTop)).toBe(0);
@@ -84,16 +79,16 @@ test('scrolling catalog shows actual sprites, names and sell quotes, supports pu
   await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(animals[12].id);await expect(dialog.locator('.collection-list-row')).toHaveCount(1);await expect(dialog.locator('.collection-list-row')).toContainText(animals[12].name);
   await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill('존재하지않는개체');await expect(dialog).toContainText('조건에 맞는 개체가 없습니다.');
   await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
-  if(mobile){await page.screenshot({path:'docs/collection-browser/catalog-390.png',scale:'css'});await writeFile('docs/collection-browser/review-save.json',exportBackup(game));}
+  if(mobile){await page.screenshot({path:'docs/collection-restore/catalog-390.png',scale:'css'});await writeFile('docs/collection-restore/review-save.json',exportBackup(game));}
   await touch(dialog.getByTestId('collection-list-'+animals[0].id),mobile);await expect(page.getByRole('dialog')).toContainText(animals[0].name+' 상세');await expect(page.getByRole('dialog')).toContainText('분양 예상가');await page.keyboard.press('Escape');
   expect(await saved(page)).toEqual(game);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('37 / 80');expect(await saved(page)).toEqual(game);
 });
 
-test('selling through existing confirmation updates the six-card collection, quote and preserved lineage record',async({page},info)=>{
+test('selling through existing confirmation updates the restored collection, quote and preserved lineage record',async({page},info)=>{
   const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame(),g=Object.values(game.individuals)[0];await restore(page,game,mobile);
-  await touch(page.getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);await page.getByRole('dialog').getByRole('button',{name:g.name+' 상세보기',exact:true}).click();
+  await openCollectionCatalog(page,mobile);await page.getByRole('dialog').getByRole('button',{name:g.name+' 상세보기',exact:true}).click();
   const expected=valueGecko(g).sell;await touch(page.getByRole('button',{name:'분양 준비 · ₩'+expected.toLocaleString('ko-KR'),exact:true}),mobile);await touch(page.getByRole('button',{name:'분양 확정',exact:true}),mobile);await page.keyboard.press('Escape');
-  await expect(page.locator('.home-card-page[aria-hidden="false"] .home-card')).toHaveCount(5);const next=await saved(page);expect(next.money).toBe(game.money+expected);expect(next.individuals[g.id].status).toBe('sold');expect(next.individuals[g.id].genetics).toEqual(g.genetics);expect(next.individuals[g.id].parents).toEqual(g.parents);
-  await touch(page.getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);await expect(page.getByRole('dialog').getByTestId('collection-list-'+g.id)).toHaveCount(0);await page.keyboard.press('Escape');
+  await expect(page.locator('.home-card')).toHaveCount(5);const next=await saved(page);expect(next.money).toBe(game.money+expected);expect(next.individuals[g.id].status).toBe('sold');expect(next.individuals[g.id].genetics).toEqual(g.genetics);expect(next.individuals[g.id].parents).toEqual(g.parents);
+  await openCollectionCatalog(page,mobile);await expect(page.getByRole('dialog').getByTestId('collection-list-'+g.id)).toHaveCount(0);await page.keyboard.press('Escape');
   await navigateGame(page,'상점',mobile);await navigateGame(page,'컬렉션',mobile);expect(await saved(page)).toEqual(next);
 });

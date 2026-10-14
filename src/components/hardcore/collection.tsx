@@ -9,10 +9,8 @@ import {SpriteCanvas} from "../sprite-canvas";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
 import {isV12,ageTurns,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
-import {appearanceProfile} from "@/game/hardcore/appearance";
 import {PATTERN_FILTERS} from "@/phenotype/rules";
 import {collectionEntries,collectionMorph,COLLECTION_MORPHS,COLLECTION_SORTS,type CollectionSort} from "./collection-query";
-import {CollectionPages} from "./collection-pages";
 import {CollectionCatalog} from "./collection-catalog";
 
 function breedingStatus(game:HardcoreGame,g:Gecko) {
@@ -38,8 +36,8 @@ function Status({game,gecko}:{game:HardcoreGame;gecko:Gecko}) {
 }
 
 export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()=>void}) {
-  const [selectedId,setSelected]=useState(""),[stage,setStage]=useState("all");
-  const [filter,setFilter]=useState("all"),[sort,setSort]=useState<CollectionSort>("default"),[care,setCare]=useState(false),[catalog,setCatalog]=useState(false);
+  const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
+  const [filter,setFilter]=useState("all"),[sort,setSort]=useState<CollectionSort>("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false),[catalog,setCatalog]=useState(false);
   const animals=useMemo(()=>owned(game),[game.individuals]),selected=animals.find(g=>g.id===selectedId)??animals[0];
   const art=useMemo(()=>selected?specimen(selected):null,[selected]);
   const visible=useMemo(()=>collectionEntries(animals,{morph:filter,sort,stage}),[animals,filter,sort,stage]);
@@ -60,17 +58,24 @@ export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()
     </div>
     <div className="home-inventory home-frame">
       <div className="home-inventory-heading"><h1><HomeIcon name="leaf" size={21}/>보유 개체 <small>{animals.length} / {game.capacity}</small></h1>
-        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>{setFilter(e.target.value);}}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{PATTERN_FILTERS.map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select>
+        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>{setFilter(e.target.value);setLimit(12);}}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{PATTERN_FILTERS.map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select>
           <select aria-label="개체 정렬" value={sort} onChange={e=>setSort(e.target.value as CollectionSort)}>{Object.entries(COLLECTION_SORTS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select>
-          <button className="home-frame" aria-label="전체 개체 목록 열기" aria-haspopup="dialog" onClick={()=>setCatalog(true)}><HomeIcon name="grid" size={18}/></button></div>
+          <button className="home-frame" aria-label={columns===3?"2열로 보기":"3열로 보기"} onClick={()=>setColumns(columns===3?2:3)}><HomeIcon name="grid" size={18}/></button></div>
       </div>
-      {visible.length?<CollectionPages game={game} entries={visible} selectedId={selected?.id??""} onSelect={setSelected} onDetail={onDetail} statusFor={breedingStatus} queryKey={filter+":"+sort+":"+stage}/>:<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
-
+      <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=><article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
+        <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={g.id===selected?.id} onClick={()=>setSelected(g.id)}>
+          <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
+          <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status game={game} gecko={g}/>
+        </button><button className="home-card-more home-frame" aria-label={g.name+" 상세보기"} onClick={()=>onDetail(g.id)}><span aria-hidden="true">···</span></button>
+      </article>)}</div>
+      {!visible.length&&<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
+      {visible.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>개체 더 보기</button>}
     </div>
     {catalog&&<CollectionCatalog game={game} busy={busy} initial={{morph:filter,sort,stage}} onClose={()=>setCatalog(false)} onDetail={id=>{setCatalog(false);setSelected(id);onDetail(id);}}/>}
     {care&&<Dialog title="컨디션 관리" onClose={()=>setCare(false)}><p className="game-section-copy">{game.lastDate} · TURN {game.turn} · {game.time.mode==="turn"?"턴 방식":"한국 자정"}<br/>사육장 {animals.length}+예약 {reserved(game)} / {game.capacity}</p><p className="game-section-copy">하트는 게임용 컨디션입니다. 1턴은 7일이며 생존 개체당 사료 1개를 자동 급여합니다. 미급여 시 하트가 1 감소하고, 0이면 영구 폐사합니다. 상단 먹이 + 버튼에서 사료를 확보하세요. 교배 실행 시 부모 조합의 유전 위험과 근친 여부를 추가로 검사합니다.</p>
       {isV12(game)?<p className="game-section-copy">다음 턴 필요 사료 {foodDemand(game).needed}개 · 재고 {game.food}개 · 부족 {foodDemand(game).missing}개</p>:<button className="game-primary full-width" disabled={busy||!game.food||!animals.some(g=>feedable(game,g))} onClick={()=>play({type:"feedAll"})}>수동 전체 급여 · 먹이 {game.food}개</button>}
-      <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>{setStage(e.target.value);}}><option value="all">전체 성장 단계</option><option value="hatchling">해칭</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>
+      <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>{setStage(e.target.value);setLimit(12);}}><option value="all">전체 성장 단계</option><option value="hatchling">해칭</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>
+      <button className="game-secondary full-width" aria-label="전체 개체 목록 열기" aria-haspopup="dialog" onClick={()=>{setCare(false);setCatalog(true);}}>전체 개체 목록 · 검색 / 분양가</button>
       <p className="game-small-note">급여는 턴 종료 시 자동 처리합니다. 사료가 부족하면 하트가 적은 개체부터 급여합니다. 카드 더보기에서 이름 수정·분양·유전 정보를 이용할 수 있습니다.</p></Dialog>}
   </section>;
 }

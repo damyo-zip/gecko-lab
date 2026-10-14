@@ -56,11 +56,12 @@ test("collection geometry and persistent chrome stay pixel-identical across all 
       }
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&scrollY===0)).toBe(true);
       if(mobile&&width===390&&!safe)await page.screenshot({path:info.outputPath(`${view}-390.png`),scale:'css'});
-      // The album uses real overflow; the six-card collection must stay still.
+      // Use actual overflow (the album, and the collection's larger two-column view), not a mocked panel.
+      if(view==='collection')await touch(page.getByRole('button',{name:'2열로 보기',exact:true}),mobile);
       await page.locator('.reference-content').evaluate(el=>{el.scrollTop=el.scrollHeight;});
-      if(view==='collection')expect(await page.locator('.reference-content').evaluate(el=>el.scrollTop)).toBe(0);
       if(view==='lineage')expect(await page.locator('.reference-content').evaluate(el=>el.scrollTop)).toBeGreaterThan(0);
       expect(await chrome(page)).toEqual(baseline);
+      if(view==='collection')await touch(page.getByRole('button',{name:'3열로 보기',exact:true}),mobile);
       reports.push({width,height,safe,view,geometry:baseline});
     }
     if(style)await style.evaluate(el=>el.parentNode?.removeChild(el));

@@ -1,48 +1,4 @@
-/* The collection fills the shared middle row; only its six-card pages scroll sideways. */
-.home-shell .reference-content { display:flex; flex-direction:column; overflow:clip; }
-.home-shell .game-tab-content { display:flex; flex:1; min-height:0; }
-.home-shell .home-collection { display:grid; width:100%; min-height:0; flex:1; grid-template-rows:minmax(0,.6fr) minmax(0,1fr); gap:8px; }
-.home-shell .home-hero { height:100%; min-height:0; container-type:size; }
-.home-shell .home-inventory { display:grid; min-height:0; grid-template-rows:auto minmax(0,1fr) auto; padding-bottom:5px; }
-.home-card-carousel { display:flex; min-height:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; touch-action:pan-x; scrollbar-width:none; }
-.home-card-carousel::-webkit-scrollbar { display:none; }
-.home-shell .home-card-page { flex:0 0 100%; height:100%; min-width:0; min-height:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); scroll-snap-align:start; scroll-snap-stop:always; }
-.home-shell .home-card { height:100%; min-height:0; container-type:size; }
-.home-shell .home-card-art { display:flex; align-items:center; justify-content:center; }
-.home-shell .home-card-art canvas { position:static; width:auto!important; height:100%!important; max-width:100%; max-height:100%; object-fit:contain; }
-.home-page-controls { display:flex; align-items:center; justify-content:center; gap:12px; min-height:22px; margin-top:3px; font:600 10px var(--font-mono); color:#b2c4cb; }
-.home-page-controls>span { display:flex; align-items:center; gap:10px; }
-.home-page-controls small { font:10px var(--font-sans); color:#829bab; }
-.home-page-controls button { display:grid; place-items:center; position:relative; width:25px; height:22px; padding:0; border:1px solid #415667; border-radius:4px; color:#b6d5aa; background:#101f29; }
-.home-page-controls button::after { content:""; position:absolute; inset:-10px; }
-.home-page-controls button:first-child svg { transform:scaleX(-1); }
-.home-inventory>.home-empty { grid-row:2 / 4; justify-content:center; min-height:0; }
-@container (max-height:170px) {
-  .home-card>.home-card-select { padding:4px 6px 5px!important; }
-  .home-card-select>strong { font-size:13px; line-height:17px; }
-  .home-card-select>.home-sex { line-height:14px; font-size:17px; }
-  .home-card-select>.home-sex svg { width:15px; height:14px; }
-  .home-card-select>.home-morph { font-size:10px; line-height:13px; }
-  .home-card-select .home-status { font-size:10px; line-height:15px; }
-  .home-card-select .home-status svg { width:11px; height:12px; }
-  .home-card .home-card-more { width:34px; height:32px; bottom:12px; right:0; }
-  .home-card .home-gen-badge { font-size:10px; line-height:17px; }
-}
-@container (max-height:210px) {
-  .home-hero>.home-info { top:4px; bottom:4px; padding:3px; }
-  .home-info .home-name { margin-bottom:2px; }
-  .home-info .home-name>button { min-height:20px; }
-  .home-info .home-name strong { font-size:18px; }
-  .home-info .home-name>.home-sex svg { height:21px; }
-  .home-info .home-facts { gap:1px; }
-  .home-info .home-facts>div { min-height:14px; }
-  .home-info .home-facts dt,.home-info .home-facts dd,.home-info .home-facts .home-status { font-size:9px; }
-  .home-info .home-heart-row { min-height:20px; margin-top:2px; }
-  .home-info .home-heart-icons { min-height:20px; padding:2px 4px; gap:2px; }
-  .home-info .home-heart-icons svg { width:12px; height:12px; }
-  .home-info .home-heart-row button { height:20px; }
-}
-@container (max-height:105px) { .home-card-select>.home-sex { position:absolute; left:5px; top:5px; margin:0; } }
+/* Styles for the retained collection catalog only; home uses its original CSS. */
 .game-dialog.collection-catalog[open] { display:grid; grid-template-rows:auto auto minmax(0,1fr) auto; gap:10px; width:calc(100vw - 24px); max-width:620px; height:min(820px,84dvh); max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 20px); padding:12px; overflow:hidden; border-color:#54716c; border-radius:10px; background:linear-gradient(145deg,#142630,#0a1721); }
 .collection-catalog>.dialog-heading { margin:0; min-height:44px; }
 .collection-catalog>.dialog-heading h2 { font-size:20px; }

@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {breedingRiskFixture} from './fixtures/breeding-risk';
 import {exportBackup} from '../src/game/hardcore/save';
-import {touch,navigateGame,inspectGenetics,closeGenetics,finishTurn} from './helpers/hardcore-navigation';
+import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurn} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 const DATE='2026-10-14';
@@ -12,7 +12,7 @@ async function choose(page:Page,f:string,m:string){await page.getByRole('combobo
 test.beforeEach(async({page})=>{await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();});
 test('reference modal keeps two large live parents, actual pedigree/slots, independent information dialogs and no added page header/nav at 360/390/430',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=breedingRiskFixture(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await restore(page,fixture.game,mobile);
- await touch(page.getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);
+ await openCollectionCatalog(page,mobile);
  const catalog=page.getByRole('dialog',{name:'전체 개체 목록',exact:true});await catalog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(fixture.fatherId);
  await touch(catalog.getByRole('button',{name:fixture.game.individuals[fixture.fatherId].name+' 상세보기',exact:true}),mobile);await touch(page.getByRole('button',{name:'부모로 선택',exact:true}),mobile);
  await choose(page,fixture.fatherId,fixture.motherId);const dialog=page.getByRole('dialog',{name:'교배',exact:true});await expect(dialog).toBeVisible();await expect(dialog.locator('.breed-parent')).toHaveCount(2);
