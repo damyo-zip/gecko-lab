@@ -66,12 +66,15 @@ test("switching modes preserves progress, anchors real days and persists through
   const mobile=info.project.name.startsWith("mobile");await tab(page,"상점",mobile);await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);
   await endTurn(page,mobile);await endTurn(page,mobile);const before=await saved(page);
   await mode(page,"realtime",mobile);await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
-  expect((await saved(page)).individuals).toEqual(before.individuals);await page.reload();await expect(page.getByTestId("game-day")).toHaveText("2");
+  expect((await saved(page)).individuals).toEqual(before.individuals);await tab(page,"컬렉션",mobile);
+  const realtime=await saved(page),turn=page.getByRole("button",{name:"턴 넘기기",exact:true});await expect(turn).toBeDisabled();await expect(turn).toHaveAccessibleDescription(/한국 자정 모드/);
+  await turn.evaluate(el=>(el as HTMLButtonElement).click());expect(await saved(page)).toEqual(realtime);
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("2");await expect(turn).toBeDisabled();
   await page.clock.setFixedTime(new Date(addDays(DATE,1)+"T03:00:00Z"));await page.evaluate(()=>window.dispatchEvent(new Event("focus")));
   await expect(page.getByTestId("game-day")).toHaveText("3");let g=await saved(page);expect(g.lastDate).toBe(addDays(DATE,3));
   expect(Object.values(g.individuals)[0].hearts).toBe(2);
   await mode(page,"turn",mobile);g=await saved(page);await page.clock.setFixedTime(new Date(addDays(DATE,30)+"T03:00:00Z"));await page.reload();
-  await expect(page.getByTestId("game-day")).toHaveText("3");expect(await saved(page)).toEqual(g);
+  await expect(page.getByTestId("game-day")).toHaveText("3");await expect(turn).toBeEnabled();expect(await saved(page)).toEqual(g);
   await endTurn(page,mobile);expect(Object.values((await saved(page)).individuals)[0].hearts).toBe(1);
 });
 

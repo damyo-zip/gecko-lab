@@ -35,7 +35,7 @@ function Status({game,gecko}:{game:HardcoreGame;gecko:Gecko}) {
   return <span className={"home-status "+(status.ready?"ready":"waiting")}><HomeIcon name={status.ready?"heart":"clock"} size={14}/>{status.label}</span>;
 }
 
-export function Collection({game,busy,play,onDetail,onBreed,onShop}:ViewProps&{onBreed:()=>void;onShop:()=>void}) {
+export function Collection({game,busy,play,onDetail,onShop}:ViewProps&{onShop:()=>void}) {
   const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
   const [filter,setFilter]=useState("all"),[sort,setSort]=useState("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false);
   const animals=owned(game),selected=animals.find(g=>g.id===selectedId)??animals[0];
@@ -73,7 +73,7 @@ export function Collection({game,busy,play,onDetail,onBreed,onShop}:ViewProps&{o
       {!visible.length&&<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
       {visible.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>개체 더 보기</button>}
     </div>
-    <div className="home-cta-surround"><button className="home-breed-cta" disabled={busy} onClick={onBreed}><HomeIcon name="dna" size={42}/><HomeIcon name="heart" size={12}/><span>교배하러 가기</span><HomeIcon name="chevron" size={24}/><HomeIcon name="heart" size={12}/><HomeIcon name="dna" size={42}/></button></div>
+    <div className="home-cta-surround"><button className="home-turn-cta" disabled={busy||game.time.mode!=="turn"} aria-describedby="home-turn-note" onClick={()=>play({type:"endTurn"})}><HomeIcon name="dna" size={42}/><HomeIcon name="heart" size={12}/><span>턴 넘기기</span><HomeIcon name="chevron" size={24}/><HomeIcon name="heart" size={12}/><HomeIcon name="dna" size={42}/></button><p id="home-turn-note" className="sr-only">{game.time.mode==="turn"?"하루 진행 · 하트 −1 · 번식·성장·상점 갱신":"한국 자정 모드입니다. 설정에서 턴 방식으로 변경하면 수동으로 하루를 진행할 수 있습니다."}</p></div>
     {care&&<Dialog title="컨디션 관리" onClose={()=>setCare(false)}><p className="game-section-copy">{game.lastDate} · DAY {game.turn} · {game.time.mode==="turn"?"턴 방식":"한국 자정"}<br/>사육장 {animals.length}+예약 {reserved(game)} / {game.capacity}</p><p className="game-section-copy">하트는 게임용 컨디션입니다. 하루 진행 시 1 감소하며, 0이 되면 영구 폐사합니다. 하루 한 번 직접 급여하세요. 교배 실행 시 부모 조합의 유전 위험과 근친 여부를 추가로 검사합니다.</p>
       <button className="game-primary full-width" disabled={busy||!game.food||!animals.some(g=>feedable(game,g))} onClick={()=>play({type:"feedAll"})}>수동 전체 급여 · 먹이 {game.food}개</button>
       <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>{setStage(e.target.value);setLimit(12);}}><option value="all">전체 성장 단계</option><option value="hatchling">해칭</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>
