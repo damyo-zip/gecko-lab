@@ -10,7 +10,7 @@ export async function navigateGame(page:Page,name:string,mobile:boolean) {
     await touch(nav.getByRole("button",{name:aliases[name],exact:true}),mobile);return;
   }
   await touch(nav.getByRole("button",{name:"인큐베이터",exact:true}),mobile);
-  await touch(nav.getByRole("button",{name,exact:true}),mobile);
+  await touch(page.getByRole("navigation",{name:"연구소 도구"}).getByRole("button",{name,exact:true}),mobile);
 }
 /** Advance through the collection CTA, then return for existing scenario assertions. */
 export async function finishTurn(page:Page,mobile:boolean) {
