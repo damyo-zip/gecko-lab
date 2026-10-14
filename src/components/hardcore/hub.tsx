@@ -22,6 +22,8 @@ const HOME_TABS = [{id:"collection",label:"컬렉션",icon:"collection"},{id:"in
 export default function HardcoreHub() {
   const {game,loading,busy,error,conflict,act,replace}=useHardcore();
   const [tab,setTab]=useState("collection"),[detail,setDetail]=useState(""),[settings,setSettings]=useState(false),[resources,setResources]=useState(false);
+  const [breedingOpen,setBreedingOpen]=useState(false);
+  const navigate=(next:string)=>{if(next==="breeding")setBreedingOpen(true);else setTab(next);};
   const [father,setFather]=useState(""),[mother,setMother]=useState(""),[lineage,setLineage]=useState("");
   const g=game?.individuals[detail],disabled=busy||conflict;
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
@@ -36,15 +38,16 @@ export default function HardcoreHub() {
     {error && <div className="game-error-banner" role="alert">{error}{conflict && <button className="game-secondary full-width" onClick={()=>location.reload()}>저장 상태 새로고침</button>}</div>}
     {!isReference&&game && game.notices.length>0 && <div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
     {loading ? <section className="game-loading"><h1>연구소를 여는 중</h1><p>날짜와 저장된 혈통을 확인합니다.</p></section> : props ? <div className="game-tab-content" data-view={tab} aria-busy={busy}>
-      {tab==="home" && <Dashboard {...props} onTab={setTab}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")} onFood={()=>setResources(true)}/>}
-      {tab==="breeding" && <Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onStarted={()=>setTab("incubator")}/>}
-      {tab==="incubator" && <Incubator {...props} onTab={setTab} onFood={()=>setResources(true)}/>}{tab==="shop" && <Shop {...props} onFood={()=>setResources(true)}/>}
+      {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")} onFood={()=>setResources(true)}/>}
+
+      {tab==="incubator" && <Incubator {...props} onTab={navigate} onFood={()=>setResources(true)}/>}{tab==="shop" && <Shop {...props} onFood={()=>setResources(true)}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage} onFood={()=>setResources(true)}/>}
     </div> : <section className="game-loading"><h1>저장 데이터를 불러오지 못했습니다</h1><p>기존 저장을 덮어쓰지 않았습니다. 복구 전 원본을 아카이브에 남깁니다.</p><button className="game-primary" onClick={()=>setSettings(true)}>백업 복원 또는 새 게임</button></section>}
-    {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v8 · 가격표는 현재 임시 추정</span></footer>}
-    <nav className={"game-bottom-nav hc-nav"+(isReference?" home-nav":"")} aria-label="게임 탭">{isReference?HOME_TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><HomeIcon name={t.icon} size={33}/><span>{t.label}</span></button>):TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>setTab(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>
-    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setTab("breeding");}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
+    {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v9 · 가격표는 현재 임시 추정</span></footer>}
+    <nav className={"game-bottom-nav hc-nav"+(isReference?" home-nav":"")} aria-label="게임 탭">{isReference?HOME_TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>navigate(t.id)}><HomeIcon name={t.icon} size={33}/><span>{t.label}</span></button>):TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>navigate(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>
+    {props&&breedingOpen&&<Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onClose={()=>setBreedingOpen(false)} onStarted={()=>{setBreedingOpen(false);setTab("incubator");}}/>}
+    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
-    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setTab("collection");}}/>}
+    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setBreedingOpen(false);setTab("collection");}}/>}
   </main>;
 }

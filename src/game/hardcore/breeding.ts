@@ -9,6 +9,7 @@ import { advancedSafety, legacyRecord, observeMating } from "./genetics";
 import { isV12, ageTurns } from "./lifecycle";
 import { fertilizeSeason, seasonEvents } from "./season";
 import { createEmbryo } from "./offspring";
+import { breedingRisk } from './breeding-risk';
 
 export function ovulating(g: Gecko, game: HardcoreGame): boolean {
   if(isV12(game))return g.sex==="female"&&g.status==="owned"&&g.stage==="adult"&&ageTurns(game,g)>=12&&ageTurns(game,g)<60&&game.turn>=g.nextBreedTurn&&!Object.values(game.matings).some(m=>m.parents.motherId===g.id&&m.status==="fertilized");
@@ -38,19 +39,26 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   }
   if (!ovulating(mother, game)) reasons.push("암컷은 배란기여야 합니다. 다음 배란: " + nextOvulation(mother, game));
   if (Object.values(game.matings).some(m => m.parents.motherId === motherId && ["pending", "fertilized"].includes(m.status))) reasons.push("이미 번식 일정이 진행 중입니다.");
-  const kin = checkKinship(father, mother, game.individuals); if (kin) reasons.push(kin.message);
+  const kin = checkKinship(father, mother, game.individuals); if (kin&&game.saveVersion<9) reasons.push(kin.message);
   const forecast = forecastCross(expandedGenotype(father.genotype), expandedGenotype(mother.genotype), HARDCORE_LOCI);
-  if (forecast.nonViableProbability > 0) reasons.push("동형접합 비생존 위험 교배를 차단합니다.");
-  reasons.push(...advancedSafety(father,mother));
+  if(game.saveVersion<9){
+    if (forecast.nonViableProbability > 0) reasons.push("동형접합 비생존 위험 교배를 차단합니다.");
+    reasons.push(...advancedSafety(father,mother));
+  }
   const slots=2,available=freeSlots(game);
   if (available < slots) reasons.push(`인큐베이터 빈 슬롯 ${available}개 / 필요 ${slots}개 · ${slots-available}개 부족합니다. 사육 공간을 확보하거나 확장하세요.`);
   if (Object.keys(game.individuals).length + Object.keys(game.eggs).length + 2 > 30000) reasons.push("이 슬롯의 기록 한도에 도달했습니다. 백업을 보관하고 새 게임을 시작하세요.");
   return { reasons, forecast };
 }
-/** Day 0 snapshot. Fertilization result is revealed tomorrow; no embryos before laying. */
-export function startMating(game: HardcoreGame, fatherId: string, motherId: string): void {
+/** v9 snapshots and fixes both egg outcomes at conception; old daily rules remain versioned. */
+export function startMating(game: HardcoreGame, fatherId: string, motherId: string, riskAcknowledgement?:string): void {
   const check = breedingCheck(game, fatherId, motherId); if (check.reasons.length) throw new Error(check.reasons.join(" "));
-  const father = game.individuals[fatherId], mother = game.individuals[motherId], ordinal = game.nextClutch++;
+  const father = game.individuals[fatherId], mother = game.individuals[motherId];
+  if(game.saveVersion>=9){
+    const risk=breedingRisk(game,father,mother);
+    if(risk.warnings.length&&riskAcknowledgement!==risk.acknowledgement)throw new Error('교배 위험을 확인한 뒤 다시 실행하세요.');
+  }
+  const ordinal=game.nextClutch++;
   const id = game.gameId + "-m" + ordinal;
   game.matings[id] = { id, ordinal, date: game.lastDate, parents: { fatherId, motherId },
     fatherGenotype: structuredClone(father.genotype), motherGenotype: structuredClone(mother.genotype),
@@ -62,6 +70,7 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
     status: "pending", resolvedDate: null, genetics: {
       father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
       observedIds:[],updates:[] } };
+  if(game.saveVersion>=9)game.matings[id].riskModel={version:1,father:structuredClone(father.healthGenome!),mother:structuredClone(mother.healthGenome!)};
   if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 인큐베이터 2칸 예약 · 2턴 후 알 2개 산란 · 유전 결과 확정");return;}
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);
   mother.nextBreedTurn = game.turn + game.rules.recoveryDays;

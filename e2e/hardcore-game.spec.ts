@@ -1,3 +1,5 @@
+import {bornIndividual} from '../src/game/hardcore/egg-outcome';
+import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,feedCollection,finishTurn} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
@@ -40,7 +42,7 @@ async function care(page:Page,mobile:boolean) {
   await feedCollection(page,mobile);
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
 }
-async function restore(page:Page,input:string,mobile:boolean) {
+async function restore(page:Page,input:string,mobile:boolean) {await closeBreeding(page,mobile);
   await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
   await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"save.json",mimeType:"application/json",buffer:Buffer.from(input)});
   await click(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);
@@ -74,11 +76,11 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  let g=await saved(page);const [father,mother]=Object.values(g.individuals);await page.screenshot({path:info.outputPath("phase3-shop.png"),scale:"css"});
  await tab(page,"혈통",mobile);await click(page.getByRole("button",{name:"관심 혈통 등록",exact:true}),mobile);await page.getByLabel("혈통 이름",{exact:true}).fill("Moonlight Line");await click(page.getByRole("button",{name:"혈통 이름 등록",exact:true}),mobile);
  await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(father.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(mother.id);
- await expect(page.getByTestId("hardcore-forecast")).toContainText("100%");await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
+ await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("100%");await closeGenetics(page,mobile);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
  await tab(page,"컬렉션",mobile);for(let t=0;t<2;t++)await finishTurn(page,mobile);g=await saved(page);expect(Object.keys(g.eggs)).toHaveLength(2);const embryos=Object.values(g.eggs).map(e=>e.embryo);
  await tab(page,"부화",mobile);await page.screenshot({path:info.outputPath("phase3-eggs.png"),scale:"css"});await tab(page,"컬렉션",mobile);
- for(let t=0;t<4;t++)await finishTurn(page,mobile);g=await saved(page);for(const embryo of embryos)expect(g.individuals[embryo.id]).toEqual(embryo);
+ for(let t=0;t<4;t++)await finishTurn(page,mobile);g=await saved(page);for(const embryo of embryos)expect(g.individuals[embryo.id]).toEqual(bornIndividual(embryo));
  await click(page.getByRole("button",{name:embryos[0].name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");
  await page.getByLabel("개체 이름",{exact:true}).fill("새싹");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"새싹 상세",exact:true})).toBeVisible();await page.getByRole("dialog").screenshot({path:info.outputPath("phase3-hatchling.png"),scale:"css"});await page.keyboard.press("Escape");
  for(let t=0;t<12;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
@@ -86,7 +88,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
  const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
  await click(page.getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
- await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(child.sex==='male'?child.id:partner.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
+ await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(child.sex==='male'?child.id:partner.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  await tab(page,"컬렉션",mobile);for(let t=0;t<6;t++)await finishTurn(page,mobile);g=await saved(page);const grandchild=Object.values(g.individuals).find(i=>i.generation===3)!;expect(grandchild).toBeDefined();
  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(grandchild.id);await expect(page.locator(".ancestor-list")).toContainText(father.name);await expect(page.locator(".lineage-root")).toContainText("Moonlight Line");await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");
  await page.screenshot({path:info.outputPath("phase3-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("24");expect(await saved(page)).toEqual(g);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -143,7 +145,7 @@ test("stale tabs cannot overwrite money or daily care, all six screens fit 360px
   for(const name of ["오늘","컬렉션","교배","부화","상점","혈통"]) {
     await tab(page,name,mobile);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     const label=name==='부화'?'인큐베이터':name==='혈통'?'혈통도':name;
-    const box=await page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name:label,exact:true}).boundingBox();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThanOrEqual(44);
+    const control=name==="교배"?page.locator(".breed-change").first():page.getByRole("navigation",{name:"게임 탭"}).getByRole("button",{name:label,exact:true});const box=await control.boundingBox();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThanOrEqual(44);
   }
   await expect(page.getByRole("button",{name:"1턴 진행",exact:true})).toHaveCount(0);await expect(page.getByRole("button",{name:"+5턴",exact:true})).toHaveCount(0);
 });
@@ -180,17 +182,18 @@ test("corrupt active v3 stays untouched until confirmed recovery and is archived
   await expect(page.getByRole("dialog")).toContainText("보존된 이전 게임 1개");
 });
 
-test("live UI distinguishes lethal conditional odds and blocks lineal matings after adulthood",async({page},info)=>{
+test("live UI distinguishes lethal conditional odds and allows acknowledged risky and lineal matings after adulthood",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile"),fixture=migrateV2(legacySave(createNewGame("risk-ui")),DATE);
   fixture.capacity=12;fixture.rules={...fixture.rules,fertilizationChance:1,hatchChance:1,juvenileAfter:1,adultAfter:1};
   fixture.time.mode="turn";fixture.food=500;
   await restore(page,exportBackup(fixture),mobile);
   const [normal,lillyFemale,,,lillyMale]=Object.values(fixture.individuals);
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(lillyMale.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(lillyFemale.id);
-  const forecast=page.getByTestId("hardcore-forecast");await expect(forecast).toContainText("비생존 · 25%");await expect(forecast).toContainText("33.3%");await expect(forecast).toContainText("66.7%");
-  await expect(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true})).toBeDisabled();
-  await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(normal.id);await click(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true}),mobile);
+  await inspectGenetics(page,mobile);const forecast=page.getByTestId("hardcore-forecast");await expect(forecast).toContainText("비생존 · 25%");await expect(forecast).toContainText("33.3%");await expect(forecast).toContainText("66.7%");
+  await closeGenetics(page,mobile);await expect(page.getByRole("button",{name:"교배하기",exact:true})).toBeEnabled();
+  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true})).toContainText('25.0%');await click(page.getByRole('button',{name:'취소',exact:true}),mobile);
+  await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(normal.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
   await tab(page,"컬렉션",mobile);for(let t=0;t<22;t++)await finishTurn(page,mobile);const g=await saved(page),child=Object.values(g.individuals).find(i=>i.parents&&i.stage==='adult')!;
   await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(child.sex==="male"?child.id:normal.id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(child.sex==="female"?child.id:lillyFemale.id);
-  await expect(page.locator(".game-warning")).toContainText("직계");await expect(page.getByRole("button",{name:"교배 일정 시작 · 공간 2칸 예약",exact:true})).toBeDisabled();
+  await expect(page.getByTestId('breeding-caution')).toContainText('근친교배');await expect(page.getByRole("button",{name:"교배하기",exact:true})).toBeEnabled();await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true})).toContainText('부모·자식');await click(page.getByRole('button',{name:'취소',exact:true}),mobile);
 });

@@ -1,3 +1,4 @@
+import {migrateRisk} from "../../src/game/hardcore/migrate-risk";
 import {migrateAlbum} from "../../src/game/hardcore/migrate-album";
 import {migrateShop} from "../../src/game/hardcore/shop-family";
 import { newGame } from "../../tests/helpers/v6-hardcore";
@@ -34,5 +35,5 @@ export function referenceHomeGame() {
   game.shop.offers = {};
   game.food = 38;
   validateGame(game);
-  return migrateAlbum(migrateShop(game));
+  return migrateRisk(migrateAlbum(migrateShop(game)));
 }

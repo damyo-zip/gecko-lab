@@ -15,7 +15,7 @@ export const LOCI: readonly Locus[] = [
     nonViable: ["Lw/Lw"], blocked: ["Lw/Lw"], evidence: {
       sources: [SOURCES.lilly, SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
       claim: "브리더 관찰에 기반한 불완전 우성·동형접합 비생존 작업 모델.",
-      disagreements: "분자 유전자 확인이나 개체별 사망 시점의 모델이 아닙니다.", safety: "Lilly × Lilly 차단." } },
+      disagreements: "분자 유전자 확인이나 개체별 사망 시점의 모델이 아닙니다.", safety: "교배 전 경고·확인. 동형접합 비생존 배아는 부화 실패로 기록합니다." } },
   { id: "axanthic", name: "Axanthic · 단일 호환 라인", alleles: ["A", "ax"], inheritance: "recessive", modelVersion: 1,
     phenotypes: { "A/A": "Normal", "A/ax": "Normal", "ax/ax": "Axanthic" }, nonViable: [], blocked: [], evidence: {
       sources: [SOURCES.axanthic, SOURCES.overview, SOURCES.grades], reviewed, level: "breeder-supported",
@@ -28,7 +28,7 @@ export const LOCI: readonly Locus[] = [
       sources: [SOURCES.psa, SOURCES.overview, SOURCES.grades], reviewed, level: "provisional",
       claim: "Foundation Genetics PSA v1.2 (2026-09-08)의 동일 좌위 관찰을 잠정 채택.",
       disagreements: "같은 좌위는 브리더 모델이며 DNA 확정 아님. 건강 위험은 수정 시점 비생존과 다릅니다.",
-      safety: "Super Cappuccino·Sorak·Luwak·Capp/Highway·Super Sable 보고. 두 변이 사본 조합은 모두 보수적으로 차단하며 사망 확률은 부여하지 않습니다." } },
+      safety: "Super Cappuccino·Sorak·Luwak·Capp/Highway·Super Sable 보고. 보고·미검증 조합은 교배 전 경고하며, 검증되지 않은 사망 확률은 부여하지 않습니다." } },
 ];
 export const locusById = (id: string): Locus => { const locus = LOCI.find(l => l.id === id); if (!locus) throw new Error("지원하지 않는 좌위: " + id); return locus; };
 export function pairKey(pair: AllelePair, locus: Locus): string {

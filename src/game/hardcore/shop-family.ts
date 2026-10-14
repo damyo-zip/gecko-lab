@@ -1,7 +1,9 @@
+import { founderHealth } from '@/genetics/health';
+import { bornIndividual } from './egg-outcome';
 import { normalGenotype, lillyGenotype } from '@/genetics/mendel';
 import { expandedGenotype } from '@/genetics/hardcore';
 import { seedId, seededRandom } from '@/genetics/random';
-import { childKnowledge, unknownKnowledge } from '@/genetics/advanced/inference';
+import { belief, childKnowledge, unknownKnowledge } from '@/genetics/advanced/inference';
 import { legacyTraits, observedLoci } from '@/genetics/advanced/phenotype';
 import { polyScores } from '@/genetics/advanced/polygenic';
 import { founderRecord, advancedSafety } from './genetics';
@@ -19,14 +21,17 @@ function parent(game:HardcoreGame,id:string,seed:string,sex:'male'|'female',mati
   if(profile===2)genotype.loci.axanthic=['A','ax'];
   if(profile===3)genotype.loci.axanthic=['ax','ax'];
   const genetics=founderRecord(genotype,seed,subdued);
+  if(game.saveVersion>=9&&profile>=4)genetics.genome!.mendelian.loci['cappuccino-complex']=['n',['C','S','H'][profile-4]];
   // Observe the phenotype, never turn secret carrier truth into seller evidence.
   genetics.knowledge=childKnowledge(unknownKnowledge(),unknownKnowledge(),observedLoci(genetics.genome!),id);
+  if(game.saveVersion>=9){const pair=genetics.genome!.mendelian.loci['cappuccino-complex'];
+    genetics.knowledge.loci['cappuccino-complex']=belief({[pair.join('/')]:1},'appearance','게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델',[id]);}
   const birthTurn=matingTurn-16-Math.floor(seededRandom(seed,'parent-age')()*25);
   return {id,name:sex==='male'?'매물 부계':'매물 모계',sex,birthTurn,birthDate:addDays(game.lastDate,(birthTurn-game.turn)*7),
     stage:'adult',parents:null,generation:1,genotype,potential:legacyTraits(polyScores(genetics.genome!.polygenic)),genetics,
     visualSeed:id+'-'+seedId(seed,'visual'),nextBreedTurn:0,status:'pedigree',hearts:5,lastFedDate:null,diedDate:null,
     cycleAnchor:addDays(game.lastDate,(matingTurn-game.turn)*7),recoverUntil:addDays(game.lastDate,(matingTurn-game.turn)*7),
-    lineageIds:[],provenance:'unverified',deathCause:null,lastProcessedTurn:game.turn};
+    lineageIds:[],provenance:'unverified',deathCause:null,lastProcessedTurn:game.turn,...(game.saveVersion>=9?{healthGenome:founderHealth(seed+'|health')}:{})};
 }
 
 /** The same embryo factory and allele transmission as player breeding; no copied appearance. */
@@ -35,8 +40,9 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   const random=seededRandom(seed,'catalog'),starter=batch===1&&index<2;
   const age=starter?12:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-6;
   const id=game.gameId+'-store-'+batch+'-'+index;
-  const father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*4),starter);
-  let mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,starter?0:Math.floor(random()*4),starter);
+  const profiles=game.saveVersion>=9?7:4;
+  const father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*profiles),starter);
+  let mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   // All offspring must come from a safe pair, including Lilly homozygous risks.
   if(advancedSafety(father,mother).length)mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,0,starter);
   const mating:Mating={id:id+'-origin',ordinal:1,date:addDays(game.lastDate,(matingTurn-game.turn)*7),
@@ -44,11 +50,14 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
     fatherTraits:father.potential,motherTraits:mother.potential,generation:2,lineageIds:[],seed,
     fertilizationChance:.95,hatchChance:.95,status:'laid',resolvedDate:game.lastDate,
     genetics:{father:father.genetics!,mother:mother.genetics!,observedIds:[],updates:[]}};
+  if(game.saveVersion>=9)mating.riskModel={version:1,father:father.healthGenome!,mother:mother.healthGenome!};
   let child:Gecko|undefined,childSeed='';
   // Curate two affordable unrelated adults on a new game; inherit sex normally.
   for(let attempt=0;attempt<100;attempt++){
     childSeed=seed+'|child:'+attempt;
-    child=createEmbryo(game,mating,childSeed,id,'매물',birthTurn,addDays(game.lastDate,-age*7));
+    const embryo=createEmbryo(game,mating,childSeed,id,'매물',birthTurn,addDays(game.lastDate,-age*7));
+    if(embryo.development?.viable===false)continue;
+    child=bornIndividual(embryo);
     if(!starter||child.sex===(index===0?'male':'female'))break;
   }
   if(!child)throw new Error('매물 생성 실패');

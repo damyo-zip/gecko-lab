@@ -6,12 +6,13 @@ import { V12 } from "./lifecycle";
 import { seasonEggSeed } from "./season";
 import { createEmbryo } from "./offspring";
 import { TRAIT_KEYS } from "@/genetics/traits";
+import { fertileChance, eggFailure } from './egg-outcome';
 
 const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 function assert(condition:unknown):asserts condition {if(!condition)throw new Error("v1.2 턴·성장·산란·수명 기록이 손상되었습니다.");}
 function keys(value:object,names:string):void {assert(value&&Object.keys(value).sort().join()===names.split(" ").sort().join());}
 export function validateLifecycle(game:HardcoreGame):void {
-  assert([6,7,8].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
+  assert([6,7,8,9].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
   assert(game.rules.adultAfter===12&&game.rules.juvenileAfter===6&&game.rules.fertilizationChance===.95&&game.rules.hatchChance===.95&&game.rules.recoveryDays===4);
   for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)]){
     assert(Number.isSafeInteger(g.lastProcessedTurn)&&g.lastProcessedTurn!<=game.turn);
@@ -40,7 +41,7 @@ export function validateLifecycle(game:HardcoreGame):void {
     for(let i=0;i<s.offspring.length;i++){
       const o=s.offspring[i],clutch=Math.floor(i/2)+1,n=i%2+1,seed=seasonEggSeed(m,clutch,n);
       keys(o,"embryo fertilized");
-      assert(o.fertilized===(seededRandom(seed,"fertilization")()<.95));
+      assert(o.fertilized===(seededRandom(seed,"fertilization")()<fertileChance(m)));
       const egg=game.eggs[o.embryo.id+"-egg"];
       const historical=game.rulesVersion===4&&clutch>1;
       const birthTurn=historical?egg?.lifecycle?.dueTurn:s.startTurn+2+(clutch-1)*4+4;
@@ -48,6 +49,7 @@ export function validateLifecycle(game:HardcoreGame):void {
       // Replay the validated saved appearance version, not the current factory
       // default. Pending old embryos must keep their original pixels after upgrade.
       const expected=createEmbryo(game,m,seed,o.embryo.id,o.embryo.name,birthTurn,o.embryo.birthDate,o.embryo.genetics?.appearanceVersion==="patterns-1");
+      if(game.saveVersion>=9&&!m.riskModel)expected.healthGenome=o.embryo.healthGenome;
       // Exp-derived phenotype scores can differ by one ULP between JS engines.
       // Genomes, seeds, all discrete records and the stored values remain exact.
       assert(TRAIT_KEYS.every(k=>Number.isFinite(o.embryo.potential[k])&&Math.abs(o.embryo.potential[k]-expected.potential[k])<=1e-12));
@@ -63,7 +65,7 @@ export function validateLifecycle(game:HardcoreGame):void {
     assert(Number.isSafeInteger(e.laidTurn)&&Number.isSafeInteger(e.dueTurn)&&e.laidTurn<=game.turn&&e.dueTurn===e.laidTurn+4);
     assert(egg.dueDate===addDays(egg.laidDate,28)&&egg.embryo.birthTurn===e.dueTurn&&typeof e.fertilized==="boolean");
     assert(egg.status==="incubating"?e.dueTurn>game.turn&&e.failure===null:
-      e.dueTurn<=game.turn&&(egg.status==="hatched"?e.fertilized&&e.failure===null:e.failure===(e.fertilized?"hatch":"infertile")));
-    if(e.dueTurn<=game.turn)assert((egg.status==="hatched")===(e.fertilized&&seededRandom(egg.seed,"hatch")()<V12.hatchChance));
+      e.dueTurn<=game.turn&&(egg.status==="hatched"?e.fertilized&&e.failure===null:e.failure===eggFailure(egg)));
+    if(e.dueTurn<=game.turn)assert((egg.status==="hatched")===(eggFailure(egg)===null));
   }
 }

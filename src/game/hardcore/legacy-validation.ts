@@ -41,7 +41,7 @@ export function validateRules(r: Rules): void {
   integer(r.initialMoney, 0, 1e12); integer(r.maxCapacity, 4, 3000); integer(r.initialCapacity, 2, r.maxCapacity);
   integer(r.foodUnitPrice, 1, 1e9); integer(r.expansionSlots, 1, 100); integer(r.expansionBasePrice, 1, 1e9);
 }
-export function validateGeckoRecord(g: Gecko,lifecycle=false,catalog=false): void {
+export function validateGeckoRecord(g: Gecko,lifecycle=false,catalog=false,nonViableEmbryo=false): void {
   keys(g, "id name sex birthTurn stage parents generation genotype potential visualSeed nextBreedTurn birthDate status hearts lastFedDate diedDate cycleAnchor recoverUntil lineageIds provenance"+(lifecycle?" deathCause lastProcessedTurn":""));
   if(lifecycle){if(![null,"starvation","natural"].includes(g.deathCause!))fail();integer(g.lastProcessedTurn,-100000,10000000);if(g.status!=="dead"&&g.deathCause!==null)fail();}
   id(g.id); text(g.name, 24); text(g.visualSeed); integer(g.birthTurn, -100000, 10000000); integer(g.nextBreedTurn);
@@ -51,13 +51,13 @@ export function validateGeckoRecord(g: Gecko,lifecycle=false,catalog=false): voi
   object(g.genotype); object(g.genotype.loci);
   if (Object.keys(g.genotype.loci).some(k => !HARDCORE_LOCI.some(l => l.id === k))) fail();
   const genes = expandedGenotype(g.genotype);
-  if (HARDCORE_LOCI.some(l => !isViablePair(genes.loci[l.id], l))) fail();
+  if (!nonViableEmbryo&&HARDCORE_LOCI.some(l => !isViablePair(genes.loci[l.id], l))) fail();
   if (g.parents !== null) { keys(g.parents, "fatherId motherId"); id(g.parents.fatherId); id(g.parents.motherId); }
   date(g.birthDate); date(g.cycleAnchor); date(g.recoverUntil); nullableDate(g.lastFedDate); nullableDate(g.diedDate);
   strings(g.lineageIds); if (new Set(g.lineageIds).size !== g.lineageIds.length) fail();
   if (g.status === "dead" ? g.hearts !== 0 || g.diedDate === null : g.hearts === 0 || g.diedDate !== null) fail();
 }
-function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false,catalog=false): void {
+function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<string>(),lifecycle=false,catalog=false,allowRisk=false): void {
   keys(value, "saveVersion rulesVersion gameId seed revision turn nextClutch startedDate lastDate rules money food capacity expansions individuals matings eggs sales lineages nextLineage shop marketVersion notices migration" + (version === 4 ? " time" : ""));
   const g = value as LegacyV4Game;
   if ((g.saveVersion as number) !== version || (lifecycle?![3,4].includes(g.rulesVersion):g.rulesVersion!==2)) throw new Error("지원하지 않는 저장 또는 규칙 버전입니다.");
@@ -79,7 +79,7 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
   const seeds = new Map<string, string>();
   const genesEqual = (a: Gecko["genotype"], b: Gecko["genotype"]) => canonicalJSON(expandedGenotype(a)) === canonicalJSON(expandedGenotype(b));
   const checkIndividual = (i: Gecko, future = false) => {
-    validateGeckoRecord(i,lifecycle,catalog);
+    validateGeckoRecord(i,lifecycle,catalog,allowRisk&&future);
     if (!future && (i.birthDate > g.lastDate || i.birthTurn > g.turn)) fail();
     if (!future && i.status === "owned") {
       const age = lifecycle?g.turn-i.birthTurn:daysBetween(i.birthDate, g.lastDate);
@@ -102,7 +102,7 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
         const average = (father.potential[k] + mother.potential[k]) / 2;
         if (Math.abs(i.potential[k] - average) > g.rules.traitVariation[k] + 1e-9) fail();
       }
-      if (checkKinship(father, mother, g.individuals)) fail();
+      if (!allowRisk&&checkKinship(father, mother, g.individuals)) fail();
     } else if (i.generation !== 1) fail();
     if (seeds.has(i.visualSeed) && seeds.get(i.visualSeed) !== i.id) fail(); seeds.set(i.visualSeed, i.id);
   };
@@ -119,8 +119,8 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
     const father = g.individuals[m.parents.fatherId], mother = g.individuals[m.parents.motherId];
     if (father.sex !== "male" || mother.sex !== "female" || !genesEqual(father.genotype,m.fatherGenotype) || !genesEqual(mother.genotype,m.motherGenotype) ||
       canonicalJSON(father.potential) !== canonicalJSON(m.fatherTraits) || canonicalJSON(mother.potential) !== canonicalJSON(m.motherTraits) ||
-      m.generation !== Math.max(father.generation,mother.generation)+1 || checkKinship(father,mother,g.individuals)) fail();
-    if (forecastCross(expandedGenotype(m.fatherGenotype),expandedGenotype(m.motherGenotype),HARDCORE_LOCI).nonViableProbability > 0) fail();
+      m.generation !== Math.max(father.generation,mother.generation)+1 || !allowRisk&&checkKinship(father,mother,g.individuals)) fail();
+    if (!allowRisk&&forecastCross(expandedGenotype(m.fatherGenotype),expandedGenotype(m.motherGenotype),HARDCORE_LOCI).nonViableProbability > 0) fail();
     expandedGenotype(m.fatherGenotype); expandedGenotype(m.motherGenotype); validateTraits(m.fatherTraits); validateTraits(m.motherTraits);
     strings(m.lineageIds); if (m.lineageIds.some(l => !g.lineages[l]) || m.date > g.lastDate) fail();
     const age = daysBetween(m.date,g.lastDate);
@@ -177,4 +177,4 @@ function validateRecord(value: unknown, version: 3 | 4, advancedIds=new Set<stri
 export function validateV4(value: unknown, advancedIds?:Set<string>): asserts value is LegacyV4Game { validateRecord(value, 4, advancedIds); }
 export function validateV3(value: unknown): asserts value is LegacyHardcoreGame { validateRecord(value, 3); }
 
-export function validateLifecycleBase(value:unknown,advancedIds:Set<string>,catalog=false):void {validateRecord(value,4,advancedIds,true,catalog);}
+export function validateLifecycleBase(value:unknown,advancedIds:Set<string>,catalog=false,allowRisk=false):void {validateRecord(value,4,advancedIds,true,catalog,allowRisk);}
