@@ -46,7 +46,9 @@ test('real 25-second ten-target touch play catches independent waves, earns exac
   await page.evaluate(()=>{(window as any).__rushTouches=[];document.addEventListener('pointerdown',e=>{const target=(e.target as Element).closest('.rush-target');if(target)(window as any).__rushTouches.push({id:target.getAttribute('data-testid'),progress:target.getAttribute('data-progress'),elapsed:document.querySelector('[data-testid=rush-stage]')?.getAttribute('data-elapsed')});},true);});
   await start(page,mobile);const before=Date.now();
   for(let id=0;id<10;id++){
-    if(id===7){await expect(page.getByTestId('rush-target-9')).toBeVisible({timeout:25_000});await expect(page.locator('.rush-target')).toHaveCount(3);}
+    // Default visibility retries back off to 1s: they can notice the third
+    // arrival only after the first one's PERFECT window. Observe every 10ms.
+    if(id===7)await expect.poll(()=>page.locator('.rush-target').count(),{intervals:[10],timeout:25_000}).toBe(3);
     await hit(page,id,.77,mobile);
     // Capture after this hit commits; a screenshot must not delay the very tap it verifies.
     if(id===7&&mobile)await page.screenshot({path:'docs/cre-rush-polish/catch-390.png',scale:'css'});

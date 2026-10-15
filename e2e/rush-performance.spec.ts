@@ -58,7 +58,7 @@ test('legacy v2: 300 actual genomes: worker checkpoints never clone/paint the ba
   expect(page.workers().length).toBeGreaterThan(0);await touch(dialog(page).getByRole('button',{name:'알바 계속하기',exact:true}),mobile);
   await hit(page,1,mobile);await expect(page.getByTestId('rush-wage')).toHaveText('₩600');
   for(let id=2;id<10;id++){
-    if(id===7){await page.getByTestId('rush-target-9').waitFor({timeout:25000});await expect(page.locator('.rush-target')).toHaveCount(3);}
+    if(id===7)await expect.poll(()=>page.locator('.rush-target').count(),{intervals:[10],timeout:25000}).toBe(3);
     await hit(page,id,mobile);
   }
   await expect(page.getByTestId('rush-pay')).toBeVisible();
