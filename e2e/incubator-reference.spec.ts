@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {incubatorFixture} from './fixtures/incubator-reference';
 import {newGame,act} from './fixtures/legacy-catalog';
@@ -40,7 +41,7 @@ test('reference geometry, real counts, unique crisp eggs and readable panels at 
 test('empty slot opens breeding without buying capacity; two reservations lay once and direct incubator turns hatch after four turns',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=pair();await restore(page,fixture.g,mobile);await expect(page.getByTestId('incubator-empty-slot')).toHaveCount(2);
  await touch(page.getByTestId('incubator-empty-slot').first(),mobile);await expect(page.getByRole('heading',{name:'교배',exact:true})).toBeVisible();expect(await saved(page)).toEqual(fixture.g);
- await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(fixture.father);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(fixture.mother);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);
+ await chooseBreedingParent(page,'male',fixture.father);await chooseBreedingParent(page,'female',fixture.mother);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);
  await expect(page.getByTestId('incubator-reserved-slot')).toHaveCount(2);await expect(page.getByTestId('incubator-empty-slot')).toHaveCount(0);const fixed=Object.values((await saved(page)).matings)[0].lifecycle!.offspring;
  await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(0);await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(2);await expect(page.getByTestId('incubator-reserved-slot')).toHaveCount(0);await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');
  const g=await saved(page);expect(g.capacity).toBe(4);expect(freeSlots(g)).toBe(0);for(let n=0;n<3;n++)await next(page,mobile);await expect(page.getByTestId('incubator-remaining')).toHaveText('7일 (1턴)');

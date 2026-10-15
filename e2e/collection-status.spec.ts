@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {collectionStatusGame} from './fixtures/collection-status';
@@ -66,10 +67,10 @@ test('native status buttons preserve layout and selection, preload exact sex/ID,
   await touch(maleCard.getByRole('button',{name:'같은 이름 상세보기',exact:true}),mobile);await expect(page.getByRole('dialog')).toContainText('같은 이름 상세');await close(page,mobile);
   await touch(femaleCard.locator('.home-card-select>strong'),mobile);
   const selected=await page.locator('.home-name').textContent();await tapStatusText(page,f.otherMale,mobile);
-  await expect(page.getByRole('dialog',{name:'교배',exact:true})).toBeVisible();await expect(page.getByRole('combobox',{name:'수컷 부모',exact:true})).toHaveValue(f.otherMale);await expect(page.getByRole('combobox',{name:'암컷 부모',exact:true})).toHaveValue('');expect(await saved(page)).toEqual(f.game);expect(await page.locator('.home-name').textContent()).toBe(selected);
-  await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(f.female);await expect(page.getByTestId('breed-submit')).toBeEnabled();await close(page,mobile);
-  await tapStatusText(page,f.female,mobile);await expect(page.getByRole('combobox',{name:'암컷 부모',exact:true})).toHaveValue(f.female);await expect(page.getByRole('combobox',{name:'수컷 부모',exact:true})).toHaveValue('');expect(await saved(page)).toEqual(f.game);
-  await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(f.otherMale);
+  await expect(page.getByRole('dialog',{name:'교배',exact:true})).toBeVisible();await expect(page.getByTestId('breed-parent-male')).toHaveAttribute('data-parent-id',f.otherMale);await expect(page.getByTestId('breed-parent-female')).toHaveAttribute('data-parent-id','');expect(await saved(page)).toEqual(f.game);expect(await page.locator('.home-name').textContent()).toBe(selected);
+  await chooseBreedingParent(page,'female',f.female);await expect(page.getByTestId('breed-submit')).toBeEnabled();await close(page,mobile);
+  await tapStatusText(page,f.female,mobile);await expect(page.getByTestId('breed-parent-female')).toHaveAttribute('data-parent-id',f.female);await expect(page.getByTestId('breed-parent-male')).toHaveAttribute('data-parent-id','');expect(await saved(page)).toEqual(f.game);
+  await chooseBreedingParent(page,'male',f.otherMale);
   if(mobile){await page.screenshot({path:'docs/collection-status/breeding-selected.png',scale:'css'});await writeFile('docs/collection-status/review-save.json',exportBackup(f.game));}
   await touch(page.getByTestId('breed-submit'),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view','incubator');
   const next=await saved(page),newMating=Object.values(next.matings).find(m=>!f.game.matings[m.id])!;expect(newMating.parents).toEqual({fatherId:f.otherMale,motherId:f.female});expect(newMating.lifecycle!.offspring).toHaveLength(2);expect(reserved(next)).toBe(reserved(f.game)+2);expect(errors).toEqual([]);

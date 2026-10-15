@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {preRiskRecord} from '../tests/helpers/risk-projection';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {test,expect,type Page} from '@playwright/test';
@@ -23,7 +24,7 @@ for(const available of [0,1,2])test(`${available} free slots: exact shortage, tw
  let g=newGame(seed,DATE,{initialCapacity:available+2,initialMoney:3_000_000});const [father,mother]=Object.keys(g.shop.offers);
  for(const id of [father,mother])g=act(g,{type:'buyGecko',offerId:id},DATE);g=act(g,{type:'buyFood',amount:1000},DATE);
  await restore(page,g,mobile);await navigateGame(page,'교배',mobile);
- await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(father);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(mother);
+ await chooseBreedingParent(page,'male',father);await chooseBreedingParent(page,'female',mother);
  await expect(page.getByTestId('breeding-slots')).toContainText(`빈 슬롯 ${available}개 · 필요 2개`);
  const button=page.getByRole('button',{name:'교배하기',exact:true});
  if(available<2){await expect(button).toBeDisabled();await expect(page.locator('.game-warning')).toContainText(`${2-available}개 부족`);expect(await saved(page)).toEqual(g);}

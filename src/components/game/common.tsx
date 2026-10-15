@@ -38,7 +38,7 @@ export function Dialog({ title, onClose, children, className = '' }: { title: Re
     if (dialog && !dialog.open) dialog.showModal();
     return () => { if (dialog?.open) dialog.close(); };
   }, []);
-  return <dialog ref={ref} className={'game-dialog '+className} aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }}>
+  return <dialog ref={ref} className={'game-dialog '+className} aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); event.stopPropagation(); onClose(); }}>
     <div className="dialog-heading"><h2 id={titleId}>{title}</h2><button type="button" onClick={onClose} aria-label="상세 창 닫기">×</button></div>
     {children}
   </dialog>;

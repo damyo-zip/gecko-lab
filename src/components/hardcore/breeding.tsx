@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import { breedingCheck } from '@/game/hardcore/breeding';
 import { breedingRisk } from '@/game/hardcore/breeding-risk';
-import { owned, freeSlots } from '@/game/hardcore/survival';
+import { freeSlots } from '@/game/hardcore/survival';
 import { ageTurns, lifeStage } from '@/game/hardcore/lifecycle';
 import { visualName } from '@/game/hardcore/adapter';
 import { appearanceProfile } from '@/game/hardcore/appearance';
@@ -11,20 +11,11 @@ import { Sprite, Dialog, type ViewProps } from './common';
 import { HomeIcon } from './home-icons';
 import { GeneticForecast, GeneticsGuide } from './genetics-panel';
 import type { Gecko } from '@/game/hardcore/model';
+import { ParentSearch } from './parent-search';
 
-export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted,onClose}:ViewProps & {
-  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;onClose:()=>void;
-}) {
-  const [information,setInformation]=useState<'genetics'|'family'|null>(null),[confirmation,setConfirmation]=useState<string|null>(null);
-  const father=game.individuals[fatherId],mother=game.individuals[motherId],check=breedingCheck(game,fatherId,motherId);
-  const risk=useMemo(()=>father&&mother?breedingRisk(game,father,mother):null,[game,father,mother]);
-  const available=owned(game).filter(g=>g.stage==='adult');
-  async function mate(acknowledged?:string){
-    if(await play({type:'breed',fatherId,motherId,riskAcknowledgement:acknowledged}))onStarted();
-  }
-  function Parent({g,sex}:{g:Gecko|undefined;sex:'male'|'female'}){
+function Parent({g,sex,game,busy,onDetail,onSearch}:Pick<ViewProps,'game'|'busy'|'onDetail'> & {g:Gecko|undefined;sex:'male'|'female';onSearch:(sex:'male'|'female')=>void}){
     const traits=g?appearanceProfile(g)?.names.features.slice(0,3)??[]:[];
-    return <article className={'parent-summary breed-parent '+sex}>
+    return <article className={'parent-summary breed-parent '+sex} data-testid={'breed-parent-'+sex} data-parent-id={g?.id??''}>
       <div className="breed-parent-heading"><HomeIcon name={sex}/><strong>{g?.name??(sex==='male'?'수컷 선택':'암컷 선택')}</strong>
         {g&&<small title={g.id}>#{g.id.split('-').slice(-2).join('-')}</small>}
         <button disabled={!g||busy} aria-label={(sex==='male'?'수컷':'암컷')+' 상세 정보'} onClick={()=>g&&onDetail(g.id)}><HomeIcon name="search"/></button></div>
@@ -34,13 +25,22 @@ export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onM
         {g&&<small className="breed-parent-id" title={g.id}>#{g.id.split("-").slice(-2).join("-")}</small>}
         <div className="breed-trait-chips">{traits.map(t=><span key={t}>{t}</span>)}{g&&<span>{g.generation}세대</span>}</div>
       </div>
-      <label className="breed-change"><HomeIcon name="refresh"/><span>개체 변경</span><select aria-label={sex==='male'?'수컷 부모':'암컷 부모'} disabled={busy} value={sex==='male'?fatherId:motherId} onChange={e=>{setConfirmation(null);(sex==='male'?onFather:onMother)(e.target.value);}}>
-        <option value="">{sex==='male'?'수컷 선택':'암컷 선택'}</option>{available.filter(g=>g.sex===sex).map(g=><option key={g.id} value={g.id}>{g.name} · {ageTurns(game,g)}턴 · {g.generation}세대</option>)}
-      </select></label>
+      <button type="button" className="breed-change" aria-label={sex==='male'?'수컷 개체 변경':'암컷 개체 변경'} disabled={busy} onClick={()=>onSearch(sex)}><HomeIcon name="refresh"/><span>개체 변경</span></button>
     </article>;
   }
+
+export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted,onClose}:ViewProps & {
+  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;onClose:()=>void;
+}) {
+  const [information,setInformation]=useState<'genetics'|'family'|null>(null),[confirmation,setConfirmation]=useState<string|null>(null);
+  const [searchSex,setSearchSex]=useState<'male'|'female'|null>(null);
+  const father=game.individuals[fatherId],mother=game.individuals[motherId],check=breedingCheck(game,fatherId,motherId);
+  const risk=useMemo(()=>father&&mother?breedingRisk(game,father,mother):null,[game,father,mother]);
+  async function mate(acknowledged?:string){
+    if(await play({type:'breed',fatherId,motherId,riskAcknowledgement:acknowledged}))onStarted();
+  }
   return <Dialog title={<><HomeIcon name="heart"/><span>교배</span><HomeIcon name="leaf"/></>} onClose={onClose} className="breed-dialog"><section className="hc-breeding breed-reference">
-    <div className="breed-parent-grid"><Parent g={father} sex="male"/><div className="breed-pair-symbol" aria-hidden="true"><HomeIcon name="heart"/><span>×</span></div><Parent g={mother} sex="female"/></div>
+    <div className="breed-parent-grid"><Parent g={father} sex="male" game={game} busy={busy} onDetail={onDetail} onSearch={setSearchSex}/><div className="breed-pair-symbol" aria-hidden="true"><HomeIcon name="heart"/><span>×</span></div><Parent g={mother} sex="female" game={game} busy={busy} onDetail={onDetail} onSearch={setSearchSex}/></div>
     <div className="breed-status-grid">
       <div className={check.reasons.length?'breed-unavailable':'breed-ready'}><span className="breed-status-icon">{check.reasons.length?'!':'✓'}</span><strong>{check.reasons.length?'조건 확인':'교배 가능'}</strong><small>{check.reasons.length?'일반 교배 조건을 확인하세요.':risk?.warnings.length?'주의 사항 확인 후 진행합니다.':'두 개체 모두 교배 조건을 충족합니다.'}</small></div>
       <div><HomeIcon name="heart"/><strong>혈연 관계</strong><small data-testid="breeding-relationship">{risk?.relationship??'부모 선택 대기'}{risk&&<span>기록 기준 F {(risk.pedigree.coefficient*100).toFixed(2)}%</span>}</small></div>
@@ -58,5 +58,6 @@ export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onM
       <p className="game-small-note">기록 없는 조상은 비근친·상호 비혈연으로 가정합니다. 숨은 유전 정보는 공개하지 않습니다. 실제 결과는 각 알의 상속된 유전형에 따라 달라집니다.</p>
       <div className="breed-risk-actions"><button className="game-secondary" disabled={busy} onClick={()=>setConfirmation(null)}>취소</button><button className="game-primary" disabled={busy} onClick={()=>void mate(confirmation)}>위험을 확인하고 교배하기</button></div>
     </Dialog>}
+    {searchSex&&<ParentSearch game={game} busy={busy} sex={searchSex} currentId={searchSex==='male'?fatherId:motherId} opponentId={searchSex==='male'?motherId:fatherId} onClose={()=>setSearchSex(null)} onSelect={id=>{setConfirmation(null);(searchSex==='male'?onFather:onMother)(id);setSearchSex(null);}}/>}
   </section></Dialog>;
 }

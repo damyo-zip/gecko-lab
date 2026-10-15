@@ -9,6 +9,7 @@ import "./reference-breeding.css";
 import "./reference-chrome.css";
 import "./collection-browser.css";
 import "./collection-status.css";
+import "./parent-search.css";
 
 export const metadata: Metadata = {
   title: "GECKO LAB — 브리딩 연구소",

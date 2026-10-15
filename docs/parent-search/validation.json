@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-15",
+  "base": "5c269ddb7abcf20be3d67e8cfb8bec954fe55a29",
+  "typecheck": "passed",
+  "build": "passed",
+  "artHashes": "unchanged; --check passed",
+  "unit": {
+    "files": 22,
+    "passed": 257,
+    "failed": 0
+  },
+  "e2e": {
+    "fullPassed": 154,
+    "fullFailed": 0,
+    "finalRelatedPassed": 14,
+    "finalRelatedFailed": 0,
+    "note": "Full suite followed by final 14 parent-search and breeding-risk cases after the last complex-morph filter/cache change."
+  },
+  "mobileViewports": [
+    [
+      360,
+      800
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "browser": "Chromium touch emulation; desktop Chromium also tested",
+  "saveVersion": 9,
+  "rulesVersion": 4,
+  "saveSchemaChanges": false,
+  "limitations": [
+    "No physical iOS/Safari test",
+    "Recorded ancestry only; missing/cyclic pedigree is uncertain",
+    "Public possible het currently Axanthic only",
+    "Recent acquisition order uses existing record insertion order"
+  ]
+}

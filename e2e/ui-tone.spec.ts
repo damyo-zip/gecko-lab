@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
@@ -56,7 +57,7 @@ test("four portrait screens retain readable controls, immutable records and the 
  await click(page.getByRole("button",{name:"모카 상세보기",exact:true}),mobile);await expect(page.getByRole("heading",{name:"모카 상세",exact:true})).toBeVisible();await frame("details");
  await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}).scrollIntoViewIfNeeded();await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
  await expect(page.getByRole("button",{name:"파이어 업 미리 보기",exact:true})).toBeVisible();await page.keyboard.press("Escape");await expect(page.getByRole("dialog")).toHaveCount(0);
- await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(FIXTURE.fatherId);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(FIXTURE.motherId);
+ await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',FIXTURE.fatherId);await chooseBreedingParent(page,'female',FIXTURE.motherId);
  await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("50%");await closeGenetics(page,mobile);await expect(page.getByRole("button",{name:"교배하기",exact:true})).toBeEnabled();await frame("breeding");
  expect(await saved(page)).toEqual(original);
  await closeBreeding(page,mobile);await restore(page,FIXTURE.incubator,mobile);const incubator=await saved(page);await tab(page,"부화",mobile);await expect(page.locator(".egg-card")).toHaveCount(2);await frame("incubator");
