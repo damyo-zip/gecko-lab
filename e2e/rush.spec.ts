@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {newGame,act} from '../src/game/hardcore/play';
-import {rushPlan,RUSH_V1,type RushGrade} from '../src/game/rush';
+import {rushPlan,RUSH_V1,startRush,type RushGrade} from '../src/game/rush';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';
@@ -15,7 +15,7 @@ async function restore(page:Page,g:HardcoreGame,mobile:boolean){
 async function boot(page:Page,mobile:boolean){await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();const g=newGame('rush-browser-review',DATE,{initialMoney:20000});await restore(page,g,mobile);return g;}
 async function open(page:Page,mobile:boolean){await touch(page.getByRole('button',{name:'크레 러시 아르바이트',exact:true}),mobile);await expect(dialog(page)).toBeVisible();}
 async function close(page:Page,mobile:boolean){await touch(dialog(page).getByRole('button',{name:'닫기',exact:true}),mobile);await expect(dialog(page)).toHaveCount(0);}
-async function start(page:Page,mobile:boolean){await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'알바 시작',exact:true})).toBeEnabled();await touch(dialog(page).getByRole('button',{name:'알바 시작',exact:true}),mobile);await expect(page.getByTestId('rush-stage')).toBeVisible();await expect(page.getByRole('button',{name:'알바 계속하기',exact:true})).toHaveCount(0);}
+async function start(page:Page,mobile:boolean){const g=await saved(page);if(!g.cafeRush){startRush(g,2);await restore(page,g,mobile);}await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'알바 계속하기',exact:true})).toBeEnabled();await touch(dialog(page).getByRole('button',{name:'알바 계속하기',exact:true}),mobile);await expect(page.getByTestId('rush-stage')).toBeVisible();await expect(page.getByRole('button',{name:'알바 계속하기',exact:true})).toHaveCount(0);}
 async function hit(page:Page,id:number,p:number,mobile:boolean){
   const target=page.getByTestId('rush-target-'+id);await expect(target).toBeVisible({timeout:26_000});
   await expect.poll(async()=>Number(await target.getAttribute('data-progress')),{intervals:[10],timeout:5000}).toBeGreaterThanOrEqual(p);
@@ -23,7 +23,7 @@ async function hit(page:Page,id:number,p:number,mobile:boolean){
   await expect(target).toHaveCount(0);
 }
 function completed(grades:RushGrade[]=Array(10).fill('perfect'),version:1|2=2){
-  let g=newGame('rush-browser-review',DATE,{initialMoney:20000});g=act(g,{type:'startRush'},DATE);g.cafeRush!.version=version;
+  let g=newGame('rush-browser-review',DATE,{initialMoney:20000});startRush(g,version);
   const taps=rushPlan(g.seed,0,version).map((t,id)=>({id,atMs:Math.round(t.spawnMs+t.flightMs*(grades[id]==='perfect'?.81:grades[id]==='good'?.56:.1))})).sort((a,b)=>a.atMs-b.atMs);
   for(const tap of taps)g=act(g,{type:'stepRush',elapsedMs:tap.atMs,taps:[tap]},DATE);return act(g,{type:'stepRush',elapsedMs:25000},DATE);
 }
@@ -93,7 +93,7 @@ test('a corrupt durable receipt is reported and cannot silently reset an already
   await page.reload();await expect(page.getByRole('heading',{name:'저장 데이터를 불러오지 못했습니다',exact:true})).toBeVisible();await expect(page.locator('main').getByRole('alert')).toContainText('크레 러시 수령 기록이 손상');expect(await saved(page)).toEqual(before);
 });
 
-test('an existing v1 shift resumes with its original targets, pays once and uses v2 only on the next turn',async({page},info)=>{
+test('an existing v1 shift resumes with its original targets, pays once and uses v3 only on the next turn',async({page},info)=>{
   const mobile=info.project.name.startsWith('mobile');await boot(page,mobile);
   let legacy=newGame('rush-browser-review',DATE,{initialMoney:20000});legacy.cafeRush={version:1,shift:{turn:0,elapsedMs:0,results:Array(10).fill(null),paid:false}};
   legacy=act(legacy,{type:'stepRush',elapsedMs:2000},DATE);await restore(page,legacy,mobile);await open(page,mobile);
@@ -102,12 +102,12 @@ test('an existing v1 shift resumes with its original targets, pays once and uses
   expect((await saved(page)).cafeRush!.shift.results[0]!.grade).toBe('perfect');await close(page,mobile);
   await restore(page,completed(Array(10).fill('perfect'),1),mobile);await open(page,mobile);await expect(page.getByTestId('rush-perfect')).toHaveText('10마리');
   await touch(dialog(page).getByRole('button',{name:'급여 받기',exact:true}),mobile);await expect(dialog(page)).toContainText('급여 수령 완료');expect((await saved(page)).money).toBe(23000);
-  await close(page,mobile);await finishTurn(page,mobile);await start(page,mobile);expect((await saved(page)).cafeRush!.version).toBe(2);await close(page,mobile);
+  await close(page,mobile);await finishTurn(page,mobile);await open(page,mobile);await touch(dialog(page).getByRole('button',{name:'알바 시작',exact:true}),mobile);await expect(page.getByTestId('rush-stage')).toBeVisible();expect((await saved(page)).cafeRush!.version).toBe(3);await close(page,mobile);
 });
 test('contact is immediate, repeated pointers resolve once, animated poses preserve the eyes, and haptics require opt-in',async({page},info)=>{
   const mobile=info.project.name.startsWith('mobile');await page.addInitScript(()=>{(window as any).__vibrations=[];Object.defineProperty(navigator,'vibrate',{configurable:true,value:(n:number)=>{(window as any).__vibrations.push(n);return true;}});});
-  await boot(page,mobile);await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true})).toHaveAttribute('aria-pressed','false');
-  await touch(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true}),mobile);await touch(dialog(page).getByRole('button',{name:'알바 시작',exact:true}),mobile);
+  const legacy=await boot(page,mobile);startRush(legacy,2);await restore(page,legacy,mobile);await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true})).toHaveAttribute('aria-pressed','false');
+  await touch(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true}),mobile);await touch(dialog(page).getByRole('button',{name:'알바 계속하기',exact:true}),mobile);
   const target=page.getByTestId('rush-target-0');await expect(target).toBeVisible();
   const pixels=()=>target.locator('canvas').evaluate(el=>Array.from((el as HTMLCanvasElement).getContext('2d')!.getImageData(0,0,96,96).data));
   const far=await pixels();await expect.poll(async()=>Number(await target.getAttribute('data-progress')),{intervals:[10]}).toBeGreaterThan(.76);

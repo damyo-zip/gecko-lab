@@ -1,4 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';
+import {startRush} from '../src/game/rush';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {rushPerformanceGame} from './fixtures/rush-performance';
@@ -19,12 +20,12 @@ async function put(p:Page,value:Awaited<ReturnType<typeof record>>){await p.eval
 },value);}
 async function boot(p:Page,count:number,mobile:boolean){
   await p.clock.setFixedTime(new Date('2026-10-15T03:00:00Z'));await p.goto('/');
-  const game=rushPerformanceGame(count);await touch(p.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);
+  const game=rushPerformanceGame(count);startRush(game,2);await touch(p.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);
   await p.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'load.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(game))});
   await touch(p.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(p.getByRole('dialog')).toHaveCount(0);return game;
 }
 async function open(p:Page,mobile:boolean){await touch(p.getByRole('button',{name:'크레 러시 아르바이트',exact:true}),mobile);await expect(dialog(p)).toBeVisible();}
-async function start(p:Page,mobile:boolean){await open(p,mobile);await touch(dialog(p).getByRole('button',{name:'알바 시작',exact:true}),mobile);await expect(p.getByTestId('rush-stage')).toBeVisible();}
+async function start(p:Page,mobile:boolean){await open(p,mobile);await touch(dialog(p).getByRole('button',{name:'알바 계속하기',exact:true}),mobile);await expect(p.getByTestId('rush-stage')).toBeVisible();}
 async function hit(p:Page,id:number,mobile:boolean){
   const target=p.getByTestId('rush-target-'+id);await target.waitFor();
   await expect.poll(async()=>Number(await target.getAttribute('data-progress')),{intervals:[10]}).toBeGreaterThanOrEqual(.78);
@@ -34,7 +35,7 @@ async function hit(p:Page,id:number,mobile:boolean){
   // The final persisted results below verify every individual acknowledgment.
 }
 
-test('300 actual genomes: worker checkpoints never clone/paint the background; close and offline resume preserve records',async({page,context},info)=>{
+test('legacy v2: 300 actual genomes: worker checkpoints never clone/paint the background; close and offline resume preserve records',async({page,context},info)=>{
   await page.addInitScript(()=>{(window as any).__rushInputs=[];document.addEventListener('pointerdown',e=>{
     const target=(e.target as Element).closest('.rush-target');if(target)(window as any).__rushInputs.push({id:Number(target.getAttribute('data-testid')!.split('-').at(-1)),atMs:Number(document.querySelector('[data-testid=rush-stage]')?.getAttribute('data-elapsed'))});
   },true);});

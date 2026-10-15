@@ -5,8 +5,8 @@ import {polyScores} from '../../src/genetics/advanced/polygenic';
 import {exportBackup} from '../../src/game/hardcore/save';
 
 /** Controlled, schema-validated load fixture. Never installed in a player's new game. */
-export function rushPerformanceGame(count:number){
-  const game=newGame('rush-performance','2026-10-15');
+export function rushPerformanceGame(count:number,seed='rush-performance'){
+  const game=newGame(seed,'2026-10-15');
   const template=Object.values(game.shop.offers)[0].family!.father;
   game.capacity=Math.max(4,count);game.food=count*10;
   for(let i=0;i<count;i++){

@@ -3,17 +3,17 @@ import {RushCheckpoint,type RushRequest,type RushResponse} from '../src/storage/
 import {RushClient} from '../src/storage/rush-client';
 import {act} from '../src/game/hardcore/play';
 import {actWithTime,synchronizeTime} from '../src/game/hardcore/time-source';
-import {rushPlan} from '../src/game/rush';
+import {rushPlan,startRush,rushDuration,rushSummary,type RushVersion} from '../src/game/rush';
 import {rushPerformanceGame} from '../e2e/fixtures/rush-performance';
 import type {LoadedHardcore,persistHardcore} from '../src/storage/hardcore';
 import {makeSave,readSave} from '../src/game/hardcore/save';
 import {SaveConflict} from '../src/storage/indexed-db';
 
 const DATE='2026-10-15';
-const started=()=>({game:act(rushPerformanceGame(6),{type:'startRush'},DATE),writeRevision:7});
+const started=(version:RushVersion=2)=>{const game=rushPerformanceGame(6);startRush(game,version);return {game,writeRevision:7};};
 describe('isolated checkpoints use the original game and persistence rules',()=>{
-  it.each([1,2] as const)('v%s: matches the full action path, keeps every non-Rush field, roundtrips and pays once',async version=>{
-    const source=started();source.game.cafeRush!.version=version;
+  it.each([1,2,3] as const)('v%s: matches the full action path, keeps every non-Rush field, roundtrips and pays once',async version=>{
+    const source=started(version);
     let durable=structuredClone(source),expected=source.game;
     const persist:typeof persistHardcore=async(game,revision)=>{
       expect(revision).toBe(durable.writeRevision);
@@ -28,10 +28,10 @@ describe('isolated checkpoints use the original game and persistence rules',()=>
       const result=await worker.step(action,DATE);
       expect({...source.game,...result.patch}).toEqual(expected);
     }
-    const final=await worker.step({type:'stepRush',elapsedMs:25000},DATE);
+    const final=await worker.step({type:'stepRush',elapsedMs:rushDuration(source.game.cafeRush!.shift)},DATE);
     const complete={...source.game,...final.patch};expect(complete.individuals).toBe(source.game.individuals);
     expect(complete.money).toBe(source.game.money);expect(complete.turn).toBe(source.game.turn);
-    const paid=act(complete,{type:'claimRush'},DATE);expect(paid.money).toBe(source.game.money+3000);
+    const paid=act(complete,{type:'claimRush'},DATE);expect(paid.money).toBe(source.game.money+rushSummary(complete.cafeRush!.shift).reward);
     expect(()=>act(paid,{type:'claimRush'},DATE)).toThrow();
     expect(readSave(makeSave(complete),DATE)).toEqual(complete);
   });

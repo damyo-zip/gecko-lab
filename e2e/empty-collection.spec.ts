@@ -4,7 +4,7 @@ import {newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
 import {exportBackup} from '../src/game/hardcore/save';
 import {owned} from '../src/game/hardcore/survival';
-import {rushPlan} from '../src/game/rush';
+import {rushPlan,startRush} from '../src/game/rush';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';
 
@@ -26,7 +26,7 @@ async function boot(page:Page,mobile:boolean,seed:string,money=500000){
 }
 async function closeRush(page:Page,mobile:boolean){await touch(rush(page).getByRole('button',{name:'닫기',exact:true}),mobile);await expect(rush(page)).toHaveCount(0);}
 function pendingWage(){
-  let g=act(newGame('empty-guide-wage',DATE,{initialMoney:0}),{type:'startRush'},DATE);
+  let g=newGame('empty-guide-wage',DATE,{initialMoney:0});startRush(g,2);
   const taps=rushPlan(g.seed,g.turn,g.cafeRush!.version).map(t=>({id:t.id,atMs:Math.round(t.spawnMs+t.flightMs*.81)})).sort((a,b)=>a.atMs-b.atMs);
   for(const t of taps)g=act(g,{type:'stepRush',elapsedMs:t.atMs,taps:[t]},DATE);
   return act(g,{type:'stepRush',elapsedMs:25000},DATE);

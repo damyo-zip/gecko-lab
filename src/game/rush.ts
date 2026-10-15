@@ -1,6 +1,8 @@
 import {seededRandom} from '@/genetics/random';
+import {canonicalJSON} from '@/game/save';
+import {createRushAssignment,RUSH_SHIFT_V3,type RushAssignment} from './rush-shifts';
 
-/** Versioned game rules, not breeding/genetic traits. Keep v1 replayable when adding v2. */
+/** Versioned minigame rules. Keep v1/v2 plans and salaries replayable alongside v3. */
 export const RUSH_V1=Object.freeze({durationMs:25_000,checkpointMs:800,escapeMs:420,
   good:[.50,.98] as const,perfect:[.74,.88] as const,pay:{perfect:300,good:200,miss:0},
   waves:[
@@ -14,9 +16,9 @@ export const RUSH_V1=Object.freeze({durationMs:25_000,checkpointMs:800,escapeMs:
 });
 export type RushGrade='perfect'|'good'|'miss';
 export interface RushResult {grade:RushGrade;atMs:number;source:'tap'|'escape'}
-export interface RushShift {turn:number;elapsedMs:number;results:(RushResult|null)[];paid:boolean}
-export type RushVersion=1|2;
-export const RUSH_CURRENT_VERSION:RushVersion=2;
+export interface RushShift {turn:number;elapsedMs:number;results:(RushResult|null)[];paid:boolean;assignment?:RushAssignment}
+export type RushVersion=1|2|3;
+export const RUSH_CURRENT_VERSION:RushVersion=3;
 export interface RushState {version:RushVersion;shift:RushShift}
 export interface RushTarget {id:number;wave:number;spawnMs:number;flightMs:number;x:number;y:number;variant:number;version?:RushVersion;lean?:number}
 export interface RushTap {id:number;atMs:number}
@@ -37,7 +39,8 @@ function legacyPlan(seed:string,turn:number):RushTarget[]{
 /** V2 keeps the economic/timing contract; changes choreography and projection only.
  * V1 plans remain byte-for-byte reproducible for in-progress saves and receipts. */
 export const RUSH_V2=Object.freeze({...RUSH_V1,projectionPower:1.65,bankDegrees:5,driftPx:12});
-export function rushPlan(seed:string,turn:number,version:RushVersion=RUSH_CURRENT_VERSION):RushTarget[]{
+export function rushPlan(seed:string,turn:number,version:RushVersion=RUSH_CURRENT_VERSION,assignment?:RushAssignment):RushTarget[]{
+  if(version===3)return (assignment??createRushAssignment(seed,turn)).waves.flatMap(w=>w.targets);
   if(version===1)return legacyPlan(seed,turn);
   const rng=seededRandom(seed,'cre-rush-v2:'+turn),targets:RushTarget[]=[];
   RUSH_V2.waves.forEach((wave,w)=>{
@@ -55,25 +58,32 @@ export function rushPlan(seed:string,turn:number,version:RushVersion=RUSH_CURREN
 export const rushProgress=(target:RushTarget,ms:number)=>(ms-target.spawnMs)/target.flightMs;
 export const rushDeadline=(target:RushTarget)=>Math.ceil(target.spawnMs+target.flightMs*RUSH_V1.good[1]);
 export function rushGrade(target:RushTarget,atMs:number):RushGrade{
-  if(target.version!==2){const p=rushProgress(target,atMs);return p>=RUSH_V1.perfect[0]&&p<=RUSH_V1.perfect[1]?'perfect':p>=RUSH_V1.good[0]&&p<RUSH_V1.good[1]?'good':'miss';}
+  if(target.version!==2&&target.version!==3){const p=rushProgress(target,atMs);return p>=RUSH_V1.perfect[0]&&p<=RUSH_V1.perfect[1]?'perfect':p>=RUSH_V1.good[0]&&p<RUSH_V1.good[1]?'good':'miss';}
   return atMs>=target.spawnMs+target.flightMs*RUSH_V1.perfect[0]&&atMs<=target.spawnMs+target.flightMs*RUSH_V1.perfect[1]?'perfect':atMs>=target.spawnMs+target.flightMs*RUSH_V1.good[0]&&atMs<target.spawnMs+target.flightMs*RUSH_V1.good[1]?'good':'miss';
 }
 export function rushSummary(shift:RushShift){
   const counts={perfect:0,good:0,miss:0};for(const r of shift.results)if(r)counts[r.grade]++;
+  const base=shift.assignment?RUSH_SHIFT_V3.basePay:0,pay=shift.assignment?RUSH_SHIFT_V3.pay:{...RUSH_V1.pay,miss:0};
+  const perfectPay=counts.perfect*pay.perfect,goodPay=counts.good*pay.good,missPay=counts.miss*pay.miss;
   return {...counts,caught:counts.perfect+counts.good,resolved:counts.perfect+counts.good+counts.miss,
-    reward:counts.perfect*RUSH_V1.pay.perfect+counts.good*RUSH_V1.pay.good};
+    base,perfectPay,goodPay,missPay,reward:Math.max(0,base+perfectPay+goodPay+missPay)};
 }
-export const rushComplete=(s:RushShift)=>s.elapsedMs===RUSH_V1.durationMs&&s.results.every(Boolean);
+/** Internal clock bounds are never presented as time remaining/progress in the UI. */
+export const rushDuration=(s:RushShift)=>s.assignment?.endMs??RUSH_V1.durationMs;
+export const rushFinishAt=(s:RushShift)=>s.assignment&&s.results.every(Boolean)
+  ?Math.max(...s.results.map(r=>r!.atMs))+RUSH_SHIFT_V3.departureMs:rushDuration(s);
+export const rushComplete=(s:RushShift)=>s.elapsedMs===rushFinishAt(s)&&s.results.every(Boolean);
 export function startRush(game:RushGame,version:RushVersion=RUSH_CURRENT_VERSION){
   const prior=game.cafeRush?.shift;
   if(prior&&(!prior.paid||prior.turn>=game.turn))throw new Error(prior.paid?'이번 턴 아르바이트를 이미 완료했습니다.':'진행 중이거나 미수령인 아르바이트를 먼저 마쳐주세요.');
-  game.cafeRush={version,shift:{turn:game.turn,elapsedMs:0,results:Array(10).fill(null),paid:false}};
+  const assignment=version===3?createRushAssignment(game.seed,game.turn):undefined;
+  game.cafeRush={version,shift:{turn:game.turn,elapsedMs:0,results:Array(assignment?.total??10).fill(null),paid:false,...(assignment?{assignment}:{})}};
 }
 /** Advance the active-play clock and judge direct target taps in timestamp order. */
 export function stepRush(game:RushGame,elapsedMs:number,taps:readonly RushTap[]=[]){
   const s=game.cafeRush?.shift;if(!s||s.paid||rushComplete(s))throw new Error('진행 중인 아르바이트가 없습니다.');
-  if(!Number.isSafeInteger(elapsedMs)||elapsedMs<s.elapsedMs||elapsedMs>RUSH_V1.durationMs||taps.length>10)throw new Error('아르바이트 시간 기록이 올바르지 않습니다.');
-  const plan=rushPlan(game.seed,s.turn,game.cafeRush!.version),before=s.elapsedMs;
+  if(!Number.isSafeInteger(elapsedMs)||elapsedMs<s.elapsedMs||elapsedMs>rushDuration(s)||taps.length>s.results.length)throw new Error('아르바이트 시간 기록이 올바르지 않습니다.');
+  const plan=rushPlan(game.seed,s.turn,game.cafeRush!.version,s.assignment),before=s.elapsedMs;
   const escape=(at:number)=>{for(const target of plan)if(!s.results[target.id]&&at>=rushDeadline(target))s.results[target.id]={grade:'miss',atMs:rushDeadline(target),source:'escape'};};
   let last=before;
   for(const tap of taps){
@@ -82,7 +92,7 @@ export function stepRush(game:RushGame,elapsedMs:number,taps:readonly RushTap[]=
     last=tap.atMs;escape(tap.atMs);
     if(!s.results[tap.id])s.results[tap.id]={grade:rushGrade(target,tap.atMs),atMs:tap.atMs,source:'tap'};
   }
-  escape(elapsedMs);s.elapsedMs=elapsedMs;
+  escape(elapsedMs);s.elapsedMs=Math.min(elapsedMs,rushFinishAt(s));
 }
 export function claimRush(game:RushGame){
   const s=game.cafeRush?.shift;if(!s||!rushComplete(s))throw new Error('모든 웨이브를 먼저 마쳐주세요.');
@@ -96,8 +106,14 @@ export function validateRush(value:unknown,seed:string):asserts value is RushSta
   const fail=()=>{throw new Error('크레 러시 저장 기록이 손상되었습니다.');};
   const keys=(v:unknown,k:string)=>!!v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).sort().join()===k.split(' ').sort().join();
   if(!keys(value,'version shift'))fail();const state=value as RushState,s=state.shift;
-  if(![1,2].includes(state.version)||!keys(s,'turn elapsedMs results paid')||!Number.isSafeInteger(s.turn)||s.turn<0||s.turn>1e6||!Number.isSafeInteger(s.elapsedMs)||s.elapsedMs<0||s.elapsedMs>RUSH_V1.durationMs||typeof s.paid!=='boolean'||!Array.isArray(s.results)||s.results.length!==10)fail();
-  const plan=rushPlan(seed,s.turn,state.version);
+  if(![1,2,3].includes(state.version)||!keys(s,'turn elapsedMs results paid'+(state.version===3?' assignment':''))||!Number.isSafeInteger(s.turn)||s.turn<0||s.turn>1e6||!Number.isSafeInteger(s.elapsedMs)||s.elapsedMs<0||typeof s.paid!=='boolean'||!Array.isArray(s.results))fail();
+  if(state.version===3){
+    // Validate the whole frozen assignment, including positions, timing and IDs.
+    // A backup cannot change the workload/difficulty while retaining its version.
+    if(!keys(s.assignment,'version difficulty workload total waves endMs')||canonicalJSON(s.assignment)!==canonicalJSON(createRushAssignment(seed,s.turn)))fail();
+  }
+  if(s.results.length!==(s.assignment?.total??10)||s.elapsedMs>rushDuration(s)||s.elapsedMs>rushFinishAt(s))fail();
+  const plan=rushPlan(seed,s.turn,state.version,s.assignment);
   for(let id=0;id<s.results.length;id++){const r=s.results[id];
     const t=plan[id];if(r===null){if(s.elapsedMs>=rushDeadline(t))fail();continue;}
     if(!keys(r,'grade atMs source')||!['perfect','good','miss'].includes(r.grade)||!['tap','escape'].includes(r.source)||!Number.isSafeInteger(r.atMs)||r.atMs<t.spawnMs||r.atMs>s.elapsedMs)fail();
@@ -120,18 +136,19 @@ export function reconcileRush(game:RushGame,durable:RushState|undefined):RushSta
   const state=structuredClone(incoming),s=state.shift;s.elapsedMs=Math.max(a.elapsedMs,b.elapsedMs);s.paid=a.paid||b.paid;
   s.results=b.results.map((known,id)=>known??(a.results[id]&&a.results[id]!.atMs>=b.elapsedMs?a.results[id]:null));
   // Fill deadlines crossed by a newer imported checkpoint; never reroll committed hits/misses.
-  for(const t of rushPlan(game.seed,s.turn,state.version))if(!s.results[t.id]&&s.elapsedMs>=rushDeadline(t))s.results[t.id]={grade:'miss',atMs:rushDeadline(t),source:'escape'};
+  for(const t of rushPlan(game.seed,s.turn,state.version,s.assignment))if(!s.results[t.id]&&s.elapsedMs>=rushDeadline(t))s.results[t.id]={grade:'miss',atMs:rushDeadline(t),source:'escape'};
+  s.elapsedMs=Math.min(s.elapsedMs,rushFinishAt(s));
   validateRush(state,game.seed);return state;
 }
 export function assertRushForward(next:RushState|undefined,prior:RushState|undefined){
   if(!prior)return;
   const a=next?.shift,b=prior.shift;
-  if(!a||a.turn<b.turn||a.turn>b.turn&&!b.paid||a.turn===b.turn&&(next!.version!==prior.version||a.elapsedMs<b.elapsedMs||b.paid&&!a.paid||b.results.some((r,i)=>r&&!same(r,a.results[i]))))throw new Error('다른 창의 아르바이트 기록이 있습니다. 저장 상태를 새로고침하세요.');
+  if(!a||a.turn<b.turn||a.turn>b.turn&&!b.paid||a.turn===b.turn&&(next!.version!==prior.version||canonicalJSON(a.assignment??null)!==canonicalJSON(b.assignment??null)||a.elapsedMs<b.elapsedMs||b.paid&&!a.paid||b.results.some((r,i)=>r&&!same(r,a.results[i]))))throw new Error('다른 창의 아르바이트 기록이 있습니다. 저장 상태를 새로고침하세요.');
 }
 /** Shared display/hit geometry. No stretching; separate lanes stay inside the stage. */
 export function rushGeometry(t:RushTarget,ms:number,width:number,height:number){
   const p=Math.max(0,rushProgress(t,ms));
-  if(t.version===2){
+  if(t.version===2||t.version===3){
     const q=Math.min(1.16,p),max=Math.min(172,width*.39,height*.30),size=Math.round(20+(max-20)*Math.pow(q,RUSH_V2.projectionPower));
     // A small ballistic arc and bank settle before the capture window. Never move the canvas independently of its hitbox.
     const approach=Math.max(0,1-p),rotation=(t.lean??1)*RUSH_V2.bankDegrees*Math.sin(Math.PI*Math.min(1,p));

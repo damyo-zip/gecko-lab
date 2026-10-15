@@ -7,10 +7,16 @@ import {fileURLToPath} from 'node:url';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const label=process.env.PERF_LABEL??'local',url=process.env.PERF_URL??'http://127.0.0.1:3502';
 const counts=(process.env.PERF_COUNTS??'6,60,300').split(',').map(Number),rate=Number(process.env.PERF_CPU_RATE??4);
-const output=root+'docs/rush-performance/';await mkdir(output,{recursive:true});
+const variableTotal=process.env.PERF_TARGETS?Number(process.env.PERF_TARGETS):undefined;
+const output=root+(variableTotal?'docs/rush-secret-shifts/':'docs/rush-performance/');await mkdir(output,{recursive:true});
 const vite=await createServer({root,configFile:root+'vitest.config.ts',server:{middlewareMode:true}});
-const {rushPerformanceBackup}=await vite.ssrLoadModule('/e2e/fixtures/rush-performance.ts');
-const fixtures=new Map(counts.map(n=>[n,rushPerformanceBackup(n)]));await vite.close();
+const {rushPerformanceGame}=await vite.ssrLoadModule('/e2e/fixtures/rush-performance.ts');
+const {rushShiftGame}=variableTotal?await vite.ssrLoadModule('/e2e/fixtures/rush-shifts.ts'):{};
+const {exportBackup}=await vite.ssrLoadModule('/src/game/hardcore/save.ts');
+const {startRush}=await vite.ssrLoadModule('/src/game/rush.ts');
+// Default remains the historical v2 25s benchmark. PERF_TARGETS measures a
+// naturally drawn v3 shift with the same workload/difficulty for every herd size.
+const fixtures=new Map(counts.map(n=>{const g=variableTotal?rushShiftGame(variableTotal,'normal',n):rushPerformanceGame(n);if(!variableTotal)startRush(g,2);return[n,exportBackup(g)];}));await vite.close();
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH||undefined});
 const results=[];
 try{for(const count of counts){
@@ -51,12 +57,12 @@ try{for(const count of counts){
   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setCPUThrottlingRate',{rate});
   // Start profiling before the measured interval, excluding profiler setup stalls.
   await cdp.send('Profiler.enable');await cdp.send('Profiler.start');
-  await page.getByRole('button',{name:'알바 시작',exact:true}).tap();await page.getByTestId('rush-stage').waitFor({timeout:30000});
+  await page.getByRole('button',{name:variableTotal?'알바 시작':'알바 계속하기',exact:true}).tap();await page.getByTestId('rush-stage').waitFor({timeout:30000});
   await page.evaluate(()=>{
     new MutationObserver(list=>window.__rushPerf.mutations+=list.length).observe(document.querySelector('.home-collection'),{subtree:true,childList:true,attributes:true,characterData:true});
     window.__rushPerfStart();
   });
-  await page.getByTestId('rush-pay').waitFor({timeout:65000});await page.evaluate(()=>window.__rushPerfStop());
+  await page.getByTestId('rush-pay').waitFor({timeout:90000});await page.evaluate(()=>window.__rushPerfStop());
   const {profile}=await cdp.send('Profiler.stop');
   const data=await page.evaluate(()=>window.__rushPerf),workers=await Promise.all(page.workers().map(w=>w.evaluate(()=>self.__rushWorkerPerf)));
   const saved=await page.evaluate(async()=>{
@@ -68,6 +74,6 @@ try{for(const count of counts){
   results.push(row);console.log(JSON.stringify(row));
   // Full sampling profiles remain temporary; the checked-in report contains measured counters.
   await writeFile('/tmp/rush-'+label+'-'+count+'.cpuprofile',JSON.stringify(profile));
-  await writeFile(output+label+'.json',JSON.stringify({label,browser:browser.version(),viewport:{width:390,height:844},cpuThrottle:rate,method:'Production build; no video; full 25s round without input; browser rAF, Long Tasks, React hook, canvas, clone and IDB probes. CPU profile includes pre-start work; counters start after stage appears.',results},null,2)+'\n');
+  await writeFile(output+label+'.json',JSON.stringify({label,browser:browser.version(),viewport:{width:390,height:844},cpuThrottle:rate,method:`Production build; no video; full ${variableTotal?variableTotal+'-target normal v3 shift':'25s legacy v2 round'} without input; browser rAF, Long Tasks, React hook, canvas, clone and IDB probes. CPU profile includes pre-start work; counters start after stage appears.`,results},null,2)+'\n');
   await context.close();
 }}finally{await browser.close();}
