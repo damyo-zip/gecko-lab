@@ -111,14 +111,26 @@ test('contact is immediate, repeated pointers resolve once, animated poses prese
   const legacy=await boot(page,mobile);startRush(legacy,2);await restore(page,legacy,mobile);await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true})).toHaveAttribute('aria-pressed','false');
   await touch(dialog(page).getByRole('button',{name:'진동 꺼짐',exact:true}),mobile);await touch(dialog(page).getByRole('button',{name:'알바 계속하기',exact:true}),mobile);
   const target=page.getByTestId('rush-target-0');await expect(target).toBeVisible();
-  const pixels=()=>target.locator('canvas').evaluate(el=>Array.from((el as HTMLCanvasElement).getContext('2d')!.getImageData(0,0,96,96).data));
-  const far=await pixels();await expect.poll(async()=>Number(await target.getAttribute('data-progress')),{intervals:[10]}).toBeGreaterThan(.76);
-  const near=await pixels();let changed=0;
-  const face:number[]=[];for(let y=26;y<65;y++)for(let x=26;x<73;x++)for(let c=0;c<4;c++)face.push((y*96+x)*4+c);expect(face.every(i=>near[i]===far[i])).toBe(true);
-  for(let i=70*96*4;i<near.length;i++)if(near[i]!==far[i])changed++;expect(changed).toBeGreaterThan(50);
-  // Two pointer events in the same JS turn exercise the synchronous per-target guard.
-  await target.evaluate(el=>{(window as any).__contactSeen=false;new MutationObserver(()=>{if(el.classList.contains('pending'))(window as any).__contactSeen=true;}).observe(el,{attributes:true,attributeFilter:['class']});});
-  const contact=await target.evaluate(el=>{el.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerType:'touch'}));el.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerType:'touch'}));return true;});expect(contact).toBe(true);
+  // Capture and tap in the same browser frame. Sending two full RGBA arrays
+  // across the CI driver before tapping can consume the real PERFECT window.
+  const contact=await target.evaluate(async(el,perfect)=>{
+    const pixels=()=>el.querySelector('canvas')!.getContext('2d')!.getImageData(0,0,96,96).data,far=pixels();
+    return new Promise<{progress:number;faceUnchanged:boolean;changed:number}>((resolve,reject)=>{
+      const frame=()=>{
+        if(!el.isConnected){reject(new Error('Target escaped before contact probe'));return;}
+        const progress=Number(el.getAttribute('data-progress'));
+        if(progress<(perfect[0]+perfect[1])/2){requestAnimationFrame(frame);return;}
+        const near=pixels();let changed=0,faceUnchanged=true;
+        for(let y=26;y<65;y++)for(let x=26;x<73;x++)for(let c=0;c<4;c++){const i=(y*96+x)*4+c;if(near[i]!==far[i])faceUnchanged=false;}
+        for(let i=70*96*4;i<near.length;i++)if(near[i]!==far[i])changed++;
+        (window as any).__contactSeen=false;new MutationObserver(()=>{if(el.classList.contains('pending'))(window as any).__contactSeen=true;}).observe(el,{attributes:true,attributeFilter:['class']});
+        // Two pointer events in one JS turn exercise the synchronous guard.
+        el.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerType:'touch'}));el.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerType:'touch'}));
+        resolve({progress,faceUnchanged,changed});
+      };requestAnimationFrame(frame);
+    });
+  },RUSH_V1.perfect);
+  expect(contact.progress).toBeGreaterThanOrEqual(RUSH_V1.perfect[0]);expect(contact.progress).toBeLessThanOrEqual(RUSH_V1.perfect[1]);expect(contact.faceUnchanged).toBe(true);expect(contact.changed).toBeGreaterThan(50);
   await expect(target).toHaveCount(0);expect(await page.evaluate(()=>(window as any).__contactSeen)).toBe(true);await expect(page.getByTestId('rush-wage')).toHaveText('₩300');expect((await saved(page)).cafeRush!.shift.results.filter(Boolean)).toHaveLength(1);
   await expect.poll(()=>page.evaluate(()=>(window as any).__vibrations)).toEqual([12]);
   await close(page,mobile);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();await open(page,mobile);await expect(dialog(page).getByRole('button',{name:'진동 켜짐',exact:true})).toHaveAttribute('aria-pressed','true');
