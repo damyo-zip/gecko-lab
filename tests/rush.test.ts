@@ -23,8 +23,8 @@ test('multi-target perfect windows are separated for one-finger play and catch h
       const targets=p.filter(t=>t.wave===wave),ideal=targets.map(t=>t.spawnMs+t.flightMs*.81);
       for(let i=1;i<ideal.length;i++)expect(ideal[i]-ideal[i-1]).toBeGreaterThan(500);
     }
-    for(const [width,height] of [[306,380],[360,430],[480,520]])for(let at=11500;at<24500;at+=80){
-      const active=p.filter(t=>rushProgress(t,at)>=.5&&rushProgress(t,at)<.98).map(t=>rushGeometry(t,at,width,height));
+    for(const [width,height] of [[306,180],[306,380],[360,430],[480,520]])for(let at=11500;at<24500;at+=80){
+      const active=p.filter(t=>rushProgress(t,at)>=0&&rushProgress(t,at)<.98).map(t=>rushGeometry(t,at,width,height));
       for(const g of active){expect(g.x-g.hitSize/2).toBeGreaterThanOrEqual(0);expect(g.x+g.hitSize/2).toBeLessThanOrEqual(width);expect(g.y-g.hitSize/2).toBeGreaterThanOrEqual(0);expect(g.y+g.hitSize/2).toBeLessThanOrEqual(height);}
       for(let i=0;i<active.length;i++)for(let j=i+1;j<active.length;j++){
         const a=active[i],b=active[j];expect(Math.abs(a.x-b.x)>=(a.hitSize+b.hitSize)/2||Math.abs(a.y-b.y)>=(a.hitSize+b.hitSize)/2).toBe(true);
@@ -69,7 +69,7 @@ test('existing turn advance unlocks one new shift; an unfinished previous shift 
 });
 test('malformed version, counts, grade timestamps, invented reward and paid unfinished state fail save validation',()=>{
   const game=newGame('invalid-rush',DATE);startRush(game);const valid=structuredClone(game.cafeRush!);
-  for(const mutate of [(s:any)=>s.version=2,(s:any)=>s.shift.results.pop(),(s:any)=>s.shift.results=Array(10),(s:any)=>s.shift.paid=true,(s:any)=>s.shift.reward=3000,(s:any)=>s.shift.elapsedMs=30000,(s:any)=>s.shift.results[0]={grade:'perfect',atMs:100,source:'tap'}]){
+  for(const mutate of [(s:any)=>s.version=3,(s:any)=>s.shift.results.pop(),(s:any)=>s.shift.results=Array(10),(s:any)=>s.shift.paid=true,(s:any)=>s.shift.reward=3000,(s:any)=>s.shift.elapsedMs=30000,(s:any)=>s.shift.results[0]={grade:'perfect',atMs:100,source:'tap'}]){
     const bad=structuredClone(valid);mutate(bad);expect(()=>validateRush(bad,game.seed)).toThrow();game.cafeRush=bad;expect(()=>makeSave(game)).toThrow();
   }
   game.cafeRush=valid;validateGame(game);
@@ -92,4 +92,42 @@ test('cafe actions preserve an existing live breeding season, eggs, genes, housi
   let {game}=collectionStatusGame();const before=structuredClone(game);game=act(game,{type:'startRush'},game.lastDate);game=act(game,{type:'stepRush',elapsedMs:25000},game.lastDate);game=act(game,{type:'claimRush'},game.lastDate);
   const project=({revision,notices,cafeRush,...core}:typeof game)=>core;
   expect(project(game)).toEqual(project(before));expect(game.cafeRush!.shift.paid).toBe(true);expect(parseBackup(exportBackup(game),game.lastDate)).toEqual(game);
+});
+
+test('v1 pending and paid saves keep their original plan, projection and payout after v2 ships',async()=>{
+  const fixture=(await import('./fixtures/rush-v1-plan.json')).default,game=simple();startRush(game,1);
+  expect(rushPlan(game.seed,0,1)).toEqual(fixture);const t=rushPlan(game.seed,0,1)[0];
+  expect(rushGeometry(t,t.spawnMs+t.flightMs*.81,320,420).size).toBe(Math.round(20+(134.4-20)*.81**2.3));
+  const at=Math.round(t.spawnMs+t.flightMs*.81);stepRush(game,at,[{id:0,atMs:at}]);
+  const pending=structuredClone(game.cafeRush!);validateRush(pending,game.seed);
+  stepRush(game,25000);expect(claimRush(game)).toBe(300);validateRush(game.cafeRush,game.seed);
+  game.turn++;startRush(game);expect(game.cafeRush!.version).toBe(2);expect(game.cafeRush!.shift.results.every(r=>r===null)).toBe(true);
+});
+test('same-turn restore or forward action cannot switch rules to reroll a committed v1 outcome',()=>{
+  const old=simple();startRush(old,1);stepRush(old,4000);const next=simple();startRush(next,2);
+  expect(reconcileRush(next,old.cafeRush)).toEqual(old.cafeRush);expect(()=>assertRushForward(next.cafeRush,old.cafeRush)).toThrow();
+  stepRush(old,25000);claimRush(old);expect(reconcileRush(next,old.cafeRush)!.shift.paid).toBe(true);
+});
+test('v2 ballistic path and bank settle into capture; padded hitbox encloses the rotated square',()=>{
+  for(const t of rushPlan('moving',0,2))for(const p of [0,.2,.5,.74,.81,.88,.97]){
+    const g=rushGeometry(t,t.spawnMs+t.flightMs*p,306,300),rad=g.rotation*Math.PI/180;
+    expect(g.hitSize+.00001).toBeGreaterThanOrEqual(g.size*(Math.abs(Math.cos(rad))+Math.abs(Math.sin(rad))));
+    expect(g.x-g.hitSize/2).toBeGreaterThanOrEqual(0);expect(g.y-g.hitSize/2).toBeGreaterThanOrEqual(0);
+    expect(g.x+g.hitSize/2).toBeLessThanOrEqual(306);expect(g.y+g.hitSize/2).toBeLessThanOrEqual(300);
+  }
+  const t=rushPlan('moving',0,2)[0],g=(p:number)=>rushGeometry(t,t.spawnMs+t.flightMs*p,320,420);
+  expect(g(.2).x).not.toBe(g(.8).x);expect(Math.abs(g(.81).rotation)).toBeLessThan(3);expect(g(.81).pose).toBe(2);
+});
+test('every visible v2 PERFECT millisecond grades PERFECT and the exact boundaries are inclusive',()=>{
+  for(let i=0;i<50;i++)for(const t of rushPlan('boundaries-'+i,i,2)){
+    for(const p of [.5,.74,.88,.98])expect(rushGrade(t,t.spawnMs+t.flightMs*p)).toBe(p===.5?'good':p===.98?'miss':'perfect');
+    for(let at=Math.ceil(t.spawnMs+t.flightMs*.74);at<=Math.floor(t.spawnMs+t.flightMs*.88);at++)expect(rushGrade(t,at)).toBe('perfect');
+  }
+});
+test('feedback explains early/late misses and chains derive from committed chronological results only',async()=>{
+  const {rushFeedback,rushStreak}=await import('@/game/rush'),t=rushPlan('feedback',0)[0];
+  expect(rushFeedback(t,{grade:'miss',source:'tap',atMs:t.spawnMs+10})).toContain('멀어요');
+  expect(rushFeedback(t,{grade:'miss',source:'escape',atMs:rushDeadline(t)})).toContain('지나갔어요');
+  const g=simple();finish(g,['perfect','good','perfect','miss','perfect','perfect','good','good','good','perfect']);
+  expect(rushStreak(g.cafeRush!.shift)).toEqual({current:6,best:6,perfect:1});expect(rushSummary(g.cafeRush!.shift).reward).toBe(2300);
 });
