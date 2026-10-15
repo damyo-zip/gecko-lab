@@ -1,0 +1,39 @@
+{
+  "verifiedAt": "2026-10-14T18:43:20.726506+00:00",
+  "browser": "Chromium Headless Shell 156.0.8078.4",
+  "playwright": "1.64.0",
+  "checks": {
+    "typecheck": "passed",
+    "artHash": "passed",
+    "build": "passed",
+    "unit": {
+      "files": 20,
+      "passed": 240,
+      "failed": 0
+    },
+    "e2e": {
+      "passed": 148,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "newUnitTests": 8,
+  "newBrowserTests": 8,
+  "layoutComparison": {
+    "widths": [
+      360,
+      390,
+      430
+    ],
+    "columns": [
+      2,
+      3
+    ],
+    "allSixGeometriesEqual": true
+  },
+  "saveVersion": 9,
+  "persistedCountersAdded": false,
+  "gameGeneticsStorageArtChanged": false,
+  "physicalDeviceTested": false,
+  "safariTested": false
+}

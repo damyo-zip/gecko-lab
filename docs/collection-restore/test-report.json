@@ -1,0 +1,36 @@
+{
+  "verifiedAt": "2026-10-14T17:46:40.358862+00:00",
+  "baselineCommit": "90bb366ea623e24fcf31b1d90b53b4e49a876272",
+  "browser": "Chromium Headless Shell 156.0.8078.4",
+  "playwright": "1.64.0",
+  "checks": {
+    "typecheck": "passed",
+    "artHash": "passed",
+    "build": "passed",
+    "unit": {
+      "files": 19,
+      "passed": 232,
+      "failed": 0
+    },
+    "e2e": {
+      "passed": 140,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "comparison": {
+    "viewport": [
+      390,
+      844
+    ],
+    "collectionDifferentPixels": 0,
+    "collectionPngBytesEqual": true,
+    "allFourTabsGeometryEqual": true
+  },
+  "saveVersion": 9,
+  "gameCodeChanged": false,
+  "sharedChromeChanged": false,
+  "catalogAndQueriesChanged": false,
+  "physicalDeviceTested": false,
+  "safariTested": false
+}

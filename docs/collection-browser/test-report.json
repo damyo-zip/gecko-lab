@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-14",
+  "browser": "Chromium Headless Shell 156.0.8078.4",
+  "playwright": "1.64.0",
+  "checks": {
+    "typecheck": "passed",
+    "artHash": "passed",
+    "build": "passed",
+    "unit": {
+      "files": 19,
+      "passed": 232,
+      "failed": 0
+    },
+    "e2e": {
+      "passed": 140,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "portraitViewports": [
+    [
+      360,
+      800
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      390,
+      693
+    ],
+    [
+      360,
+      640
+    ]
+  ],
+  "saveVersion": 9,
+  "gameRulesChanged": false,
+  "newBrowserTests": 6,
+  "physicalDeviceTested": false,
+  "safariTested": false
+}

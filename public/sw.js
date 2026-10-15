@@ -1,5 +1,5 @@
 /* Same-origin offline shell only. No automatic care or protection. */
-const CACHE = "gecko-lab-phase3-shell-15";
+const CACHE = "gecko-lab-phase3-shell-18";
 const STATIC_ASSETS = ["/manifest.webmanifest", "/icon.svg", "/ui/gecko-lab-mark.svg", "/ui/terrarium.svg", "/ui/home-terrarium.png", "/ui/home-wordmark.svg", "/ui/shop-banner.png", "/ui/incubator/scene.png"];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {

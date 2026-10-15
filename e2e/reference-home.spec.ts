@@ -2,7 +2,7 @@ import {test,expect,type Page} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {createHash} from "node:crypto";
 import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
-import {touch} from "./helpers/hardcore-navigation";
+import {touch,openCollectionCatalog} from "./helpers/hardcore-navigation";
 import {exportBackup} from "../src/game/hardcore/save";
 import {legacyRecord} from "../src/game/hardcore/genetics";
 import type {HardcoreGame} from "../src/game/hardcore/model";
@@ -89,6 +89,7 @@ test("reference home binds six real specimens, preserves read-only state and adv
   expect(fraction).toBeGreaterThan(0);expect(thumbBox!.y+thumbBox!.height*fraction).toBeLessThanOrEqual((await first.locator(".home-card-select > strong").boundingBox())!.y);
   if(mobile)await page.screenshot({path:info.outputPath("home-two-columns.png"),fullPage:true,animations:"disabled",scale:"css"});
   await touch(page.getByRole("button",{name:"3열로 보기",exact:true}),mobile);
+  await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog").locator(".collection-list-row")).toHaveCount(6);await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"그레이 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.keyboard.press("Escape");
   expect(await saved(page)).toEqual(original);
   const turn=page.getByRole("button",{name:"턴 넘기기",exact:true});await expect(turn).toBeEnabled();
@@ -123,6 +124,7 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   await expect(page.getByRole("heading",{name:/^보유 개체/})).toContainText("0 / 4");
   await expect(page.getByTestId("game-money")).toHaveText("500,000");await expect(page.getByTestId("game-food")).toHaveText("0");await expect(page.locator(".home-card")).toHaveCount(0);
   await noOverflow(page);if(mobile)await page.screenshot({path:info.outputPath("home-empty-360.png"),scale:"css"});
+  await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog")).toContainText("보유 개체가 없습니다.");await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"먹이 구입하기",exact:true}),mobile);await expect(page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const fixture=referenceHomeGame(),first=Object.values(fixture.individuals)[0];first.stage="hatchling";first.birthTurn=0;first.birthDate=REFERENCE_DATE;first.nextBreedTurn=fixture.rules.adultAfter;
   const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics=legacyRecord(carrier);
@@ -140,6 +142,7 @@ test("long names, two-column view, pagination and empty filters do not damage re
   await touch(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"many.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(fixture))});await touch(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.locator(".home-card")).toHaveCount(12);await touch(page.getByRole("button",{name:"개체 더 보기",exact:true}),mobile);await expect(page.locator(".home-card")).toHaveCount(15);
   await noOverflow(page);await touch(page.getByRole("button",{name:"2열로 보기",exact:true}),mobile);await noOverflow(page);
+  await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog").locator(".collection-list-row")).toHaveCount(15);await page.keyboard.press("Escape");
   await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("normal");await expect(page.locator(".home-card")).toHaveCount(1);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("hatchling");await page.keyboard.press("Escape");await expect(page.locator(".home-card")).toHaveCount(0);
   await expect(page.locator(".home-empty")).toContainText("필터에 맞는");expect(await saved(page)).toEqual(fixture);await noOverflow(page);

@@ -1,0 +1,54 @@
+{
+  "baselineCommit": "90bb366ea623e24fcf31b1d90b53b4e49a876272",
+  "browser": "Chromium 156.0.8078.4",
+  "viewport": [
+    390,
+    844
+  ],
+  "results": [
+    {
+      "view": "collection",
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "pngBytesEqual": true,
+      "baselineSha256": "febb03a9f556d743f1397b131d6eebafaa13bb213452f26a0228f291bde35a4f",
+      "restoredSha256": "febb03a9f556d743f1397b131d6eebafaa13bb213452f26a0228f291bde35a4f"
+    },
+    {
+      "view": "incubator",
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 57,
+      "pngBytesEqual": false,
+      "baselineSha256": "c506bf1900b16bf1481f4edb0b6930c2f3546f70954441d2c484a7d24681fe3e",
+      "restoredSha256": "76284047b8243906f408cef62050ee087542866cfd6671ac91e62d9e6a1295f5"
+    },
+    {
+      "view": "lineage",
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 39,
+      "pngBytesEqual": false,
+      "baselineSha256": "8fb6bca8a6d6017b4cd02479bcc4ca8a3acc141add97b9915e914d4c1d8e03ba",
+      "restoredSha256": "0dbda3b84488c4a19c3a9e31bf2bc24ad006a55c96969747c31ef29afc0af4dd"
+    },
+    {
+      "view": "shop",
+      "size": [
+        390,
+        844
+      ],
+      "differentPixels": 0,
+      "pngBytesEqual": true,
+      "baselineSha256": "3944bcd0b2a29fcbf423fe8aafc760bc9ec1051f752f48b1b3352c3f842669d0",
+      "restoredSha256": "3944bcd0b2a29fcbf423fe8aafc760bc9ec1051f752f48b1b3352c3f842669d0"
+    }
+  ]
+}

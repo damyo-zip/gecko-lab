@@ -66,3 +66,10 @@ export async function closeBreeding(page:Page,mobile:boolean){
   const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
  }
 }
+
+/** Keep the home grid toggle intact; the retained catalog is in the care dialog. */
+export async function openCollectionCatalog(page:Page,mobile:boolean) {
+  await touch(page.getByRole('button',{name:'컨디션 관리',exact:true}),mobile);
+  await touch(page.getByRole('dialog',{name:'컨디션 관리',exact:true}).getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);
+  await expect(page.getByRole('dialog',{name:'전체 개체 목록',exact:true})).toBeVisible();
+}

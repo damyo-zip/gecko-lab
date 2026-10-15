@@ -1,0 +1,41 @@
+{
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "geometry": [
+    {
+      "className": "home-header",
+      "x": 3.5,
+      "y": 8,
+      "width": 383,
+      "height": 72,
+      "top": 8,
+      "right": 386.5,
+      "bottom": 80,
+      "left": 3.5
+    },
+    {
+      "className": "home-card-carousel",
+      "x": 13.5,
+      "y": 360.390625,
+      "width": 363,
+      "height": 295.6875,
+      "top": 360.390625,
+      "right": 376.5,
+      "bottom": 656.078125,
+      "left": 13.5
+    },
+    {
+      "className": "home-footer",
+      "x": 0,
+      "y": 695.078125,
+      "width": 390,
+      "height": 148.921875,
+      "top": 695.078125,
+      "right": 390,
+      "bottom": 844,
+      "left": 0
+    }
+  ]
+}
