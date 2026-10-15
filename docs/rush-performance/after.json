@@ -1,0 +1,81 @@
+{
+  "label": "after",
+  "method": "Chromium headless 390x844, CPU throttle 4x, production webpack build, 25s full round without input, no video, service worker blocked",
+  "results": [
+    {
+      "count": 6,
+      "rate": 4,
+      "frames": {
+        "count": 1489,
+        "median": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "p99": 16.80000000000109,
+        "max": 350,
+        "over33": 2,
+        "over50": 1
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "clones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "activeWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0
+    },
+    {
+      "count": 60,
+      "rate": 4,
+      "frames": {
+        "count": 1483,
+        "median": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "p99": 33.29999999999927,
+        "max": 349.9999999999998,
+        "over33": 4,
+        "over50": 1
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "clones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "activeWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0
+    },
+    {
+      "count": 300,
+      "rate": 4,
+      "frames": {
+        "count": 1511,
+        "median": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "p99": 16.80000000000291,
+        "max": 383.4000000000001,
+        "over33": 4,
+        "over50": 1
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "clones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "activeWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0
+    }
+  ]
+}

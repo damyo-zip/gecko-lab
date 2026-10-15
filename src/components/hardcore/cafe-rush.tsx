@@ -6,7 +6,7 @@ import {HomeIcon} from './home-icons';
 import {RushSprite,prepareRushArt} from './rush-sprite';
 
 interface Effect {id:number;grade:RushGrade;variant:number;x:number;y:number;size:number;rotation:number;feedback:string}
-export function CafeRush({game,busy,play,onClose}:Pick<ViewProps,'game'|'busy'|'play'> & {onClose:()=>void}){
+export function CafeRush({game,busy,play,onClose,saveError}:Pick<ViewProps,'game'|'busy'|'play'> & {onClose:()=>void;saveError?:string}){
   const s=game.cafeRush?.shift,version=game.cafeRush?.version??RUSH_CURRENT_VERSION;
   const sessionKey=s?game.gameId+':'+s.turn+':'+version:'',complete=!!s&&rushComplete(s),intro=!s||s.paid&&s.turn<game.turn;
   const plan=useMemo(()=>rushPlan(game.seed,s?.turn??game.turn,version),[game.seed,s?.turn,game.turn,version]);
@@ -146,7 +146,7 @@ export function CafeRush({game,busy,play,onClose}:Pick<ViewProps,'game'|'busy'|'
       <div className="rush-progress" aria-label="남은 알바 시간"><span style={{width:(1-clock/RUSH_V1.durationMs)*100+'%'}}/></div>
       <p className="rush-instruction">한 박자 기다렸다가 <b>밝은 링에 터치!</b><span>{Math.ceil((RUSH_V1.durationMs-clock)/1000)}초</span></p>
     </>}
-    {error&&<div className="rush-error" role="alert"><p>{error}</p><button className="game-secondary" disabled={busy} onClick={async()=>{if(await flush(true))setError('');}}>저장 재시도</button><button className="game-secondary" onClick={()=>location.reload()}>저장 상태 새로고침</button></div>}
+    {error&&<div className="rush-error" role="alert"><p>{error}</p>{saveError&&<p>{saveError}</p>}<button className="game-secondary" disabled={busy} onClick={async()=>{if(await flush(true))setError('');}}>저장 재시도</button><button className="game-secondary" onClick={()=>location.reload()}>저장 상태 새로고침</button></div>}
     <footer className="rush-footer"><div><small>{closing?'진행 저장 중…':busy?'자동 저장 중…':s&&!intro?'진행 자동 저장 · 급여는 한 번만':'알바로 게임 턴은 진행되지 않아요'}</small><button className="rush-haptics" aria-pressed={haptics} disabled={!canVibrate} onClick={toggleHaptics}>{canVibrate?'진동 '+(haptics?'켜짐':'꺼짐'):'진동 미지원'}</button></div><button className="game-secondary" disabled={closing} onClick={()=>void close()}>닫기</button></footer>
   </Dialog>;
 }
