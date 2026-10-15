@@ -1,0 +1,205 @@
+{
+  "scope": "Main-thread self samples, before-final, renderer CPU 4x. Profiles include pre-start setup; not frame-interval metrics. Native structuredClone costs also measured separately by the benchmark. Minified source fragments retained for attribution.",
+  "profiles": [
+    {
+      "count": 6,
+      "top": [
+        {
+          "functionName": "window.structuredClone",
+          "url": "",
+          "lineNumber": 16,
+          "columnNumber": 70,
+          "selfMs": 2541
+        },
+        {
+          "functionName": "s",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/20-a042cd2075c44950.js",
+          "lineNumber": 0,
+          "columnNumber": 132952,
+          "selfMs": 786,
+          "sourceStart": "(e,t,r,o=255){e.set([r[0],r[1],r[2],o],4*t)}function i(e,t,r){return e.map((e,o)=>Math.round(e*(1-r)+t[o]*r))}},7521:(e,t,r)=>{r.d(t,{AH:()=>a,FS:()=>s,O0:()=>i,ZY:()=>A,cz:()=>o,ro:()=>n,t7:()=>l});let o=96,n=9216,a=\"2."
+        },
+        {
+          "functionName": "h",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/20-a042cd2075c44950.js",
+          "lineNumber": 0,
+          "columnNumber": 119635,
+          "selfMs": 694,
+          "sourceStart": "(e,t=n.FS){let r=new Uint8ClampedArray(4*n.ro);for(let o of e)if(t.includes(o.name)){if(o.pixels.length!==4*n.ro||o.mask.length!==n.ro)throw Error(\"레이어는 96\\xd796 크기여야 합니다.\");for(let e=0;e<n.ro;e++){let t=4*e,n=o.pixels[t"
+        },
+        {
+          "functionName": "a",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/473-748c9f10ea3737c5.js",
+          "lineNumber": 0,
+          "columnNumber": 9224,
+          "selfMs": 579,
+          "sourceStart": "(e){return Array.isArray(e)?\"[\"+e.map(a).join(\",\")+\"]\":null!==e&&\"object\"==typeof e?\"{\"+Object.entries(e).sort(([e],[t])=>e<t?-1:+(e>t)).map(([e,t])=>JSON.stringify(e)+\":\"+a(t)).join(\",\")+\"}\":JSON.stringify(e)}function l"
+        },
+        {
+          "functionName": "D",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/20-a042cd2075c44950.js",
+          "lineNumber": 0,
+          "columnNumber": 123057,
+          "selfMs": 475,
+          "sourceStart": "(e,t,r){e.mask[t]=255,(0,a.nI)(e.pixels,t,r)}function g(e,t,r=!1){let o=(u(t)-145)/120;return o<0?(0,a.jh)(e,r?[30,30,42]:[67,39,28],Math.min(.7,-(.6*o))):(0,a.jh)(e,r?[235,234,246]:[255,246,217],Math.min(.65,.65*o))}fun"
+        },
+        {
+          "functionName": "tE",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 73094,
+          "selfMs": 345,
+          "sourceStart": "e=>\"₩\"+e.toLocaleString(\"ko-KR\"),tV={owned:\"보유 중\",sold:\"판매 완료\",dead:\"폐사\",pedigree:\"외부 부모 기록\"};function tT({gecko:e,large:t=!1,fire:a=\"up\"}){return(0,i.jsx)(tO.K,{specimen:ek(e,a),scale:t?3:1,testId:\"hardcore-sprite-\"+e.i"
+        },
+        {
+          "functionName": "y",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/20-a042cd2075c44950.js",
+          "lineNumber": 0,
+          "columnNumber": 123284,
+          "selfMs": 317,
+          "sourceStart": "(e,t=n.FS){let r,s,i,A,C,H,L,m,w;(0,n.ZY)(e);let M=(s=(r=e.appearance).expression,i=\"slate\"===r.bodyColor,A=t=>\"up\"===e.state.fire?t:(0,a.jh)((0,a.jh)(t,[u(t),u(t),u(t)],.18),[235,220,195],.18),C=\"brown\"===r.bodyColor?[1"
+        },
+        {
+          "functionName": "",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 199507,
+          "selfMs": 313,
+          "sourceStart": "a=>[a,Array.from({length:r.lociPerFeature},(t,s)=>e.loci[a+\"-\"+s]).reduce((e,a)=>e+t[a[0]]+t[a[1]]+r.dominance*(a[0]!==a[1]),0)/Math.sqrt(2*r.lociPerFeature)]));return Object.fromEntries(i.G.map(e=>{let t=r.shared.filter"
+        },
+        {
+          "functionName": "tc",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 45762,
+          "selfMs": 294,
+          "sourceStart": "(e){if(!e||\"object\"!=typeof e||![5,6,7,8,9].includes(e.saveVersion))throw Error(\"지원하지 않는 저장 버전입니다.\");let t=structuredClone(e),a=new Set;Object.hasOwn(e,\"cafeRush\")&&(9!==e.saveVersion&&tn(),ta(e.cafeRush,e.seed),delete t"
+        },
+        {
+          "functionName": "",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 199550,
+          "selfMs": 265,
+          "sourceStart": "(t,s)=>e.loci[a+\"-\"+s]).reduce((e,a)=>e+t[a[0]]+t[a[1]]+r.dominance*(a[0]!==a[1]),0)/Math.sqrt(2*r.lociPerFeature)]));return Object.fromEntries(i.G.map(e=>{let t=r.shared.filter(t=>t.to===e).reduce((e,t)=>e+t.weight*a[t."
+        },
+        {
+          "functionName": "o",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 198722,
+          "selfMs": 254,
+          "sourceStart": "(e){if(!e||1!==e.version||\"loci,version\"!==Object.keys(e).sort().join()||!e.loci||Object.keys(e.loci).length!==l.length)throw Error(\"가상 다유전자 모델 오류\");for(let t of l){let a=e.loci[t];if(!Array.isArray(a)||2!==a.length||a.s"
+        },
+        {
+          "functionName": "r",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 579,
+          "selfMs": 242,
+          "sourceStart": "(e){if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(e))throw Error(\"날짜 형식이 올바르지 않습니다.\");let t=Date.parse(e+\"T00:00:00Z\");if(!Number.isFinite(t)||new Date(t).toISOString().slice(0,10)!==e)throw Error(\"유효하지 않은 날짜입니다.\");return t/864e5}funct"
+        }
+      ]
+    },
+    {
+      "count": 300,
+      "top": [
+        {
+          "functionName": "window.structuredClone",
+          "url": "",
+          "lineNumber": 16,
+          "columnNumber": 70,
+          "selfMs": 12008
+        },
+        {
+          "functionName": "a",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/473-748c9f10ea3737c5.js",
+          "lineNumber": 0,
+          "columnNumber": 9224,
+          "selfMs": 1697,
+          "sourceStart": "(e){return Array.isArray(e)?\"[\"+e.map(a).join(\",\")+\"]\":null!==e&&\"object\"==typeof e?\"{\"+Object.entries(e).sort(([e],[t])=>e<t?-1:+(e>t)).map(([e,t])=>JSON.stringify(e)+\":\"+a(t)).join(\",\")+\"}\":JSON.stringify(e)}function l"
+        },
+        {
+          "functionName": "",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 199507,
+          "selfMs": 1550,
+          "sourceStart": "a=>[a,Array.from({length:r.lociPerFeature},(t,s)=>e.loci[a+\"-\"+s]).reduce((e,a)=>e+t[a[0]]+t[a[1]]+r.dominance*(a[0]!==a[1]),0)/Math.sqrt(2*r.lociPerFeature)]));return Object.fromEntries(i.G.map(e=>{let t=r.shared.filter"
+        },
+        {
+          "functionName": "o",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 198722,
+          "selfMs": 1055,
+          "sourceStart": "(e){if(!e||1!==e.version||\"loci,version\"!==Object.keys(e).sort().join()||!e.loci||Object.keys(e.loci).length!==l.length)throw Error(\"가상 다유전자 모델 오류\");for(let t of l){let a=e.loci[t];if(!Array.isArray(a)||2!==a.length||a.s"
+        },
+        {
+          "functionName": "",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 199550,
+          "selfMs": 1039,
+          "sourceStart": "(t,s)=>e.loci[a+\"-\"+s]).reduce((e,a)=>e+t[a[0]]+t[a[1]]+r.dominance*(a[0]!==a[1]),0)/Math.sqrt(2*r.lociPerFeature)]));return Object.fromEntries(i.G.map(e=>{let t=r.shared.filter(t=>t.to===e).reduce((e,t)=>e+t.weight*a[t."
+        },
+        {
+          "functionName": "r",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 579,
+          "selfMs": 730,
+          "sourceStart": "(e){if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(e))throw Error(\"날짜 형식이 올바르지 않습니다.\");let t=Date.parse(e+\"T00:00:00Z\");if(!Number.isFinite(t)||new Date(t).toISOString().slice(0,10)!==e)throw Error(\"유효하지 않은 날짜입니다.\");return t/864e5}funct"
+        },
+        {
+          "functionName": "tc",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 45762,
+          "selfMs": 592,
+          "sourceStart": "(e){if(!e||\"object\"!=typeof e||![5,6,7,8,9].includes(e.saveVersion))throw Error(\"지원하지 않는 저장 버전입니다.\");let t=structuredClone(e),a=new Set;Object.hasOwn(e,\"cafeRush\")&&(9!==e.saveVersion&&tn(),ta(e.cafeRush,e.seed),delete t"
+        },
+        {
+          "functionName": "",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/473-748c9f10ea3737c5.js",
+          "lineNumber": 0,
+          "columnNumber": 9365,
+          "selfMs": 455,
+          "sourceStart": "([e,t])=>JSON.stringify(e)+\":\"+a(t)).join(\",\")+\"}\":JSON.stringify(e)}function l(e){let t=a(e),n=0x811c9dc5;for(let e=0;e<t.length;e++)n=Math.imul(n^t.charCodeAt(e),0x1000193);return(n>>>0).toString(16).padStart(8,\"0\")}fu"
+        },
+        {
+          "functionName": "U",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 7023,
+          "selfMs": 446,
+          "sourceStart": "(e){if(!e||1!==e.version||\"loci,version\"!==Object.keys(e).sort().join()||!e.loci||Object.keys(e.loci).length!==A.Kq.length)throw Error(\"공개 유전 정보 오류\");for(let t of A.Kq){let a=e.loci[t.id];if(!a||\"evidenceIds,note,probabi"
+        },
+        {
+          "functionName": "h",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 199447,
+          "selfMs": 400,
+          "sourceStart": "(e){o(e);let t=r.alleleEffects,a=Object.fromEntries(i.G.map(a=>[a,Array.from({length:r.lociPerFeature},(t,s)=>e.loci[a+\"-\"+s]).reduce((e,a)=>e+t[a[0]]+t[a[1]]+r.dominance*(a[0]!==a[1]),0)/Math.sqrt(2*r.lociPerFeature)]))"
+        },
+        {
+          "functionName": "c.onsuccess",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 72191,
+          "selfMs": 375,
+          "sourceStart": "()=>{try{let i=c.result;if(null===t&&a);else if((i?tN(i):null)!==t)throw new ty.E4;i&&null!==t&&tb(i.save,e.lastDate),d=i&&Number.isSafeInteger(i.writeRevision)&&i.writeRevision>0?i.writeRevision+1:1,tk(o,e,a,t=>{u=t,a&&"
+        },
+        {
+          "functionName": "eZ",
+          "url": "http://127.0.0.1:3503/_next/static/chunks/app/page-634435842b086a98.js",
+          "lineNumber": 0,
+          "columnNumber": 31588,
+          "selfMs": 363,
+          "sourceStart": "(e,t){eq(e);let a=t.split(\" \");(Object.keys(e).length!==a.length||a.some(t=>!Object.hasOwn(e,t)))&&eB()}function eK(e,t=128){(\"string\"!=typeof e||!e.trim()||e.length>t)&&eB()}function eU(e){eK(e),(!/^[a-zA-Z0-9_-]+$/.tes"
+        }
+      ]
+    }
+  ]
+}

@@ -544,6 +544,9 @@
 }
 .rush-catch-record {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 220px;
   gap: 5px;
   margin: 10px 0 3px;
 }
@@ -554,6 +557,35 @@
   border: 1px solid #547473;
   background: #122b31;
 }
+.rush-assignment-reveal,.rush-pay-breakdown {
+  width: 100%;
+  text-align: left;
+}
+.rush-dialog .rush-results .rush-assignment-reveal p,
+.rush-dialog .rush-results .rush-pay-breakdown p {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 3px 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.rush-assignment-reveal span,.rush-pay-breakdown span {color:#a6b8ae;}
+.rush-assignment-reveal b {color:#c9ef9f;}
+.rush-pay-breakdown {padding-bottom:6px;border-bottom:1px solid #52713d;}
+.rush-dialog .rush-results[data-variable=true] {justify-content:safe center;gap:3px;}
+.rush-dialog .rush-results[data-variable=true] .rush-result-art {width:clamp(62px,9dvh,90px);height:clamp(62px,9dvh,90px);}
+.rush-dialog .rush-results[data-variable=true] h3 {font-size:18px;margin:3px 0;}
+.rush-dialog .rush-results[data-variable=true] .rush-catch-record {margin:6px 0 2px;}
+.rush-dialog .rush-results[data-variable=true] dl {padding:6px;margin:5px 0;}
+.rush-dialog .rush-results[data-variable=true] .rush-wage-receipt {padding:9px 10px;}
+.rush-departure {
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:12px;
+  background:#061b1bdd;color:#c5f68e;text-align:center;
+}
+.rush-departure strong {font-size:24px;}
+.rush-departure span {font-size:12px;color:#c5d9cb;}
 .rush-catch-record .perfect {
   background: #b7ed7a;
   border-color: #dbffa7;

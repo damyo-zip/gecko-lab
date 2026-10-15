@@ -1,11 +1,14 @@
 import {test,expect} from 'vitest';
-import {RUSH_V1,rushPlan,rushProgress,rushGrade,rushDeadline,rushGeometry,startRush,stepRush,claimRush,rushSummary,rushComplete,validateRush,reconcileRush,assertRushForward,type RushGame,type RushGrade} from '@/game/rush';
+import {RUSH_V1,rushPlan as versionedPlan,rushProgress,rushGrade,rushDeadline,rushGeometry,startRush as versionedStart,stepRush,claimRush,rushSummary,rushComplete,validateRush,reconcileRush,assertRushForward,rushDuration,type RushGame,type RushGrade} from '@/game/rush';
 import {newGame,act} from '@/game/hardcore/play';
 import {actWithTime} from '@/game/hardcore/time-source';
 import {exportBackup,parseBackup,makeSave} from '@/game/hardcore/save';
 import {validateGame} from '@/game/hardcore/validation';
 import {collectionStatusGame} from '../e2e/fixtures/collection-status';
 const DATE='2026-10-15';
+// Keep every original 25s/10-target contract as an explicit legacy-v2 regression.
+const rushPlan=(seed:string,turn:number,version:1|2=2)=>versionedPlan(seed,turn,version);
+const startRush=(game:RushGame,version:1|2=2)=>versionedStart(game,version);
 const simple=():RushGame=>({seed:'front-rush-test',turn:0,money:1000});
 function finish(game:RushGame,grades: RushGrade[]=Array(10).fill('perfect')){
   startRush(game);const taps=rushPlan(game.seed,game.turn).map((t,i)=>({id:t.id,atMs:Math.round(t.spawnMs+t.flightMs*(grades[i]==='perfect'?.81:grades[i]==='good'?.56:.1))})).sort((a,b)=>a.atMs-b.atMs);
@@ -60,12 +63,12 @@ test('invalid timestamps, future/nonexistent targets, rewind and incomplete clai
 test('optional extension preserves old saves exactly; progress, pending wages and paid receipts round-trip',()=>{
   let game=newGame('rush-save',DATE);expect(game.cafeRush).toBeUndefined();expect(parseBackup(exportBackup(game),DATE)).toEqual(game);
   game=act(game,{type:'startRush'},DATE);game=act(game,{type:'stepRush',elapsedMs:2000},DATE);expect(parseBackup(exportBackup(game),DATE)).toEqual(game);
-  game=act(game,{type:'stepRush',elapsedMs:25000},DATE);const pending=parseBackup(exportBackup(game),DATE);expect(pending.cafeRush!.shift.paid).toBe(false);
+  game=act(game,{type:'stepRush',elapsedMs:rushDuration(game.cafeRush!.shift)},DATE);const pending=parseBackup(exportBackup(game),DATE);expect(pending.cafeRush!.shift.paid).toBe(false);
   game=act(game,{type:'claimRush'},DATE);expect(parseBackup(exportBackup(game),DATE)).toEqual(game);expect(game.saveVersion).toBe(9);expect(game.rulesVersion).toBe(4);
 });
 test('existing turn advance unlocks one new shift; an unfinished previous shift and unclaimed wages survive turns',()=>{
   let game=act(newGame('rush-turn',DATE),{type:'startRush'},DATE),next=actWithTime(game,{type:'endTurn'},DATE);expect(next.turn).toBe(1);expect(()=>act(next,{type:'startRush'},DATE)).toThrow('먼저');
-  next=act(next,{type:'stepRush',elapsedMs:25000},DATE);expect(()=>act(next,{type:'startRush'},DATE)).toThrow('먼저');next=act(next,{type:'claimRush'},DATE);next=act(next,{type:'startRush'},DATE);expect(next.cafeRush!.shift.turn).toBe(1);expect(next.cafeRush!.shift.elapsedMs).toBe(0);expect(game.cafeRush!.shift.elapsedMs).toBe(0);
+  next=act(next,{type:'stepRush',elapsedMs:rushDuration(next.cafeRush!.shift)},DATE);expect(()=>act(next,{type:'startRush'},DATE)).toThrow('먼저');next=act(next,{type:'claimRush'},DATE);next=act(next,{type:'startRush'},DATE);expect(next.cafeRush!.shift.turn).toBe(1);expect(next.cafeRush!.shift.elapsedMs).toBe(0);expect(game.cafeRush!.shift.elapsedMs).toBe(0);
 });
 test('malformed version, counts, grade timestamps, invented reward and paid unfinished state fail save validation',()=>{
   const game=newGame('invalid-rush',DATE);startRush(game);const valid=structuredClone(game.cafeRush!);
@@ -89,9 +92,9 @@ test('a paid later-turn imported backup cannot be replayed after restoring an ea
   const merged=reconcileRush(later,earlier.cafeRush)!;earlier.cafeRush=merged;expect(merged.shift.turn).toBe(1);expect(merged.shift.paid).toBe(true);expect(()=>claimRush(earlier)).toThrow('이미');expect(()=>startRush(earlier)).toThrow('이번 턴');
 });
 test('cafe actions preserve an existing live breeding season, eggs, genes, housing, market and game date exactly',()=>{
-  let {game}=collectionStatusGame();const before=structuredClone(game);game=act(game,{type:'startRush'},game.lastDate);game=act(game,{type:'stepRush',elapsedMs:25000},game.lastDate);game=act(game,{type:'claimRush'},game.lastDate);
-  const project=({revision,notices,cafeRush,...core}:typeof game)=>core;
-  expect(project(game)).toEqual(project(before));expect(game.cafeRush!.shift.paid).toBe(true);expect(parseBackup(exportBackup(game),game.lastDate)).toEqual(game);
+  let {game}=collectionStatusGame();const before=structuredClone(game);game=act(game,{type:'startRush'},game.lastDate);game=act(game,{type:'stepRush',elapsedMs:rushDuration(game.cafeRush!.shift)},game.lastDate);const reward=rushSummary(game.cafeRush!.shift).reward;game=act(game,{type:'claimRush'},game.lastDate);
+  const project=({revision,notices,cafeRush,money,...core}:typeof game)=>core;
+  expect(project(game)).toEqual(project(before));expect(game.money).toBe(before.money+reward);expect(game.cafeRush!.shift.paid).toBe(true);expect(parseBackup(exportBackup(game),game.lastDate)).toEqual(game);
 });
 
 test('v1 pending and paid saves keep their original plan, projection and payout after v2 ships',async()=>{

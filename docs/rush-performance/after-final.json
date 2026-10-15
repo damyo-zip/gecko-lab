@@ -1,0 +1,434 @@
+{
+  "label": "after-final",
+  "browser": "156.0.8078.4",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "cpuThrottle": 4,
+  "method": "Production build; no video; full 25s round without input; browser rAF, Long Tasks, React hook, canvas, clone and IDB probes. CPU profile includes pre-start work; counters start after stage appears.",
+  "results": [
+    {
+      "count": 6,
+      "rate": 4,
+      "frames": {
+        "count": 1513,
+        "p50": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "p99": 16.80000000000109,
+        "max": 33.29999999999927,
+        "over33": 0,
+        "over50": 0
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainClones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "mainFullSnapshots": 0,
+      "mainActiveWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0,
+      "collectionCommits": 0,
+      "workers": [
+        {
+          "clones": 4572,
+          "fullSnapshots": 540,
+          "cloneMs": 661.2000003457069,
+          "activeWrites": 36,
+          "replyBytes": [
+            36,
+            207,
+            208,
+            208,
+            208,
+            250,
+            250,
+            251,
+            252,
+            253,
+            295,
+            295,
+            295,
+            296,
+            296,
+            339,
+            339,
+            339,
+            339,
+            382,
+            382,
+            425,
+            425,
+            425,
+            425,
+            468,
+            468,
+            511,
+            511,
+            511,
+            511,
+            554,
+            597,
+            597,
+            640,
+            640,
+            640
+          ]
+        }
+      ],
+      "saved": {
+        "count": 6,
+        "turn": 0,
+        "money": 500000,
+        "writeRevision": 39,
+        "rush": {
+          "version": 2,
+          "shift": {
+            "turn": 0,
+            "elapsedMs": 25000,
+            "results": [
+              {
+                "grade": "miss",
+                "atMs": 3682,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 7611,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11370,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 14311,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 15184,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 18317,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19253,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 22320,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23043,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23877,
+                "source": "escape"
+              }
+            ],
+            "paid": false
+          }
+        }
+      },
+      "errors": []
+    },
+    {
+      "count": 60,
+      "rate": 4,
+      "frames": {
+        "count": 1493,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999272,
+        "p99": 33.30000000000018,
+        "max": 66.69999999999891,
+        "over33": 4,
+        "over50": 1
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainClones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "mainFullSnapshots": 0,
+      "mainActiveWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0,
+      "collectionCommits": 0,
+      "workers": [
+        {
+          "clones": 4572,
+          "fullSnapshots": 540,
+          "cloneMs": 1876.600000500679,
+          "activeWrites": 36,
+          "replyBytes": [
+            36,
+            207,
+            208,
+            208,
+            208,
+            250,
+            250,
+            251,
+            252,
+            253,
+            295,
+            295,
+            295,
+            296,
+            296,
+            339,
+            339,
+            339,
+            339,
+            382,
+            382,
+            425,
+            425,
+            425,
+            425,
+            468,
+            468,
+            511,
+            511,
+            511,
+            511,
+            554,
+            597,
+            597,
+            640,
+            640,
+            640
+          ]
+        }
+      ],
+      "saved": {
+        "count": 60,
+        "turn": 0,
+        "money": 500000,
+        "writeRevision": 39,
+        "rush": {
+          "version": 2,
+          "shift": {
+            "turn": 0,
+            "elapsedMs": 25000,
+            "results": [
+              {
+                "grade": "miss",
+                "atMs": 3682,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 7611,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11370,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 14311,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 15184,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 18317,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19253,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 22320,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23043,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23877,
+                "source": "escape"
+              }
+            ],
+            "paid": false
+          }
+        }
+      },
+      "errors": []
+    },
+    {
+      "count": 300,
+      "rate": 4,
+      "frames": {
+        "count": 1511,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999272,
+        "p99": 16.80000000000291,
+        "max": 50,
+        "over33": 2,
+        "over50": 0
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainClones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "mainFullSnapshots": 0,
+      "mainActiveWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0,
+      "collectionCommits": 0,
+      "workers": [
+        {
+          "clones": 4445,
+          "fullSnapshots": 525,
+          "cloneMs": 6502.19999948144,
+          "activeWrites": 35,
+          "replyBytes": [
+            36,
+            207,
+            208,
+            208,
+            208,
+            250,
+            250,
+            251,
+            252,
+            253,
+            295,
+            295,
+            295,
+            296,
+            296,
+            339,
+            339,
+            339,
+            339,
+            382,
+            382,
+            425,
+            425,
+            425,
+            425,
+            468,
+            468,
+            511,
+            511,
+            511,
+            511,
+            554,
+            597,
+            597,
+            640,
+            640
+          ]
+        }
+      ],
+      "saved": {
+        "count": 300,
+        "turn": 0,
+        "money": 500000,
+        "writeRevision": 38,
+        "rush": {
+          "version": 2,
+          "shift": {
+            "turn": 0,
+            "elapsedMs": 25000,
+            "results": [
+              {
+                "grade": "miss",
+                "atMs": 3682,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 7611,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11370,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 14311,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 15184,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 18317,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19253,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 22320,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23043,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23877,
+                "source": "escape"
+              }
+            ],
+            "paid": false
+          }
+        }
+      },
+      "errors": []
+    }
+  ]
+}

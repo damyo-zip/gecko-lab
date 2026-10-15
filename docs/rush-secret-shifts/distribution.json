@@ -1,0 +1,93 @@
+{
+  "samples": 1000000,
+  "seed": "distribution-i, turn=i%37",
+  "workload": [
+    {
+      "id": "quiet",
+      "count": 249643,
+      "frequency": 0.249643
+    },
+    {
+      "id": "normal",
+      "count": 349787,
+      "frequency": 0.349787
+    },
+    {
+      "id": "crowded",
+      "count": 249940,
+      "frequency": 0.24994
+    },
+    {
+      "id": "overtime",
+      "count": 150630,
+      "frequency": 0.15063
+    }
+  ],
+  "difficulty": [
+    {
+      "id": "weekday",
+      "count": 200475,
+      "frequency": 0.200475
+    },
+    {
+      "id": "normal",
+      "count": 449393,
+      "frequency": 0.449393
+    },
+    {
+      "id": "weekend",
+      "count": 249743,
+      "frequency": 0.249743
+    },
+    {
+      "id": "chaos",
+      "count": 100389,
+      "frequency": 0.100389
+    }
+  ],
+  "counts": [
+    83443,
+    83113,
+    83087,
+    87504,
+    87810,
+    87259,
+    87214,
+    62391,
+    62660,
+    62513,
+    62376,
+    37757,
+    37477,
+    37792,
+    37604
+  ],
+  "joint": [
+    [
+      50049,
+      112255,
+      62049,
+      25290
+    ],
+    [
+      70113,
+      157234,
+      87478,
+      34962
+    ],
+    [
+      50256,
+      112228,
+      62358,
+      25098
+    ],
+    [
+      30057,
+      67676,
+      37858,
+      15039
+    ]
+  ],
+  "chiSquare": 7.60864558577155,
+  "independenceDegreesOfFreedom": 9
+}

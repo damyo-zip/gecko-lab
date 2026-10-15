@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState,type ReactNode } from "react";
 import { useHardcore } from "@/hooks/use-hardcore";
 import { owned, reserved } from "@/game/hardcore/survival";
 import { Icon } from "../icons";
@@ -21,11 +21,12 @@ import { collectionStatus } from "./collection-status";
 import {CafeRush} from './cafe-rush';
 const TABS = [{id:"home",label:"오늘",icon:"leaf"},{id:"collection",label:"컬렉션",icon:"grid"},{id:"breeding",label:"교배",icon:"dna"},{id:"incubator",label:"부화",icon:"egg"},{id:"shop",label:"상점",icon:"sliders"},{id:"lineage",label:"혈통",icon:"tree"}] as const;
 export default function HardcoreHub() {
-  const {game,loading,busy,error,conflict,act,replace}=useHardcore();
+  const {game,loading,busy,error,conflict,act,replace,prepareRush}=useHardcore();
   const [tab,setTab]=useState("collection"),[detail,setDetail]=useState(""),[settings,setSettings]=useState(false),[resources,setResources]=useState(false);
   const [breedingOpen,setBreedingOpen]=useState(false);
   const [rushOpen,setRushOpen]=useState(false);
-  const openRush=()=>setRushOpen(true);
+  const backgroundRef=useRef<ReactNode>(null),[rushBackground,setRushBackground]=useState<ReactNode>(null);
+  const openRush=async()=>{await prepareRush();setRushBackground(backgroundRef.current);setRushOpen(true);};
   const content=useRef<HTMLDivElement>(null);
   useEffect(()=>{content.current?.scrollTo({top:0});},[tab]);
   const navigate=(next:string)=>{if(next==="breeding")setBreedingOpen(true);else setTab(next);};
@@ -38,7 +39,7 @@ export default function HardcoreHub() {
   };
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
   const isCollection=tab==="collection",isIncubator=tab==="incubator",isShop=tab==="shop",isLineage=tab==="lineage",isReference=isCollection||isIncubator||isShop||isLineage;
-  return <main className={"lab-shell game-shell hc-shell"+(isReference?" reference-shell":"")+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":isLineage?" lineage-shell":"")}><OfflineShell/>
+  const background=<>
     {isReference?<HomeHeader game={game} disabled={loading||busy} onSettings={()=>setSettings(true)} onRush={openRush} onShop={()=>setTab("shop")} onFood={()=>setResources(true)}/>:<header className="site-header game-header"><a href="/" className="wordmark" aria-label="GECKO LAB 홈"><span className="logo-tile"><Icon name="leaf" size={22}/></span><span><img src="/ui/gecko-lab-mark.svg" alt="" width={190} height={26}/><small>나만의 크레스티드 게코 연구소</small></span></a><button className="settings-button" aria-label="저장 및 게임 설정" disabled={loading||busy} onClick={()=>setSettings(true)}><Icon name="sliders" size={21}/></button></header>}
     <div ref={content} className={isReference?"reference-content":""}>
     {!isReference&&game && <div className="hc-stats" aria-label="연구소 자원"><div><span><Icon name="sun" size={13}/>게임 자금</span><b data-testid="game-money">{won(game.money)}</b></div><div><span><Icon name="leaf" size={13}/>먹이</span><b data-testid="game-food">{game.food}개</b></div><div><span><Icon name="grid" size={13}/>사육장 / 예약</span><b>{owned(game).length}+{reserved(game)} / {game.capacity}</b></div></div>}
@@ -57,10 +58,17 @@ export default function HardcoreHub() {
     {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v9 · 가격표는 현재 임시 추정</span></footer>}
     </div>
     {isReference?<HomeFooter game={game} busy={loading||disabled} tab={tab} play={act} onFood={()=>setResources(true)} onTab={navigate}/>:<nav className="game-bottom-nav hc-nav" aria-label="게임 탭">{TABS.map(t=><button key={t.id} aria-pressed={tab===t.id} disabled={!game||disabled} onClick={()=>navigate(t.id)}><Icon name={t.icon} size={21}/><span>{t.label}</span></button>)}</nav>}
+    </>;
+  // The native modal makes this tree inert. Reuse its last committed element tree
+  // while playing: no collection/lineage queries or sprite paints on checkpoints.
+  // Keep it mounted, preserving selection, filters and scroll position on close.
+  useLayoutEffect(()=>{if(!rushOpen)backgroundRef.current=background;});
+  return <main className={"lab-shell game-shell hc-shell"+(isReference?" reference-shell":"")+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":isLineage?" lineage-shell":"")}><OfflineShell/>
+    {rushOpen?rushBackground:background}
     {props&&breedingOpen&&<Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onClose={()=>setBreedingOpen(false)} onStarted={()=>{setBreedingOpen(false);setTab("incubator");}}/>}
     {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
-    {rushOpen&&props&&<CafeRush {...props} onClose={()=>setRushOpen(false)}/>}
+    {rushOpen&&props&&<CafeRush {...props} saveError={error} onClose={()=>{setRushOpen(false);setRushBackground(null);}}/>}
     {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setBreedingOpen(false);setTab("collection");}}/>}
   </main>;
 }
