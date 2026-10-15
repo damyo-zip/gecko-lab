@@ -1,0 +1,589 @@
+[
+  {
+    "width": 360,
+    "height": 640,
+    "safe": false,
+    "client": 417,
+    "scroll": 417,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 49.28125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 360,
+    "height": 640,
+    "safe": true,
+    "client": 353,
+    "scroll": 402,
+    "overflow": "auto",
+    "fallback": true
+  },
+  {
+    "width": 360,
+    "height": 800,
+    "safe": false,
+    "client": 574,
+    "scroll": 574,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 92.828125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 360,
+    "height": 800,
+    "safe": true,
+    "client": 513,
+    "scroll": 513,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 92.828125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "safe": false,
+    "client": 607,
+    "scroll": 607,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 100.671875,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 31.703125,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "safe": true,
+    "client": 549,
+    "scroll": 549,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 100.671875,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 720,
+    "safe": false,
+    "client": 490,
+    "scroll": 490,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 72,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 720,
+    "safe": true,
+    "client": 426,
+    "scroll": 426,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 54,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 760,
+    "safe": false,
+    "client": 529,
+    "scroll": 529,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 77,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 760,
+    "safe": true,
+    "client": 466,
+    "scroll": 466,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 74,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 869,
+    "safe": false,
+    "client": 628,
+    "scroll": 628,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 106.421875,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 31.859375,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 412,
+    "height": 869,
+    "safe": true,
+    "client": 571,
+    "scroll": 571,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 106.421875,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "safe": false,
+    "client": 678,
+    "scroll": 678,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 111.125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 31.984375,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "safe": true,
+    "client": 628,
+    "scroll": 628,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 111.125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 20.796875,
+        "fontSize": "16px"
+      },
+      ".shop-morph": {
+        "height": 14.296875,
+        "fontSize": "11px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 31.984375,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17px"
+      }
+    }
+  },
+  {
+    "width": 480,
+    "height": 760,
+    "safe": false,
+    "client": 517,
+    "scroll": 517,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 96.953125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 22.375,
+        "fontSize": "17.2222px"
+      },
+      ".shop-morph": {
+        "height": 15.171875,
+        "fontSize": "11.6667px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17.2222px"
+      }
+    }
+  },
+  {
+    "width": 480,
+    "height": 760,
+    "safe": true,
+    "client": 453,
+    "scroll": 453,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 64.953125,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 22.375,
+        "fontSize": "17.2222px"
+      },
+      ".shop-morph": {
+        "height": 15.171875,
+        "fontSize": "11.6667px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17.2222px"
+      }
+    }
+  },
+  {
+    "width": 480,
+    "height": 900,
+    "safe": false,
+    "client": 654,
+    "scroll": 654,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 117.40625,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 22.375,
+        "fontSize": "17.2222px"
+      },
+      ".shop-morph": {
+        "height": 15.171875,
+        "fontSize": "11.6667px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 32.328125,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17.2222px"
+      }
+    }
+  },
+  {
+    "width": 480,
+    "height": 900,
+    "safe": true,
+    "client": 593,
+    "scroll": 593,
+    "overflow": "auto",
+    "metrics": {
+      ".shop-offer-art": {
+        "height": 117.40625,
+        "fontSize": "14px"
+      },
+      "h3": {
+        "height": 22.375,
+        "fontSize": "17.2222px"
+      },
+      ".shop-morph": {
+        "height": 15.171875,
+        "fontSize": "11.6667px"
+      },
+      ".shop-age": {
+        "height": 13,
+        "fontSize": "10px"
+      },
+      ".shop-price": {
+        "height": 28,
+        "fontSize": "20px"
+      },
+      ".shop-buy": {
+        "height": 44,
+        "fontSize": "17.2222px"
+      }
+    }
+  }
+]
