@@ -1,0 +1,114 @@
+{
+  "touches": [
+    {
+      "id": "rush-target-0",
+      "progress": "0.7882",
+      "elapsed": "3041"
+    },
+    {
+      "id": "rush-target-1",
+      "progress": "0.7837",
+      "elapsed": "6975"
+    },
+    {
+      "id": "rush-target-2",
+      "progress": "0.7842",
+      "elapsed": "10575"
+    },
+    {
+      "id": "rush-target-3",
+      "progress": "0.7873",
+      "elapsed": "13903"
+    },
+    {
+      "id": "rush-target-4",
+      "progress": "0.8086",
+      "elapsed": "14785"
+    },
+    {
+      "id": "rush-target-5",
+      "progress": "0.8215",
+      "elapsed": "18050"
+    },
+    {
+      "id": "rush-target-6",
+      "progress": "0.8087",
+      "elapsed": "18783"
+    },
+    {
+      "id": "rush-target-7",
+      "progress": "0.7966",
+      "elapsed": "21824"
+    },
+    {
+      "id": "rush-target-8",
+      "progress": "0.8095",
+      "elapsed": "22623"
+    },
+    {
+      "id": "rush-target-9",
+      "progress": "0.8261",
+      "elapsed": "23551"
+    }
+  ],
+  "shift": {
+    "version": 1,
+    "shift": {
+      "turn": 0,
+      "elapsedMs": 25000,
+      "results": [
+        {
+          "grade": "perfect",
+          "atMs": 3041,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 6975,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 10575,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 13903,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 14785,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 18050,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 18783,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 21824,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 22623,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 23551,
+          "source": "tap"
+        }
+      ],
+      "paid": false
+    }
+  }
+}

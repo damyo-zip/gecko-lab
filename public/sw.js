@@ -1,6 +1,6 @@
 /* Same-origin offline shell only. No automatic care or protection. */
-const CACHE = "gecko-lab-phase3-shell-19";
-const STATIC_ASSETS = ["/manifest.webmanifest", "/icon.svg", "/ui/gecko-lab-mark.svg", "/ui/terrarium.svg", "/ui/home-terrarium.png", "/ui/home-wordmark.svg", "/ui/shop-banner.png", "/ui/incubator/scene.png"];
+const CACHE = "gecko-lab-phase3-shell-20";
+const STATIC_ASSETS = ["/manifest.webmanifest", "/icon.svg", "/ui/gecko-lab-mark.svg", "/ui/terrarium.svg", "/ui/home-terrarium.png", "/ui/home-wordmark.svg", "/ui/shop-banner.png", "/ui/incubator/scene.png", "/art/cre-rush/front-source.png"];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE), response = await fetch("/", { cache: "reload" });
