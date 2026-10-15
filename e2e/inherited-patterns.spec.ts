@@ -52,8 +52,9 @@ test("same individual retains exact name and sprite across purchase, collection,
  await navigateGame(page,"상점",mobile);for(let n=1;n<=18;n++){await touch(page.getByRole("button",{name:"턴 넘기기",exact:true}),mobile);await expect(page.getByTestId("game-day")).toHaveText(String(n));await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await tendIncubator(page,mobile);}
  const state=await saved(page),children=frozen.map(o=>state.individuals[o.embryo.id]).filter(Boolean);expect(children.length).toBeGreaterThan(0);
  for(const c of children){expect(c.genetics!.genome).toEqual(frozen.find(o=>o.embryo.id===c.id)!.embryo.genetics!.genome);expect(c.stage).toBe("adult");}
- await navigateGame(page,"인큐베이터",mobile);for(const c of children){const egg=Object.values(state.eggs).find(o=>o.embryo.id===c.id)!;await expect(page.getByTestId("hc-egg-"+egg.id)).toContainText(morph(c));await sameSprite(page.getByTestId("hardcore-sprite-"+c.id),c);}
- if(mobile){await navigateGame(page,"컬렉션",mobile);await page.screenshot({path:"docs/inherited-patterns/collection-mobile.png",fullPage:true,scale:"css"});}
+ await navigateGame(page,"인큐베이터",mobile);for(const c of children){const egg=Object.values(state.eggs).find(o=>o.embryo.id===c.id)!;await expect(page.getByTestId("hc-egg-"+egg.id)).toHaveCount(0);expect(egg.embryo.genetics!.genome).toEqual(c.genetics!.genome);}
+ await navigateGame(page,"컬렉션",mobile);for(const c of children){await expect(page.getByTestId("hc-card-"+c.id)).toContainText(visualName(c));await sameSprite(page.getByTestId("hardcore-sprite-"+c.id),c);}
+ if(mobile){await page.screenshot({path:"docs/inherited-patterns/collection-mobile.png",fullPage:true,scale:"css"});}
  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("18");expect(await saved(page)).toEqual(state);await navigateGame(page,"컬렉션",mobile);await sameSprite(page.getByTestId("hardcore-sprite-"+a.id),state.individuals[a.id]);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

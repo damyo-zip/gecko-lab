@@ -52,7 +52,7 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   await buyFood(page,mobile,1000);
   const [father,mother]=Object.values((await saved(page)).individuals);
   await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',father.id);await chooseBreedingParent(page,'female',mother.id);
-  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole("heading",{name:"인큐베이터",exact:true})).toBeVisible();
+  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole("region",{name:"인큐베이터 화면",exact:true})).toBeVisible();
   const pending=await saved(page);expect(Object.values(pending.matings)[0].lifecycle!.offspring).toHaveLength(2);
   await page.clock.setFixedTime(new Date(addDays(DATE,700)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");expect(await saved(page)).toEqual(pending);
   await endTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);

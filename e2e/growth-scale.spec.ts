@@ -4,6 +4,8 @@ import {growthScaleGame} from './fixtures/growth-scale';
 import {touch,navigateGame,finishTurn,openCollectionCatalog,chooseBreedingParent} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {actWithTime} from '../src/game/hardcore/time-source';
+import {act} from '../src/game/hardcore/play';
+import {breedingRisk} from '../src/game/hardcore/breeding-risk';
 import {specimen} from '../src/game/hardcore/adapter';
 import {renderSprite} from '../src/engine/render';
 import type {HardcoreGame} from '../src/game/hardcore/model';
@@ -71,8 +73,16 @@ test('breeding/picker, shop/family, lineage and hatch results share scaling and 
   await touch(page.locator('.shop-parents').first(),mobile);await checkSprites(page.getByRole('dialog'));await close(page,mobile);
   await navigateGame(page,'혈통도',mobile);await page.getByLabel('혈통을 볼 개체',{exact:true}).selectOption(f.hatchlingId);await checkSprites(page.locator('.album-reference'));await centered(page.locator('.album-selected-art canvas'));
   if(mobile){await mkdir('docs/growth-scale',{recursive:true});await page.screenshot({path:'docs/growth-scale/lineage-360.png',scale:'css'});}
-  await navigateGame(page,'인큐베이터',mobile);const hatches=await checkSprites(page.locator('.inc-results'));expect(hatches.some(r=>r.stage==='hatchling')).toBe(true);expect(hatches.some(r=>r.stage==='juvenile')).toBe(true);
-  expect(await saved(page)).toEqual(initial);await page.reload();expect(await saved(page)).toEqual(initial);
+  expect(await saved(page)).toEqual(initial);
+  // Results now live in their real slots until pickup, rather than a history grid.
+  let pending=f.game;const risk=breedingRisk(pending,pending.individuals[f.adultId],pending.individuals[f.motherId]);
+  pending=act(pending,{type:'breed',fatherId:f.adultId,motherId:f.motherId,riskAcknowledgement:risk.acknowledgement},DATE);
+  const mating=Object.values(pending.matings).at(-1)!;
+  for(let t=0;t<6;t++){pending=actWithTime(pending,{type:'endTurn'},DATE);if(t===1)pending=act(pending,{type:'collectEggs',matingId:mating.id},DATE);}
+  await boot(page,pending,mobile);await navigateGame(page,'인큐베이터',mobile);
+  const hatches=await checkSprites(page.locator('.inc-slot-grid'));expect(hatches.every(r=>r.stage==='hatchling')).toBe(true);
+  await touch(page.locator('[data-testid^="select-egg-"]').first(),mobile);const parents=await checkSprites(page.locator('.inc-parent-pair'));expect(parents.every(r=>r.stage==='adult')).toBe(true);
+  expect(await saved(page)).toEqual(pending);await page.reload();expect(await saved(page)).toEqual(pending);
 });
 
 test('existing six/twelve-turn boundaries instantly update scale, keep card geometry and restore the exact game',async({page},info)=>{

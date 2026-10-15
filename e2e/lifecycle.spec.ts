@@ -1,3 +1,4 @@
+import {openIncubatorRecords} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {test,expect,type Page} from '@playwright/test';
 import {axCatalog as newGame,act} from './fixtures/legacy-catalog';
@@ -36,5 +37,5 @@ test('real active v5 migration archives the exact original, pauses real time, re
  for(const id of [f,m]){expect(next.individuals[id].genetics).toEqual(old.individuals[id].genetics);expect(next.individuals[id].potential).toEqual(old.individuals[id].potential);}
  expect(Object.values(next.matings)[0].lifecycle!.maxClutches).toBe(1);
  const archived=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('archive-v5-10');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(archived).toEqual(record);
- await navigateGame(page,'부화',mobile);await expect(page.locator('.hc-event').first()).toContainText('산란 0/1');await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');expect(await saved(page)).toEqual(next);
+ await navigateGame(page,'부화',mobile);await openIncubatorRecords(page,mobile);await expect(page.locator('.hc-event').first()).toContainText('산란 0/1');await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');expect(await saved(page)).toEqual(next);
 });

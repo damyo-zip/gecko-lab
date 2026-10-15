@@ -12,7 +12,7 @@ export async function chooseBreedingParent(page:Page,sex:'male'|'female',id:stri
 export async function navigateGame(page:Page,name:string,mobile:boolean) {
   const breeding=page.getByRole('dialog',{name:'교배',exact:true});
   if(name==='교배'&&await breeding.count())return;
-  for(const title of ['수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+  for(const title of ['부화 확률과 슬롯 규칙','수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
     const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
   }
   const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
@@ -25,7 +25,9 @@ export async function navigateGame(page:Page,name:string,mobile:boolean) {
     await touch(nav.getByRole("button",{name:aliases[name],exact:true}),mobile);return;
   }
   await touch(nav.getByRole("button",{name:"인큐베이터",exact:true}),mobile);
-  await touch(page.getByRole("navigation",{name:"연구소 도구"}).getByRole("button",{name,exact:true}),mobile);
+  if(name==='교배')await touch(page.getByRole('button',{name:'교배 열기',exact:true}),mobile);
+  else if(name==='오늘'){await openIncubatorRecords(page,mobile);await touch(page.getByRole('button',{name:'오늘의 연구소',exact:true}),mobile);}
+  else throw new Error('Unknown game view: '+name);
 }
 /** Advance through the collection CTA, then return for existing scenario assertions. */
 export async function finishTurn(page:Page,mobile:boolean) {
@@ -109,4 +111,10 @@ export async function tendIncubator(page:Page,mobile:boolean){
 /** Existing whole-game regressions now explicitly collect and settle every played clutch. */
 export async function finishTurnAndTend(page:Page,mobile:boolean){
  await finishTurn(page,mobile);await tendIncubator(page,mobile);
+}
+
+/** The compact incubator keeps historical inference records in its rules dialog. */
+export async function openIncubatorRecords(page:Page,mobile:boolean){
+ await touch(page.getByRole('button',{name:'부화 확률과 슬롯 규칙',exact:true}),mobile);
+ await expect(page.getByRole('dialog',{name:'부화 확률과 슬롯 규칙',exact:true})).toBeVisible();
 }

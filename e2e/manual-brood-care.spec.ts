@@ -48,11 +48,19 @@ test('manual pair collection, newborn pickup and infertile removal persist with 
  await navigateGame(page,'인큐베이터',mobile);const baby=page.getByTestId('receive-hatchling-'+f.successId),failed=page.getByTestId('remove-egg-'+f.failedId);
  await expect(baby).toBeVisible();await expect(failed).toBeVisible();g=await saved(page);const childId=g.eggs[f.successId].embryo.id;
  expect(g.individuals[childId]).toBeUndefined();await expect(page.getByTestId('incubator-free')).toHaveText('0');
- const sprite=baby.locator('canvas[data-growth-stage]');await expect(sprite).toHaveAttribute('data-growth-stage','hatchling');
+ const art=page.getByTestId('select-egg-'+f.successId);const sprite=art.locator('canvas[data-growth-stage]');await expect(sprite).toHaveAttribute('data-growth-stage','hatchling');
  const geometry=await sprite.evaluate(el=>{const c=el as HTMLCanvasElement,b=c.getBoundingClientRect(),old=c.style.getPropertyValue('--growth-scale');c.style.setProperty('--growth-scale','1');const full=c.getBoundingClientRect();c.style.setProperty('--growth-scale',old);return {ratio:b.width/full.width,aspect:b.width/b.height,centerDelta:Math.abs(b.x+b.width/2-full.x-full.width/2),smoothing:c.getContext('2d')!.imageSmoothingEnabled};});
  expect(geometry.ratio).toBeCloseTo(.5,5);expect(geometry.aspect).toBeCloseTo(1,5);expect(geometry.centerDelta).toBeLessThan(.1);expect(geometry.smoothing).toBe(false);
- await expect(baby.getByRole('img',{name:'깨진 알껍데기',exact:true})).toBeVisible();await expect(failed.getByRole('img',{name:'변색된 실패 알',exact:true})).toBeVisible();
- for(const width of [360,390,430]){await page.setViewportSize({width,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
+ await expect(art.getByRole('img',{name:'깨진 알껍데기',exact:true})).toBeVisible();await expect(page.getByTestId('select-egg-'+f.failedId).getByRole('img',{name:'변색된 실패 알',exact:true})).toBeVisible();
+ await touch(art,mobile);await expect(art).toHaveAttribute('aria-pressed','true');expect(await saved(page)).toEqual(g);await touch(page.getByTestId('select-egg-'+f.failedId),mobile);await expect(failed).toBeVisible();expect(await saved(page)).toEqual(g);
+ for(const [width,height] of [[360,640],[360,800],[390,844],[430,844]]){
+  await page.setViewportSize({width,height});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  expect(await page.locator('.reference-content').evaluate(el=>el.scrollHeight<=el.clientHeight+1)).toBe(true);
+  for(const button of [art,baby,page.getByTestId('select-egg-'+f.failedId),failed]){
+   const box=(await button.boundingBox())!,card=(await button.locator('..').boundingBox())!;
+   expect(box.height).toBeGreaterThanOrEqual(44);expect(box.y+box.height).toBeLessThanOrEqual(card.y+card.height-2);
+  }
+ }
  if(mobile)await page.screenshot({path:'docs/manual-brood-care/incubator-newborn-430.png',scale:'css'});
  await finishTurn(page,mobile);await page.reload();await expect(page.getByTestId('game-day')).toHaveText('8');await navigateGame(page,'인큐베이터',mobile);await expect(baby).toBeVisible();await expect(failed).toBeVisible();
  await touch(baby,mobile);await expect(baby).toHaveCount(0);g=await saved(page);expect(g.individuals[childId]).toMatchObject({birthTurn:7,stage:'hatchling',visualSeed:g.eggs[f.successId].embryo.visualSeed});

@@ -2,7 +2,7 @@ import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {breedingRiskFixture} from './fixtures/breeding-risk';
 import {exportBackup} from '../src/game/hardcore/save';
-import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurnAndTend as finishTurn} from './helpers/hardcore-navigation';
+import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurnAndTend as finishTurn,finishTurn as advanceOnly,tendIncubator} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {collectionMorph} from '../src/components/hardcore/collection-query';
@@ -35,19 +35,19 @@ test('combined sibling/Lilly warning cancels without mutations, confirms once, s
  await touch(page.getByTestId('breed-submit'),mobile);const warning=page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true});await expect(warning).toContainText('근친교배 주의');await expect(warning).toContainText('위험 유전자 조합');await expect(warning).toContainText('친형제자매');await expect(warning).toContainText('25.00%');await expect(warning).not.toContainText('embryonic-vigor');await expect(warning).not.toContainText('fertility');
  if(mobile){await page.setViewportSize({width:390,height:844});await page.screenshot({path:'docs/breeding-risk/combined-warning-390.png',scale:'css'});}
  const before=await saved(page);await touch(warning.getByRole('button',{name:'취소',exact:true}),mobile);expect(await saved(page)).toEqual(before);
- await touch(page.getByTestId('breed-submit'),mobile);await touch(page.getByRole('button',{name:'위험을 확인하고 교배하기',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByRole('heading',{name:'인큐베이터',exact:true})).toBeVisible();
+ await touch(page.getByTestId('breed-submit'),mobile);await touch(page.getByRole('button',{name:'위험을 확인하고 교배하기',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();
  let game=await saved(page);expect(game.nextClutch).toBe(before.nextClutch+1);expect(reserved(game)).toBe(2);const mating=Object.values(game.matings).at(-1)!;const fixed=structuredClone(mating.lifecycle!.offspring);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(before.turn));expect(await saved(page)).toEqual(game);await navigateGame(page,'인큐베이터',mobile);
- for(let n=0;n<6;n++){await finishTurn(page,mobile);game=await saved(page);const eggs=Object.values(game.eggs).filter(e=>e.matingId===mating.id);if(n===0)expect(eggs).toHaveLength(0);else expect(eggs).toHaveLength(2);if(n>=1&&n<5)expect(eggs.every(e=>e.status==='incubating')).toBe(true);}
+ for(let n=0;n<6;n++){if(n===5)await advanceOnly(page,mobile);else await finishTurn(page,mobile);game=await saved(page);const eggs=Object.values(game.eggs).filter(e=>e.matingId===mating.id);if(n===0)expect(eggs).toHaveLength(0);else expect(eggs).toHaveLength(2);if(n>=1&&n<5)expect(eggs.every(e=>e.status==='incubating')).toBe(true);}
  const eggs=Object.values(game.eggs).filter(e=>e.matingId===mating.id),failure=eggs.find(e=>e.lifecycle!.failure==='genetic')!,survivor=eggs.find(e=>e.status==='hatched')!;
- expect(failure).toBeDefined();expect(survivor).toBeDefined();expect(game.individuals[failure.embryo.id]).toBeUndefined();expect(game.individuals[survivor.embryo.id].parents).toEqual(mating.parents);expect(game.individuals[survivor.embryo.id]).not.toHaveProperty('development');expect(reserved(game)).toBe(0);expect(freeSlots(game)).toBe(freeSlots(before)-1);expect(game.matings[mating.id].lifecycle!.offspring).toEqual(fixed);
- await expect(page.getByTestId('hc-egg-'+failure.id)).toContainText('유전적 비생존');if(mobile)await page.screenshot({path:'docs/breeding-risk/incubator-outcomes-390.png',fullPage:true,scale:'css'});
+ expect(failure).toBeDefined();expect(survivor).toBeDefined();expect(game.individuals[failure.embryo.id]).toBeUndefined();await expect(page.getByTestId('hc-egg-'+failure.id)).toContainText('유전적 비생존');await tendIncubator(page,mobile);game=await saved(page);expect(game.individuals[survivor.embryo.id].parents).toEqual(mating.parents);expect(game.individuals[survivor.embryo.id]).not.toHaveProperty('development');expect(reserved(game)).toBe(0);expect(freeSlots(game)).toBe(freeSlots(before)-1);expect(game.matings[mating.id].lifecycle!.offspring).toEqual(fixed);
+ await expect(page.getByTestId('hc-egg-'+failure.id)).toHaveCount(0);if(mobile)await page.screenshot({path:'docs/breeding-risk/incubator-outcomes-390.png',fullPage:true,scale:'css'});
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(game.turn));expect(await saved(page)).toEqual(game);expect(errors).toEqual([]);
 });
 test('lineal crosses warn and ordinary unrelated crosses execute without another confirmation',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=breedingRiskFixture();await restore(page,f.game,mobile);await navigateGame(page,'교배',mobile);await choose(page,f.normalId,f.motherId);
  await touch(page.getByTestId('breed-submit'),mobile);await expect(page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true})).toContainText('부모·자식');await touch(page.getByRole('button',{name:'취소',exact:true}),mobile);
- await choose(page,f.normalId,f.lillyFemaleId);await touch(page.getByTestId('breed-submit'),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByRole('heading',{name:'인큐베이터',exact:true})).toBeVisible();
+ await choose(page,f.normalId,f.lillyFemaleId);await touch(page.getByTestId('breed-submit'),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();
  expect((await saved(page)).nextClutch).toBe(f.game.nextClutch+1);
 });
 

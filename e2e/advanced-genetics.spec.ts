@@ -1,3 +1,4 @@
+import {openIncubatorRecords} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
@@ -53,11 +54,11 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await day(page,mobile);await tab(page,"컬렉션",mobile);await feedCollection(page,mobile);
   await day(page,mobile);const eggs=(await saved(page)).eggs;expect(Object.keys(eggs)).toHaveLength(2);
   for(let t=0;t<4;t++)await day(page,mobile);const hatched=await saved(page);expect(hatched.individuals[fixture.father].genetics!.knowledge.loci.axanthic.probabilities).toEqual({"A/ax":1});
-  await tab(page,"부화",mobile);await click(page.getByText("교배 당시 예측·자손·추론 기록",{exact:true}),mobile);
+  await tab(page,"부화",mobile);await openIncubatorRecords(page,mobile);await click(page.getByText("교배 당시 예측·자손·추론 기록",{exact:true}),mobile);
   await expect(page.getByTestId("inference-update").first()).toContainText("50.0% → 100.0%");
   await page.getByTestId("inference-update").first().scrollIntoViewIfNeeded();
   await page.locator(".hc-event .genetic-panel").first().screenshot({path:info.outputPath("phase5-inference.png"),scale:"css"});
-  const child=Object.values(hatched.individuals).find(g=>g.parents&&g.genotype.loci.axanthic.every(a=>a==="ax"))!;
+  await page.keyboard.press("Escape");const child=Object.values(hatched.individuals).find(g=>g.parents&&g.genotype.loci.axanthic.every(a=>a==="ax"))!;
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:child.name+" 상세보기",exact:true}),mobile);
   await page.getByLabel("개체 이름",{exact:true}).fill("검증된 아잔틱");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);
   await expect(page.getByRole("dialog")).toContainText("Axanthic · aa");await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
