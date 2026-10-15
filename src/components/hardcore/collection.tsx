@@ -35,7 +35,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
     <div className="home-hero home-frame" data-testid="home-hero">
       <div className="home-generation home-frame"><b>Gen {selected?.generation??"—"}</b><span>{selected?selected.generation+"세대":"컬렉션"}</span><button aria-label="선택 개체 이름 수정" disabled={!selected||busy} onClick={()=>onDetail(selected.id)}><HomeIcon name="pen" size={17}/></button></div>
       {selected&&<><span className="home-id" title={selected.id}>#{String(Object.keys(game.individuals).indexOf(selected.id)+1).padStart(4,"0")}</span>
-        <div className="home-hero-art"><SpriteCanvas specimen={art!} scale={3} testId="home-hero-sprite"/></div></>}
+        <div className="home-hero-art"><SpriteCanvas specimen={art!} growthStage={selected.stage} scale={3} testId="home-hero-sprite"/></div></>}
       {!selected&&<div className="home-hero-empty"><HomeIcon name="collection" size={48}/><p>첫 게코를 기다리는 테라리움</p><button className="game-secondary" onClick={onShop}>상점에서 시작하기</button></div>}
       <button className="home-arrow previous home-frame" aria-label="이전 개체" disabled={animals.length<2||busy} onClick={()=>move(-1)}><HomeIcon name="chevron"/></button>
       <button className="home-arrow next home-frame" aria-label="다음 개체" disabled={animals.length<2||busy} onClick={()=>move(1)}><HomeIcon name="chevron"/></button>
@@ -53,7 +53,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
       </div>
       <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=>{const status=collectionStatus(game,g);return <article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
         <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={g.id===selected?.id} onClick={()=>setSelected(g.id)}>
-          <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
+          <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} growthStage={g.stage} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
           <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
         </button>
         {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><Status status={status}/></button>}

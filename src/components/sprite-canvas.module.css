@@ -1,0 +1,7 @@
+/* Keep the canvas bitmap and its layout box at their original sizes.
+   Placement/flip precedes growth scaling so centered absolute sprites stay put. */
+.growth {
+  transform: var(--sprite-placement, translate(0,0)) scale(var(--growth-scale));
+  transform-origin: center;
+  transition: none;
+}

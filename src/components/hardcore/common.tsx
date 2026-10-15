@@ -13,7 +13,7 @@ export function SectionHeading({title,eyebrow,icon,count,children}:{title:string
  return <div className="game-section-heading"><div><p className="eyebrow">{eyebrow}</p><div className="hc-title-line"><h1>{title}</h1>{count!==undefined&&<span className="hc-title-count" aria-label={count+"개"}>{count}</span>}</div></div>{children??<span className="hc-section-icon"><Icon name={icon} size={22}/></span>}</div>;
 }
 export function Sprite({ gecko, large = false,fire="up" }: { gecko: Gecko; large?: boolean;fire?:"up"|"down" }) {
-  return <SpriteCanvas specimen={specimen(gecko,fire)} scale={large ? 3 : 1} testId={"hardcore-sprite-" + gecko.id} />;
+  return <SpriteCanvas specimen={specimen(gecko,fire)} growthStage={gecko.stage} scale={large ? 3 : 1} testId={"hardcore-sprite-" + gecko.id} />;
 }
 export function Hearts({ gecko }: { gecko: Gecko }) {
   return <span className={"hc-hearts " + (gecko.hearts <= 2 ? "danger" : "")} aria-label={"하트 " + gecko.hearts + "/5"}>{"♥".repeat(gecko.hearts)}<i>{"♡".repeat(5-gecko.hearts)}</i></span>;

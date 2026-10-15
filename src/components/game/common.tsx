@@ -7,7 +7,7 @@ import { SEX_LABELS, STAGE_LABELS, type Individual } from "@/game/model";
 import { SpriteCanvas } from "../sprite-canvas";
 
 export function GameSprite({ individual, scale = 1 }: { individual: Individual; scale?: 1 | 3 | 4 }) {
-  return <SpriteCanvas specimen={toSpecimen(individual)} scale={scale} testId={"game-sprite-" + individual.id} />;
+  return <SpriteCanvas specimen={toSpecimen(individual)} growthStage={individual.stage} scale={scale} testId={"game-sprite-" + individual.id} />;
 }
 export function IndividualCard({ individual, onOpen, turn }: { individual: Individual; onOpen: () => void; turn: number }) {
   const phenotype = phenotypeOf(individual);

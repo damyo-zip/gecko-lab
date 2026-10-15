@@ -106,3 +106,8 @@
   .home-breeder-actions > button > svg { width:17px; }
   .home-breeder-actions strong { font-size:11px; }
 }
+
+/* Young sprites center in the same reserved art box; adult framing is unchanged. */
+.home-card-art canvas:is([data-growth-stage="hatchling"],[data-growth-stage="juvenile"]) {
+  top:50%;left:50%;--sprite-placement:translate(-50%,-50%);
+}

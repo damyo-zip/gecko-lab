@@ -13,7 +13,7 @@ import {collectionEntries,collectionMorph,collectionPrice,COLLECTION_MORPHS,COLL
 const CatalogRow=memo(function CatalogRow({gecko:g,busy,onDetail}:{gecko:Gecko;busy:boolean;onDetail:(id:string)=>void}) {
   const art=useMemo(()=>specimen(g),[g]);
   return <button className="collection-list-row" disabled={busy} onClick={()=>onDetail(g.id)} aria-label={g.name+" 상세보기"} data-testid={"collection-list-"+g.id}>
-    <span className="collection-list-art"><SpriteCanvas specimen={art} scale={3} testId={"collection-list-sprite-"+g.id}/></span>
+    <span className="collection-list-art"><SpriteCanvas specimen={art} growthStage={g.stage} scale={3} testId={"collection-list-sprite-"+g.id}/></span>
     <span className="collection-list-info"><strong>{g.name}</strong><span>{collectionMorph(g)}</span><small>Gen {g.generation} · {STAGE_LABELS[g.stage]} · {disclosedSex(g)}</small><span className="collection-list-price"><small>분양 예상가</small><b>{won(collectionPrice(g))}</b></span></span>
     <HomeIcon name="chevron" size={18}/>
   </button>;
