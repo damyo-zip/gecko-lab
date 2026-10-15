@@ -1,0 +1,1104 @@
+{
+  "date": "2026-10-16",
+  "cases": [
+    {
+      "seed": "morph-display-red",
+      "batches": [
+        {
+          "game": "9518fdb6c32c7a77ef615b42cfeb70265cca45e63771b7c4762dc89338501c1f",
+          "backup": "44257ae003346277ffd6a9a57d618ff3e80c5def5e454e695d788eb4f96defa6",
+          "records": [
+            {
+              "id": "h-e43a3cb3-store-1-0",
+              "name": "옐로 플레임 수컷",
+              "specimen": "f75d44b83e650e60282fdef422ae95e3581af8b1f46134c99153c78558072dd6",
+              "pixels": "d9a1747757732eecaa5d8312cb8986bc33204a49cdfc68a81bc8f270ce181423",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-0-father",
+              "name": "매물 부계",
+              "specimen": "d4c4b8212c3616f3fd9daa5bcb1de22827a9893538a19eaf425dbdc158e43921",
+              "pixels": "4c2b316ed1db8fb8019b2e35d4d4f03940cbac37196787c984612a35409c6170",
+              "price": "419fa6f35319c812ac535f028a19bf6886e2d61ec6e6fb7a1e8c2580c6e2fe8e"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-0-mother",
+              "name": "매물 모계",
+              "specimen": "26fbda38cfd7e7552df6e761af8770726c5592b44f304e6bd568f8c427493b38",
+              "pixels": "0f8f615970a34e878aacedea026f0dacf3d422f76370bfbe48d973b563c04804",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-1",
+              "name": "오렌지 플레임 암컷",
+              "specimen": "6f06fb0cde38f25edb8560a8ddb4fcc19aa2236c1eb803a31c9a6b4d08d46279",
+              "pixels": "304adb27fb8c8734aab0077b02ed3e61a4dd19ef059ac43634ddeb6be4d09e7c",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-1-father",
+              "name": "매물 부계",
+              "specimen": "277d99c5925440fc617265c530cf4441d649e6accbddd43fcd8f1a73da8613d7",
+              "pixels": "d6ebf881fbb5422c09340a6ed72c409cfc62691d2c145466999213651d143840",
+              "price": "419fa6f35319c812ac535f028a19bf6886e2d61ec6e6fb7a1e8c2580c6e2fe8e"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-1-mother",
+              "name": "매물 모계",
+              "specimen": "d3857a96fbed359baa164c552cabd8a60093e418f9c10def8d35ed9000bbad52",
+              "pixels": "3f37ebb3c01fbefc7792e89b978729bfbad55e115ddd2a82317000c276734ac2",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-2",
+              "name": "옐로 플레임 수컷",
+              "specimen": "b0efc625a5bd4fe0a0fed297266d6d698198f29ad06157fafa67c55bf661a59a",
+              "pixels": "fc126de108a7dc25b339eb50214ef4321c45c91ba984313286b5e60254604eb3",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-2-father",
+              "name": "매물 부계",
+              "specimen": "6c746c3d1368fe8c569e235c2dfaabf1289d6cd7232a6370b39916dba57d9824",
+              "pixels": "010dcd97b5c09c5b9f8cebc7852a464ee5e92e7cb01390e5dbd42f2ca9650a5b",
+              "price": "a19470cbb7b8bcebfd2ac63083cfd1522f8c0fa68631d681caf6992d95efc710"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-2-mother",
+              "name": "매물 모계",
+              "specimen": "8704dfd231576c7f26a05cec2f24e02fa12355cd05e712d8e523e8df461b513f",
+              "pixels": "478cce16d8c9c9e6e8106593e60c59b0a0c1e42258fd5d5e18f600eb515f2ef4",
+              "price": "4a06a16c25d03c222d64e80c7a3409ce511bf1d0ffe9ed31b0bd17e2966905e9"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-3",
+              "name": "옐로 할리퀸 아성체",
+              "specimen": "125aa63a5adcb1a6119f98adaaa10869584772a9c00990334687a7820c6498d0",
+              "pixels": "a443cf4b0856aeebb24e2ae0a75c87616297e2528fa5296c37885069e131be71",
+              "price": "87126799964cbb93cf15128ee46ba0db7583743e86b6003fb9a7279d20b12aa1"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-3-father",
+              "name": "매물 부계",
+              "specimen": "dce14de6aaff1b0ab9b960ced8fecb1ae57a1039de5ecd79fa745fb155dc1c82",
+              "pixels": "51e3685123196cdf227a9a3486431f15c0fb46ae17b5aba624c8cfc09ba79714",
+              "price": "3cff9cf93d962034b8a2a5c84aa3e7c4e19d4160804d1eead374bd106e791688"
+            },
+            {
+              "id": "h-e43a3cb3-store-1-3-mother",
+              "name": "매물 모계",
+              "specimen": "56867bec459caa807ced35e76ff60a625d9f451692a7b1b55e3e47c3a9320aa7",
+              "pixels": "c5832f98c019f9f0753b5cadd7562ab68bf61b5c46bf76fee0d84ed7cfd7fac5",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            }
+          ]
+        },
+        {
+          "game": "72779ac02ea7923f4e7398286e1eb78dcbd4a98115983f29fcb08d2c025246dd",
+          "backup": "607d6c2bcda944407a0933e2946cad94974f78cdbd0321985bc5ad6c1313ace6",
+          "records": [
+            {
+              "id": "h-e43a3cb3-store-2-0",
+              "name": "옐로 할리퀸 아성체",
+              "specimen": "ef4c6e5918c05917e6acc78587d0f0b05798d080248a211cc21852f98fb4cfda",
+              "pixels": "1d3dbca6662cf6e63820bc307aad5675dab4ac23fbced1a54dcc44591a20240f",
+              "price": "7c16910dc997acec468553d259224c328f169a3174fc41d53a08844ae2da8339"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-0-father",
+              "name": "매물 부계",
+              "specimen": "7b988c8100c721e30ebe2236ba5193e9697b6da9be7fe5f69172bd9e59b62db6",
+              "pixels": "5e3d2c29fe01938c6bbea0fced8231b90b743a479327ac8f0e19d3666ab257e6",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-0-mother",
+              "name": "매물 모계",
+              "specimen": "ae24c1a98d89e7d25cd4ba792ff9e99eea22a9b1ae491fe48a98f4ab8e935ad0",
+              "pixels": "016685e365c660d7e099ae8e32e2e24b83ad205a8a663cbbb927ab31927cd7be",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-1",
+              "name": "Sable 옐로 할리퀸 수컷",
+              "specimen": "a1a793bc2e2a5ccf093a175f531bdaf760c951dc6411f0cda20e39f03837a753",
+              "pixels": "922a2035c9f9426a8e8b4149058cddd7ca983eeb7c0407f19534dc6988cc6ac9",
+              "price": "b3207fe4f945cbe736ca6a2342bb5942821e1a9679e6c11d816113797815e5ca"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-1-father",
+              "name": "매물 부계",
+              "specimen": "8d09346b751bed7367dc29684e92afbc96c2e240be3467449151c4b339547556",
+              "pixels": "0099a2966c1864230803c2c11f92b6ec8c74844025d7571f4417300cc3055f87",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-1-mother",
+              "name": "매물 모계",
+              "specimen": "8a08018c862e0026261e71f227ccfed07232e9e8111d5ad034ab1a7a3c197223",
+              "pixels": "1377ac4f4c2e17b4f2c25e8ee996c82ea12bcccc38b21f0da393c0a9b0190c14",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-2",
+              "name": "Cappuccino 옐로 플레 암컷",
+              "specimen": "46239634797430e78072cba668500c706fb15129d02047697a2c0b9571318616",
+              "pixels": "e1c57f4439b5bce06427a35cbaa7655dc90d1ec85d0224b4cfe97b0c496106f1",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-2-father",
+              "name": "매물 부계",
+              "specimen": "72a5a352b86f1a0d556b25b9b077535888f661595fa26843b67efaa2a6d3a48a",
+              "pixels": "67a0e3aa6df41ab50f5174403d7d8b6d7be6578326b520571857dac495e9025a",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-2-mother",
+              "name": "매물 모계",
+              "specimen": "964fa7e1c8e6db1890861dcfc902a1b4802858889499ee295ac0c3c6e03a67d4",
+              "pixels": "2e68e4643fa9d308464fb37d69b774f4ac30fd321c12ae712026d89a4065cc09",
+              "price": "0701265ffbac11813f2c4dc20e72cf2b8569a9c39a73dfe670426698a20351d7"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-3",
+              "name": "Highway 옐로 플레임 아성체",
+              "specimen": "a0ed71d7a3c139041dc93d479d1303b24f162e5c49181190f19d8960b85e642a",
+              "pixels": "91d3adb99aa99ce907ed4a5ea5f8ef2132d82461815a0249edb055c3217fcf44",
+              "price": "789d283f21a1fa76b70cda9a4213ae0d987d4b8dd4a9fb85a5c6cc8aa807bdad"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-3-father",
+              "name": "매물 부계",
+              "specimen": "634115885e2145b6dcfe9872821461d07e78b19f111c9020d3963df6a5c3b06e",
+              "pixels": "693dcae2888f14c7b2e0c12faf177caa7aeb6b86b227e99c087ec4f79c852b7b",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-e43a3cb3-store-2-3-mother",
+              "name": "매물 모계",
+              "specimen": "c487e4bdf0f1cc4048b3ec44e03fe72f66363c92ebc1d3aa7574ca986d7eee0a",
+              "pixels": "959d7d00fd352770accf4f348112d0ab5193320d6208764c71b7b2ec7650214f",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            }
+          ]
+        },
+        {
+          "game": "e6fa76139531a9414974ac50f2c3e6000d22d9328311517f63a209e9f47aadc4",
+          "backup": "a2452ee0390a23b6e754a1212e7b6721c33d7265b21c69133e0ec07374f7d02d",
+          "records": [
+            {
+              "id": "h-e43a3cb3-store-3-0",
+              "name": "Sable 옐로 할리퀸 수컷",
+              "specimen": "498419386a68aaec858cdef04447b262b870098e7f7c32312144f9a27d2f1647",
+              "pixels": "2288f1241e2c2286f9609591ae463b779d4245e33ae31a279ae77d86c4abd073",
+              "price": "0701265ffbac11813f2c4dc20e72cf2b8569a9c39a73dfe670426698a20351d7"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-0-father",
+              "name": "매물 부계",
+              "specimen": "4ccab6166415d73148bd404955125cfe5e9bca89da6d3cc37ca2c182cc42f17e",
+              "pixels": "374f48121a29f798158585075bf84a506257cf48ba83e68428a3f99da1bf684f",
+              "price": "f6c6d31c9628b88888102186e40fe0ee5eb13832dbb191d740442c37afc38aad"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-0-mother",
+              "name": "매물 모계",
+              "specimen": "a14b2dc807c6788dd5839d30104446703631b642904323a882c51ab5b010bc63",
+              "pixels": "14b45002ec7955d1c990c83b91372c02bfb4305f9517ebc2752f45ab010b2d5b",
+              "price": "4a06a16c25d03c222d64e80c7a3409ce511bf1d0ffe9ed31b0bd17e2966905e9"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-1",
+              "name": "Cappuccino 옐로 할리 암컷",
+              "specimen": "0ff6edccbe05e4a025ae03a98fa42753080974a1712c1c427ec0a9c3f859dd0c",
+              "pixels": "a76b4028f712ec8a94ce885b86e8b333e536fac33049cf3d2628b21446332ef7",
+              "price": "9990e39ae9ad17df8337f5e7f687399ab5854952a454ff56c2e2f90761bf1912"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-1-father",
+              "name": "매물 부계",
+              "specimen": "ffe727a56adbb8ac5ec97fa014b7ff7165c05a0246b0ac18d4d09193b059c895",
+              "pixels": "5ff1494d5aa7504c5dd413d92e10f5b240363559869d196ce27006c78b4d5f7a",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-1-mother",
+              "name": "매물 모계",
+              "specimen": "2be297b5adb59ec7573bed3e934e0c27492c7bd16ffbdf26d2f2849da1fde662",
+              "pixels": "4f609c72e5c5c25d40a6e86db55976cb8bb0f7656271f6b1d389dee5e6772f47",
+              "price": "387e4522313eeebb64c27e9321616c8038c168c2cb94efb9ecf68c0532a96cca"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-2",
+              "name": "Cappuccino 옐로 플레 암컷",
+              "specimen": "43de57fdebcc756d3552b47bee00cab51836d47a6dd5f7592b7f8bca06732645",
+              "pixels": "c156b39be48a8361d18479d131d058c1bc0dc92ab5fc2b8432e64b42992fd5ab",
+              "price": "9990e39ae9ad17df8337f5e7f687399ab5854952a454ff56c2e2f90761bf1912"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-2-father",
+              "name": "매물 부계",
+              "specimen": "3f063ec478523fcc48775841079fea05d05955a80a4ad1054e5de66f99d424d1",
+              "pixels": "8592b7ddeed6d2fd3ddd3b5c07eff5123b9ba93d45c1b8da71eab9d051ddee63",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-2-mother",
+              "name": "매물 모계",
+              "specimen": "0dca1ebdc044a095528854e606c9d138332e64903a08bcd5a2c3a11c2352f335",
+              "pixels": "79088adf6b2c0bb546d047d0a8560b81ec2315474cff541a3fc3ba3c8bf99eb5",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-3",
+              "name": "Sable 오렌지 플레임 아성체",
+              "specimen": "6ecdd8df97f51083ad9d1548e77ca70e5775a3da3de185acd9380f00e37fcc18",
+              "pixels": "db14770b1c841a2c5bbaa87d1b4763335d1150e75439df582fcd156e8b31b11e",
+              "price": "e57ee66f6a84c146daf7696e16c1fa2286a0302e914adcd52189c0bfecfba877"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-3-father",
+              "name": "매물 부계",
+              "specimen": "377b33d1d2a59c355c795078d72de02750f05696e3af378d15ba9342580730f8",
+              "pixels": "83648936c639547347d99681ba8c81374a0bde519355b95e9c4aa7b3acbc55f0",
+              "price": "deb40d4f9e892952aa769ab31b021dc578a93ce3dd8b48290782c6c07d101c6e"
+            },
+            {
+              "id": "h-e43a3cb3-store-3-3-mother",
+              "name": "매물 모계",
+              "specimen": "d85c102ed6e7d8dce9b2b2dff8719398f6241d4f12dffff2f3b42c8668d30417",
+              "pixels": "5da4d3dd9c1916e06fac3fb36b28a8b742875a01b910353e1653de4b8ba8126b",
+              "price": "a56d1c773a9f068d2effcd1283ee947cfdb022689a3791b3dbb1aa31d7ce9311"
+            }
+          ]
+        },
+        {
+          "game": "a47f70236229b4868dae2736ddb09b9c97724f11ef88d31b8dab0fb3db7b4b04",
+          "backup": "d151543783153a68d8d769314d73f76fcf7a45df1cc90b72fdc39c5ef2458496",
+          "records": [
+            {
+              "id": "h-e43a3cb3-store-4-0",
+              "name": "Highway 옐로 플레임 암컷",
+              "specimen": "7ce03b068e165a771c522bd9927d325c3c1835ea429d86526ec9cd686668452a",
+              "pixels": "28f99d55fe546182b55660f6f053639232c9acba7ad1132c2d22d10480f06f4d",
+              "price": "6d285fdf5f3d28693319c54975db36abc96c4c1a091150a1bbf7135090d9c194"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-0-father",
+              "name": "매물 부계",
+              "specimen": "7eddc522bb2551453dbf316b8a577b2ff40d6cf7cfa9cbde48a51f848b9ca57c",
+              "pixels": "f5b5b49598b98c925c52e5ea731399a7fddd54d99183d0917c32c65dce9aca57",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-0-mother",
+              "name": "매물 모계",
+              "specimen": "1cc7e6e6ef1e2e4463d58c66896ae94a6c87e26a15f87515251b2bdd069f1cad",
+              "pixels": "fcf18f16245da29086c6fb35998063c37e1a1ad8827a9f2eb1acba0f104cfe91",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-1",
+              "name": "Cappuccino 옐로 플레 해칭",
+              "specimen": "12999e5245b6dbb3bbd2f86cde7560a42a76019bbe2245f2c1d3591158ddb3b4",
+              "pixels": "c80abde6cc06adb94c32685e7550be53255039a11d39b7baf3b4337da0684b47",
+              "price": "7a0e882891b52229235f07d5c60924787c5ca6c211986ce800b91f1cc87fa39c"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-1-father",
+              "name": "매물 부계",
+              "specimen": "d1b40ef821aa5ac869142256bdf5d4873ce09258cff0b28b509ae16872993172",
+              "pixels": "b31a335573af53fbd1eb41593edc0b4a11f7d17002636d83fae801b5061b8d22",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-1-mother",
+              "name": "매물 모계",
+              "specimen": "7b2dbcccb42e8a45025b4909e48fd057bd1efb20e2396c8d95144f489e31592d",
+              "pixels": "d35ee508053add073b5f1dd8158b1ad51dc120b1624f286ed695903152ab6d07",
+              "price": "6d285fdf5f3d28693319c54975db36abc96c4c1a091150a1bbf7135090d9c194"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-2",
+              "name": "오렌지 플레임 암컷",
+              "specimen": "5d8b4d149661637821ed8da6ccde98b5bf55506c944f35b5070ca90a09ec499d",
+              "pixels": "3065057da8c128750c9c1d5b773afb325384dc5dd029c253ede11ea184ca0bc5",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-2-father",
+              "name": "매물 부계",
+              "specimen": "b6065cc9c5bab691c9bef478f8b53ade3e211a858ebd909c9cf9c5771a18e3f4",
+              "pixels": "1eff267ed63ed0b45fef6f01fdaf22e34bec4c46336a0dec0beddf94970480e6",
+              "price": "f1dec5dd42621deacbfa33e0bfa63aedf1963d0882efc4d944d77f658b5c7083"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-2-mother",
+              "name": "매물 모계",
+              "specimen": "6e8166e89d524bfca4fe0f83132c8137d6f7fb6bab471c44f948f4d060a770a1",
+              "pixels": "6abf25bea9a9ab4dd5ca4a169d2f3c71cd92c885e3ffbd7e39984ba24c7d2996",
+              "price": "dc32b0fd9c2f2de7e5b8be6eda3bad1c659dc2854c2b437980740ebecd961d22"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-3",
+              "name": "오렌지 플레임 암컷",
+              "specimen": "e247849de8a6dff1883446027e9ac3cc1a12fd45e1134a5334db08af5fabee9e",
+              "pixels": "457dafe295a125a440c26125284f63e8e5801cdc19ee28a9e0e474af02d59f7f",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-3-father",
+              "name": "매물 부계",
+              "specimen": "00673f9e1fa6b8726514b323f471636dccd68a6fa3ceec2b4760ae4821fce226",
+              "pixels": "3ef3a65086a041fd0a249fcfd522dbd9e153b2ff7558c0ce4b2a846b5a07b096",
+              "price": "0a8610bb9dfdd229280db1a5b3ca7a493eb572d930789fd9b72c9798ede0683e"
+            },
+            {
+              "id": "h-e43a3cb3-store-4-3-mother",
+              "name": "매물 모계",
+              "specimen": "478c0f9ccb2910b688d6fa7e6ef691af0163278efe224dfce0be6d1c3ea4d439",
+              "pixels": "817eae5afa854190db4c1840d57e491c67db8bda54eca844cb76268023180ce7",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": "morph-display-combos",
+      "batches": [
+        {
+          "game": "8fe87b070976a39f3de48ded612817d6809b4edf18d3e0ed5a9036cc7c6beb2f",
+          "backup": "29d51fb900ae0b08b3c96c95e29125170df1cb2bc0eaffe16ca19ec523e6a096",
+          "records": [
+            {
+              "id": "h-04210af4-store-1-0",
+              "name": "옐로 플레임 수컷",
+              "specimen": "3fd5fecc52996df1b5100565c3420b59a28eb465305c2f1300aaeb097eed87e3",
+              "pixels": "54b14e39bc2f14f6ec8a338a6967ad7da3b868209d1f8791d76b661bf2e9231c",
+              "price": "0f044bb16445d2327b7736bfe0d94c457122bd89b4d7680041115b432a3f1c71"
+            },
+            {
+              "id": "h-04210af4-store-1-0-father",
+              "name": "매물 부계",
+              "specimen": "0117d1c0e9b3ce70cf05a90cf8d2b0e0148397eae28e2dbdc89830198c34014d",
+              "pixels": "37b3be09079431dc2da8725d3fb92d369ae69f5a7db08ebe7fa6040c2ca4b172",
+              "price": "7c5b7f6c78b1f5169cadb6f615a7a876b885098ea953ae048d921de12feff75f"
+            },
+            {
+              "id": "h-04210af4-store-1-0-mother",
+              "name": "매물 모계",
+              "specimen": "80eff60c0f3e237465d580e9e950c9618832ac1941d8749f3ccdf8d051fc3050",
+              "pixels": "4d5b79811c4af11c53e93bd6472e4f9872f904f83207e5dfed0d2214d96bda10",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-04210af4-store-1-1",
+              "name": "옐로 플레임 암컷",
+              "specimen": "9a5e6a37db5f71df7d9f5c88210037387a9e81c19d3a65118795fbf775ebcbe3",
+              "pixels": "8316ebda89534e5a1d26ccc7504cc1b269e1868274da8bb531f0c8947bad245b",
+              "price": "a56d1c773a9f068d2effcd1283ee947cfdb022689a3791b3dbb1aa31d7ce9311"
+            },
+            {
+              "id": "h-04210af4-store-1-1-father",
+              "name": "매물 부계",
+              "specimen": "e3de2d3e12fc34c45641fd98340eef97513563b83764088937d09346275d5003",
+              "pixels": "2ad9741c07c3910cf85c4a2372f7df7050c00a062a0da4b6535ec7d71d4bed2a",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-04210af4-store-1-1-mother",
+              "name": "매물 모계",
+              "specimen": "25fbea68e1eb3a4c0c7ab4e410dcfba619c9766024c34a8ccfcaead45c4d98d9",
+              "pixels": "3e2385193e369eaaa80742b35bb9e92523b51c0a244eb2f877c35a940834631e",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-04210af4-store-1-2",
+              "name": "옐로 플레임 해칭",
+              "specimen": "96988c4d5b9bb5f15a348385721697cd44b7673855e58c6861ce6f8c42442234",
+              "pixels": "4afcd73a028c96f53a3749f9635e7b7c101f057d991ceed174ea3ca739ae8ecd",
+              "price": "7a0e882891b52229235f07d5c60924787c5ca6c211986ce800b91f1cc87fa39c"
+            },
+            {
+              "id": "h-04210af4-store-1-2-father",
+              "name": "매물 부계",
+              "specimen": "2517de9f64119f82f7260e5c8fbfe782bcfc52f6e3b3eec30405da1eb4c9cc6e",
+              "pixels": "3b667dd60f35b639110f9e714ac4943080eeec6af75aa28a4acbc2b90e7f6dd9",
+              "price": "0f044bb16445d2327b7736bfe0d94c457122bd89b4d7680041115b432a3f1c71"
+            },
+            {
+              "id": "h-04210af4-store-1-2-mother",
+              "name": "매물 모계",
+              "specimen": "ccb5f779eaea5347c997a4d73576b7ec1286ea1516398119eb98fa7446f44d89",
+              "pixels": "946f151b7c1f3f54fc5de16bad6ecfa0ae6b516cd3bacb3bdafe040782ae6e2d",
+              "price": "a56d1c773a9f068d2effcd1283ee947cfdb022689a3791b3dbb1aa31d7ce9311"
+            },
+            {
+              "id": "h-04210af4-store-1-3",
+              "name": "옐로 플레임 암컷",
+              "specimen": "84c56979c7ff7afa4adbed71ddda7706dc2ddde6e39c98d2777b4c8142da5f07",
+              "pixels": "57ea0b3da3de70bca70955e7d35fcac0a710804934429dbe3e7f281fdc179708",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            },
+            {
+              "id": "h-04210af4-store-1-3-father",
+              "name": "매물 부계",
+              "specimen": "c8419489c36234652f63b1eec90738b37252c94a20bdec4a6d1927c432217c43",
+              "pixels": "d47d0eea0873d4a598ddd497694b3d34a1e9e5d76946639c02da40b2877ce813",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-04210af4-store-1-3-mother",
+              "name": "매물 모계",
+              "specimen": "513460240020ec2da8ee3c369dad10936cdfa6797cd2e4cd3b0da3db841eeb88",
+              "pixels": "a929a41ddab1601f532f30e0d9f29d2770e537f03040715395cb3e151b2312de",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            }
+          ]
+        },
+        {
+          "game": "b64ee9dd5bce32c238de823c5607bcc17805269896efdfd632eb3563c93f21bd",
+          "backup": "eda10e4db387fb71c13c686af8d3c9f19100891ff88b25e7cb3f0ad317ed3e2b",
+          "records": [
+            {
+              "id": "h-04210af4-store-2-0",
+              "name": "오렌지 플레임 암컷",
+              "specimen": "58b6d704550883e3b521c1b454fae57dd30cc5988b654b568fa3338f562bdada",
+              "pixels": "59f69dbd24d109aed303e56db53c05d0068f2fa5d245662f09f227d3417450f8",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-04210af4-store-2-0-father",
+              "name": "매물 부계",
+              "specimen": "d64a24f0cfea4683bda4574525bf577e94eaae0fd96e08b640339b7efd060fa2",
+              "pixels": "a11ad86b579cf756ba1997156af752aa290b54bdcdb8af86a89093e404c379e8",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-04210af4-store-2-0-mother",
+              "name": "매물 모계",
+              "specimen": "5544c244966c30dbcc8010177ebd99f8bad3e04f46cda133381683ad7d8ceb60",
+              "pixels": "74c7ef72cb6049709f30626941b5fcd990eae289e8a1eed32712ba62375fc4d7",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-04210af4-store-2-1",
+              "name": "옐로 플레임 수컷",
+              "specimen": "1d2f9b00bca82e061ab761eb75394544eab17a40cccfff4ac4305461a5e489ea",
+              "pixels": "3d9c0b14c470ece7663cd0c9bd9f408140c15eaf50b885af611d3a0438d8c31e",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-04210af4-store-2-1-father",
+              "name": "매물 부계",
+              "specimen": "a35af0e3c30ef5c45418a8f2dd7a025877e978fa9a8b672975f67956a3c071e0",
+              "pixels": "f9a58d12e04ce9d27f426dcf100df54d8cddc45c9c43b17dcf30f429e6065811",
+              "price": "deb40d4f9e892952aa769ab31b021dc578a93ce3dd8b48290782c6c07d101c6e"
+            },
+            {
+              "id": "h-04210af4-store-2-1-mother",
+              "name": "매물 모계",
+              "specimen": "18e4815d15db03d01c1e6ab4c50822f27162bf4be73c3a847827d56d21523701",
+              "pixels": "26fe94447d58f2ded0cf6a91b5c6a037a3589683b0a2793b645c17edccdff05d",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-04210af4-store-2-2",
+              "name": "옐로 할리퀸 암컷",
+              "specimen": "1279c2b7f01d52cdaec02bc6cd29cabdf4afbcd15f381d9b6417a76f7441934f",
+              "pixels": "c68d66090ec7d60fcbe97fe98181dce56840f47608fd603cf15db57e449cd498",
+              "price": "3a4d30987c3b85505461964365258f9e9963ba3de8545834e04d00c0d536ec91"
+            },
+            {
+              "id": "h-04210af4-store-2-2-father",
+              "name": "매물 부계",
+              "specimen": "e66b7a160cacff1bf933009556134000042b16bd50bdbf254e94d89e2d8e688c",
+              "pixels": "5bc153a3e12c75b8ed125383e0841ded4922924fc555555b51f7c7e96378d5d4",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-04210af4-store-2-2-mother",
+              "name": "매물 모계",
+              "specimen": "0188ecb3bf338f4d6731caf80a972d4eb5be07feaf9c602e0d81cfa983274370",
+              "pixels": "61f63261cb4c36756757ff5bec59258c37f31983d2219925d9a55c3cf65ea2e6",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-04210af4-store-2-3",
+              "name": "옐로 플레임 수컷",
+              "specimen": "47afd6d4046f9a89064f7d61e05dca0d45f911e3822f745517aec4eca07085b2",
+              "pixels": "2ef5217da7602e2077cdf7ba876350c1e3ee6bbcb611aa4e8273ccf8aa1ed858",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-04210af4-store-2-3-father",
+              "name": "매물 부계",
+              "specimen": "dcc09fb69b5e8d930776311ce1f441984f3afc2f682915d9a19491b63d544bdc",
+              "pixels": "ad58b37066a7a591270a0bcd67974eace6ad1ec643763019c2b6baa5d7b9572d",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-04210af4-store-2-3-mother",
+              "name": "매물 모계",
+              "specimen": "377c7adbc35804b649e85d6d8ebaac2c568d96c7af35aa415b5fbf2c0f3fa859",
+              "pixels": "bb77f2ffa9c64847472bfe20f0aa8f369234e9fbfdb4b263c18b0f89e0003342",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            }
+          ]
+        },
+        {
+          "game": "3bc35b5a409bddc0c8b252a57134c978f11060cc622f3ae95625793c52455d13",
+          "backup": "c60ae330e77375ec80f214be3ddc163ec92d798565c96ba4269be5786b64e8a5",
+          "records": [
+            {
+              "id": "h-04210af4-store-3-0",
+              "name": "옐로 플레임 암컷",
+              "specimen": "0e76e59aae98a8320daa9a36b44db0a705169fbc493c84bd338fe87e94ab0475",
+              "pixels": "b2c985b83e056504c2f059e6acc072203f507e2876b3951b7396691cd5a5e62d",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-04210af4-store-3-0-father",
+              "name": "매물 부계",
+              "specimen": "93dd0beebda992fcbae6de352205d546315b341ff0bd8d3d9ec32a4e2f987fe0",
+              "pixels": "684295c9894ae7625128312c3b8c6eaf031038c6294315d1f7e9a03cc5335b7d",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-04210af4-store-3-0-mother",
+              "name": "매물 모계",
+              "specimen": "1f58f2ec3af46af1d38fa887632b7055853bcd9d7be516d5ace2e0f0122f0cde",
+              "pixels": "4890eb67c9035eaa535c3e746cb2eed01675aef8a75081dd230bc35a8110ac7d",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            },
+            {
+              "id": "h-04210af4-store-3-1",
+              "name": "Highway 옐로 플레임 암컷",
+              "specimen": "4d0db56d663ab8c5de666bb5b5c3fd38fab2f6b18e77661b3f8c2ff6c195ea5e",
+              "pixels": "954bd28cce39722e41e7da0aa1bc02a6f5c526eca60e7b830a7164ee6ca26b20",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-04210af4-store-3-1-father",
+              "name": "매물 부계",
+              "specimen": "ebb82ddae702973346c7d7a942c474f69af76ac09b2ff777d73785f591f94dd6",
+              "pixels": "ecad64c89281a04c5a69f33e8c1e351b30b1d71b49eaf4c36d3e2eccd31daf7d",
+              "price": "0f044bb16445d2327b7736bfe0d94c457122bd89b4d7680041115b432a3f1c71"
+            },
+            {
+              "id": "h-04210af4-store-3-1-mother",
+              "name": "매물 모계",
+              "specimen": "2919c09c1598206a535fdd5bf008614e62a6604feb15102714ce6ab65b8572a9",
+              "pixels": "717ac4fce94702f0321f01bad9bed69571027f50a5554aa0490928f4ef542d8d",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            },
+            {
+              "id": "h-04210af4-store-3-2",
+              "name": "릴리화이트 옐로 트라이컬러 할 해칭",
+              "specimen": "443ecfec426fa6a29acc4cd14cdb84f7490859a0e05e3cfa6620939b9d3ad2cb",
+              "pixels": "6ef4f6671c644b3d516a542296567de21a1e6fd9c5fd77ee9b36a8413ca47eaf",
+              "price": "3647c790f7f3e028232ab2c8055ad1e2cd1ab515c1a0a40fcbc17275bdbe9a00"
+            },
+            {
+              "id": "h-04210af4-store-3-2-father",
+              "name": "매물 부계",
+              "specimen": "398aadb084acee654bafd471ab65fea30900a70544f7bf732390ad09f60b20e2",
+              "pixels": "a7f9ff9f3002f84ff99c94a462984fc84b81c53d910f79089b149e454fcc35fc",
+              "price": "a94278f83e978dadbb167b27de2d65a0e6ae3f31a1c99422e3580e180356df73"
+            },
+            {
+              "id": "h-04210af4-store-3-2-mother",
+              "name": "매물 모계",
+              "specimen": "323178b766ce595cbb71a32d46f2f5729864c79a4daa758275287c22f884fae7",
+              "pixels": "9d5a4176a7f7ed1e58b9aa350999e852cbd2f0bb216bad03f250116799d8670a",
+              "price": "0ef691fe8f9dd39aac14baa50a90438cf08dc010bf7d082e48a82c3a861154a5"
+            },
+            {
+              "id": "h-04210af4-store-3-3",
+              "name": "Cappuccino 옐로 플레 수컷",
+              "specimen": "4f4dca0a7b933181a7018b129ad5a4b98a2bb2a65b333912c3bdeba28b0d9867",
+              "pixels": "614b76e1a21bb20d8ff1ee65115c864b4875c5eec0443a3986334c325b21ff98",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-04210af4-store-3-3-father",
+              "name": "매물 부계",
+              "specimen": "a0cb950001e09e34a43a77ff108a14f4c6b672c1f40b40abc193e47f234fad8a",
+              "pixels": "8674ca5fcd1b0377cc80ab64d78aad151ecf30ca4b3664582420563b99294201",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-04210af4-store-3-3-mother",
+              "name": "매물 모계",
+              "specimen": "db3aef4f61e1fe7dac495780fc45b79253e586a25914ae44ed1cb845eff63767",
+              "pixels": "a414ca9c927db5edb39406c57e6a99b357ed36ccee036801c6bce8bb12e7fa4c",
+              "price": "17667127aaa6404270fb039a8628cd50fe20228bc6d8cf36493f8de633e7f6b4"
+            }
+          ]
+        },
+        {
+          "game": "e5e28ea465a398995ebeef2feea117d7cad658360594d90fe91de6c32c275b3c",
+          "backup": "58ef510cf96a7ac3d19bb4e196ff38962a73b77e4bdda7e902b52a0f7bfb5e53",
+          "records": [
+            {
+              "id": "h-04210af4-store-4-0",
+              "name": "옐로 할리퀸 아성체",
+              "specimen": "23e1584143ff9e769107a1d592c6dd069a580d6fa6702f8fbcb43c22fb637eea",
+              "pixels": "e9a47d3a9c8ccd4d3747bd9e71e2a37a3d769f39e900b1a7e10bba12a5f89992",
+              "price": "889a85f1bc48e4712e29af2b21392da5ee780284edceaf95f720baf2fe41b828"
+            },
+            {
+              "id": "h-04210af4-store-4-0-father",
+              "name": "매물 부계",
+              "specimen": "14b371c697901e0c97fe7ded8b43bbdde468531f908c375cec0b0edef902264a",
+              "pixels": "4324570d18010e2bd5ae5ed804f5a5fb21bf3cdbedb951544b47dea8f64b3510",
+              "price": "fa7edca20c53a5d502c052bfd1fc9a3931a43f807a3a722a882b98c2678169f5"
+            },
+            {
+              "id": "h-04210af4-store-4-0-mother",
+              "name": "매물 모계",
+              "specimen": "5eafa3a0d4a49b10e6278b7e5c1c46d6631f51a2bad30edb5dd6214a25ace0b1",
+              "pixels": "df1eae17f8b53adfa6720d3f7a1d23309ac70f2a08cd3eabdbc0b0c767c2f98c",
+              "price": "a56d1c773a9f068d2effcd1283ee947cfdb022689a3791b3dbb1aa31d7ce9311"
+            },
+            {
+              "id": "h-04210af4-store-4-1",
+              "name": "Cappuccino 옐로 플레 아성체",
+              "specimen": "f02373b231a868ff8a8c30fa71ea7649e5de72fa61d83e4b5437c2ae4f56c73f",
+              "pixels": "9f9e494ea982b0fee9bf6c5e51bf6c1729d2ad5f1f1250755c04a0a50ecd9e98",
+              "price": "889a85f1bc48e4712e29af2b21392da5ee780284edceaf95f720baf2fe41b828"
+            },
+            {
+              "id": "h-04210af4-store-4-1-father",
+              "name": "매물 부계",
+              "specimen": "6419f5ee507d6c6fd5e2d324bbd86de56bca6a55096d028d56554c2bf8c8b323",
+              "pixels": "0726915cf396146d389ec480b46016854ee4b7ed3c5ea6e6160cdd944a51ba30",
+              "price": "7c5b7f6c78b1f5169cadb6f615a7a876b885098ea953ae048d921de12feff75f"
+            },
+            {
+              "id": "h-04210af4-store-4-1-mother",
+              "name": "매물 모계",
+              "specimen": "534567860751c8482ae4df818e8a3a70a31f0689ec96bc9b8e1543f15054adac",
+              "pixels": "4126e1b19dc9d513a6b94dce4f343b381c3bf7ac86cee779743af1a9e7494b93",
+              "price": "852a10663445d35c455c8e948b339a72ab7b6aa679ae1cead66af883e6941036"
+            },
+            {
+              "id": "h-04210af4-store-4-2",
+              "name": "아잔틱 플레임 아성체",
+              "specimen": "16b7778088f5ab2658d6cfced2062ce9aa1ffc4d888f4ece2d029b36c623df00",
+              "pixels": "270636ed6f8c0b65134e4d3b3c128342e7c9f1ece4dd17439513112426c54744",
+              "price": "8aa64d5f69b1b049c02686c4fb4381d1ede0a8dac980cbcef6a1858f7cc91cdf"
+            },
+            {
+              "id": "h-04210af4-store-4-2-father",
+              "name": "매물 부계",
+              "specimen": "90894214488af8d53934ba03dad15b95d76f375b01533448f665c943c791571a",
+              "pixels": "a282cf3f13263fb4796e8312d9c79729b923df664271938acf156a888511e336",
+              "price": "9f845bf4287d13c125e7bf066c2ac86f810590a1f3db1f999174ffef1ccc7a2f"
+            },
+            {
+              "id": "h-04210af4-store-4-2-mother",
+              "name": "매물 모계",
+              "specimen": "9691e572964106824f921fc980e783e14730d6c0c6abaddea6a8001051e821c8",
+              "pixels": "31c84de579a010f1775b38bfbfe62d7266e495fdd2da2f41e8375458d320da7d",
+              "price": "3cff9cf93d962034b8a2a5c84aa3e7c4e19d4160804d1eead374bd106e791688"
+            },
+            {
+              "id": "h-04210af4-store-4-3",
+              "name": "오렌지 패턴리스 해칭",
+              "specimen": "a6afd83c91df08b39b6df5372cd4e75161e4cfeeb3ba54e1c6982915f5325e20",
+              "pixels": "a2cadedfb4365cb1a31ec95178356f2b0a9092961e8737e5b9d998d4dd9ccb74",
+              "price": "5bde60f70ab84a7c5874ed68cb0b2058c2536ea5f90098c569bc2d31ec16fd45"
+            },
+            {
+              "id": "h-04210af4-store-4-3-father",
+              "name": "매물 부계",
+              "specimen": "d44abb39164eccf993ba985f67847d187298cef6cc10ae4c937744201ebea588",
+              "pixels": "040a38b7344671bd4727818eb81e2c4c0e017e0fad899ac3b2ffea58a69b998e",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-04210af4-store-4-3-mother",
+              "name": "매물 모계",
+              "specimen": "991c97733fd497b11a8a8792f015c87157586ca3ca7499df15ee0ccd567b4b0f",
+              "pixels": "489cf1371f5a6ed4f28548bc231781d43a23293e3b2b93983f431cc2ca55cdab",
+              "price": "b3207fe4f945cbe736ca6a2342bb5942821e1a9679e6c11d816113797815e5ca"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": "morph-display-legacy",
+      "batches": [
+        {
+          "game": "cd270faf836a16c30438fe635bc20fbca2cfdccafcbaef28d2447731a07e44df",
+          "backup": "d17d2873e77a4b9d9a17b8f2fc80473191199d82c86da359d7cf5bd27887b4f3",
+          "records": [
+            {
+              "id": "h-f594ad5e-store-1-0",
+              "name": "옐로 플레임 수컷",
+              "specimen": "82c8d20bb9101f0ab837e431864c8f7541b4b3c4d0acc8272de0deb8a10b6e53",
+              "pixels": "c9d37f188acc7508041e60d4fa8fbf6fcb56329c0d6cf208d3d11e29785b233e",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-f594ad5e-store-1-0-father",
+              "name": "매물 부계",
+              "specimen": "6e3a852c13ceba43f9ea2031fbe3959c7df0d66277f47332ebb60bb3278b584f",
+              "pixels": "eb8c1568b14e19957654451248cb74ff2c534d1e546130ab7ff70a9c4efdbb2d",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-1-0-mother",
+              "name": "매물 모계",
+              "specimen": "4b30931ce8b62a6a129dd4f09252aa74cc9cfca245bc36098a13d5c807ff25ef",
+              "pixels": "120c204508f8ffec18945bc809152c97fe736531a2c12de44bab4213870f5f23",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-f594ad5e-store-1-1",
+              "name": "옐로 플레임 암컷",
+              "specimen": "c7cf8b3a70a94531edf641d44b7e7705ce788349d72effb6a7564d8ff06f5e4a",
+              "pixels": "15a179456271c2bd2e65f09013f0af48cc7f3c8039ac66ffbaacab3a9b86a597",
+              "price": "0701265ffbac11813f2c4dc20e72cf2b8569a9c39a73dfe670426698a20351d7"
+            },
+            {
+              "id": "h-f594ad5e-store-1-1-father",
+              "name": "매물 부계",
+              "specimen": "d045712509748be137b8db8b074447dd37e89c3bb7a5a2b0c0196d9bc5a7cb35",
+              "pixels": "1d29fe53473fb1ac75e88717cc38109d7f02e8c83648546e5803df2278bd55ad",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-f594ad5e-store-1-1-mother",
+              "name": "매물 모계",
+              "specimen": "4f6bcd59754d07f11b3da8360ce761206194bd23d9ac1ab40bae7cb3f5d824cd",
+              "pixels": "1182598cb9db34d0ebe6233ad6853167d1ba52b651599d43103ec12088f62ae2",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-f594ad5e-store-1-2",
+              "name": "다크 플레임 아성체",
+              "specimen": "9d88032dd1b7f6239e8a899144430577df41c02592eb17d9f46a941b1e1e2eca",
+              "pixels": "44902f8d5d3260985a04d686b4c219dbd6cf0911853339ba7287384335f0948c",
+              "price": "889a85f1bc48e4712e29af2b21392da5ee780284edceaf95f720baf2fe41b828"
+            },
+            {
+              "id": "h-f594ad5e-store-1-2-father",
+              "name": "매물 부계",
+              "specimen": "e7822391eaab2b58b6480d6c4f9d6f0d9dba6b79720efebb6228e846c85e57c5",
+              "pixels": "009daac7285b603486ca0c470f9ea3f2cdef64304f60e6d11c5e8375c44c4687",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-1-2-mother",
+              "name": "매물 모계",
+              "specimen": "be04e8ed08f8ccaa03a540a8106b7f02c225897183eb6f632499530bb0ecd845",
+              "pixels": "f54fc8922863a54cba3f4a4bfd6da5a47518118f414ca9c279e86b736437ce00",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-f594ad5e-store-1-3",
+              "name": "옐로 타이거 수컷",
+              "specimen": "c4f2a49e8ca0f156aa4a4f04eedd4ce522886225ff86e8047a2f5f24026d95c0",
+              "pixels": "e17420d1ca8d23f03e5054f9d3274bbc44ffd4e756d6bec8dc113640fb89d918",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-1-3-father",
+              "name": "매물 부계",
+              "specimen": "c260b6a8e8fdf8e4951982975e7e0024802550e866c6a31e493f7e0e34aaede3",
+              "pixels": "9a794ecb4ba6f22e2897bb28712c7013408e9acf93bca043dd646e371c997ea8",
+              "price": "bfc0b5a516d5b7c074d2b5f090a9a3613080d157ee4e188d3bf7d4f65da0fbbb"
+            },
+            {
+              "id": "h-f594ad5e-store-1-3-mother",
+              "name": "매물 모계",
+              "specimen": "5d7b12ee7d7e6f6ed5f6f181252b3b88b4b876da8eaa2d083d9ba1fc7975dd76",
+              "pixels": "6c6d5e1f6ce15363f3d24ba27781015d258e819d6ef247dccba9aee26bf270df",
+              "price": "9619477fb00c8b93253a21f6fa1e3be5343010e4229e6c4bc4bba1bb44c023f2"
+            }
+          ]
+        },
+        {
+          "game": "53faee96435ddb8a4d03743d93a68b20512c88313d13b258c6721e78b021a9bd",
+          "backup": "f0d83b05b5e979db4a85fd968ddf89918127b6c83bc0bf62b5c17e8ec512b32f",
+          "records": [
+            {
+              "id": "h-f594ad5e-store-2-0",
+              "name": "Sable 옐로 플레임 암컷",
+              "specimen": "7cb47f46de2aaada5ec6874daa74e6d5ad36fe9190b14bed3cb524b18b92e81b",
+              "pixels": "131bae5e77b72dd107a688fb394a214a9767462f1c8a3797a3bc02578115d148",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-f594ad5e-store-2-0-father",
+              "name": "매물 부계",
+              "specimen": "29712ff09a7cd4212465bfd4bbf216f78014664136f76093be7c524337cdfce8",
+              "pixels": "838db0c6bf881c8fd4b186b41a1be30bbdc793b47c233164628642893404cc6c",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-2-0-mother",
+              "name": "매물 모계",
+              "specimen": "b94fb3c4b3ae21db8fe316ba7a2c2c6d78f0ffb6a9f4d4427b7b57f5e70513b5",
+              "pixels": "a8972198bdc8f707ec925cf71bfda4e8523f495ddb0f6a1aa13746f9cdbf2d46",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-f594ad5e-store-2-1",
+              "name": "릴리화이트 + Sable 옐로 암컷",
+              "specimen": "61a8ae437e9919d7d02886d6c13493273308147bbfaed4ef2c53e8e0b74a3b5c",
+              "pixels": "03be035a48a5d3f537ffb3878e82a82db58ce0d5f80ab8d297d045d8c3d21686",
+              "price": "2c61defef859e7de3a374e54449af559947278960bfdd8ca2167ee007d3085c9"
+            },
+            {
+              "id": "h-f594ad5e-store-2-1-father",
+              "name": "매물 부계",
+              "specimen": "11db1bb14018fabb2f75b016f366e2df184f684a2c796772bbf0e59ea7dd12c2",
+              "pixels": "b5d4ca982c70275ee2752732b103252a21179eb99622faa6dc43b924bbf8d0e3",
+              "price": "0f044bb16445d2327b7736bfe0d94c457122bd89b4d7680041115b432a3f1c71"
+            },
+            {
+              "id": "h-f594ad5e-store-2-1-mother",
+              "name": "매물 모계",
+              "specimen": "c4c4b3d3317f31719743beaf7379abd4d8cc107d4e63019186eb32c590ca3d4d",
+              "pixels": "a9354010e7c410164a96c4f4d0d1a56a45b867312e7983caa9947e508cf86200",
+              "price": "17667127aaa6404270fb039a8628cd50fe20228bc6d8cf36493f8de633e7f6b4"
+            },
+            {
+              "id": "h-f594ad5e-store-2-2",
+              "name": "오렌지 할리퀸 해칭",
+              "specimen": "96222e86d47040fa9875e228ce3e6b0a5ebd7340c1cce582755d6f58228625c1",
+              "pixels": "137eb3bf7fe3f39f601643176cf144934aad0f180d9e1317c8307b57ab4c394f",
+              "price": "7317499c84452500d0de080620711d7de814b6588f57db38423890d08fcf0c57"
+            },
+            {
+              "id": "h-f594ad5e-store-2-2-father",
+              "name": "매물 부계",
+              "specimen": "f7d7b4a5656ca6dc4eb51888eaddaa20171dba729b63e85dd37962e9158a91e8",
+              "pixels": "50a26b1d980eb7aded819933e49ddc568acd9ebcc1e415e795eda3d134b1b7bf",
+              "price": "ea0f3d2b441b37e0e6bca75397ff811f0a3b49fa503cb36caf69cf5b31023fcf"
+            },
+            {
+              "id": "h-f594ad5e-store-2-2-mother",
+              "name": "매물 모계",
+              "specimen": "1de63c7ef175c4fe66891b2eb673e85ce60f5902e3db4fda7ddc707b8c47714a",
+              "pixels": "2b068b2f546a2500fe5bb326640c0ef051617ebdc5c532c00d0e117c25bf05da",
+              "price": "0701265ffbac11813f2c4dc20e72cf2b8569a9c39a73dfe670426698a20351d7"
+            },
+            {
+              "id": "h-f594ad5e-store-2-3",
+              "name": "옐로 플레임 암컷",
+              "specimen": "f487a47fc3c3e5d9aad6e9850a46622760ee49f3acf292ec5f27badfdcdd86db",
+              "pixels": "b6bbc076079bd378011e465d56485b839847a1a516cbef24aad849761756dbeb",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-f594ad5e-store-2-3-father",
+              "name": "매물 부계",
+              "specimen": "2817041f652e3a9e2a36df202586f7f27087c9cf8786eb5e3759155a4e4bfd70",
+              "pixels": "b3a30e81a231fabd24afe6f780f9731668d27cb355ce6a4f21d94fe2101ad1ea",
+              "price": "188c98e842fd72ef4826b6b0b4663190f2194c77f3b5e462382b519ccc28d890"
+            },
+            {
+              "id": "h-f594ad5e-store-2-3-mother",
+              "name": "매물 모계",
+              "specimen": "d121173cbbaeefcd4271ae68be04d55ae501ce7f491868f12dc3ca36612fa056",
+              "pixels": "b9aefb9093396829252587b6b7a8c6d00588fff22f109466d8578bd6d39eb22d",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            }
+          ]
+        },
+        {
+          "game": "e87b156a130681a3eec9771acfe24d035c28cc8aa7684324546bd5bc253c9f55",
+          "backup": "16b41fbdcc52bf12f88127f8e724bcdcedf1636976fa6c4860ecd412b1fa67c3",
+          "records": [
+            {
+              "id": "h-f594ad5e-store-3-0",
+              "name": "옐로 플레임 암컷",
+              "specimen": "0e88d5b35bfcd793215916ce81298b033534ee1a615f3f4b392e879e1b103b0d",
+              "pixels": "04e18e172d4a33d9756b02b65e547f3facbad35a88ec6e4e50ab341f54709ad8",
+              "price": "a56d1c773a9f068d2effcd1283ee947cfdb022689a3791b3dbb1aa31d7ce9311"
+            },
+            {
+              "id": "h-f594ad5e-store-3-0-father",
+              "name": "매물 부계",
+              "specimen": "1d5ed444236872a1db3b960d8f548f6fc85b45cce5920f1e8345e701384550b7",
+              "pixels": "87c3ee497d1eb2012af859cb266d30da97d945dbe93b1ad4c63d4c149b50b7fe",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-f594ad5e-store-3-0-mother",
+              "name": "매물 모계",
+              "specimen": "88f4ef853ac0ab70196bf30cf9aef3363932cee8657b91042d4d2e9669412ddc",
+              "pixels": "b87930f020d3f7c893e1471c8d19d6fa1025cc98ee8012c7c217294f2ac8a39a",
+              "price": "b3207fe4f945cbe736ca6a2342bb5942821e1a9679e6c11d816113797815e5ca"
+            },
+            {
+              "id": "h-f594ad5e-store-3-1",
+              "name": "옐로 플레임 암컷",
+              "specimen": "fa75f2708404e1d929ef063630768451239dc5455d79059af816139acbb8c268",
+              "pixels": "6c8508ba2d0eef15de626635f8c29f797eff5c13151ce56155faebc94cc2e00a",
+              "price": "89c8aa7a972e47f673ad0a06c398dc5d7f008d2db5a0975578f328625558db49"
+            },
+            {
+              "id": "h-f594ad5e-store-3-1-father",
+              "name": "매물 부계",
+              "specimen": "01a80e76c59aadaf5f677e2f30f37637220206efc8422d7848a191a2eec0a2df",
+              "pixels": "feae97a25ddde31a9950035bcde4984cccafe8db01b528c072e63168e0f356ac",
+              "price": "e429d3aa4ad0c2ee0203b28cddaba1d84201a07b52ff6ab266098109bacc2a84"
+            },
+            {
+              "id": "h-f594ad5e-store-3-1-mother",
+              "name": "매물 모계",
+              "specimen": "a474d8cd9ae215f5bd3687f90671c06923f14789d18f1ef4e747de5f3b12fa2c",
+              "pixels": "382d5817511f2b4baff020cff0209cfcd71fd6ec766d922f505bb7c1154efeec",
+              "price": "bed213b6ea7eec1a67f13c6c9bfd3486dc719cbc1933d8b2f9a03846231dc94b"
+            },
+            {
+              "id": "h-f594ad5e-store-3-2",
+              "name": "Highway 옐로 타이거 아성체",
+              "specimen": "155af72cc60da01c1d8d1213e15797b7c4a725a206b726fcb0fde0829c26c922",
+              "pixels": "95332e875e6d814ac8c04060a91a87cdafd2bb41dd69ba8df95b6972d14af241",
+              "price": "39ce0e0fed5aa276770c1c05a59aa6e6570b8f09243cfc831bd6730cab381f03"
+            },
+            {
+              "id": "h-f594ad5e-store-3-2-father",
+              "name": "매물 부계",
+              "specimen": "a3c34c3f138aed7d82086f5b90ede1287565ddd82f59edc38d0c0785e00d02bb",
+              "pixels": "ff77c21487f882ea6bbba3b27d0da980d9730b7f87e5788e6a293e3659e24edd",
+              "price": "8b4b733741fb3d377668a0e68afc7e5b14d30d9507475eee567ed5aecee9809e"
+            },
+            {
+              "id": "h-f594ad5e-store-3-2-mother",
+              "name": "매물 모계",
+              "specimen": "4b37ebb83af8ab8561c1d93f5a94e580462f9fcb40142497350fe38f7810052e",
+              "pixels": "127601e81573c8c3376fcceeb2993feda34812fd8e9e13efda579df3d5069682",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-f594ad5e-store-3-3",
+              "name": "오렌지 플레임 암컷",
+              "specimen": "4ac411a2a4919b424890ddfa8a61f928cf34071f42dc883baf56e79740ae8902",
+              "pixels": "6c4fb02313a4c24df69f67312a84366145b259f4febff3d7f8fe1d43bdbdfe40",
+              "price": "d1c73ccd10afcdf7c02e23c04a36552b866ec6959d919e940846e91c69f6a220"
+            },
+            {
+              "id": "h-f594ad5e-store-3-3-father",
+              "name": "매물 부계",
+              "specimen": "bbed0177b66fe74ddf0939c262410e2b8fd56f69ac6606ebfd19bdbbdf47cf4f",
+              "pixels": "c2a0788bae0c2f3a380e768191efac1d429212acc8a61323f1c51e9f1974abbb",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-3-3-mother",
+              "name": "매물 모계",
+              "specimen": "a1da11ae97dd1b2c8507e8ce4c233a1800b76f5fef2e06c7b7bc8ff2ddea0fe6",
+              "pixels": "4b4c82438a2c80354622e1940c769dc601a8968434d3681e870fadacfbf63968",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            }
+          ]
+        },
+        {
+          "game": "4ddcd6268732421d3b4b329855a2a4ce0237db168b7f204937b5646142f29210",
+          "backup": "ed3343c8bbd0dfcd759d5568cb9f1f9f1c2ce1f4517eacae6201ee2dddd08f7d",
+          "records": [
+            {
+              "id": "h-f594ad5e-store-4-0",
+              "name": "릴리화이트 옐로 익스트림 할리 해칭",
+              "specimen": "88f976779380a203d04c4808adff1f69da4aef5f4c1d5e103222b1ca7c85f6d5",
+              "pixels": "0fdab4837d085195431d41d449d155145f6e1e075ef2dd0ca72d65851867ff06",
+              "price": "c87bcf4a35431f7ade9eab516a57836b0fd510d48e5dbe5c34237c00be2f6ed1"
+            },
+            {
+              "id": "h-f594ad5e-store-4-0-father",
+              "name": "매물 부계",
+              "specimen": "9a1963f103f71762fdd9d127620822b3a6363fb78f73add1f095c5a67bb8c6ed",
+              "pixels": "a924a0bfddc2cf9871eda8aef91d524e50d99e08421cdbe6b652356915c62e59",
+              "price": "3152ded4db813ef3fd3d26b14652c5aef7671238124b6a0dcdee44892d071dd9"
+            },
+            {
+              "id": "h-f594ad5e-store-4-0-mother",
+              "name": "매물 모계",
+              "specimen": "2b2674a1f949b60abb3d814f0eccf584cd8547ac39e9af6c38197fc14e71d64c",
+              "pixels": "12d99210322bc6b05dfd3bb917f6476455c721cfab376b716a356923295b0b22",
+              "price": "0701265ffbac11813f2c4dc20e72cf2b8569a9c39a73dfe670426698a20351d7"
+            },
+            {
+              "id": "h-f594ad5e-store-4-1",
+              "name": "Highway 옐로 할리퀸 해칭",
+              "specimen": "dd4b58d1b1a745075226c1eef5faa0765d46221ac4627517d04cd195d46bc830",
+              "pixels": "8ab2e2a98d65bf6d72b1c5c0635bccd880bc54035cacd7b20f43ce17ade3ed48",
+              "price": "7317499c84452500d0de080620711d7de814b6588f57db38423890d08fcf0c57"
+            },
+            {
+              "id": "h-f594ad5e-store-4-1-father",
+              "name": "매물 부계",
+              "specimen": "83627143be63f918bcf588a5c76e85f8c4adbf6470cfd90805d48db8f4daa037",
+              "pixels": "5baf6d457f6e481f4f6b8766631c75a482dbdf20f45f5c197bf4f64ba5a7d17f",
+              "price": "9e4e891091ba5c8039771e8604b53c75329553a18cf524d252c10d542a7690f4"
+            },
+            {
+              "id": "h-f594ad5e-store-4-1-mother",
+              "name": "매물 모계",
+              "specimen": "ff935d16ba225fe34a6dad3692042c31da8a363784a730679a0b348864279f27",
+              "pixels": "f4b36d516931d3e9d453394c2d14598ae6eff4228c6794836959f722df664da3",
+              "price": "81442f61cb5529f2fea50dc19ce0b9caa95ed272efa94c23d572331508ba7f9d"
+            },
+            {
+              "id": "h-f594ad5e-store-4-2",
+              "name": "옐로 플레임 수컷",
+              "specimen": "9f04823de371bf51319f60d536d8a2b1326ce58a8253fdbaa599769d7408b3a4",
+              "pixels": "9829a2bda014b88a31f88efa2b0e75dec2fac1f0a6bf1f22e3e12bee24144547",
+              "price": "d2f3cecd25ed7a953e81bf897b62060a8094e62e163c62648ef82d0e2ed5c75d"
+            },
+            {
+              "id": "h-f594ad5e-store-4-2-father",
+              "name": "매물 부계",
+              "specimen": "32850d0e2c7b0b8fed2ca915f8953054243ae880f8c32367a9f318e8322335d6",
+              "pixels": "0aa0e500438502d8697ee9a4939b96f57c792c91d8f4f7f42db8522a5596ddd0",
+              "price": "b880270476010e7304274c1ab99e04e9dfaf5df1f1002e065df0ddb44bab426f"
+            },
+            {
+              "id": "h-f594ad5e-store-4-2-mother",
+              "name": "매물 모계",
+              "specimen": "44946f3cb2e4237fc41ae8c4855a0e2e4d284730fef16bb6a60b5773895f5210",
+              "pixels": "c28186b4c409ead30b1f8e85d2fbe9d0e8a7ec243b5f4fa5903f49779dc84e14",
+              "price": "ea8bc67eaf769b5cb30c493b956e1dbb89ad7b8a675274d6a52cdb5acc1df5f0"
+            },
+            {
+              "id": "h-f594ad5e-store-4-3",
+              "name": "옐로 플레임 수컷",
+              "specimen": "fd594c68b75059cc3a2ff837bd679c6e7f289a9486916042388421a744e8ac3a",
+              "pixels": "e0be402e58828e972e4e4d20866c847127e60998ce84b2c2013c78a4c70d7390",
+              "price": "a70c97aa4e9d289477600ffc49860d1c510b8008bf7c35cd97ccb6395308f0e8"
+            },
+            {
+              "id": "h-f594ad5e-store-4-3-father",
+              "name": "매물 부계",
+              "specimen": "6afd1c4d28686a3437d8c265d53a94fff1f50cb84e18f25f4921b62a61454493",
+              "pixels": "effa5587b86e48e6d579b81eccf210c4540587e4059e4eef0017ff65a36fda43",
+              "price": "0456e9f2f7eb574f901ebc4a32b7b1eb12590c23a9f9c057e0f16054abc03085"
+            },
+            {
+              "id": "h-f594ad5e-store-4-3-mother",
+              "name": "매물 모계",
+              "specimen": "79a017b15a2e1d979dade241f6ec71b37386d690a36d498349b2e23f25146b9d",
+              "pixels": "25a3c9196abb6791ad131acb3acfbea2b20f3e7f7fd0142de0a8ff35e4a40d37",
+              "price": "f1c63f77b36134fc2612b9449f985fa6874212bd8cff60bab3708ed958515150"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "legacy": {
+    "game": "2feb45baecfe751eae56b105e2f051a2bb619feb24d11a84c892f80b2f36c182",
+    "backup": "7614e8c20e2880e28ff599b7efda29692a8cac84b47ad69e6ce7408871b3fd31"
+  }
+}

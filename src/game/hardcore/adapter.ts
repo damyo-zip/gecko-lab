@@ -5,6 +5,7 @@ import { carrierProbability } from "@/genetics/advanced/inference";
 import { publicKnowledge } from "./genetics";
 import { phenotype } from "@/genetics/advanced/phenotype";
 import { appearanceProfile } from "./appearance";
+import {koreanMorphText,representativeMorphName} from "@/phenotype/display-name";
 
 function legacyView(g: Gecko) {
   return { ...g, genotype: { modelVersion: 1 as const, loci: { "lilly-white": g.genotype.loci["lilly-white"] } } };
@@ -43,11 +44,30 @@ export function specimen(g: Gecko,fire:"up"|"down"="up") {
   result.state.fire=fire;
   return result;
 }
-/** Compact representative name, shared by shop/collection; full traits remain in details. */
-export function visualName(g:Gecko):string {
+/** Frozen descriptive path also used to generate saved shop individual names.
+ * Keep this separate from the changeable player-facing naming policy. */
+export function descriptiveVisualName(g:Gecko):string {
   return appearanceProfile(g)?.names.primary??morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,
     {normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"}[specimen(g).appearance.patternStyle]).split(" · ").filter(s=>!s.includes("het")&&!s.includes("유전 정보")).join(" · ");
 }
+/** Only expressed morphs: a hidden recessive carrier is never a naming input. */
+export function visibleGeneticMorphs(g:Gecko):string[] {
+  if(g.genetics?.genome)return phenotype(g.genetics.genome).geneticMorphs;
+  return [g.genotype.loci['lilly-white'].includes('Lw')?'Lilly White':'',axanthicState(g.genotype)==='visual'?'Axanthic':''].filter(Boolean);
+}
+const displayNames=new WeakMap<Gecko,string>();
+/** One computed representative for every gameplay screen; no save writes. */
+export function visualName(g:Gecko):string {
+  let name=displayNames.get(g);if(name!==undefined)return name;
+  const profile=appearanceProfile(g),geneticMorphs=visibleGeneticMorphs(g);
+  // Older sprites have no measured color/pattern profile. Do not invent those traits.
+  const legacyPattern=profile?'':{normal:'',lilly:'',axanthic:'',dalmatian:'달마시안',harlequin:'할리퀸',tricolor:'트라이컬러 할리퀸'}[specimen(g).appearance.patternStyle];
+  const fallback=profile?.names.primary??(geneticMorphs.length?[geneticMorphs.join(' + '),legacyPattern].filter(Boolean).join(' · '):descriptiveVisualName(g));
+  name=representativeMorphName({geneticMorphs,color:profile?.names.color,pattern:profile?.names.base,fallback});
+  displayNames.set(g,name);return name;
+}
+/** Full pre-existing classification and public carrier information remain in details. */
+export const morphDescription=(g:Gecko)=>koreanMorphText(morph(g));
 export function disclosedSex(g: Gecko): string {
   return g.stage === "adult" ? g.sex === "male" ? "수컷 ♂" : "암컷 ♀" : "미구분 · 성체 때 공개";
 }

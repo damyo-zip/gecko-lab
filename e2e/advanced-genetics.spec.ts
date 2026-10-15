@@ -42,12 +42,12 @@ test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
 test("touch purchase possible het, mate with visual Ax, hatch and infer, name, grow, reload and preserve lineage",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile"),fixture=scenario();await restore(page,exportBackup(fixture.original),mobile);
-  await tab(page,"상점",mobile);const card=page.getByTestId("shop-offer-"+fixture.father);await expect(card).toContainText("Normal");
+  await tab(page,"상점",mobile);const card=page.getByTestId("shop-offer-"+fixture.father);await expect(card).toContainText("노멀");
   await tab(page,"컬렉션",mobile);await tab(page,"상점",mobile);
   await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"Ax 해칭 구매",exact:true}),mobile);
   await buyFood(page,mobile,1000);await tab(page,"컬렉션",mobile);for(let t=0;t<12;t++)await day(page,mobile);
   await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',fixture.father);await chooseBreedingParent(page,'female',fixture.mother);
-  await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("Axanthic");
+  await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("아잔틱");
   await page.getByTestId("hardcore-forecast").scrollIntoViewIfNeeded();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath("phase5-forecast.png"),scale:"css"});
   await closeGenetics(page,mobile);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
@@ -61,20 +61,20 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await page.keyboard.press("Escape");const child=Object.values(hatched.individuals).find(g=>g.parents&&g.genotype.loci.axanthic.every(a=>a==="ax"))!;
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:child.name+" 상세보기",exact:true}),mobile);
   await page.getByLabel("개체 이름",{exact:true}).fill("검증된 아잔틱");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);
-  await expect(page.getByRole("dialog")).toContainText("Axanthic · aa");await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
+  await expect(page.getByRole("dialog")).toContainText("아잔틱 · aa");await click(page.getByRole("button",{name:"파이어 다운 미리 보기",exact:true}),mobile);
   await expect(page.getByRole("button",{name:"파이어 업 미리 보기",exact:true})).toBeVisible();
   await page.getByTestId("public-genetics").scrollIntoViewIfNeeded();
   await page.screenshot({path:info.outputPath("phase5-details.png"),scale:"css"});
   await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);for(let t=0;t<12;t++)await day(page,mobile);
   const final=await saved(page);expect(final.individuals[child.id].stage).toBe("adult");expect(final.individuals[child.id].genetics!.genome).toEqual(eggs[child.id+"-egg"].embryo.genetics!.genome);
   await page.reload();await expect(page.getByTestId("game-day")).toHaveText("30");expect(await saved(page)).toEqual(final);
-  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await expect(page.locator(".ancestor-list")).toContainText("노멀 수컷");await click(page.getByRole("button",{name:"아버지 노멀 수컷 혈통 보기",exact:true}),mobile);await click(page.getByRole("button",{name:"상세 정보",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("100% het Ax");await page.keyboard.press("Escape");
+  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await expect(page.locator(".ancestor-list")).toContainText("노멀 수컷");await click(page.getByRole("button",{name:"아버지 노멀 수컷 혈통 보기",exact:true}),mobile);await click(page.getByRole("button",{name:"상세 정보",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("100% het 아잔틱");await page.keyboard.press("Escape");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test("learning calculator shows risky multi-allelic outcomes without creating offspring or changing saved genomes",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile");await tab(page,"교배",mobile);await inspectGenetics(page,mobile);await click(page.getByText("유전학 도감",{exact:true}),mobile);await click(page.getByText("독립 좌위 학습 계산기",{exact:true}),mobile);
   const before=await saved(page);await page.getByRole("combobox",{name:"cappuccino-complex 수컷",exact:true}).selectOption("n/C");
-  await page.getByRole("combobox",{name:"cappuccino-complex 암컷",exact:true}).selectOption("n/S");await expect(page.getByRole("dialog",{name:"유전 정보",exact:true})).toContainText("Luwak");
+  await page.getByRole("combobox",{name:"cappuccino-complex 암컷",exact:true}).selectOption("n/S");await expect(page.getByRole("dialog",{name:"유전 정보",exact:true})).toContainText("루왁");
   await expect(page.getByRole("dialog",{name:"유전 정보",exact:true})).toContainText("주의 조합 발생 25.0%");expect(await saved(page)).toEqual(before);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

@@ -1,4 +1,5 @@
 "use client";
+import {koreanMorphText} from "@/phenotype/display-name";
 import {memo,useMemo,useState} from 'react';
 import type {Gecko,HardcoreGame} from '@/game/hardcore/model';
 import {STAGE_LABELS} from '@/game/model';
@@ -27,7 +28,7 @@ export function ParentSearch({game,busy,sex,currentId,opponentId,onSelect,onClos
       <p className="parent-search-opponent">상대: <strong>{game.individuals[opponentId]?.name??'선택 대기'}</strong><span>성장 중 개체는 두 목록에 성별 미구분으로 표시 · 성체 후 선택</span></p>
       <label className="parent-search-input"><span className="sr-only">개체 이름·번호·모프 검색</span><HomeIcon name="search"/><input type="search" value={query.search} placeholder="이름 · 개체번호 · 모프 검색" onChange={e=>change('search',e.target.value)}/></label>
       <div className="parent-search-quick">
-        <label>모프<select aria-label="모프 필터" value={query.morph} onChange={e=>change('morph',e.target.value)}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([v,n])=><option key={v} value={v}>{n}</option>)}<optgroup label="관찰된 복합 모프">{COMPLEX_MORPHS.filter(n=>rows.some(r=>r.morph.includes(n))).map(n=><option key={n} value={'visible:'+n}>{n}</option>)}</optgroup><optgroup label="관찰된 무늬">{PATTERN_FILTERS.map(n=><option key={n} value={'pattern:'+n}>{n}</option>)}</optgroup></select></label>
+        <label>모프<select aria-label="모프 필터" value={query.morph} onChange={e=>change('morph',e.target.value)}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([v,n])=><option key={v} value={v}>{n}</option>)}<optgroup label="관찰된 복합 모프">{COMPLEX_MORPHS.filter(n=>rows.some(r=>r.visibleMorphs.includes(n))).map(n=><option key={n} value={'visible:'+n}>{koreanMorphText(n)}</option>)}</optgroup><optgroup label="관찰된 무늬">{PATTERN_FILTERS.map(n=><option key={n} value={'pattern:'+n}>{n}</option>)}</optgroup></select></label>
         <label>교배 상태<select aria-label="교배 상태 필터" value={query.status} onChange={e=>change('status',e.target.value)}><option value="all">상태 전체</option><option value="ready">교배 가능</option><option value="rest">휴식기</option><option value="blocked">기타 불가능</option></select></label>
         <label>정렬<select aria-label="개체 정렬" value={query.sort} onChange={e=>change('sort',e.target.value as ParentQuery['sort'])}>{Object.entries(PARENT_SORTS).map(([v,n])=><option key={v} value={v}>{n}</option>)}</select></label>
       </div>

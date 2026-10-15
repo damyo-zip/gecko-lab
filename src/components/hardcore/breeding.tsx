@@ -4,6 +4,7 @@ import { breedingCheck } from '@/game/hardcore/breeding';
 import { breedingRisk } from '@/game/hardcore/breeding-risk';
 import { freeSlots } from '@/game/hardcore/survival';
 import { ageTurns, lifeStage } from '@/game/hardcore/lifecycle';
+import {koreanMorphText} from '@/phenotype/display-name';
 import { visualName } from '@/game/hardcore/adapter';
 import { appearanceProfile } from '@/game/hardcore/appearance';
 import { familyTree } from '@/game/hardcore/family-album';
@@ -54,7 +55,7 @@ export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onM
     {information==='genetics'&&<Dialog title="유전 정보" onClose={()=>setInformation(null)}>{father&&mother?<GeneticForecast father={father} mother={mother}/>:<p>부모를 선택하면 공개 정보에 따른 자손 확률을 확인할 수 있습니다.</p>}<p>교배 1회 · 2칸 예약 · 2턴 후 알 2개 산란 · 알 수거 후 4턴 판정 · 부화 후 12턴 성체</p><p>기본 무정란 5% · 생존 가능한 수정란의 기본 부화 성공률 95%. 실제 배아별 유전적 영향이 추가로 적용될 수 있습니다.</p><GeneticsGuide/></Dialog>}
     {information==='family'&&father&&mother&&<Dialog title="혈통 비교" onClose={()=>setInformation(null)}><div className="breed-family-comparison">{[father,mother].map(g=>{const tree=familyTree(game,g.id),roles:Record<string,string>={current:'선택한 부모',father:'아버지',mother:'어머니',paternalGrandfather:'친가 할아버지',paternalGrandmother:'친가 할머니',maternalGrandfather:'외가 할아버지',maternalGrandmother:'외가 할머니'};return <section key={g.id}><h3>{g.name}</h3>{Object.entries(tree).map(([role,relative])=><div key={role}><small>{roles[role]}</small>{relative?<><Sprite gecko={relative}/><strong>{relative.name}</strong><small>{relative.id}</small><span>{visualName(relative)}</span></>:<span>정보 없음</span>}</div>)}</section>;})}</div><p>{risk?.relationship} · 예상 자손 F {((risk?.pedigree.coefficient??0)*100).toFixed(2)}%</p><p>기록 없는 시조와 부모 {risk?.pedigree.founderAssumptions}개를 비근친·상호 비혈연으로 가정한 계산입니다. 실제 비혈연이 확인되었다는 뜻은 아닙니다.</p></Dialog>}
     {risk&&confirmation===risk.acknowledgement&&<Dialog title="교배 전 위험 확인" onClose={()=>setConfirmation(null)} className="breed-risk-dialog">
-      {risk.warnings.map(w=><section key={w.code}><h3>{w.title}</h3><p>{w.message}</p></section>)}
+      {risk.warnings.map(w=><section key={w.code}><h3>{w.title}</h3><p>{koreanMorphText(w.message)}</p></section>)}
       <p className="game-small-note">기록 없는 조상은 비근친·상호 비혈연으로 가정합니다. 숨은 유전 정보는 공개하지 않습니다. 실제 결과는 각 알의 상속된 유전형에 따라 달라집니다.</p>
       <div className="breed-risk-actions"><button className="game-secondary" disabled={busy} onClick={()=>setConfirmation(null)}>취소</button><button className="game-primary" disabled={busy} onClick={()=>void mate(confirmation)}>위험을 확인하고 교배하기</button></div>
     </Dialog>}
