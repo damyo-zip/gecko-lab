@@ -6,7 +6,7 @@ import {readFileSync} from 'node:fs';
 import {newGame,act} from './fixtures/legacy-catalog';
 import {exportBackup,type makeSave} from '../src/game/hardcore/save';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
-import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';
+import {touch,navigateGame,finishTurnAndTend as finishTurn} from './helpers/hardcore-navigation';
 import {successfulPair} from './fixtures/lifecycle';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 const DATE='2026-10-14';

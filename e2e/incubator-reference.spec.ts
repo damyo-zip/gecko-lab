@@ -1,3 +1,4 @@
+import {tendIncubator} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {incubatorFixture} from './fixtures/incubator-reference';
@@ -43,13 +44,13 @@ test('empty slot opens breeding without buying capacity; two reservations lay on
  await touch(page.getByTestId('incubator-empty-slot').first(),mobile);await expect(page.getByRole('heading',{name:'교배',exact:true})).toBeVisible();expect(await saved(page)).toEqual(fixture.g);
  await chooseBreedingParent(page,'male',fixture.father);await chooseBreedingParent(page,'female',fixture.mother);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);
  await expect(page.getByTestId('incubator-reserved-slot')).toHaveCount(2);await expect(page.getByTestId('incubator-empty-slot')).toHaveCount(0);const fixed=Object.values((await saved(page)).matings)[0].lifecycle!.offspring;
- await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(0);await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(2);await expect(page.getByTestId('incubator-reserved-slot')).toHaveCount(0);await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');
+ await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(0);await next(page,mobile);await tendIncubator(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(2);await expect(page.getByTestId('incubator-reserved-slot')).toHaveCount(0);await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');
  const g=await saved(page);expect(g.capacity).toBe(4);expect(freeSlots(g)).toBe(0);for(let n=0;n<3;n++)await next(page,mobile);await expect(page.getByTestId('incubator-remaining')).toHaveText('7일 (1턴)');
  await next(page,mobile);const hatched=await saved(page);expect(Object.values(hatched.eggs)).toHaveLength(2);expect(Object.values(hatched.eggs).every(e=>e.status!=='incubating')).toBe(true);for(const o of fixed){const child=hatched.individuals[o.embryo.id];if(child)expect(child.genetics).toEqual(o.embryo.genetics);}
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');expect(await saved(page)).toEqual(hatched);await navigateGame(page,'부화',mobile);await expect(page.getByTestId('incubator-free')).toHaveText(String(freeSlots(hatched)));
 });
-for(const kind of ['infertile','hatch'] as const)test(`${kind} remains unrevealed until the fourth incubation turn, then releases the actual slot`,async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),g=failureFixture(kind);await restore(page,g,mobile);for(let n=0;n<5;n++)await next(page,mobile);await expect(page.locator('.inc-slot.egg-card')).toHaveCount(2);await expect(page.locator('.inc-results')).toHaveCount(0);
+for(const kind of ['infertile','hatch'] as const)test(`${kind} remains unrevealed until the fourth incubation turn, then remains for manual removal`,async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),g=failureFixture(kind);await restore(page,g,mobile);for(let n=0;n<5;n++){await next(page,mobile);if(n===1)await tendIncubator(page,mobile);}await expect(page.locator('.inc-slot.egg-card')).toHaveCount(2);await expect(page.locator('.inc-results')).toHaveCount(0);
  await next(page,mobile);const result=await saved(page),failed=Object.values(result.eggs).find(e=>e.lifecycle?.failure===kind)!;expect(failed).toBeDefined();await expect(page.getByTestId('hc-egg-'+failed.id)).toContainText(kind==='infertile'?'무정란':'부화 실패');expect(result.individuals[failed.embryo.id]).toBeUndefined();await expect(page.getByTestId('incubator-empty-slot')).toHaveCount(freeSlots(result));
 });
 test('large actual capacity is paged and long parents remain accessible without horizontal overflow',async({page},info)=>{

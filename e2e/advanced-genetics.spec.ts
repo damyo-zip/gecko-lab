@@ -1,7 +1,7 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
-import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
+import {navigateGame,finishTurnAndTend as finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test,expect,type Page,type Locator } from "@playwright/test";
 import {turns} from "./fixtures/lifecycle";
 import {newGame as legacyGame} from "../tests/helpers/legacy-hardcore";
@@ -83,7 +83,7 @@ test("actual v4 IndexedDB slot migrates and archives atomically without inventin
   for(const i of [...Object.values(old.individuals),...Object.values(old.shop.offers).map(o=>o.individual)])delete i.genetics;
   await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});},
     {save:{format:"gecko-lab-save",version:4,checksum:checksum(old),game:old},writeRevision:7});
-  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(9);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(10);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
   await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("과거 가상 대립유전자는 복원할 수 없어 미확인");
   const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});return new Promise<string[]>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").getAllKeys();r.onsuccess=()=>resolve(r.result.map(String));tx.oncomplete=()=>db.close();});});expect(archive).toContain("archive-v4-8");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

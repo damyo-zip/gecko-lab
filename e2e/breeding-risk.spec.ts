@@ -2,7 +2,7 @@ import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {breedingRiskFixture} from './fixtures/breeding-risk';
 import {exportBackup} from '../src/game/hardcore/save';
-import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurn} from './helpers/hardcore-navigation';
+import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurnAndTend as finishTurn} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {collectionMorph} from '../src/components/hardcore/collection-query';

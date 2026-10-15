@@ -1,3 +1,4 @@
+import {tendBrood} from './helpers/tend-brood';
 import {test,expect} from 'vitest';
 import {incubatorFixture} from '../e2e/fixtures/incubator-reference';
 import {incubatorState,eggProgress} from '@/components/hardcore/incubator-state';
@@ -20,10 +21,11 @@ test('unlaid two-slot reservations are represented as reserved slots, never usab
  for(const id of [father,mother])g=act(g,{type:'buyGecko',offerId:id},g.lastDate);g=act(g,{type:'buyFood',amount:100},g.lastDate);
  g=act(g,{type:'breed',fatherId:father,motherId:mother},g.lastDate);
  let s=incubatorState(g);expect(s).toMatchObject({total:2,available:0,booked:2});expect(s.slots.every(slot=>slot.kind==='reserved')).toBe(true);expect(s.active).toHaveLength(0);
- g=turn(turn(g));s=incubatorState(g);expect(s).toMatchObject({total:2,available:0,booked:0});expect(s.active).toHaveLength(2);expect(s.slots.every(slot=>slot.kind==='egg')).toBe(true);expect(reserved(g)).toBe(2);
+ g=turn(turn(g));expect(incubatorState(g).slots.every(slot=>slot.kind==='reserved')).toBe(true);g=act(g,{type:'collectEggs',matingId:Object.keys(g.matings)[0]},g.lastDate);s=incubatorState(g);expect(s).toMatchObject({total:2,available:0,booked:0});expect(s.active).toHaveLength(2);expect(s.slots.every(slot=>slot.kind==='egg')).toBe(true);expect(reserved(g)).toBe(2);
 });
-test('resolved eggs leave active slots; only real hatched animals occupy housing and failures release capacity',()=>{
+test('resolved eggs hold their slots until pickup or removal; received animals then occupy housing',()=>{
  let g=incubatorFixture();for(let n=0;n<3;n++)g=turn(g);
+ expect(incubatorState(g).occupied).toHaveLength(4);expect(freeSlots(g)).toBe(2);g=tendBrood(g);
  const s=incubatorState(g),hatched=Object.values(g.eggs).filter(e=>e.status==='hatched').length;
  expect(s.active).toHaveLength(0);expect(s.nextProgress).toBeNull();expect(s.available).toBe(6-hatched);expect(s.total).toBe(s.available);expect(s.slots.every(slot=>slot.kind==='empty')).toBe(true);
  for(const e of Object.values(g.eggs))expect(eggProgress(g,e)).toMatchObject({remainingTurns:0,remainingDays:0,percent:100});

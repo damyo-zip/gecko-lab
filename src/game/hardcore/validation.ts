@@ -15,6 +15,7 @@ import { validateLifecycle } from "./lifecycle-validation";
 import {pedigreeIndex,descendantIds} from './family-album';
 import { validateHealth, HEALTH_LOCI, inheritHealth } from '@/genetics/health';
 import type { Embryo } from './model';
+import { projectBroodCare, validateBroodCare } from './brood-care-validation';
 import {validateRush} from '@/game/rush';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
@@ -36,10 +37,10 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
     if(probabilities&&!probabilities[pairKey(record!.genome.mendelian.loci[l.id],l)])fail();}
 }
 export function validateGame(value:unknown):asserts value is HardcoreGame {
-  if(!value||typeof value!=="object"||![5,6,7,8,9].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
+  if(!value||typeof value!=="object"||![5,6,7,8,9,10].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
   if(Object.hasOwn(game,'cafeRush')){
-    if(game.saveVersion!==9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
+    if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
   }
   const catalog=game.saveVersion>=7;
   if(game.saveVersion>=8){
@@ -81,6 +82,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
       delete offer.family;delete offer.purchased;
     }
   }
+  validateBroodCare(game);projectBroodCare(base as unknown as HardcoreGame);
   // Reuse the established care/calendar/ID/kinship/sale/egg structural contract.
   // Only advanced children bypass the obsolete mean-plus-variation check.
   const strip=(g:Embryo)=>{delete g.genetics;if(game.saveVersion>=9){delete g.healthGenome;delete g.development;}};

@@ -1,3 +1,4 @@
+import {tendBrood} from '../../tests/helpers/tend-brood';
 import {newGame,act} from '../../src/game/hardcore/play';
 import {actWithTime} from '../../src/game/hardcore/time-source';
 import {breedingRisk} from '../../src/game/hardcore/breeding-risk';
@@ -13,7 +14,7 @@ export function growthScaleGame(){
     for(let clutch=0;clutch<2;clutch++){
       const risk=breedingRisk(game,game.individuals[fatherId],game.individuals[motherId]);
       game=act(game,{type:'breed',fatherId,motherId,riskAcknowledgement:risk.acknowledgement},game.lastDate);
-      for(let t=0;t<6;t++)game=actWithTime(game,{type:'endTurn'},game.time.realtimeAnchorDate);
+      for(let t=0;t<6;t++)game=tendBrood(actWithTime(game,{type:'endTurn'},game.time.realtimeAnchorDate));
     }
     const animals=Object.values(game.individuals).filter(g=>g.status==='owned');
     const hatchling=animals.find(g=>g.stage==='hatchling'),juvenile=animals.find(g=>g.stage==='juvenile');

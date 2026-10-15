@@ -1,3 +1,4 @@
+import {tendBrood} from './helpers/tend-brood';
 import {preRiskRecord} from './helpers/risk-projection';
 import {test,expect} from "vitest";
 import {createHash} from "node:crypto";
@@ -91,7 +92,7 @@ test("new-model game egg identity, naming, rendered pixels, ancestry and quotati
  const [f,m]=Object.keys(game.shop.offers);for(const id of [f,m])game=act(game,{type:"buyGecko",offerId:id},game.lastDate);
  game=act(game,{type:"buyFood",amount:100},game.lastDate);game=act(game,{type:"breed",fatherId:f,motherId:m},game.lastDate);
  const mating=Object.values(game.matings)[0],embryos=mating.lifecycle!.offspring;
- for(let n=0;n<18;n++)game=actWithTime(game,{type:"endTurn"},game.lastDate);
+ for(let n=0;n<18;n++)game=tendBrood(actWithTime(game,{type:"endTurn"},game.lastDate));
  const original=exportBackup(game),loaded=parseBackup(original,game.lastDate);expect(loaded).toEqual(game);
  for(const id of [f,m,...embryos.map(o=>o.embryo.id).filter(id=>game.individuals[id])]){
   const a=game.individuals[id],b=loaded.individuals[id];expect(morph(a)).toBe(morph(b));expect(visualName(a)).toBe(visualName(b));expect(appearanceProfile(a)).toEqual(appearanceProfile(b));
@@ -111,7 +112,7 @@ test("pending actual v5 and historical v6 embryos replay their saved appearance 
  let old=oldGame("v5-live","2026-10-14",{initialCapacity:20});const [f,m]=Object.keys(old.shop.offers);
  for(const id of [f,m])old=oldAct(old,{type:"buyGecko",offerId:id},old.lastDate);
  old=oldAct(old,{type:"breed",fatherId:f,motherId:m},old.lastDate);old.time.mode="realtime";
- const upgraded=parseBackup(exportBackup(old),"2026-10-14");expect(upgraded.saveVersion).toBe(9);
+ const upgraded=parseBackup(exportBackup(old),"2026-10-14");expect(upgraded.saveVersion).toBe(10);
  const frozen=Object.values(upgraded.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}));
  const reread=parseBackup(exportBackup(upgraded),"2026-10-14");expect(reread).toEqual(upgraded);
  expect(Object.values(reread.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}))).toEqual(frozen);

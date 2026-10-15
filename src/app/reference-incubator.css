@@ -43,3 +43,11 @@
 .inc-no-space { font-size:13px; padding:14px; text-align:center; color:#b8c4d1; }
 .inc-extra { margin-top:24px; border-top:1px solid #304251; padding:16px 3px 0; }.inc-tools { display:flex; gap:8px; }.inc-tools button { flex:1; }.inc-rule-note { font-size:11px; color:#aabaca; margin:14px 0; }.inc-results h2,.inc-extra .hc-mating-history > h2 { font-size:18px; margin:20px 0 12px; }.inc-results .inc-shell-egg { width:70px; height:auto; }
 @media (max-width:370px) {.inc-info dl > div { padding-left:3px; padding-right:3px; }.incubator-shell .inc-info { padding:6px; }.inc-info dt,.inc-info dd { font-size:10px; }.incubator-shell .inc-back { margin-right:8px; }.inc-slot-heading { gap:8px; } }
+
+.inc-care-target{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer;touch-action:manipulation}
+.inc-care-target:focus-visible{outline:2px solid #afff64;outline-offset:-3px}
+.inc-newborn .inc-shell-egg{z-index:1;top:auto;bottom:0;width:45%;height:auto}
+.inc-newborn canvas[data-growth-stage]{position:absolute;z-index:2;top:50%;left:50%;width:100%!important;height:auto!important;--sprite-placement:translate(-50%,-50%)}
+.inc-time.inc-care-label{color:#c6ff8c;margin:7px 0 4px;min-height:38px}
+.inc-reserved .game-secondary{font-size:10px;padding:5px;min-height:44px}
+.incubator-shell .egg-card .inc-care-target{margin:0;padding:0}

@@ -81,3 +81,32 @@ export async function openCollectionCatalog(page:Page,mobile:boolean) {
   await touch(page.getByRole('dialog',{name:'컨디션 관리',exact:true}).getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);
   await expect(page.getByRole('dialog',{name:'전체 개체 목록',exact:true})).toBeVisible();
 }
+
+/** Explicit player care actions for existing breeding scenarios after ending a turn. */
+export async function tendIncubator(page:Page,mobile:boolean){
+ const needed=await page.evaluate(async()=>{
+  const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
+  return new Promise<boolean>(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(Object.values(r.result.save.game.eggs as Record<string,{status:string;care?:{collectedTurn:number|null;settledTurn:number|null}}>).some(e=>e.care?.collectedTurn===null||e.care?.settledTurn===null&&e.status!=='incubating'));tx.oncomplete=()=>db.close();});
+ });
+ if(!needed)return;
+ const previous=(await page.getByRole('navigation',{name:'게임 탭'}).locator('[aria-pressed="true"]').innerText()).trim();
+ await navigateGame(page,'인큐베이터',mobile);
+ while(await page.getByRole('button',{name:'알 2개 수거',exact:true}).count()){
+  const before=await page.getByRole('button',{name:'알 2개 수거',exact:true}).count();
+  await touch(page.getByRole('button',{name:'알 2개 수거',exact:true}).first(),mobile);
+  await expect.poll(()=>page.getByRole('button',{name:'알 2개 수거',exact:true}).count()).toBeLessThan(before);
+  await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');
+ }
+ for(const prefix of ['receive-hatchling-','remove-egg-'])while(await page.locator(`[data-testid^="${prefix}"]`).count()){
+  const before=await page.locator(`[data-testid^="${prefix}"]`).count();
+  await touch(page.locator(`[data-testid^="${prefix}"]`).first(),mobile);
+  await expect.poll(()=>page.locator(`[data-testid^="${prefix}"]`).count()).toBeLessThan(before);
+  await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');
+ }
+ await navigateGame(page,previous,mobile);
+}
+
+/** Existing whole-game regressions now explicitly collect and settle every played clutch. */
+export async function finishTurnAndTend(page:Page,mobile:boolean){
+ await finishTurn(page,mobile);await tendIncubator(page,mobile);
+}

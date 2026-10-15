@@ -1,3 +1,4 @@
+import {tendBrood} from './helpers/tend-brood';
 import { expect, test } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { pedigreeCoefficient, pedigreeRelationship } from '@/game/pedigree-risk';
@@ -48,7 +49,7 @@ function knownPair(seed='lilly-risk'){
 }
 import { refreshFamilyShop } from '@/game/hardcore/shop-family';
 function riskyPair(seed='lilly-risk') {const r=knownPair(seed);refreshFamilyShop(r.g);validateGame(r.g);return r;}
-const turns=(g:HardcoreGame,n:number)=>{for(let i=0;i<n;i++)g=actWithTime(g,{type:'endTurn'},DATE);return g;};
+const turns=(g:HardcoreGame,n:number)=>{for(let i=0;i<n;i++)g=tendBrood(actWithTime(g,{type:'endTurn'},DATE));return g;};
 const mate=(g:HardcoreGame,f:string,m:string)=>act(g,{type:'breed',fatherId:f,motherId:m,riskAcknowledgement:breedingRisk(g,g.individuals[f],g.individuals[m]).acknowledgement},g.lastDate);
 
 test('full siblings, half siblings, cousins, lineal and distant ancestors have exact recorded-pedigree F with explicit founder assumptions',()=>{
@@ -129,7 +130,7 @@ test('ordinary sex, adulthood, retirement, recovery and two-slot requirements st
 });
 test('v7/v8 migration deterministically adds only health fields; old genomes, pixels, names, failures and pending conception remain unchanged',()=>{
  const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),original=structuredClone(envelope);
- const migrated=readSave(envelope,DATE);expect(envelope).toEqual(original);expect(migrated.saveVersion).toBe(9);expect(readSave(envelope,DATE)).toEqual(migrated);
+ const migrated=readSave(envelope,DATE);expect(envelope).toEqual(original);expect(migrated.saveVersion).toBe(10);expect(readSave(envelope,DATE)).toEqual(migrated);
  for(const [id,old] of Object.entries(original.game.individuals) as [string,Gecko][]){const next=migrated.individuals[id];expect(next.genetics).toEqual(old.genetics);expect(next.genotype).toEqual(old.genotype);expect(next.parents).toEqual(old.parents);expect(renderSprite(specimen(next)).pixels).toEqual(renderSprite(specimen(old)).pixels);expect(visualName(next)).toBe(visualName(old));}
  expect(migrated.eggs).toMatchObject(original.game.eggs);expect(readSave(makeSave(migrated),DATE)).toBe(migrated);
  const corrupt=makeSave(structuredClone(migrated));delete Object.values(corrupt.game.individuals)[0].healthGenome;corrupt.checksum=checksum(corrupt.game);expect(()=>readSave(corrupt,DATE)).toThrow();

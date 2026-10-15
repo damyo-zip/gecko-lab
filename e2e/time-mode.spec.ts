@@ -2,7 +2,7 @@ import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
-import {navigateGame,finishTurn,feedCollection} from "./helpers/hardcore-navigation";
+import {navigateGame,finishTurnAndTend as finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { newGame } from "./fixtures/legacy-catalog";
 import {newGame as legacyGame} from "../tests/helpers/legacy-hardcore";
@@ -81,7 +81,7 @@ test("v3 active slot migrates to manual v8 without changing records or applying 
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:{format:"gecko-lab-save",version:3,game:legacy,checksum:checksum(legacy)},writeRevision:10});
   await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");
-  const migrated=await saved(page);expect(migrated.saveVersion).toBe(9);expect(migrated.time.mode).toBe("turn");
+  const migrated=await saved(page);expect(migrated.saveVersion).toBe(10);expect(migrated.time.mode).toBe("turn");
   for(const id of Object.keys(legacy.individuals)){expect(migrated.individuals[id].genotype).toEqual(legacy.individuals[id].genotype);expect(migrated.individuals[id].potential).toEqual(legacy.individuals[id].potential);}expect(migrated.individuals[offer.id].genetics?.genome).toBeNull();
   expect(migrated.lastDate).toBe(DATE);expect(migrated.money).toBe(original.money);
 });

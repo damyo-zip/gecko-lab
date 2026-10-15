@@ -1,6 +1,6 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
-import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
+import {navigateGame,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Locator,type Page} from "@playwright/test";
 import {createHash} from "node:crypto";
 import {readFile} from "node:fs/promises";

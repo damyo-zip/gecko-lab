@@ -8,7 +8,7 @@ export type RushPatch=Pick<HardcoreGame,'revision'|'cafeRush'|'notices'>;
 export type RushRequest={id:number}&({type:'init';loaded:LoadedHardcore}|{type:'step';action:RushStep;date:GameDate});
 export type RushResponse={id:number}&({ok:true;patch?:RushPatch;writeRevision:number}|{ok:false;message:string;conflict:boolean});
 
-export const canIsolateRush=(game:HardcoreGame)=>game.saveVersion===9&&game.rulesVersion===4&&game.time.mode==='turn';
+export const canIsolateRush=(game:HardcoreGame)=>game.saveVersion>=9&&game.rulesVersion===4&&game.time.mode==='turn';
 
 /** Runs the existing action, full validation, checksum, CAS and atomic ledger transaction.
  * Only manual v1.2 checkpoints qualify: they cannot change livestock, money or dates.

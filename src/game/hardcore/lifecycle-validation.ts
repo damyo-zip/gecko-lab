@@ -6,13 +6,14 @@ import { V12 } from "./lifecycle";
 import { seasonEggSeed } from "./season";
 import { createEmbryo } from "./offspring";
 import { TRAIT_KEYS } from "@/genetics/traits";
+import { atBirth, waitingForCollection } from './brood-care';
 import { fertileChance, eggFailure } from './egg-outcome';
 
 const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 function assert(condition:unknown):asserts condition {if(!condition)throw new Error("v1.2 턴·성장·산란·수명 기록이 손상되었습니다.");}
 function keys(value:object,names:string):void {assert(value&&Object.keys(value).sort().join()===names.split(" ").sort().join());}
 export function validateLifecycle(game:HardcoreGame):void {
-  assert([6,7,8,9].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
+  assert([6,7,8,9,10].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
   assert(game.rules.adultAfter===12&&game.rules.juvenileAfter===6&&game.rules.fertilizationChance===.95&&game.rules.hatchChance===.95&&game.rules.recoveryDays===4);
   for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)]){
     assert(Number.isSafeInteger(g.lastProcessedTurn)&&g.lastProcessedTurn!<=game.turn);
@@ -54,7 +55,7 @@ export function validateLifecycle(game:HardcoreGame):void {
       // Genomes, seeds, all discrete records and the stored values remain exact.
       assert(TRAIT_KEYS.every(k=>Number.isFinite(o.embryo.potential[k])&&Math.abs(o.embryo.potential[k]-expected.potential[k])<=1e-12));
       assert(equal({...o.embryo,potential:expected.potential},expected));
-      if(clutch<=s.clutchesLaid)assert(egg&&equal(egg.embryo,o.embryo)&&egg.seed===seed&&egg.lifecycle?.fertilized===o.fertilized);
+      if(clutch<=s.clutchesLaid)assert(egg&&equal(egg.embryo,egg.care?atBirth(o.embryo,egg.lifecycle!.dueTurn,egg.dueDate):o.embryo)&&egg.seed===seed&&egg.lifecycle?.fertilized===o.fertilized);
       else assert(!egg);
     }
   }
@@ -62,8 +63,9 @@ export function validateLifecycle(game:HardcoreGame):void {
     assert(Object.hasOwn(egg,"lifecycle"));const e=egg.lifecycle;if(!e){assert(egg.status!=="incubating");continue;}
     keys(e,"laidTurn dueTurn fertilized failure");
     assert(egg.hatchChance===V12.hatchChance);
-    assert(Number.isSafeInteger(e.laidTurn)&&Number.isSafeInteger(e.dueTurn)&&e.laidTurn<=game.turn&&e.dueTurn===e.laidTurn+4);
-    assert(egg.dueDate===addDays(egg.laidDate,28)&&egg.embryo.birthTurn===e.dueTurn&&typeof e.fertilized==="boolean");
+    assert(Number.isSafeInteger(e.laidTurn)&&Number.isSafeInteger(e.dueTurn)&&e.laidTurn<=game.turn&&e.dueTurn===(egg.care?.collectedTurn??e.laidTurn)+4);
+    assert(egg.dueDate===addDays(egg.laidDate,(e.dueTurn-e.laidTurn)*7)&&egg.embryo.birthTurn===e.dueTurn&&typeof e.fertilized==="boolean");
+    if(waitingForCollection(egg))continue;
     assert(egg.status==="incubating"?e.dueTurn>game.turn&&e.failure===null:
       e.dueTurn<=game.turn&&(egg.status==="hatched"?e.fertilized&&e.failure===null:e.failure===eggFailure(egg)));
     if(e.dueTurn<=game.turn)assert((egg.status==="hatched")===(eggFailure(egg)===null));
