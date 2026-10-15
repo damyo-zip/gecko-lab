@@ -1,0 +1,90 @@
+{
+  "verifiedAt": "2026-10-15T03:56:52.492518+00:00",
+  "branch": "feat/cre-rush",
+  "baseCommit": "2e8b4e54fffae5ff36add97301605788e08ec4e8",
+  "parentPR": 15,
+  "typecheck": "passed",
+  "build": "passed",
+  "oldArtHashes": "unchanged; compile-gecko-art --check passed",
+  "unit": {
+    "files": 23,
+    "passed": 272,
+    "failed": 0,
+    "skipped": 0
+  },
+  "e2e": {
+    "passed": 168,
+    "failed": 0,
+    "skipped": 0,
+    "workers": 2,
+    "projects": [
+      "mobile-chromium",
+      "desktop-chromium"
+    ],
+    "finalRelatedPassed": 4,
+    "finalRelatedFailed": 0,
+    "finalRelatedReason": "Preserve the original header disabled behavior in conflict states; simultaneous/stale tabs rechecked."
+  },
+  "mobileViewports": [
+    [
+      360,
+      800
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      360,
+      640
+    ]
+  ],
+  "actualTouchInputs": 20,
+  "displayedAndSavedInputMsMatch": true,
+  "observedPerfectProgress": {
+    "mobile": [
+      0.7837,
+      0.8261
+    ],
+    "desktop": [
+      0.7786,
+      0.8191
+    ]
+  },
+  "art": {
+    "logicalPixels": [
+      96,
+      96
+    ],
+    "sourcePixels": [
+      1254,
+      1254
+    ],
+    "sourceSHA256": "95e278e7a30ef047dc1e3b80677bea5f3b772080626479a69650abe0e8e9d1db",
+    "poseCount": 1,
+    "variants": 4
+  },
+  "durationMs": 25000,
+  "waves": [
+    1,
+    1,
+    1,
+    2,
+    2,
+    3
+  ],
+  "maximumWage": 3000,
+  "saveVersion": 9,
+  "rulesVersion": 4,
+  "extensionVersion": 1,
+  "limitations": [
+    "Generated high-resolution art sampled to 96px; one pose with uniform scale",
+    "No physical iOS/Safari test",
+    "Duplicate prevention uses local per-game/seed receipts; no server anti-cheat",
+    "Restoring funds uses the backup amount and does not re-credit already paid wages"
+  ]
+}

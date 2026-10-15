@@ -4,6 +4,7 @@ import type { PotentialTraits, TraitVariation } from "@/genetics/traits";
 import type { GameDate } from "./time";
 import type { GeneticsRecord, Knowledge } from "@/genetics/advanced/model";
 import type { HealthGenome } from '@/genetics/health';
+import type {RushState,RushTap} from '@/game/rush';
 
 export type Ownership = "owned" | "sold" | "dead" | "pedigree";
 export const TIME_MODES = ["turn", "realtime"] as const;
@@ -130,6 +131,8 @@ export interface HardcoreGame {
   marketVersion: string;
   notices: string[];
   migration: { from: 2; date: GameDate } | null;
+  /** Optional, versioned cafe shift extension; absent v9 saves mean never played. */
+  cafeRush?:RushState;
 }
 export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { saveVersion: 3 };
 export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 };
@@ -145,7 +148,10 @@ export type GameplayAction =
   | { type: "rename"; id: string; name: string }
   | { type: "lineage"; id: string; name: string }
   | { type: "renameLineage"; lineageId: string; name: string }
-  | { type: "unfavoriteLineage"; lineageId: string };
+  | { type: "unfavoriteLineage"; lineageId: string }
+  | { type: "startRush" }
+  | { type: "stepRush"; elapsedMs:number; taps?:RushTap[] }
+  | { type: "claimRush" };
 export type Action = GameplayAction
   | { type: "endTurn" }
   | { type: "setTimeMode"; mode: TimeMode };

@@ -1,10 +1,18 @@
 import {expect,type Page,type Locator} from "@playwright/test";
 export async function touch(l:Locator,mobile:boolean) {if(mobile)await l.tap();else await l.click();}
+/** Drive the actual stacked picker, including the ID search and selection button. */
+export async function chooseBreedingParent(page:Page,sex:'male'|'female',id:string,mobile=false){
+  await touch(page.getByRole('button',{name:sex==='male'?'수컷 개체 변경':'암컷 개체 변경',exact:true}),mobile);
+  const picker=page.getByRole('dialog',{name:sex==='male'?'수컷 개체 선택':'암컷 개체 선택',exact:true});
+  if(id){await picker.getByRole('searchbox',{name:'개체 이름·번호·모프 검색',exact:true}).fill(id);await touch(picker.getByTestId('parent-candidate-'+id).getByRole('button',{name:'이 개체 선택',exact:true}),mobile);}
+  else await touch(picker.getByRole('button',{name:'선택 해제',exact:true}),mobile);
+  await expect(picker).toHaveCount(0);await expect(page.getByTestId('breed-parent-'+sex)).toHaveAttribute('data-parent-id',id);
+}
 /** Home has four tabs; incubator provides access to the other existing screens. */
 export async function navigateGame(page:Page,name:string,mobile:boolean) {
   const breeding=page.getByRole('dialog',{name:'교배',exact:true});
   if(name==='교배'&&await breeding.count())return;
-  for(const title of ['유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+  for(const title of ['수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
     const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
   }
   const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
@@ -62,7 +70,7 @@ export async function closeGenetics(page:Page,mobile:boolean){
 }
 
 export async function closeBreeding(page:Page,mobile:boolean){
- for(const title of ['유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+ for(const title of ['수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
   const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
  }
 }

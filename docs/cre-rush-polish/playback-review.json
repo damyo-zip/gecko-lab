@@ -1,0 +1,232 @@
+{
+  "browser": "Chromium headless, actual rAF and touchscreen taps",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "touches": [
+    {
+      "id": 0,
+      "progress": 0.7895,
+      "box": {
+        "x": 147.03125,
+        "y": 429.171875,
+        "width": 103,
+        "height": 103
+      }
+    },
+    {
+      "id": 1,
+      "progress": 0.7855,
+      "box": {
+        "x": 158,
+        "y": 384.84375,
+        "width": 103,
+        "height": 103
+      }
+    },
+    {
+      "id": 2,
+      "progress": 0.7889,
+      "box": {
+        "x": 186.296875,
+        "y": 371.15625,
+        "width": 104,
+        "height": 104
+      }
+    },
+    {
+      "id": 3,
+      "progress": 0.7814,
+      "box": {
+        "x": 57.453125,
+        "y": 451.765625,
+        "width": 103,
+        "height": 103
+      }
+    },
+    {
+      "id": 4,
+      "progress": 0.792,
+      "box": {
+        "x": 142.46875,
+        "y": 253.859375,
+        "width": 104,
+        "height": 104
+      }
+    },
+    {
+      "id": 5,
+      "progress": 0.7807,
+      "box": {
+        "x": 144.5625,
+        "y": 509.53125,
+        "width": 102,
+        "height": 102
+      }
+    },
+    {
+      "id": 6,
+      "progress": 0.7808,
+      "box": {
+        "x": 230.65625,
+        "y": 295.484375,
+        "width": 103,
+        "height": 103
+      }
+    },
+    {
+      "id": 7,
+      "progress": 0.788,
+      "box": {
+        "x": 56.921875,
+        "y": 451.59375,
+        "width": 104,
+        "height": 104
+      }
+    },
+    {
+      "id": 8,
+      "progress": 0.7889,
+      "box": {
+        "x": 142.453125,
+        "y": 253.703125,
+        "width": 104,
+        "height": 104
+      }
+    },
+    {
+      "id": 9,
+      "progress": 0.781,
+      "box": {
+        "x": 229.5,
+        "y": 451.75,
+        "width": 103,
+        "height": 103
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": 0,
+      "elapsedMs": 3266,
+      "progress": 0.8042
+    },
+    {
+      "id": 1,
+      "elapsedMs": 7049,
+      "progress": 0.7908
+    },
+    {
+      "id": 2,
+      "elapsedMs": 10699,
+      "progress": 0.8001
+    },
+    {
+      "id": 3,
+      "elapsedMs": 13799,
+      "progress": 0.7952
+    },
+    {
+      "id": 4,
+      "elapsedMs": 14699,
+      "progress": 0.799
+    },
+    {
+      "id": 5,
+      "elapsedMs": 17999,
+      "progress": 0.7951
+    },
+    {
+      "id": 6,
+      "elapsedMs": 18765,
+      "progress": 0.788
+    },
+    {
+      "id": 7,
+      "elapsedMs": 21865,
+      "progress": 0.8025
+    },
+    {
+      "id": 8,
+      "elapsedMs": 22565,
+      "progress": 0.7962
+    },
+    {
+      "id": 9,
+      "elapsedMs": 23482,
+      "progress": 0.8028
+    }
+  ],
+  "seed": "GECKO-2026-10-15-1792039879932",
+  "state": {
+    "version": 2,
+    "shift": {
+      "turn": 0,
+      "elapsedMs": 25000,
+      "results": [
+        {
+          "grade": "perfect",
+          "atMs": 3266,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 7049,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 10699,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 13799,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 14699,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 17999,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 18765,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 21865,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 22565,
+          "source": "tap"
+        },
+        {
+          "grade": "perfect",
+          "atMs": 23482,
+          "source": "tap"
+        }
+      ],
+      "paid": false
+    }
+  },
+  "displayedAndJudgedMsMatch": true,
+  "perfect": "10마리",
+  "pay": "₩3,000",
+  "frames": {
+    "count": 1502,
+    "medianMs": 16.699999999999818,
+    "p95Ms": 16.700000000000728,
+    "over50ms": 0
+  },
+  "errors": []
+}

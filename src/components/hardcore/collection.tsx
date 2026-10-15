@@ -24,7 +24,7 @@ function Status({status,placeholder=false,testId}:{status:CollectionStatus;place
   return <span className={"home-status "+(status.ready?"ready":"waiting")+(placeholder?" home-status-placeholder":"")} aria-hidden={placeholder||undefined} data-testid={testId}><HomeIcon name={status.ready?"heart":"clock"} size={14}/><span className="home-status-label">{status.label}</span></span>;
 }
 
-export function Collection({game,busy,play,onDetail,onShop,onResources,onBreed}:ViewProps&{onShop:()=>void;onResources:()=>void;onBreed:(id:string)=>void}) {
+export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,onBreed}:ViewProps&{onShop:()=>void;onRush:()=>void;onResources:()=>void;onBreed:(id:string)=>void}) {
   const [selectedId,setSelected]=useState(""),[limit,setLimit]=useState(12),[stage,setStage]=useState("all");
   const [filter,setFilter]=useState("all"),[sort,setSort]=useState<CollectionSort>("default"),[columns,setColumns]=useState<2|3>(3),[care,setCare]=useState(false),[catalog,setCatalog]=useState(false);
   const animals=useMemo(()=>owned(game),[game.individuals]),selected=animals.find(g=>g.id===selectedId)??animals[0];
@@ -59,7 +59,15 @@ export function Collection({game,busy,play,onDetail,onShop,onResources,onBreed}:
         {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><Status status={status}/></button>}
         <button className="home-card-more home-frame" aria-label={g.name+" 상세보기"} onClick={()=>onDetail(g.id)}><span aria-hidden="true">···</span></button>
       </article>;})}</div>
-      {!visible.length&&<div className="home-empty">{animals.length?"필터에 맞는 개체가 없습니다.":"보유 개체가 없습니다. 상점에서 첫 게코를 데려오세요."}{!animals.length&&<button className="game-secondary" onClick={onShop}>상점 보기</button>}</div>}
+      {!animals.length?<section className="home-breeder-guide home-frame" aria-labelledby="home-breeder-title">
+        <h2 id="home-breeder-title"><HomeIcon name="leaf" size={20}/>첫 게코를 기다리는 시간</h2>
+        <p>아직 게코가 없어도 괜찮아요. 파충류 카페에서 아르바이트하며 자금을 모으고, 상점에서 마음에 드는 게코를 찾아보세요.</p>
+        <div className="home-breeder-actions">
+          <button type="button" className="game-secondary" aria-label="카페 알바하기" disabled={busy} onClick={onRush}><HomeIcon name="coin" size={20}/><span><strong>카페 알바하기</strong><small>돈 모으기</small></span></button>
+          <button type="button" className="game-secondary" aria-label="상점 구경하기" disabled={busy} onClick={onShop}><HomeIcon name="shop" size={20}/><span><strong>상점 구경하기</strong><small>매물 둘러보기</small></span></button>
+        </div>
+        <p className="home-breeder-hint"><HomeIcon name="clock" size={12}/>턴을 넘기며 새로운 게코를 만나보세요.</p>
+      </section>:!visible.length&&<div className="home-empty">필터에 맞는 개체가 없습니다.</div>}
       {visible.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>개체 더 보기</button>}
     </div>
     {catalog&&<CollectionCatalog game={game} busy={busy} initial={{morph:filter,sort,stage}} onClose={()=>setCatalog(false)} onDetail={id=>{setCatalog(false);setSelected(id);onDetail(id);}}/>}

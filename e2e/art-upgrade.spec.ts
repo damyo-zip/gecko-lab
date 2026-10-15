@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Locator,type Page} from "@playwright/test";
@@ -81,7 +82,7 @@ test("real collection/details/shop/hatching/pedigree use new art while turns, ge
  await tab(page,"컬렉션",mobile);await canvasVisible(page);await page.locator(".hc-grid").scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath("art-collection.png"),scale:"css"});
  await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await canvasVisible(page);await page.getByRole("dialog").screenshot({path:info.outputPath("art-detail.png"),scale:"css"});
  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
- await tab(page,"교배",mobile);await page.getByRole("combobox",{name:"수컷 부모",exact:true}).selectOption(parents[0].id);await page.getByRole("combobox",{name:"암컷 부모",exact:true}).selectOption(parents[1].id);
+ await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',parents[0].id);await chooseBreedingParent(page,'female',parents[1].id);
  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  for(let day=0;day<6;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
  await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);

@@ -15,6 +15,7 @@ import { validateLifecycle } from "./lifecycle-validation";
 import {pedigreeIndex,descendantIds} from './family-album';
 import { validateHealth, HEALTH_LOCI, inheritHealth } from '@/genetics/health';
 import type { Embryo } from './model';
+import {validateRush} from '@/game/rush';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
 function fail():never {throw new Error("저장 유전체·공개 지식·유전 상속 기록이 손상되었습니다.");}
@@ -37,6 +38,9 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
 export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(!value||typeof value!=="object"||![5,6,7,8,9].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
+  if(Object.hasOwn(game,'cafeRush')){
+    if(game.saveVersion!==9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
+  }
   const catalog=game.saveVersion>=7;
   if(game.saveVersion>=8){
     const index=pedigreeIndex(game);

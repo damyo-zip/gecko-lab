@@ -1,3 +1,4 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {preRiskRecord} from '../tests/helpers/risk-projection';
 import {test,expect,type Page} from '@playwright/test';
@@ -50,13 +51,13 @@ test('four actual family offers, private parent popup, confirmed paid reroll, pu
 test('shop end-turn follows real breeding, incubation, growth, second generation and persistence without double turns or reroll charges',async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith('mobile'),fixture=winning();await restore(page,fixture.original,mobile);await shop(page,mobile);
  for(const id of [fixture.f,fixture.m])await touch(page.getByTestId('shop-offer-'+id).getByRole('button',{name:/ 구매$/}),mobile);await buyFood(page,mobile,1000);
- await navigateGame(page,'교배',mobile);await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(fixture.f);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(fixture.m);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);
+ await navigateGame(page,'교배',mobile);await chooseBreedingParent(page,'male',fixture.f);await chooseBreedingParent(page,'female',fixture.m);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);
  const breeding=await saved(page),fixed=Object.values(breeding.matings)[0].lifecycle!.offspring;
  await shop(page,mobile);const money=breeding.money;
  for(let n=1;n<=18;n++){await page.getByRole('button',{name:'턴 넘기기',exact:true}).evaluate(el=>{(el as HTMLButtonElement).click();(el as HTMLButtonElement).click();});await expect(page.getByTestId('game-day')).toHaveText(String(n));await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');const g=await saved(page);const cta=await page.locator('.home-turn-cta').boundingBox(),nav=await page.getByRole('navigation',{name:'게임 탭'}).boundingBox();expect(await page.evaluate(()=>scrollY)).toBe(0);if(mobile)expect(cta!.y+cta!.height).toBeLessThanOrEqual(nav!.y);expect(g.money).toBe(money);expect(g.shop.batch).toBe(breeding.shop.batch!+n);expect(Object.values(g.shop.offers)).toHaveLength(4);if(n===2)expect(Object.values(g.eggs)).toHaveLength(2);if(n===6)for(const o of fixed)expect(g.individuals[o.embryo.id]).toEqual(bornIndividual(o.embryo));}
  let g=await saved(page);const child=g.individuals[fixed[0].embryo.id];expect(child.stage).toBe('adult');expect(child.generation).toBe(3);await navigateGame(page,'컬렉션',mobile);await touch(page.getByRole('button',{name:child.name+' 상세보기',exact:true}),mobile);await page.getByLabel('개체 이름',{exact:true}).fill('상점 혈통 자손');await touch(page.getByRole('button',{name:'이름 저장',exact:true}),mobile);await page.keyboard.press('Escape');await shop(page,mobile);
  const partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&!advancedSafety(child,o.individual).length)!;await touch(page.getByTestId('shop-offer-'+partner.id).getByRole('button',{name:/ 구매$/}),mobile);
- await navigateGame(page,'교배',mobile);await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(child.sex==='male'?child.id:partner.id);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(child.sex==='female'?child.id:partner.id);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);await shop(page,mobile);
+ await navigateGame(page,'교배',mobile);await chooseBreedingParent(page,'male',child.sex==='male'?child.id:partner.id);await chooseBreedingParent(page,'female',child.sex==='female'?child.id:partner.id);await touch(page.getByRole('button',{name:'교배하기',exact:true}),mobile);await shop(page,mobile);
  for(let n=19;n<=24;n++){await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(page.getByTestId('game-day')).toHaveText(String(n));}
  g=await saved(page);expect(owned(g).some(i=>i.generation===4)).toBe(true);expect(ancestors(g,child.id).size).toBe(6);await page.reload();await expect(page.getByTestId('game-day')).toHaveText('24');expect(await saved(page)).toEqual(g);
 });

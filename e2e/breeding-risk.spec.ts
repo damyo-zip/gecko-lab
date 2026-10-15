@@ -1,14 +1,16 @@
+import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {breedingRiskFixture} from './fixtures/breeding-risk';
 import {exportBackup} from '../src/game/hardcore/save';
 import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurn} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
+import {collectionMorph} from '../src/components/hardcore/collection-query';
 const DATE='2026-10-14';
 test.setTimeout(90_000);
 async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});});}
 async function restore(page:Page,g:HardcoreGame,mobile:boolean){await touch(page.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);await page.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'breeding-risk.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(g))});await touch(page.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);}
-async function choose(page:Page,f:string,m:string){await page.getByRole('combobox',{name:'수컷 부모',exact:true}).selectOption(f);await page.getByRole('combobox',{name:'암컷 부모',exact:true}).selectOption(m);}
+async function choose(page:Page,f:string,m:string){await chooseBreedingParent(page,'male',f);await chooseBreedingParent(page,'female',m);}
 test.beforeEach(async({page})=>{await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();});
 test('reference modal keeps two large live parents, actual pedigree/slots, independent information dialogs and no added page header/nav at 360/390/430',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=breedingRiskFixture(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await restore(page,fixture.game,mobile);
@@ -62,7 +64,9 @@ function shopComplexPair(){
  if(!fatherId||!motherId)throw new Error('Actual C/S/H family pair not found');return {game,fatherId,motherId};
 }
 test('real shop-derived complex parents show a provisional warning and breed without invented lethal embryos',async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),f=shopComplexPair();await restore(page,f.game,mobile);await navigateGame(page,'교배',mobile);await choose(page,f.fatherId,f.motherId);
+ const mobile=info.project.name.startsWith('mobile'),f=shopComplexPair();await restore(page,f.game,mobile);await navigateGame(page,'교배',mobile);
+ await touch(page.getByRole('button',{name:'수컷 개체 변경',exact:true}),mobile);const picker=page.getByRole('dialog',{name:'수컷 개체 선택',exact:true}),visible=collectionMorph(f.game.individuals[f.fatherId]).match(/Cappuccino|Sable|Highway/)![0];
+ await picker.getByLabel('모프 필터',{exact:true}).selectOption('visible:'+visible);await touch(picker.getByTestId('parent-candidate-'+f.fatherId).getByRole('button',{name:'이 개체 선택',exact:true}),mobile);await chooseBreedingParent(page,'female',f.motherId,mobile);
  await expect(page.getByTestId('breed-submit')).toBeEnabled();await expect(page.getByTestId('breeding-caution')).toContainText('복합 유전자');await inspectGenetics(page,mobile);await expect(page.getByTestId('hardcore-forecast')).toContainText('치사 확률이나 실제 생존 자손 비율은 계산하지 않습니다');await closeGenetics(page,mobile);
  await touch(page.getByTestId('breed-submit'),mobile);const d=page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true});await expect(d).toContainText('복합 유전자 조합');await expect(d).toContainText('잠정');await expect(d).not.toContainText('Lilly 동형접합');
  if(mobile)await page.screenshot({path:'docs/breeding-risk/complex-warning-390.png',scale:'css'});
