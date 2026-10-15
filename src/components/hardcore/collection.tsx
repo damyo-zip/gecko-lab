@@ -11,6 +11,8 @@ import {isV12,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
 import {PATTERN_FILTERS} from "@/phenotype/rules";
 import {collectionEntries,collectionMorph,COLLECTION_MORPHS,COLLECTION_SORTS,type CollectionSort} from "./collection-query";
 import {CollectionCatalog} from "./collection-catalog";
+import {waitingClutches,waitingForCollection} from "@/game/hardcore/brood-care";
+import {IncubatorEgg} from "./incubator-egg";
 import {collectionStatus,type CollectionStatus} from "./collection-status";
 
 function Sex({gecko:g}:{gecko:Gecko}) {
@@ -30,12 +32,13 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
   const animals=useMemo(()=>owned(game),[game.individuals]),selected=animals.find(g=>g.id===selectedId)??animals[0];
   const art=useMemo(()=>selected?specimen(selected):null,[selected]);
   const visible=useMemo(()=>collectionEntries(animals,{morph:filter,sort,stage}),[animals,filter,sort,stage]);
+  const eggPair=(g:Gecko,hero=false)=>{const matingId=waitingClutches(game,g.id)[0],eggs=Object.values(game.eggs).filter(e=>e.matingId===matingId&&waitingForCollection(e));return matingId?<button type="button" className={"home-egg-pair"+(hero?" hero":"")} disabled={busy} aria-label={g.name+" 알 2개 수거"} data-testid={(hero?"hero-collect-eggs-":"collect-eggs-")+g.id} onClick={event=>{event.stopPropagation();void play({type:"collectEggs",matingId});}}><>{eggs.map(egg=><IncubatorEgg key={egg.id} seed={egg.seed}/>)}</><span>알 수거</span></button>:null;};
   const move=(direction:number)=>{const index=animals.findIndex(g=>g.id===selected?.id);setSelected(animals[(index+direction+animals.length)%animals.length].id);};
   return <section className="home-collection" aria-label="홈 컬렉션">
     <div className="home-hero home-frame" data-testid="home-hero">
       <div className="home-generation home-frame"><b>Gen {selected?.generation??"—"}</b><span>{selected?selected.generation+"세대":"컬렉션"}</span><button aria-label="선택 개체 이름 수정" disabled={!selected||busy} onClick={()=>onDetail(selected.id)}><HomeIcon name="pen" size={17}/></button></div>
       {selected&&<><span className="home-id" title={selected.id}>#{String(Object.keys(game.individuals).indexOf(selected.id)+1).padStart(4,"0")}</span>
-        <div className="home-hero-art"><SpriteCanvas specimen={art!} scale={3} testId="home-hero-sprite"/></div></>}
+        <div className="home-hero-art"><SpriteCanvas specimen={art!} growthStage={selected.stage} scale={3} testId="home-hero-sprite"/></div>{eggPair(selected,true)}</>}
       {!selected&&<div className="home-hero-empty"><HomeIcon name="collection" size={48}/><p>첫 게코를 기다리는 테라리움</p><button className="game-secondary" onClick={onShop}>상점에서 시작하기</button></div>}
       <button className="home-arrow previous home-frame" aria-label="이전 개체" disabled={animals.length<2||busy} onClick={()=>move(-1)}><HomeIcon name="chevron"/></button>
       <button className="home-arrow next home-frame" aria-label="다음 개체" disabled={animals.length<2||busy} onClick={()=>move(1)}><HomeIcon name="chevron"/></button>
@@ -53,9 +56,10 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
       </div>
       <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=>{const status=collectionStatus(game,g);return <article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
         <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={g.id===selected?.id} onClick={()=>setSelected(g.id)}>
-          <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
+          <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} growthStage={g.stage} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
           <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
         </button>
+        {eggPair(g)}
         {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><Status status={status}/></button>}
         <button className="home-card-more home-frame" aria-label={g.name+" 상세보기"} onClick={()=>onDetail(g.id)}><span aria-hidden="true">···</span></button>
       </article>;})}</div>

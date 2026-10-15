@@ -39,17 +39,19 @@ export function seasonEvents(game:HardcoreGame):void {
       const result=season.offspring[(clutch-1)*2+n-1],embryo=structuredClone(result.embryo),id=embryo.id+"-egg";
       game.eggs[id]={id,matingId:m.id,laidDate:game.lastDate,dueDate:embryo.birthDate,embryo,
         hatchChance:V12.hatchChance,seed:seasonEggSeed(m,clutch,n),status:"incubating",resolvedDate:null,
+        ...(game.saveVersion>=10?{care:{version:1 as const,collectedTurn:null,settledTurn:null}}:{}),
         lifecycle:{laidTurn:game.turn,dueTurn:game.turn+V12.hatchAfter,fertilized:result.fertilized,failure:null}};
     }
     season.clutchesLaid=1;m.status="laid";m.resolvedDate=game.lastDate;
     mother.nextBreedTurn=game.turn+V12.restAfter;mother.recoverUntil=addDays(game.lastDate,V12.restAfter*V12.daysPerTurn);
-    game.notices.push("알 2개 산란 · 산란 일정 종료 · 암컷 4턴 휴식 · 4턴 뒤 부화 판정");
+    if(game.saveVersion<10)game.notices.push("알 2개 산란 · 산란 일정 종료 · 암컷 4턴 휴식 · 4턴 뒤 부화 판정");
   }
   for(const egg of Object.values(game.eggs)){
-    if(egg.status!=="incubating"||!egg.lifecycle||game.turn<egg.lifecycle.dueTurn)continue;
+    if(egg.care?.collectedTurn===null||egg.status!=="incubating"||!egg.lifecycle||game.turn<egg.lifecycle.dueTurn)continue;
     const failure=eggFailure(egg),success=failure===null;
     egg.status=success?"hatched":"failed";egg.resolvedDate=egg.dueDate;
     egg.lifecycle.failure=failure;
+    if(egg.care)continue;
     if(success){game.individuals[egg.embryo.id]=bornIndividual(egg.embryo);game.notices.push(egg.embryo.name+" 부화 · 정확히 12턴 후 성체");}
     else game.notices.push(failure==='genetic'?"유전적 비생존으로 부화 실패 · 공간 해제":failure==='health'?"배아 발달 실패 · 공간 해제":failure==="infertile"?"무정란 확정 · 공간 해제":"수정란 부화 실패 · 공간 해제");
   }

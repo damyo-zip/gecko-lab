@@ -1,3 +1,4 @@
+import {tendBrood} from './helpers/tend-brood';
 import {test,expect} from 'vitest';
 import {newGame,act,synchronize} from '@/game/hardcore/play';
 import {newGame as oldGame} from './helpers/v6-hardcore';
@@ -14,7 +15,7 @@ import {carrierProbability} from '@/genetics/advanced/inference';
 import {valueGecko,MARKET} from '@/game/hardcore/market';
 import {ancestors} from '@/game/hardcore/lineage';
 import type {HardcoreGame} from '@/game/hardcore/model';
-const DATE='2026-10-14',end=(g:HardcoreGame)=>actWithTime(g,{type:'endTurn'},DATE);
+const DATE='2026-10-14',end=(g:HardcoreGame)=>tendBrood(actWithTime(g,{type:'endTurn'},DATE));
 const stocked=(seed='real-market')=>newGame(seed,DATE,{initialMoney:100_000_000,initialCapacity:100});
 
 test('four deterministic real descendants inherit all Mendelian and polygenic alleles, unique visuals and actual market prices',()=>{
@@ -61,7 +62,7 @@ test('v8 is stable across wall clock/reload; end-turn uses exactly the common en
 });
 test.each([5,6])('v%i migration preserves original owned genes/eggs/history/unknown legacy parents and is idempotent',version=>{
  let old=(version===5?v5Game:oldGame)('shop-migration',DATE,{initialCapacity:20});const [id]=Object.keys(old.shop.offers);old=act(old,{type:'buyGecko',offerId:id},DATE);
- const original=structuredClone(old),envelope=makeSave(old),next=readSave(envelope,DATE);expect(old).toEqual(original);expect(next.saveVersion).toBe(9);expect(next.individuals[id].parents).toBeNull();
+ const original=structuredClone(old),envelope=makeSave(old),next=readSave(envelope,DATE);expect(old).toEqual(original);expect(next.saveVersion).toBe(10);expect(next.individuals[id].parents).toBeNull();
  expect(next.individuals[id].genetics).toEqual(old.individuals[id].genetics);expect(next.money).toBe(old.money);expect(next.sales).toEqual(old.sales);expect(next.nextClutch).toBe(old.nextClutch);
  for(const offer of Object.values(next.shop.offers).filter(o=>o.id in old.shop.offers)){expect(offer.family).toBeNull();const {healthGenome,...preserved}=offer.individual;expect(healthGenome).toBeDefined();expect(preserved).toEqual(readV6Save(envelope,DATE).shop.offers[offer.id].individual);expect(offer.askPrice).toBe(old.shop.offers[offer.id].askPrice);}
  expect(Object.values(next.shop.offers)).toHaveLength(4);expect(readSave(makeSave(next),DATE)).toBe(next);expect(parseBackup(exportBackup(next),DATE)).toEqual(next);

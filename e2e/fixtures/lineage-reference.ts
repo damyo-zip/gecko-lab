@@ -1,3 +1,4 @@
+import {tendBrood} from '../../tests/helpers/tend-brood';
 import {newGame,act} from '../../src/game/hardcore/play';
 import {actWithTime} from '../../src/game/hardcore/time-source';
 
@@ -14,7 +15,7 @@ export function lineageFixture(){
   game=act(game,{type:'lineage',id:fatherId,name:'시조 가문'},game.lastDate);
   game=act(game,{type:'lineage',id:motherId,name:'라임 가문'},game.lastDate);
   game=act(game,{type:'breed',fatherId,motherId},game.lastDate);
-  for(let turn=0;turn<6;turn++)game=actWithTime(game,{type:'endTurn'},game.time.realtimeAnchorDate);
+  for(let turn=0;turn<6;turn++)game=tendBrood(actWithTime(game,{type:'endTurn'},game.time.realtimeAnchorDate));
   const children=Object.values(game.individuals).filter(g=>g.parents?.fatherId===fatherId);
   if(children.length!==2)continue;
   game=act(game,{type:'rename',id:children[0].id,name:'미깡'},game.lastDate);

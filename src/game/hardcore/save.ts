@@ -9,6 +9,7 @@ import { migrateV12 } from "./migrate-lifecycle";
 import { migrateShop } from "./shop-family";
 import { migrateSingleClutch } from "./migrate-single-clutch";
 import {migrateAlbum} from './migrate-album';
+import { migrateBroodCare } from "./brood-care";
 import {migrateRisk} from './migrate-risk';
 
 export function checksum(value: unknown): string {
@@ -60,13 +61,13 @@ export function readV6Save(value: unknown,date:GameDate):HardcoreGame {
 }
 export function readSave(value:unknown,date:GameDate):HardcoreGame {
   const candidate=value as ReturnType<typeof makeSave>|null;
-  if(candidate?.version===7||candidate?.version===8||candidate?.version===9){
+  if(candidate?.version===7||candidate?.version===8||candidate?.version===9||candidate?.version===10){
     if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
     validateGame(candidate.game);
     if(candidate.game.saveVersion!==candidate.version||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
-    const game=migrateRisk(migrateAlbum(candidate.game));validateGame(game);return game;
+    const game=migrateBroodCare(migrateRisk(migrateAlbum(candidate.game)));validateGame(game);return game;
   }
-  const game=migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date))));validateGame(game);return game;
+  const game=migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date)))));validateGame(game);return game;
 }
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");

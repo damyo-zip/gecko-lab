@@ -2,7 +2,7 @@
 export function preRiskRecord<T>(value:T):T {
  const copy=structuredClone(value);
  function visit(v:unknown){if(!v||typeof v!=='object')return;
-  const record=v as Record<string,unknown>;delete record.healthGenome;delete record.riskModel;
+  const record=v as Record<string,unknown>;delete record.care;delete record.healthGenome;delete record.riskModel;
   for(const child of Object.values(record))visit(child);
  }
  visit(copy);return copy;

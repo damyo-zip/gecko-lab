@@ -1,6 +1,6 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
-import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
+import {navigateGame,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Locator,type Page} from "@playwright/test";
 import {createHash} from "node:crypto";
 import {readFile} from "node:fs/promises";
@@ -85,7 +85,7 @@ test("real collection/details/shop/hatching/pedigree use new art while turns, ge
  await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',parents[0].id);await chooseBreedingParent(page,'female',parents[1].id);
  await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  for(let day=0;day<6;day++){const before=Number(await page.getByTestId("game-day").textContent());await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText(String(before+1));}
- await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
+ await tab(page,"컬렉션",mobile);await canvasVisible(page);const game=await saved(page);expect(Object.values(game.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);expect(Object.keys(game.individuals)).toHaveLength(4);
  for(let i=0;i<2;i++){expect(game.individuals[parents[i].id].genetics!.genome).toEqual(genomes[i]);expect(game.individuals[parents[i].id].visualSeed).toBe(parentSeeds[i]);}
  await page.locator(".hc-grid").screenshot({path:info.outputPath("art-hatching.png"),scale:"css"});
  const child=Object.values(game.individuals).find(g=>g.parents)!;await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await canvasVisible(page);

@@ -2,7 +2,7 @@ import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
-import {navigateGame,feedCollection,finishTurn} from "./helpers/hardcore-navigation";
+import {navigateGame,feedCollection,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import {turns,successfulPair} from "./fixtures/lifecycle";

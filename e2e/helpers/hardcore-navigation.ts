@@ -12,7 +12,7 @@ export async function chooseBreedingParent(page:Page,sex:'male'|'female',id:stri
 export async function navigateGame(page:Page,name:string,mobile:boolean) {
   const breeding=page.getByRole('dialog',{name:'교배',exact:true});
   if(name==='교배'&&await breeding.count())return;
-  for(const title of ['수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
+  for(const title of ['부화 확률과 슬롯 규칙','수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
     const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
   }
   const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
@@ -25,7 +25,9 @@ export async function navigateGame(page:Page,name:string,mobile:boolean) {
     await touch(nav.getByRole("button",{name:aliases[name],exact:true}),mobile);return;
   }
   await touch(nav.getByRole("button",{name:"인큐베이터",exact:true}),mobile);
-  await touch(page.getByRole("navigation",{name:"연구소 도구"}).getByRole("button",{name,exact:true}),mobile);
+  if(name==='교배')await touch(page.getByRole('button',{name:'교배 열기',exact:true}),mobile);
+  else if(name==='오늘'){await openIncubatorRecords(page,mobile);await touch(page.getByRole('button',{name:'오늘의 연구소',exact:true}),mobile);}
+  else throw new Error('Unknown game view: '+name);
 }
 /** Advance through the collection CTA, then return for existing scenario assertions. */
 export async function finishTurn(page:Page,mobile:boolean) {
@@ -80,4 +82,39 @@ export async function openCollectionCatalog(page:Page,mobile:boolean) {
   await touch(page.getByRole('button',{name:'컨디션 관리',exact:true}),mobile);
   await touch(page.getByRole('dialog',{name:'컨디션 관리',exact:true}).getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);
   await expect(page.getByRole('dialog',{name:'전체 개체 목록',exact:true})).toBeVisible();
+}
+
+/** Explicit player care actions for existing breeding scenarios after ending a turn. */
+export async function tendIncubator(page:Page,mobile:boolean){
+ const needed=await page.evaluate(async()=>{
+  const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
+  return new Promise<boolean>(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(Object.values(r.result.save.game.eggs as Record<string,{status:string;care?:{collectedTurn:number|null;settledTurn:number|null}}>).some(e=>e.care?.collectedTurn===null||e.care?.settledTurn===null&&e.status!=='incubating'));tx.oncomplete=()=>db.close();});
+ });
+ if(!needed)return;
+ const previous=(await page.getByRole('navigation',{name:'게임 탭'}).locator('[aria-pressed="true"]').innerText()).trim();
+ await navigateGame(page,'인큐베이터',mobile);
+ while(await page.getByRole('button',{name:'알 2개 수거',exact:true}).count()){
+  const before=await page.getByRole('button',{name:'알 2개 수거',exact:true}).count();
+  await touch(page.getByRole('button',{name:'알 2개 수거',exact:true}).first(),mobile);
+  await expect.poll(()=>page.getByRole('button',{name:'알 2개 수거',exact:true}).count()).toBeLessThan(before);
+  await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');
+ }
+ for(const prefix of ['receive-hatchling-','remove-egg-'])while(await page.locator(`[data-testid^="${prefix}"]`).count()){
+  const before=await page.locator(`[data-testid^="${prefix}"]`).count();
+  await touch(page.locator(`[data-testid^="${prefix}"]`).first(),mobile);
+  await expect.poll(()=>page.locator(`[data-testid^="${prefix}"]`).count()).toBeLessThan(before);
+  await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');
+ }
+ await navigateGame(page,previous,mobile);
+}
+
+/** Existing whole-game regressions now explicitly collect and settle every played clutch. */
+export async function finishTurnAndTend(page:Page,mobile:boolean){
+ await finishTurn(page,mobile);await tendIncubator(page,mobile);
+}
+
+/** The compact incubator keeps historical inference records in its rules dialog. */
+export async function openIncubatorRecords(page:Page,mobile:boolean){
+ await touch(page.getByRole('button',{name:'부화 확률과 슬롯 규칙',exact:true}),mobile);
+ await expect(page.getByRole('dialog',{name:'부화 확률과 슬롯 규칙',exact:true})).toBeVisible();
 }

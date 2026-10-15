@@ -52,7 +52,7 @@ export function BreedingRecord({mating:m,game}:{mating:Mating;game:HardcoreGame}
       {publicForecast(log.father.knowledge,log.mother.knowledge).map(({locus,outcomes})=><p key={locus.id}>{locus.name}: {outcomes?outcomes.map(o=>o.phenotype+" "+(o.probability*100).toFixed(1)+"%").join(" · "):"확률 미확인"}</p>)}
       {log.updates.map((u,i)=><p key={i} data-testid="inference-update">{game.individuals[u.id].name} · Ax 보인 가능성 {formatCarrier(u.before)} → {formatCarrier(u.after)}<br/>자손 검증 · {(carrierProbability(u.after)??0)>1-1e-9?"보인자 확인":"미발현만으로 비보인자 확정하지 않음"}</p>)}
     </>:<p>이전 버전 교배 · 당시 공개 정보 스냅샷 없음</p>}
-    {Object.values(game.eggs).filter(e=>e.matingId===m.id).map(e=><p key={e.id}>{e.status==="hatched"?game.individuals[e.embryo.id].name+" · "+morph(game.individuals[e.embryo.id]):e.status==="failed"?"부화 실패 · 관찰 증거 제외":"부화 전 · 결과 미공개"}</p>)}
+    {Object.values(game.eggs).filter(e=>e.matingId===m.id).map(e=><p key={e.id}>{e.status==="hatched"?(game.individuals[e.embryo.id]??e.embryo).name+" · "+morph(game.individuals[e.embryo.id]??e.embryo):e.status==="failed"?"부화 실패 · 관찰 증거 제외":"부화 전 · 결과 미공개"}</p>)}
   </details>;
 }
 function formatCarrier(k:Knowledge){const p=carrierProbability(k);return p===null?"미확인":(p*100).toFixed(1)+"%";}

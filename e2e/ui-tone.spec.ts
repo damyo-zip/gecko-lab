@@ -1,6 +1,6 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
-import {navigateGame,finishTurn} from "./helpers/hardcore-navigation";
+import {navigateGame,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {turns} from "./fixtures/lifecycle";

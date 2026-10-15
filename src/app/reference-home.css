@@ -106,3 +106,16 @@
   .home-breeder-actions > button > svg { width:17px; }
   .home-breeder-actions strong { font-size:11px; }
 }
+
+/* Young sprites center in the same reserved art box; adult framing is unchanged. */
+.home-card-art canvas:is([data-growth-stage="hatchling"],[data-growth-stage="juvenile"]) {
+  top:50%;left:50%;--sprite-placement:translate(-50%,-50%);
+}
+
+/* Two eggs form one collection action, outside the card-selection button. */
+.home-egg-pair{position:absolute;z-index:4;left:8%;top:28%;display:flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;padding:0 3px 12px;border:1px solid #9cce76;border-radius:5px;background:#091920d9;box-shadow:0 1px 6px #000;cursor:pointer}
+.home-egg-pair .inc-shell-egg{position:static;width:25px;height:29px;transform:none;margin:0 -3px;filter:none}
+.home-egg-pair span{position:absolute;bottom:1px;font-size:9px;color:#caff9c;white-space:nowrap}
+.home-egg-pair.hero{left:27%;top:65%;min-width:76px;min-height:56px}
+.home-egg-pair.hero .inc-shell-egg{width:34px;height:39px}
+.home-shell .home-card > .home-egg-pair{left:45%;top:15%;width:50px;min-width:44px;height:44px;min-height:44px;padding:0 2px 10px}

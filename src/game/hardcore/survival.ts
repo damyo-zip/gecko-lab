@@ -4,7 +4,7 @@ export function owned(game: Pick<HardcoreGame,"individuals">): Gecko[] { return 
 export function reserved(game: Pick<HardcoreGame,"matings"|"eggs">): number {
   return Object.values(game.matings).filter(m => m.status === "pending" || m.status === "fertilized")
     .reduce((total,m)=>total+(m.lifecycle?(m.lifecycle.maxClutches-m.lifecycle.clutchesLaid)*2:2),0) +
-    Object.values(game.eggs).filter(e => e.status === "incubating").length;
+    Object.values(game.eggs).filter(e => e.care ? e.care.settledTurn === null : e.status === "incubating").length;
 }
 export function freeSlots(game: Pick<HardcoreGame,"individuals"|"matings"|"eggs"|"capacity">): number { return game.capacity - owned(game).length - reserved(game); }
 export function feedable(game: HardcoreGame, g: Gecko): boolean {

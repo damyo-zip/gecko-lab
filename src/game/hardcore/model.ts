@@ -87,6 +87,8 @@ export interface TimedEgg {
   seed: string;
   status: "incubating" | "hatched" | "failed";
   resolvedDate: GameDate | null;
+  /** v10 manual care. Null collection waits on the mother; null settlement holds the slot. */
+  care?: { version: 1; collectedTurn: number | null; settledTurn: number | null };
   lifecycle?: { laidTurn: number; dueTurn: number; fertilized: boolean; failure: "infertile" | "hatch" | "genetic" | "health" | null } | null;
 }
 export interface Sale {
@@ -106,7 +108,7 @@ export interface NamedLineage {
   favorite?: boolean;
 }
 export interface HardcoreGame {
-  saveVersion: 5 | 6 | 7 | 8 | 9;
+  saveVersion: 5 | 6 | 7 | 8 | 9 | 10;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;
@@ -137,6 +139,9 @@ export interface HardcoreGame {
 export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { saveVersion: 3 };
 export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 };
 export type GameplayAction =
+  | { type: "collectEggs"; matingId: string }
+  | { type: "receiveHatchling"; eggId: string }
+  | { type: "removeFailedEgg"; eggId: string }
   | { type: "feed"; id: string }
   | { type: "feedAll" }
   | { type: "breed"; fatherId: string; motherId: string; riskAcknowledgement?:string }

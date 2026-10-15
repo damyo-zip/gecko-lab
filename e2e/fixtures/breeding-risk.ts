@@ -1,3 +1,4 @@
+import {tendBrood} from '../../tests/helpers/tend-brood';
 import {createNewGame} from '../../src/game/play';
 import {makeSave as phase2Save} from '../../src/game/save';
 import {readSave} from '../../src/game/hardcore/save';
@@ -18,7 +19,7 @@ export function breedingRiskFixture(){
   const [f,m,,,lillyMale]=Object.values(original.individuals);let game=act(original,{type:'breed',fatherId:f.id,motherId:m.id},DATE);
   const mating=Object.values(game.matings)[0],pending=mating.lifecycle!.offspring;
   if(pending[0].embryo.sex===pending[1].embryo.sex||pending.some((o,i)=>!o.fertilized||!o.embryo.development!.viable||!o.embryo.genotype.loci['lilly-white'].includes('Lw')||seededRandom(seasonEggSeed(mating,1,i+1),'hatch')()>=.95))continue;
-  for(let i=0;i<18;i++)game=actWithTime(game,{type:'endTurn'},DATE);
+  for(let i=0;i<18;i++)game=tendBrood(actWithTime(game,{type:'endTurn'},DATE));
   const siblings=Object.values(game.individuals).filter(g=>g.parents?.fatherId===f.id),male=siblings.find(g=>g.sex==='male'),female=siblings.find(g=>g.sex==='female');
   if(!male||!female)continue;
   const trial=act(game,{type:'breed',fatherId:male.id,motherId:female.id,riskAcknowledgement:breedingRisk(game,male,female).acknowledgement},game.lastDate),future=Object.values(trial.matings).at(-1)!;

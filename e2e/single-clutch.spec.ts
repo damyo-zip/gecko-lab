@@ -1,3 +1,4 @@
+import {openIncubatorRecords} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {preRiskRecord} from '../tests/helpers/risk-projection';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
@@ -6,7 +7,7 @@ import {readFileSync} from 'node:fs';
 import {newGame,act} from './fixtures/legacy-catalog';
 import {exportBackup,type makeSave} from '../src/game/hardcore/save';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
-import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';
+import {touch,navigateGame,finishTurnAndTend as finishTurn} from './helpers/hardcore-navigation';
 import {successfulPair} from './fixtures/lifecycle';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 const DATE='2026-10-14';
@@ -29,12 +30,12 @@ for(const available of [0,1,2])test(`${available} free slots: exact shortage, tw
  const button=page.getByRole('button',{name:'교배하기',exact:true});
  if(available<2){await expect(button).toBeDisabled();await expect(page.locator('.game-warning')).toContainText(`${2-available}개 부족`);expect(await saved(page)).toEqual(g);}
  else {
-  await expect(button).toBeEnabled();await page.screenshot({path:info.outputPath('two-slot-breeding.png'),fullPage:true,scale:'css'});await touch(button,mobile);await expect(page.getByRole('heading',{name:'인큐베이터',exact:true})).toBeVisible();
+  await expect(button).toBeEnabled();await page.screenshot({path:info.outputPath('two-slot-breeding.png'),fullPage:true,scale:'css'});await touch(button,mobile);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();
   g=await saved(page);expect(reserved(g)).toBe(2);expect(freeSlots(g)).toBe(0);const m=Object.values(g.matings)[0],fixed=m.lifecycle!.offspring;
   await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');expect(await saved(page)).toEqual(g);await navigateGame(page,'부화',mobile);
   await finishTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
   await finishTurn(page,mobile);g=await saved(page);expect(Object.values(g.eggs)).toHaveLength(2);expect(reserved(g)).toBe(2);expect(freeSlots(g)).toBe(0);expect(g.matings[m.id]).toMatchObject({status:'laid',lifecycle:{clutchesLaid:1,maxClutches:1}});expect(g.individuals[mother].nextBreedTurn).toBe(6);
-  await expect(page.getByTestId('mating-'+m.id)).toContainText('산란 일정 종료 · 보존된 알 2개');await page.screenshot({path:info.outputPath('two-slot-incubator.png'),fullPage:true,scale:'css'});
+  await openIncubatorRecords(page,mobile);await expect(page.getByTestId('mating-'+m.id)).toContainText('산란 일정 종료 · 보존된 알 2개');await page.screenshot({path:info.outputPath('two-slot-incubator.png'),fullPage:true,scale:'css'});await page.keyboard.press('Escape');
   for(let turn=3;turn<=10;turn++){
    await finishTurn(page,mobile);g=await saved(page);expect(Object.values(g.eggs)).toHaveLength(2);
    if(turn<6)expect(Object.values(g.eggs).every(e=>e.status==='incubating')).toBe(true);
