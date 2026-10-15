@@ -75,7 +75,7 @@ test('scrolling catalog shows actual sprites, names and sell quotes, supports pu
   await dialog.getByRole('combobox',{name:'목록 성별',exact:true}).selectOption('unknown');await expect(dialog.getByRole('status')).toContainText(String(animals.filter(g=>g.stage!=='adult').length)+' / 37');
   for(const row of await dialog.locator('.collection-list-row').all())await expect(row).toContainText('미구분');
   await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
-  await dialog.getByRole('combobox',{name:'목록 모프 필터',exact:true}).selectOption('axanthic');await expect(dialog.locator('.collection-list-row').first()).toContainText('Axanthic');
+  await dialog.getByRole('combobox',{name:'목록 모프 필터',exact:true}).selectOption('axanthic');await expect(dialog.locator('.collection-list-row').first()).toContainText('아잔틱');
   await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(animals[12].id);await expect(dialog.locator('.collection-list-row')).toHaveCount(1);await expect(dialog.locator('.collection-list-row')).toContainText(animals[12].name);
   await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill('존재하지않는개체');await expect(dialog).toContainText('조건에 맞는 개체가 없습니다.');
   await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);

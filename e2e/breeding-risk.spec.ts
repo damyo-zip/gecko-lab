@@ -5,7 +5,7 @@ import {exportBackup} from '../src/game/hardcore/save';
 import {touch,navigateGame,openCollectionCatalog,inspectGenetics,closeGenetics,finishTurnAndTend as finishTurn,finishTurn as advanceOnly,tendIncubator} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
-import {collectionMorph} from '../src/components/hardcore/collection-query';
+import {publicGeneticTags} from '../src/components/hardcore/parent-search-query';
 const DATE='2026-10-14';
 test.setTimeout(90_000);
 async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});});}
@@ -65,7 +65,7 @@ function shopComplexPair(){
 }
 test('real shop-derived complex parents show a provisional warning and breed without invented lethal embryos',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=shopComplexPair();await restore(page,f.game,mobile);await navigateGame(page,'교배',mobile);
- await touch(page.getByRole('button',{name:'수컷 개체 변경',exact:true}),mobile);const picker=page.getByRole('dialog',{name:'수컷 개체 선택',exact:true}),visible=collectionMorph(f.game.individuals[f.fatherId]).match(/Cappuccino|Sable|Highway/)![0];
+ await touch(page.getByRole('button',{name:'수컷 개체 변경',exact:true}),mobile);const picker=page.getByRole('dialog',{name:'수컷 개체 선택',exact:true}),visible=publicGeneticTags(f.game.individuals[f.fatherId]).confirmed.find(t=>t.id.startsWith('cappuccino-complex:'))!.id.slice('cappuccino-complex:'.length);
  await picker.getByLabel('모프 필터',{exact:true}).selectOption('visible:'+visible);await touch(picker.getByTestId('parent-candidate-'+f.fatherId).getByRole('button',{name:'이 개체 선택',exact:true}),mobile);await chooseBreedingParent(page,'female',f.motherId,mobile);
  await expect(page.getByTestId('breed-submit')).toBeEnabled();await expect(page.getByTestId('breeding-caution')).toContainText('복합 유전자');await inspectGenetics(page,mobile);await expect(page.getByTestId('hardcore-forecast')).toContainText('치사 확률이나 실제 생존 자손 비율은 계산하지 않습니다');await closeGenetics(page,mobile);
  await touch(page.getByTestId('breed-submit'),mobile);const d=page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true});await expect(d).toContainText('복합 유전자 조합');await expect(d).toContainText('잠정');await expect(d).not.toContainText('Lilly 동형접합');

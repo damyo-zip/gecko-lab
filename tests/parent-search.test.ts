@@ -6,7 +6,7 @@ import {exportBackup,parseBackup} from '@/game/hardcore/save';
 import {breedingCheck} from '@/game/hardcore/breeding';
 import {actWithTime} from '@/game/hardcore/time-source';
 import {newGame,act} from '@/game/hardcore/play';
-import {collectionMorph} from '@/components/hardcore/collection-query';
+import {visibleGeneticMorphs} from '@/game/hardcore/adapter';
 const q=(patch:Partial<ParentQuery>={}):ParentQuery=>({...DEFAULT_PARENT_QUERY,...patch});
 test('only owned adult candidates of the requested sex, plus identical unsexed juveniles in both lists',()=>{
   const f=collectionStatusGame(),male=parentCandidates(f.game,'male',f.female),female=parentCandidates(f.game,'female',f.father);
@@ -30,12 +30,12 @@ test('public possible het and confirmed traits never depend on hidden carrier al
   const f=collectionStatusGame(),a=f.game.individuals[f.father];a.genetics!.knowledge.loci.axanthic.probabilities={'A/A':1/3,'A/ax':2/3};
   const b=structuredClone(a);a.genotype.loci.axanthic=['A','A'];b.genotype.loci.axanthic=['A','ax'];
   if(a.genetics!.genome)a.genetics!.genome.mendelian.loci.axanthic=['A','A'];if(b.genetics!.genome)b.genetics!.genome.mendelian.loci.axanthic=['A','ax'];
-  expect(publicGeneticTags(a)).toEqual(publicGeneticTags(b));expect(publicGeneticTags(a).possible).toEqual([{id:'axanthic',label:'66.7% possible het Axanthic'}]);
+  expect(publicGeneticTags(a)).toEqual(publicGeneticTags(b));expect(publicGeneticTags(a).possible).toEqual([{id:'axanthic',label:'66.7% possible het 아잔틱'}]);
   const copy=structuredClone(f.game);copy.individuals[a.id]=b;
   const project=(game:typeof f.game)=>parentCandidates(game,'male',f.female).map(({gecko,...publicFields})=>({id:gecko.id,...publicFields}));expect(project(copy)).toEqual(project(f.game));
   for(const search of ['het','A/ax',a.id,'66.7'])expect(filterParents(parentCandidates(copy,'male',f.female),q({search,possible:'axanthic'})).map(r=>r.gecko.id)).toEqual(filterParents(parentCandidates(f.game,'male',f.female),q({search,possible:'axanthic'})).map(r=>r.gecko.id));
   a.genetics!.knowledge.loci.axanthic.probabilities=null;expect(publicGeneticTags(a).possible).toEqual([]);
-  a.genetics!.knowledge.loci.axanthic.probabilities={'A/ax':1};expect(publicGeneticTags(a).confirmed).toContainEqual({id:'axanthic:carrier',label:'100% het Axanthic'});
+  a.genetics!.knowledge.loci.axanthic.probabilities={'A/ax':1};expect(publicGeneticTags(a).confirmed).toContainEqual({id:'axanthic:carrier',label:'100% het 아잔틱'});
 });
 test('rest/growth countdowns and eligibility match the existing turn engine after restore',()=>{
   const f=collectionStatusGame();let game=f.game;for(const n of [2,1,0]){
@@ -47,17 +47,17 @@ test('rest/growth countdowns and eligibility match the existing turn engine afte
 });
 test('confirmed trait and public possible-het filters combine without consulting true genotype',()=>{
   const f=collectionStatusGame(),g=f.game.individuals[f.mother];g.genetics!.knowledge.loci.axanthic.probabilities={'A/A':1/3,'A/ax':2/3};
-  const rows=parentCandidates(f.game,'female',f.father),confirmed=publicGeneticTags(g).confirmed.find(t=>t.label==='Lilly White')!;
+  const rows=parentCandidates(f.game,'female',f.father),confirmed=publicGeneticTags(g).confirmed.find(t=>t.id==='lilly-white:Lilly White')!;
   expect(filterParents(rows,q({confirmed:confirmed.id,possible:'axanthic',status:'rest',stage:'adult'})).map(r=>r.gecko.id)).toEqual([g.id]);
   expect(filterParents(rows,q({confirmed:'axanthic:carrier',possible:'axanthic'}))).toHaveLength(0);
 });
 test('observed C/S/H morph filters include real genetically generated market animals',()=>{
   let game=newGame('parent-search-complex','2026-10-14',{initialMoney:5_000_000}),found=false;
   for(let batch=0;batch<20&&!found;batch++){
-    const offer=Object.values(game.shop.offers).find(o=>/Cappuccino|Sable|Highway|Luwak/.test(collectionMorph(o.individual)));
+    const offer=Object.values(game.shop.offers).find(o=>publicGeneticTags(o.individual).confirmed.some(t=>t.id.startsWith('cappuccino-complex:')));
     if(offer){
       game=act(game,{type:'buyGecko',offerId:offer.id},game.lastDate);const g=game.individuals[offer.id],rows=parentCandidates(game,g.sex,'');
-      const name=collectionMorph(g).match(/Cappuccino|Sable|Highway|Luwak/)![0];expect(filterParents(rows,q({morph:'visible:'+name})).map(r=>r.gecko.id)).toContain(g.id);expect(filterParents(rows,q({morph:'visible:not-a-morph'}))).toEqual([]);found=true;
+      const name=publicGeneticTags(g).confirmed.find(t=>t.id.startsWith('cappuccino-complex:'))!.id.slice('cappuccino-complex:'.length);expect(visibleGeneticMorphs(g).length).toBeGreaterThan(0);expect(filterParents(rows,q({morph:'visible:'+name})).map(r=>r.gecko.id)).toContain(g.id);expect(filterParents(rows,q({morph:'visible:not-a-morph'}))).toEqual([]);found=true;
     }else game=act(game,{type:'refreshShop'},game.lastDate);
   }
   expect(found).toBe(true);

@@ -9,7 +9,7 @@ import { polyScores } from '@/genetics/advanced/polygenic';
 import { founderRecord, advancedSafety } from './genetics';
 import { createEmbryo } from './offspring';
 import { addDays } from './time';
-import { visualName } from './adapter';
+import { descriptiveVisualName as visualName } from './adapter';
 import { MARKET, valueGecko, type PriceTable } from './market';
 import type { Gecko, HardcoreGame, Mating, ShopOffer } from './model';
 

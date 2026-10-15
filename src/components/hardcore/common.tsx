@@ -1,6 +1,6 @@
 "use client";
 import { SpriteCanvas } from "../sprite-canvas";
-import { specimen, morph, disclosedSex } from "@/game/hardcore/adapter";
+import { specimen, visualName, morphDescription, disclosedSex } from "@/game/hardcore/adapter";
 import { STAGE_LABELS } from "@/game/model";
 import { Icon } from "../icons";
 import type { Action, Gecko, HardcoreGame } from "@/game/hardcore/model";
@@ -24,7 +24,7 @@ export function Card({ gecko, onDetail, children, statusLabel }: { gecko: Gecko;
     <button className="hc-card-open" onClick={() => onDetail(gecko.id)} aria-label={gecko.name + " 상세보기"}>
       <div className="hc-card-meta"><span>Gen {gecko.generation}</span><span>{statusLabel ?? STATUS[gecko.status]}</span></div>
       <div className="game-card-art"><Sprite gecko={gecko} /></div><strong><span className={"hc-sex-mark "+publicSex} aria-hidden="true">{publicSex==="male"?"♂":publicSex==="female"?"♀":"?"}</span>{gecko.name}</strong>
-      <span className="game-morph">{morph(gecko)}</span><span>{STAGE_LABELS[gecko.stage]} · {disclosedSex(gecko)}</span>
+      <span className="game-morph" title={morphDescription(gecko)}>{visualName(gecko)}</span><span>{STAGE_LABELS[gecko.stage]} · {disclosedSex(gecko)}</span>
       <Hearts gecko={gecko} />
     </button>{children}
   </article>;

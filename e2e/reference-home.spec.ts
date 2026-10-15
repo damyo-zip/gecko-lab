@@ -129,8 +129,9 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   const fixture=referenceHomeGame(),first=Object.values(fixture.individuals)[0];first.stage="hatchling";first.birthTurn=0;first.birthDate=REFERENCE_DATE;first.nextBreedTurn=fixture.rules.adultAfter;
   const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics=legacyRecord(carrier);
   await restore(page,fixture,mobile);await expect(page.locator(".home-name .home-sex")).toHaveText("?");
-  await expect(page.getByTestId("hc-card-"+carrier.id).locator(".home-morph")).toContainText("100% het Ax");
+  await expect(page.getByTestId("hc-card-"+carrier.id).locator(".home-morph")).not.toContainText("het");
   await expect(page.locator(".home-card").first().locator(".home-sex")).toHaveText("?");await expect(page.locator(".home-info")).toContainText("해칭");
+  await touch(page.getByRole("button",{name:carrier.name+" 상세보기",exact:true}),mobile);await expect(page.getByTestId("detail-morph-description")).toContainText("100% het 아잔틱");await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("hatchling");await page.keyboard.press("Escape");
   await expect(page.locator(".home-card")).toHaveCount(1);expect(await saved(page)).toEqual(fixture);await noOverflow(page);
 });

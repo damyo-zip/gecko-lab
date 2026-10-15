@@ -1,7 +1,7 @@
 "use client";
 import {useMemo,useState} from "react";
 import {owned,feedable,reserved} from "@/game/hardcore/survival";
-import {morph,specimen,disclosedSex} from "@/game/hardcore/adapter";
+import {morphDescription,specimen,disclosedSex} from "@/game/hardcore/adapter";
 import {STAGE_LABELS} from "@/game/model";
 import type {Gecko,HardcoreGame} from "@/game/hardcore/model";
 import {SpriteCanvas} from "../sprite-canvas";
@@ -44,7 +44,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
       <button className="home-arrow next home-frame" aria-label="다음 개체" disabled={animals.length<2||busy} onClick={()=>move(1)}><HomeIcon name="chevron"/></button>
       <div className="home-info home-frame">
         {selected?<><div className="home-name"><button aria-label="선택 개체 상세 정보" onClick={()=>onDetail(selected.id)}><strong title={selected.name}>{selected.name}</strong><HomeIcon name="pen" size={14}/></button><Sex gecko={selected}/></div>
-          <dl className="home-facts"><div><dt>모프</dt><dd title={morph(selected)}>{collectionMorph(selected)}</dd></div><div><dt>세대</dt><dd>{selected.generation}세대 (Gen {selected.generation})</dd></div><div><dt>크기</dt><dd>96×96 ({STAGE_LABELS[selected.stage]})</dd></div><div><dt>성장</dt><dd>{isV12(game)?lifeStage(game,selected):STAGE_LABELS[selected.stage]}</dd></div><div><dt>상태</dt><dd><Status status={collectionStatus(game,selected)}/></dd></div></dl></>:<div className="home-info-empty"><strong>나의 컬렉션</strong><p>개체를 선택하면<br/>브리딩 정보를 볼 수 있어요.</p></div>}
+          <dl className="home-facts"><div><dt>모프</dt><dd title={morphDescription(selected)}>{collectionMorph(selected)}</dd></div><div><dt>세대</dt><dd>{selected.generation}세대 (Gen {selected.generation})</dd></div><div><dt>크기</dt><dd>96×96 ({STAGE_LABELS[selected.stage]})</dd></div><div><dt>성장</dt><dd>{isV12(game)?lifeStage(game,selected):STAGE_LABELS[selected.stage]}</dd></div><div><dt>상태</dt><dd><Status status={collectionStatus(game,selected)}/></dd></div></dl></>:<div className="home-info-empty"><strong>나의 컬렉션</strong><p>개체를 선택하면<br/>브리딩 정보를 볼 수 있어요.</p></div>}
         <div className="home-heart-row">{selected?<HomeHearts gecko={selected}/>:<span>컨디션 관리</span>}<button className="home-frame" aria-label="컨디션 관리" onClick={()=>setCare(true)}>?</button></div>
       </div>
     </div>
@@ -57,7 +57,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
       <div className={"home-card-grid hc-grid columns-"+columns}>{visible.slice(0,limit).map(g=>{const status=collectionStatus(game,g);return <article className={"home-card hc-card home-frame "+(g.id===selected?.id?"selected":"")} key={g.id} data-testid={"hc-card-"+g.id}>
         <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={g.id===selected?.id} onClick={()=>setSelected(g.id)}>
           <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={specimen(g)} growthStage={g.stage} scale={3} testId={"hardcore-sprite-"+g.id}/></div>
-          <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morph(g)}>{collectionMorph(g)}</span><Status status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
+          <Sex gecko={g}/><strong title={g.name}>{g.name}</strong><span className="home-morph" title={morphDescription(g)}>{collectionMorph(g)}</span><Status status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
         </button>
         {eggPair(g)}
         {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><Status status={status}/></button>}
