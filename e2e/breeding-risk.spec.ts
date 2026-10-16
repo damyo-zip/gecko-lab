@@ -15,7 +15,7 @@ test.beforeEach(async({page})=>{await page.clock.setFixedTime(new Date(DATE+'T03
 test('reference modal keeps two large live parents, actual pedigree/slots, independent information dialogs and no added page header/nav at 360/390/430',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=breedingRiskFixture(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await restore(page,fixture.game,mobile);
  await openCollectionCatalog(page,mobile);
- const catalog=page.getByRole('dialog',{name:'전체 개체 목록',exact:true});await catalog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(fixture.fatherId);
+ const catalog=page.getByRole('dialog',{name:'전체 개체',exact:true});await catalog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(fixture.fatherId);
  await touch(catalog.getByRole('button',{name:fixture.game.individuals[fixture.fatherId].name+' 상세보기',exact:true}),mobile);await touch(page.getByRole('button',{name:'부모로 선택',exact:true}),mobile);
  await choose(page,fixture.fatherId,fixture.motherId);const dialog=page.getByRole('dialog',{name:'교배',exact:true});await expect(dialog).toBeVisible();await expect(dialog.locator('.breed-parent')).toHaveCount(2);
  await expect(dialog.getByRole('navigation')).toHaveCount(0);await expect(dialog.locator('header')).toHaveCount(0);await expect(dialog.getByTestId('breeding-relationship')).toContainText('친형제자매');await expect(dialog.getByTestId('breeding-relationship')).toContainText('25.00%');
@@ -28,7 +28,7 @@ test('reference modal keeps two large live parents, actual pedigree/slots, indep
  }
  await inspectGenetics(page,mobile);await expect(page.getByTestId('hardcore-forecast')).toContainText('비생존 · 25%');await expect(page.getByTestId('hardcore-forecast')).toContainText('33.3%');await expect(page.getByTestId('hardcore-forecast')).toContainText('66.7%');await closeGenetics(page,mobile);
  await touch(dialog.getByRole('button',{name:'혈통 비교',exact:true}),mobile);const comparison=page.getByRole('dialog',{name:'혈통 비교',exact:true});await expect(comparison).toContainText('비근친·상호 비혈연으로 가정');await expect(comparison).toContainText(fixture.normalId);await touch(comparison.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
- await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);expect(await saved(page)).toEqual(before);expect(errors).toEqual([]);
+ await page.keyboard.press('Escape');await expect(catalog).toBeVisible();await touch(catalog.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);expect(await saved(page)).toEqual(before);expect(errors).toEqual([]);
 });
 test('combined sibling/Lilly warning cancels without mutations, confirms once, survives reload, lays two eggs and independently resolves a genetic failure and viable hatch',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=breedingRiskFixture(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await restore(page,fixture.game,mobile);await navigateGame(page,'교배',mobile);await choose(page,fixture.fatherId,fixture.motherId);

@@ -1,94 +1,102 @@
-import {test,expect,type Page} from "@playwright/test";
-import {mkdir,writeFile} from "node:fs/promises";
-import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
-import {touch,navigateGame,openCollectionCatalog} from "./helpers/hardcore-navigation";
-import {exportBackup} from "../src/game/hardcore/save";
-import {specimen} from "../src/game/hardcore/adapter";
-import {valueGecko} from "../src/game/hardcore/market";
-import {addDays} from "../src/game/hardcore/time";
-import type {HardcoreGame} from "../src/game/hardcore/model";
+import {test,expect,type Page,type Locator} from '@playwright/test';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {referenceHomeGame,REFERENCE_DATE} from './fixtures/reference-home';
+import {collectionStatusGame} from './fixtures/collection-status';
+import {touch,navigateGame,openCollectionCatalog,chooseBreedingParent} from './helpers/hardcore-navigation';
+import {exportBackup} from '../src/game/hardcore/save';
+import {valueGecko} from '../src/game/hardcore/market';
+import {collectionEntries} from '../src/components/hardcore/collection-query';
+import {addDays} from '../src/game/hardcore/time';
+import {validateGame} from '../src/game/hardcore/validation';
+import {owned,reserved} from '../src/game/hardcore/survival';
+import type {HardcoreGame} from '../src/game/hardcore/model';
 
-function manyGame(count=37) {
-  const game=referenceHomeGame(),sources=Object.values(game.individuals);game.capacity=80;game.rules.initialCapacity=80;
-  for(let n=sources.length;n<count;n++){
-    const g=structuredClone(sources[n%sources.length]);g.id=game.gameId+"-browser-"+n;g.name="새싹 "+String(n).padStart(2,"0");g.visualSeed=g.id;
-    g.stage=n%3===0?"hatchling":n%3===1?"juvenile":"adult";g.birthTurn=g.stage==="hatchling"?-2:g.stage==="juvenile"?-8:-12;g.birthDate=addDays(REFERENCE_DATE,g.birthTurn*7);
-    game.individuals[g.id]=g;
-  }
-  return game;
+test.setTimeout(90_000);
+function manyGame(count=37){
+ const game=referenceHomeGame(),sources=Object.values(game.individuals);game.capacity=Math.max(80,count+4);game.rules.initialCapacity=game.capacity;game.rules.maxCapacity=Math.max(game.rules.maxCapacity,game.capacity);
+ if(count<6)for(const g of sources.slice(count))delete game.individuals[g.id];
+ for(let n=6;n<count;n++){
+  const g=structuredClone(sources[n%sources.length]);g.id=game.gameId+'-browser-'+n;g.name='새싹 '+String(n).padStart(3,'0');g.visualSeed=g.id;
+  g.stage=n%3===0?'hatchling':n%3===1?'juvenile':'adult';g.birthTurn=g.stage==='hatchling'?-2:g.stage==='juvenile'?-8:-12;g.birthDate=addDays(REFERENCE_DATE,g.birthTurn*7);game.individuals[g.id]=g;
+ }
+ validateGame(game);return game;
 }
-async function saved(page:Page):Promise<HardcoreGame> {
-  return page.evaluate(async()=>{
-    const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
-    return new Promise(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});
-  });
+async function saved(p:Page):Promise<HardcoreGame>{return p.evaluate(async()=>{
+ const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.save.game);tx.oncomplete=()=>db.close();});
+});}
+async function restore(p:Page,g:HardcoreGame,mobile:boolean){
+ await touch(p.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);await p.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'collection.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(g))});await touch(p.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(p.getByRole('dialog')).toHaveCount(0);await p.getByRole('combobox',{name:'모프 필터',exact:true}).selectOption('all');await p.getByRole('combobox',{name:'개체 정렬',exact:true}).selectOption('default');
 }
-async function restore(page:Page,game:HardcoreGame,mobile:boolean) {
-  await page.clock.setFixedTime(new Date(REFERENCE_DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();
-  await touch(page.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);
-  await page.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'collection.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(game))});
-  await touch(page.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);
+const catalog=(p:Page)=>p.getByRole('dialog',{name:'전체 개체',exact:true});
+async function close(d:Locator,mobile:boolean){await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);await expect(d).toHaveCount(0);}
+async function scrollList(p:Page,mobile:boolean){
+ const root=catalog(p).locator('.collection-list-scroll'),r=(await root.boundingBox())!;
+ if(mobile){const cdp=await p.context().newCDPSession(p),x=r.x+r.width*.45,y=r.y+r.height*.8;await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1}]});for(let step=1;step<=10;step++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-r.height*.5*step/10,id:1}]});await p.evaluate(()=>new Promise(requestAnimationFrame));}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();}else{await root.hover();await p.mouse.wheel(0,250);}
+ await expect.poll(()=>root.evaluate(el=>el.scrollTop)).toBeGreaterThan(0);
 }
-async function scrollCollection(page:Page,mobile:boolean) {
-  const content=page.locator('.reference-content'),r=(await content.boundingBox())!;
-  if(mobile){
-    const cdp=await page.context().newCDPSession(page),x=r.x+r.width*.45,y=r.y+r.height*.8;
-    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1}]});
-    for(let step=1;step<=12;step++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-r.height*.5*step/12,id:1}]});await page.evaluate(()=>new Promise(requestAnimationFrame));}
-    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
-  }else{await content.hover();await page.mouse.wheel(0,300);}
-  await expect.poll(()=>content.evaluate(el=>el.scrollTop)).toBeGreaterThan(0);
-}
+const errors=new WeakMap<Page,string[]>();
+test.beforeEach(async({page})=>{const e:string[]=[];errors.set(page,e);page.on('pageerror',v=>e.push(v.message));page.on('console',v=>{if(v.type()==='error')e.push(v.text());});await page.clock.setFixedTime(new Date(REFERENCE_DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();});
+test.afterEach(async({page})=>expect(errors.get(page)).toEqual([]));
 
-test('original grid, two-column view, vertical browsing and more specimens retain fixed chrome and immutable records',async({page},info)=>{
-  test.setTimeout(60_000);const mobile=info.project.name.startsWith('mobile'),game=manyGame(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
-  await restore(page,game,mobile);
-  const sizes=mobile?[[360,800],[390,844],[430,932],[390,693],[360,640]]:[[720,1280],[1280,900]];
-  for(const [width,height] of sizes){
-    await navigateGame(page,'인큐베이터',mobile);await page.setViewportSize({width,height});await navigateGame(page,'컬렉션',mobile);
-    const grid=page.locator('.home-card-grid');await expect(grid).toHaveClass(/columns-3/);await expect(grid.locator('.home-card')).toHaveCount(12);
-    await expect(page.locator('.home-card-carousel,.home-page-controls')).toHaveCount(0);
-    const chrome=await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(el=>el.getBoundingClientRect().toJSON()));
-    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&scrollY===0)).toBe(true);
-    for(const canvas of await grid.locator('canvas').all())expect(await canvas.evaluate(el=>!(el as HTMLCanvasElement).getContext('2d')!.imageSmoothingEnabled)).toBe(true);
-    if(mobile){await mkdir('docs/collection-restore',{recursive:true});await page.screenshot({path:`docs/collection-restore/home-${width}-${height}.png`,scale:'css'});}
-    await scrollCollection(page,mobile);
-    expect(await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(el=>el.getBoundingClientRect().toJSON()))).toEqual(chrome);
-    await touch(page.getByRole('button',{name:'2열로 보기',exact:true}),mobile);await expect(grid).toHaveClass(/columns-2/);
-    await touch(page.getByRole('button',{name:'3열로 보기',exact:true}),mobile);await expect(grid).toHaveClass(/columns-3/);
+test('zero, six, seven and 37 records keep only the sorted first six main cards, fixed chrome and a fitted portrait',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),reports=[];
+ for(const count of [0,6,7,37]){
+  const game=manyGame(count);await restore(page,game,mobile);await expect(page.locator('.home-card-grid .home-card')).toHaveCount(Math.min(6,count));await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText(count+' / '+game.capacity);
+  for(const [width,height] of [[360,640],[360,800],[390,693],[390,844],[412,760],[430,932]]){
+   await page.setViewportSize({width,height});const content=page.locator('.reference-content'),geometry=await content.evaluate(el=>({client:el.clientHeight,scroll:el.scrollHeight}));
+   expect(geometry.scroll,`${count} animals ${width}x${height}`).toBeLessThanOrEqual(geometry.client+1);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight&&scrollY===0)).toBe(true);
+   const cta=(await page.locator('.home-turn-cta').boundingBox())!,nav=(await page.locator('.home-nav').boundingBox())!;expect(cta.y+cta.height).toBeLessThanOrEqual(nav.y);
+   if(count)for(const card of await page.locator('.home-card-grid .home-card').all()){const r=(await card.boundingBox())!;expect(r.y+r.height).toBeLessThan(cta.y);const art=(await card.locator('.home-card-art').boundingBox())!;expect(art.height).toBeGreaterThan(0);const c=(await card.locator('canvas').boundingBox())!;expect(c.width/c.height).toBeCloseTo(1,4);}
+   const chrome=await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().toJSON()));await content.evaluate(el=>el.scrollTop=el.scrollHeight);expect(await content.evaluate(el=>el.scrollTop)).toBeLessThanOrEqual(1);expect(await page.locator('.home-header,.home-footer').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().toJSON()))).toEqual(chrome);reports.push({count,width,height,...geometry});
+   if(mobile&&count===37){await mkdir('docs/collection-manager',{recursive:true});await page.screenshot({path:`docs/collection-manager/home-${width}x${height}.png`,scale:'css'});}
   }
-  for(const count of [24,36,37]){await touch(page.getByRole('button',{name:'개체 더 보기',exact:true}),mobile);await expect(page.locator('.home-card')).toHaveCount(count);}
-  await expect(page.getByRole('button',{name:'개체 더 보기',exact:true})).toHaveCount(0);
-  const child=Object.values(game.individuals)[36];await touch(page.getByRole('button',{name:child.name+' 선택',exact:true}),mobile);await expect(page.locator('.home-name')).toContainText(child.name);
-  await page.getByRole('combobox',{name:'모프 필터',exact:true}).selectOption('axanthic');await expect(page.locator('.home-card')).toHaveCount(Object.values(game.individuals).filter(g=>specimen(g).appearance.patternStyle==='axanthic').length);
-  expect(await saved(page)).toEqual(game);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('37 / 80');expect(await saved(page)).toEqual(game);expect(errors).toEqual([]);
+  if(!mobile&&count===37){await page.setViewportSize({width:1280,height:900});expect((await page.locator('.home-hero').boundingBox())!.height).toBeGreaterThan(300);expect((await page.locator('.home-card-grid .home-card').first().boundingBox())!.height).toBeGreaterThanOrEqual(180);}
+  if(count===6)for(const [width,height] of [[360,800],[390,844],[412,760],[430,932]]){
+   await page.setViewportSize({width,height});const safe=await page.addStyleTag({content:'.hc-shell.reference-shell{--home-safe-top:44px;--home-safe-bottom:34px;--home-safe-left:20px;--home-safe-right:20px;}'});expect(await page.locator('.home-shell').evaluate(el=>getComputedStyle(el).getPropertyValue('--home-safe-top'))).toBe('44px');expect(await page.locator('.reference-content').evaluate(el=>el.scrollHeight<=el.clientHeight+1)).toBe(true);const panel=(await page.locator('.home-info').boundingBox())!,hearts=(await page.locator('.home-heart-row').boundingBox())!;expect(hearts.y+hearts.height).toBeLessThanOrEqual(panel.y+panel.height);await safe.evaluate(n=>n.parentNode?.removeChild(n));
+  }
+  await expect(page.getByRole('button',{name:'개체 더 보기',exact:true})).toHaveCount(0);await expect(page.getByRole('button',{name:'2열로 보기',exact:true})).toHaveCount(0);
+  await page.getByRole('combobox',{name:'개체 정렬',exact:true}).selectOption('name');const sorted=collectionEntries(owned(game),{morph:'all',sort:'name',stage:'all'});expect(await page.locator('.home-card-grid .home-card').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('data-testid')))).toEqual(sorted.slice(0,6).map(g=>'hc-card-'+g.id));
+  await page.getByRole('combobox',{name:'모프 필터',exact:true}).selectOption('axanthic');const filtered=collectionEntries(owned(game),{morph:'axanthic',sort:'name',stage:'all'});await expect(page.locator('.home-card-grid .home-card')).toHaveCount(Math.min(6,filtered.length));await openCollectionCatalog(page,mobile);await expect(catalog(page).getByRole('combobox',{name:'목록 모프 필터',exact:true})).toHaveValue('axanthic');await expect(catalog(page).getByRole('combobox',{name:'목록 정렬',exact:true})).toHaveValue('name');await expect(catalog(page).getByRole('status')).toHaveText(filtered.length+' / '+count+'마리');await close(catalog(page),mobile);expect(await saved(page)).toEqual(game);
+ }
+ if(mobile)await writeFile('docs/collection-manager/geometry.json',JSON.stringify(reports,null,2));
 });
 
-test('scrolling catalog shows actual sprites, names and sell quotes, supports public filters and price sort, and loads every specimen',async({page},info)=>{
-  const mobile=info.project.name.startsWith('mobile'),game=manyGame(),animals=Object.values(game.individuals);await page.setViewportSize({width:390,height:844});await restore(page,game,mobile);
-  await openCollectionCatalog(page,mobile);const dialog=page.getByRole('dialog',{name:'전체 개체 목록',exact:true});
-  await expect(dialog.locator('.collection-list-row')).toHaveCount(24);
-  for(const g of animals.slice(0,6)){const row=dialog.getByTestId('collection-list-'+g.id);await expect(row).toContainText(g.name);await expect(row).toContainText('₩'+valueGecko(g).sell.toLocaleString('ko-KR'));expect(await row.locator('canvas').evaluate(el=>{const c=el as HTMLCanvasElement;return !c.getContext('2d')!.imageSmoothingEnabled&&c.getContext('2d')!.getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0);})).toBe(true);}
-  await dialog.locator('.collection-list-scroll').evaluate(el=>{el.scrollTop=el.scrollHeight;});await expect(dialog.locator('.collection-list-row')).toHaveCount(37);expect(await dialog.locator('.collection-list-scroll').evaluate(el=>el.scrollTop)).toBeGreaterThan(0);expect(await page.locator('.reference-content').evaluate(el=>el.scrollTop)).toBe(0);
-  await dialog.getByRole('combobox',{name:'목록 정렬',exact:true}).selectOption('priceDesc');
-  const sorted=[...animals].sort((a,b)=>valueGecko(b).sell-valueGecko(a).sell);expect(await dialog.locator('.collection-list-row').evaluateAll(nodes=>nodes.slice(0,6).map(n=>n.getAttribute('data-testid')))).toEqual(sorted.slice(0,6).map(g=>'collection-list-'+g.id));
-  await dialog.getByRole('combobox',{name:'목록 성별',exact:true}).selectOption('unknown');await expect(dialog.getByRole('status')).toContainText(String(animals.filter(g=>g.stage!=='adult').length)+' / 37');
-  for(const row of await dialog.locator('.collection-list-row').all())await expect(row).toContainText('미구분');
-  await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
-  await dialog.getByRole('combobox',{name:'목록 모프 필터',exact:true}).selectOption('axanthic');await expect(dialog.locator('.collection-list-row').first()).toContainText('아잔틱');
-  await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(animals[12].id);await expect(dialog.locator('.collection-list-row')).toHaveCount(1);await expect(dialog.locator('.collection-list-row')).toContainText(animals[12].name);
-  await dialog.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill('존재하지않는개체');await expect(dialog).toContainText('조건에 맞는 개체가 없습니다.');
-  await touch(dialog.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
-  if(mobile){await page.screenshot({path:'docs/collection-restore/catalog-390.png',scale:'css'});await writeFile('docs/collection-restore/review-save.json',exportBackup(game));}
-  await touch(dialog.getByTestId('collection-list-'+animals[0].id),mobile);await expect(page.getByRole('dialog')).toContainText(animals[0].name+' 상세');await expect(page.getByRole('dialog')).toContainText('분양 예상가');await page.keyboard.press('Escape');
-  expect(await saved(page)).toEqual(game);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('37 / 80');expect(await saved(page)).toEqual(game);
+test('three-column manager keeps selection open, shows true quotes, filters public data and scrolls independently through every record',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),game=manyGame(),animals=owned(game);await page.setViewportSize({width:390,height:844});await restore(page,game,mobile);await openCollectionCatalog(page,mobile);const d=catalog(page),list=d.locator('.collection-list-scroll');
+ expect(await d.locator('.collection-list-grid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length)).toBe(3);
+ if(mobile)await page.screenshot({path:'docs/collection-manager/catalog-initial-390.png',scale:'css'});
+ for(const g of animals.slice(0,6)){const card=d.getByTestId('collection-list-'+g.id);await expect(card).toContainText(g.name);await expect(card).toContainText('₩'+valueGecko(g).sell.toLocaleString('ko-KR'));expect(await card.locator('canvas').evaluate(n=>{const c=n as HTMLCanvasElement,ctx=c.getContext('2d')!;return !ctx.imageSmoothingEnabled&&ctx.getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0);})).toBe(true);}
+ await scrollList(page,mobile);expect(await page.locator('.reference-content').evaluate(n=>n.scrollTop)).toBe(0);await list.evaluate(n=>n.scrollTop=n.scrollHeight);const last=animals.at(-1)!;await expect(d.getByTestId('collection-list-'+last.id)).toBeVisible();
+ await touch(d.getByTestId('collection-list-'+last.id).getByRole('button',{name:last.name+' 선택',exact:true}),mobile);await expect(d).toBeVisible();await expect(d.locator('.collection-manager-selected')).toHaveAttribute('data-selected-id',last.id);const position=await list.evaluate(n=>n.scrollTop);
+ await touch(d.getByRole('button',{name:'상세·분양',exact:true}),mobile);const details=page.getByRole('dialog',{name:last.name+' 상세',exact:true});await expect(details).toContainText('분양 예상가');await close(details,mobile);await expect(d).toBeVisible();expect(await list.evaluate(n=>n.scrollTop)).toBe(position);
+ await d.getByRole('combobox',{name:'목록 정렬',exact:true}).selectOption('priceDesc');const sorted=[...animals].sort((a,b)=>valueGecko(b).sell-valueGecko(a).sell);expect(await d.locator('.collection-list-row').evaluateAll(nodes=>nodes.slice(0,6).map(n=>n.getAttribute('data-testid')))).toEqual(sorted.slice(0,6).map(g=>'collection-list-'+g.id));
+ await d.locator('.collection-list-extra summary').click();await d.getByRole('combobox',{name:'목록 성장 단계',exact:true}).selectOption('hatchling');await d.getByRole('combobox',{name:'목록 성별',exact:true}).selectOption('unknown');await expect(d.locator('.collection-manager-selected')).not.toContainText('숨은 유전형');for(const card of await d.locator('.collection-list-row').all())await expect(card.locator('.home-sex')).toHaveText('?');
+ await d.getByRole('combobox',{name:'목록 성별',exact:true}).selectOption('male');await expect(d.locator('.collection-list-row')).toHaveCount(0);await expect(d).toContainText('조건에 맞는 개체가 없습니다.');await touch(d.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
+ await d.getByRole('combobox',{name:'목록 모프 필터',exact:true}).selectOption('axanthic');await expect(d.locator('.collection-list-row').first()).toContainText('아잔틱');await touch(d.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
+ await d.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(animals[12].id);await expect(d.locator('.collection-list-row')).toHaveCount(1);await expect(d.locator('.collection-list-row')).toContainText(animals[12].name);await d.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill('존재하지않는개체');await expect(d).toContainText('조건에 맞는 개체가 없습니다.');await touch(d.getByRole('button',{name:'필터 초기화',exact:true}),mobile);
+ if(mobile){await page.screenshot({path:'docs/collection-manager/catalog-390.png',scale:'css'});await writeFile('docs/collection-manager/review-save.json',exportBackup(game));}
+ await close(d,mobile);await expect(page.locator('.home-name')).toContainText(last.name);expect(await saved(page)).toEqual(game);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('37 / 80');expect(await saved(page)).toEqual(game);
 });
 
-test('selling through existing confirmation updates the restored collection, quote and preserved lineage record',async({page},info)=>{
-  const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame(),g=Object.values(game.individuals)[0];await restore(page,game,mobile);
-  await openCollectionCatalog(page,mobile);await page.getByRole('dialog').getByRole('button',{name:g.name+' 상세보기',exact:true}).click();
-  const expected=valueGecko(g).sell;await touch(page.getByRole('button',{name:'분양 준비 · ₩'+expected.toLocaleString('ko-KR'),exact:true}),mobile);await touch(page.getByRole('button',{name:'분양 확정',exact:true}),mobile);await page.keyboard.press('Escape');
-  await expect(page.locator('.home-card')).toHaveCount(5);const next=await saved(page);expect(next.money).toBe(game.money+expected);expect(next.individuals[g.id].status).toBe('sold');expect(next.individuals[g.id].genetics).toEqual(g.genetics);expect(next.individuals[g.id].parents).toEqual(g.parents);
-  await openCollectionCatalog(page,mobile);await expect(page.getByRole('dialog').getByTestId('collection-list-'+g.id)).toHaveCount(0);await page.keyboard.press('Escape');
-  await navigateGame(page,'상점',mobile);await navigateGame(page,'컬렉션',mobile);expect(await saved(page)).toEqual(next);
+test('rename, real lineage preview and sales return to the same manager and preserve records and scroll for continuous management',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),game=manyGame(),g=owned(game)[18];await page.setViewportSize({width:390,height:844});await restore(page,game,mobile);await openCollectionCatalog(page,mobile);const d=catalog(page),list=d.locator('.collection-list-scroll');await list.evaluate(n=>n.scrollTop=700);
+ await d.getByRole('searchbox',{name:'이름·ID 검색',exact:true}).fill(g.id);await touch(d.getByRole('button',{name:g.name+' 선택',exact:true}),mobile);await touch(d.getByRole('button',{name:'상세·분양',exact:true}),mobile);let detail=page.getByRole('dialog',{name:g.name+' 상세',exact:true});await detail.getByLabel('개체 이름',{exact:true}).fill('연속 관리 게코');await touch(detail.getByRole('button',{name:'이름 저장',exact:true}),mobile);detail=page.getByRole('dialog',{name:'연속 관리 게코 상세',exact:true});await expect(detail).toBeVisible();await close(detail,mobile);await expect(d.locator('.collection-manager-selected')).toContainText('연속 관리 게코');await expect(d.getByRole('searchbox')).toHaveValue(g.id);
+ await touch(d.getByRole('button',{name:'상세·분양',exact:true}),mobile);detail=page.getByRole('dialog',{name:'연속 관리 게코 상세',exact:true});await touch(detail.getByRole('button',{name:'영구 혈통 기록 보기',exact:true}),mobile);const family=page.getByRole('dialog',{name:'혈통 기록',exact:true});await expect(family).toContainText('가족 혈통도');expect(await family.evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);expect(await family.locator('.album-section-title h2').first().evaluate(el=>getComputedStyle(el).fontSize)).toBe('17px');if(mobile)await family.screenshot({path:'docs/collection-manager/lineage-preview-390.png',scale:'css'});await close(family,mobile);await expect(d).toBeVisible();await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view','collection');
+ await touch(d.getByRole('button',{name:'상세·분양',exact:true}),mobile);detail=page.getByRole('dialog',{name:'연속 관리 게코 상세',exact:true});const quote=valueGecko(g).sell;await touch(detail.getByRole('button',{name:'분양 준비 · ₩'+quote.toLocaleString('ko-KR'),exact:true}),mobile);await touch(detail.getByRole('button',{name:'분양 확정',exact:true}),mobile);await expect(detail).toContainText('판매 완료');await close(detail,mobile);await expect(d).toBeVisible();await expect(d.getByTestId('collection-list-'+g.id)).toHaveCount(0);const sold=await saved(page);expect(sold.money).toBe(game.money+quote);expect(sold.individuals[g.id]).toEqual({...g,name:'연속 관리 게코',status:'sold'});
+ await touch(d.getByRole('button',{name:'필터 초기화',exact:true}),mobile);const other=owned(sold)[0];await touch(d.getByTestId('collection-list-'+other.id).getByRole('button',{name:other.name+' 선택',exact:true}),mobile);await expect(d.locator('.collection-manager-selected')).toHaveAttribute('data-selected-id',other.id);await close(d,mobile);await expect(page.locator('.home-card-grid .home-card')).toHaveCount(6);await page.reload();await expect(page.getByRole('heading',{name:/^보유 개체/})).toContainText('36 / 80');expect(await saved(page)).toEqual(sold);
+});
+
+test('existing resources, automatic feed, growth/rest countdowns and real breeding run above a manager that remains open',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),f=collectionStatusGame();f.game.food=0;await restore(page,f.game,mobile);await openCollectionCatalog(page,mobile);const d=catalog(page),status=(id:string)=>d.getByTestId('collection-status-'+id);await expect(status(f.mother)).toHaveText('휴식기 · 2턴');await expect(status(f.growing)).toHaveText('성장 중 · 2턴');await touch(d.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);const shortage=page.getByRole('dialog',{name:'턴 종료 전 사료 부족',exact:true});await expect(shortage).toContainText('부족 6개');await touch(shortage.getByRole('button',{name:'사료 구입하러 가기',exact:true}),mobile);const resources=page.getByRole('dialog',{name:'사료 및 사육장 관리',exact:true});await resources.getByLabel('먹이 구매 수량',{exact:true}).fill('20');await touch(resources.getByRole('button',{name:'먹이 구입 · ₩20,000',exact:true}),mobile);await expect(resources).toContainText('먹이 재고 20개');await close(resources,mobile);await expect(d).toBeVisible();expect((await saved(page)).turn).toBe(f.game.turn);
+ for(let n=1;n<=2;n++){await touch(d.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(d.locator('.collection-manager-footer')).toContainText('TURN '+(f.game.turn+n));await expect(status(f.mother)).toHaveText(n===1?'휴식기 · 1턴':'브리딩 가능');await expect(status(f.growing)).toHaveText(n===1?'성장 중 · 1턴':'브리딩 가능');await expect(d).toBeVisible();}
+ const fed=await saved(page);expect(fed.food).toBe(8);expect(fed.individuals[f.growing].stage).toBe('adult');expect(fed.individuals[f.growing].genetics).toEqual(f.game.individuals[f.growing].genetics);
+ await touch(d.getByTestId('collection-list-'+f.otherMale).getByRole('button',{name:'같은 이름 선택',exact:true}),mobile);await touch(d.getByRole('button',{name:'교배 열기',exact:true}),mobile);const breeding=page.getByRole('dialog',{name:'교배',exact:true});await expect(breeding.getByTestId('breed-parent-male')).toHaveAttribute('data-parent-id',f.otherMale);await expect(breeding.getByTestId('breed-parent-female')).toHaveAttribute('data-parent-id','');await close(breeding,mobile);await expect(d).toBeVisible();await touch(d.getByRole('button',{name:'교배 열기',exact:true}),mobile);await chooseBreedingParent(page,'female',f.female,mobile);await touch(page.getByTestId('breed-submit'),mobile);const warning=page.getByRole('dialog',{name:'교배 전 위험 확인',exact:true});if(await warning.count())await touch(warning.getByRole('button',{name:'위험을 확인하고 교배하기',exact:true}),mobile);await expect(breeding).toHaveCount(0);await expect(d).toBeVisible();await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view','collection');await expect(status(f.female)).toHaveText('산란 대기 · 2턴');const bred=await saved(page);expect(Object.values(bred.matings).at(-1)!.parents).toEqual({fatherId:f.otherMale,motherId:f.female});expect(reserved(bred)).toBe(reserved(fed)+2);await close(d,mobile);await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(bred.turn));expect(await saved(page)).toEqual(bred);
+});
+
+test('300 records use a bounded window, selection repaints no card sprites, and the final animal is reachable without background scrolling',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile'),game=manyGame(300);await page.setViewportSize({width:390,height:844});await restore(page,game,mobile);const started=performance.now();await openCollectionCatalog(page,mobile);const d=catalog(page),list=d.locator('.collection-list-scroll');await expect(d.getByRole('status')).toHaveText('300 / 300마리');const openMs=performance.now()-started;
+ const mountedAtOpen=await d.locator('.collection-list-row').count();expect(mountedAtOpen).toBeLessThanOrEqual(30);await page.evaluate(()=>{(window as any).__managerPaints=0;const draw=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(...args:any[]){if(this.canvas.closest('.collection-list-grid'))(window as any).__managerPaints++;return Reflect.apply(draw,this,args);};});
+ const second=owned(game)[1];await touch(d.getByTestId('collection-list-'+second.id).getByRole('button',{name:second.name+' 선택',exact:true}),mobile);await expect(d.locator('.collection-manager-selected')).toHaveAttribute('data-selected-id',second.id);await page.evaluate(()=>new Promise(requestAnimationFrame));expect(await page.evaluate(()=>(window as any).__managerPaints)).toBe(0);
+ await list.evaluate(n=>n.scrollTop=n.scrollHeight*.5);await expect.poll(async()=>d.locator('.collection-list-row').first().getAttribute('data-testid')).not.toBe('collection-list-'+owned(game)[0].id);expect(await d.locator('.collection-list-row').count()).toBeLessThanOrEqual(30);await list.evaluate(n=>n.scrollTop=n.scrollHeight);const last=owned(game).at(-1)!;await expect(d.getByTestId('collection-list-'+last.id)).toBeVisible();await touch(d.getByTestId('collection-list-'+last.id).getByRole('button',{name:last.name+' 선택',exact:true}),mobile);await expect(d.locator('.collection-manager-selected')).toHaveAttribute('data-selected-id',last.id);expect(await page.locator('.reference-content').evaluate(n=>n.scrollTop)).toBe(0);const position=await list.evaluate(n=>n.scrollTop);await touch(d.getByRole('button',{name:'사료·사육장',exact:true}),mobile);await close(page.getByRole('dialog',{name:'사료 및 사육장 관리',exact:true}),mobile);expect(await list.evaluate(n=>n.scrollTop)).toBe(position);expect(await saved(page)).toEqual(game);
+ const measurement={owned:300,openMs,mountedAtOpen,mountedAtBottom:await d.locator('.collection-list-row').count(),scrollTop:position,selectionCardPaints:0};await writeFile(info.outputPath('manager-performance.json'),JSON.stringify(measurement,null,2));await mkdir('docs/collection-manager',{recursive:true});await writeFile('docs/collection-manager/performance-'+info.project.name+'.json',JSON.stringify(measurement,null,2));if(mobile)await page.screenshot({path:'docs/collection-manager/catalog-300-bottom.png',scale:'css'});await close(d,mobile);await expect(page.locator('.home-name')).toContainText(last.name);
 });
