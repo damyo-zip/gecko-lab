@@ -88,7 +88,7 @@ test("reference home binds six real specimens, preserves read-only state and adv
   const fraction=await thumb.evaluate(el=>{const c=el as HTMLCanvasElement,rgba=c.getContext("2d")!.getImageData(0,0,c.width,c.height).data;for(let y=c.height-1;y>=0;y--)for(let x=0;x<c.width;x++)if(rgba[(y*c.width+x)*4+3])return (y+1)/c.height;return 0;});
   // The enlarged card intentionally lets the tail enter only the top of the name
   // row. Bound the real opaque pixels, not the canvas's transparent padding.
-  const nameBox=(await first.locator(".home-card-select > strong").boundingBox())!,paintBottom=thumbBox!.y+thumbBox!.height*fraction;
+  const nameBox=(await first.locator(".home-card-name > span").boundingBox())!,paintBottom=thumbBox!.y+thumbBox!.height*fraction;
   expect(fraction).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeLessThanOrEqual(4);
   expect(paintBottom).toBeLessThan(nameBox.y+nameBox.height*.25);
   expect(paintBottom).toBeLessThan((await first.locator(".home-status").first().boundingBox())!.y);
@@ -113,7 +113,7 @@ test("reference home binds six real specimens, preserves read-only state and adv
   const next=await saved(page);for(const id of Object.keys(original.individuals)){expect(next.individuals[id].hearts).toBe(Math.min(5,original.individuals[id].hearts+1));expect(next.individuals[id].genetics).toEqual(original.individuals[id].genetics);expect(next.individuals[id].visualSeed).toBe(original.individuals[id].visualSeed);}
   await expect(page.getByRole("button",{name:"턴 마치기",exact:true})).toHaveCount(0);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);
-  await expect(page.getByRole("dialog")).toContainText("자동 급여");await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toContainText("급여는 턴 종료 시 자동 처리합니다.");await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");await page.keyboard.press("Escape");
   const fed=await saved(page);expect(fed.food).toBe(32);expect(fed.individuals[Object.keys(original.individuals)[0]].hearts).toBe(4);
   await touch(page.getByRole("button",{name:"모카 상세보기",exact:true}),mobile);await page.getByLabel("개체 이름",{exact:true}).fill("모카 연구소");await touch(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"모카 연구소 상세",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const final=await saved(page);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();expect(await saved(page)).toEqual(final);await expect(page.locator(".home-name")).toContainText("모카 연구소");

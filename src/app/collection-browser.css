@@ -80,3 +80,16 @@
 @media(min-width:600px){
  .home-shell :is(.home-card-grid,.collection-catalog) .home-card .home-card-art canvas{--card-tail-inset:27px}
 }
+
+/* Independent card touch targets; placeholders preserve all existing card rows.
+   The sprite still paints over the first few pixels of the name, without
+   intercepting input. Prices remain exclusive to the full manager. */
+.home-shell .home-card-name-placeholder{visibility:hidden}
+.home-shell .home-card-name{position:absolute;z-index:1;left:var(--status-inset-x);right:var(--status-inset-x);bottom:37px;height:30px;min-width:0;padding:0;border:0;border-radius:0;display:flex;align-items:flex-end;text-align:left;color:#f0f0f4;background:transparent;font-size:13px;font-weight:750;line-height:18px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.home-shell .collection-catalog .home-card-name{bottom:55px}
+.home-shell .collection-catalog .collection-list-price{min-height:24px;bottom:0;padding:2px 0 4px;border:0;background:transparent;text-align:left;z-index:3}
+.home-shell .home-card-name:focus-visible,.home-shell .collection-list-price:focus-visible{outline:1px solid #a3e681;outline-offset:-1px;border-radius:3px}
+@media(min-width:600px){.home-shell .home-card-name{bottom:50px;font-size:21px;line-height:24px;height:32px}.home-shell .collection-catalog .home-card-name{bottom:67px}}
+
+.home-card-name>span{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-shell .collection-list-price{overflow:hidden;text-overflow:ellipsis}

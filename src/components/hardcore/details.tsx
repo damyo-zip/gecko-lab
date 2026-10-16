@@ -7,6 +7,7 @@ import { disclosedSex, visualName, morphDescription } from "@/game/hardcore/adap
 import {koreanMorphText} from "@/phenotype/display-name";
 import { knowledgeLabel } from "@/genetics/advanced/inference";
 import { publicKnowledge } from "@/game/hardcore/genetics";
+import {saleRestriction} from "@/game/hardcore/economy";
 import { valueGecko } from "@/game/hardcore/market";
 import { feedable } from "@/game/hardcore/survival";
 import { STAGE_LABELS } from "@/game/model";
@@ -19,7 +20,7 @@ export function Details({gecko:g,game,busy,play,onDetail,onClose,onBreed,onLinea
   const [name,setName] = useState(g.name), [confirm,setConfirm] = useState(false);
   const [fire,setFire]=useState<"up"|"down">("up");
   const quote = valueGecko(g), sale = game.sales.find(s=>s.individualId===g.id);
-  const pending = Object.values(game.matings).some(m=>m.parents.motherId===g.id && ["pending","fertilized"].includes(m.status));
+  const pending = !!saleRestriction(game,g);
   return <Dialog title={g.name + " 상세"} onClose={onClose}>
     <div className="hc-detail-meta"><span>Gen {g.generation}</span><span>{STATUS[g.status]}</span><span>{disclosedSex(g)} · {STAGE_LABELS[g.stage]}</span></div>
     <div className="detail-art"><Sprite gecko={g} large fire={fire}/></div><div className="hc-condition-row"><span>컨디션</span><Hearts gecko={g}/></div>

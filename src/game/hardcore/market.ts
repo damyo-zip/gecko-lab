@@ -23,7 +23,8 @@ export function validatePriceTable(p: PriceTable): void {
     throw new Error("가격표가 손상되었습니다.");
 }
 const round = (value: number) => Math.max(1000, Math.round(value / 1000) * 1000);
-export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
+/** The exact existing pricing terms, shared by quotes and their UI explanations. */
+export function valuationFactors(g: Gecko, table: PriceTable = MARKET) {
   validatePriceTable(table);
   const ax = axanthicState(g.genotype), lilly = g.genotype.loci["lilly-white"].includes("Lw"), t = g.potential;
   const profile=appearanceProfile(g);
@@ -44,9 +45,13 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   const sex = g.stage === "adult" && g.sex === "female" ? 1.08 : 1;
   const age = g.stage === "adult" ? 1 : g.stage === "juvenile" ? .8 : .65;
   const pedigree = g.provenance === "known" && g.parents ? 1.05 : 1;
+  return {bucket,marketBase,appearance,carrier,sex,age,pedigree,patternModel:!!profile};
+}
+export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
+  const {bucket,marketBase,appearance,carrier,sex,age,pedigree,patternModel}=valuationFactors(g,table);
   const valuation = round(marketBase * appearance * carrier * sex * age * pedigree);
   return { bucket, marketBase, valuation, ask: round(valuation * table.buyMultiplier),
-    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(profile?"/patterns-1":""),
+    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(patternModel?"/patterns-1":""),
     provisional: table.status === "provisional-game-prices" };
 }
 export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): void {

@@ -1,4 +1,4 @@
-import type { HardcoreGame } from "./model";
+import type { Gecko, HardcoreGame } from "./model";
 import { freeSlots } from "./survival";
 import { valueGecko, MARKET, type PriceTable } from "./market";
 
@@ -20,9 +20,14 @@ export function buyGecko(g: HardcoreGame, offerId: string): void {
   for(const parent of parents)if(!g.individuals[parent.id])g.individuals[parent.id]=structuredClone(parent);
   if(g.saveVersion>=7)offer.purchased=true;else delete g.shop.offers[offerId];
 }
+/** Shared restriction; UI and actual sale use the same pending-mother rule. */
+export function saleRestriction(game:HardcoreGame,gecko:Gecko|undefined):string|null {
+  if(!gecko || gecko.status!=="owned" || gecko.hearts===0)return "보유 중인 생존 개체만 분양할 수 있습니다.";
+  if(Object.values(game.matings).some(m=>m.parents.motherId===gecko.id&&["pending","fertilized"].includes(m.status)))return "산란 전 번식 일정이 있는 암컷은 분양할 수 없습니다.";
+  return null;
+}
 export function sellGecko(g: HardcoreGame, id: string, table: PriceTable = MARKET): void {
-  const i = g.individuals[id]; if (!i || i.status !== "owned" || i.hearts === 0) throw new Error("보유 중인 생존 개체만 분양할 수 있습니다.");
-  if (Object.values(g.matings).some(m => m.parents.motherId === id && ["pending", "fertilized"].includes(m.status))) throw new Error("산란 전 번식 일정이 있는 암컷은 분양할 수 없습니다.");
+  const i=g.individuals[id],restriction=saleRestriction(g,i);if(restriction)throw new Error(restriction);
   const quote = valueGecko(i, table);
   if (g.money + quote.sell > 1e12) throw new Error("게임 자금 한도에 도달했습니다.");
   i.status = "sold"; g.money += quote.sell;
