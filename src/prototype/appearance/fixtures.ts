@@ -6,7 +6,7 @@ import { unknownKnowledge } from '@/genetics/advanced/inference';
 import { specimen } from '@/game/hardcore/adapter';
 import type { Gecko } from '@/game/hardcore/model';
 import { renderSprite } from '@/engine/render';
-import { renderAppearancePrototype } from './render';
+import { renderAppearancePrototype,renderAppearanceRelief } from './render';
 
 export const MORPHS = [
   {id:'normal',label:'노멀 · 대조군'}, {id:'lilly',label:'릴리화이트'},
@@ -50,5 +50,5 @@ export function comparisonSubject(genome:Genome,seed:string):Gecko {
 }
 export function comparison(profile:ProfileId,morph:MorphId,seed:string,fire:'up'|'down'='up') {
   const genome=fixtureGenome(profile,morph),old=renderSprite(specimen(comparisonSubject(genome,seed),fire));
-  return {genome,old,improved:renderAppearancePrototype({genome,seed,fire})};
+  return {genome,old,improved:renderAppearancePrototype({genome,seed,fire}),relief:renderAppearanceRelief({genome,seed,fire})};
 }

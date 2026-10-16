@@ -181,4 +181,4 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 
 ### 개발용 모프 외형 비교
 
-`/lab/appearance`는 릴리화이트·아잔틱·카푸치노·하이웨이·세이블의 **기존/개선 외형을 같은 다유전자·시드로 비교하는 독립 프로토타입**입니다. 저발현·극단 발현·명도·복합 모프를 확인할 수 있습니다. 정식 외형·유전 전달·저장·명칭·가격·도전 판정에는 적용하지 않았습니다. [비교 이미지·실행 방법·관찰 근거·한계](docs/appearance-prototype.md).
+`/lab/appearance`는 노멀·릴리화이트·아잔틱·카푸치노·하이웨이·세이블의 **정식 / 기존 regional-prototype-1 / 명암 개선 v2를 같은 다유전자·시드·파이어 상태로 비교하는 독립 프로토타입**입니다. 실제 96px 및 3·4배 정수 확대, 저발현·극단 발현·밝고 어두운 아잔틱·복합 모프와 국소 명암 측정을 제공합니다. 정식 외형·유전 전달·저장·명칭·가격·도전 판정에는 적용하지 않았습니다. [명암 손실 원인·수정·3종 비교·검증](docs/appearance-relief.md) · [원래 프로토타입 설계·관찰 근거](docs/appearance-prototype.md).

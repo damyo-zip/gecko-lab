@@ -8,7 +8,8 @@ import { LAYER_ORDER, PIXEL_COUNT, type SpriteLayer } from '@/engine/model';
 import { compositeLayers } from '@/engine/render';
 import { prototypePhenotype, unit } from './phenotype';
 import { anatomy as A, sourceBase as B } from './anatomy';
-import { PROTOTYPE_VERSION, type PrototypeInput, type PrototypeResult, type PrototypeMetrics } from './model';
+import { PROTOTYPE_VERSION, RELIEF_VERSION, type PrototypeInput, type PrototypeResult, type PrototypeMetrics } from './model';
+import {shadeRelief,relief} from './lighting';
 
 const layer=(name:SpriteLayer['name']):SpriteLayer=>({name,mask:new Uint8Array(PIXEL_COUNT),pixels:new Uint8ClampedArray(PIXEL_COUNT*4)});
 const put=(l:SpriteLayer,i:number,color:RGB)=>{l.mask[i]=255;paint(l.pixels,i,color);};
@@ -24,6 +25,14 @@ const clusterScore=(x:number,y:number,cs:Cluster[])=>Math.min(...cs.map(c=>Math.
 /** Entirely opt-in, pure lab renderer. It does not call gameplay naming, pricing,
  * challenges, storage, RNG counters, or mutate the shared legacy PatternPlan. */
 export function renderAppearancePrototype(input:PrototypeInput):PrototypeResult {
+  return renderRegional(input,false);
+}
+/** Same genotype, material masks, seed stream and eight layers; only the finish
+ * changes. v1 remains callable byte-for-byte for an honest three-way comparison. */
+export function renderAppearanceRelief(input:PrototypeInput):PrototypeResult {
+  return renderRegional(input,true);
+}
+function renderRegional(input:PrototypeInput,refined:boolean):PrototypeResult {
   if(!input.seed||input.seed.length>128)throw new Error('외형 시드는 1~128자여야 합니다.');
   const p=prototypePhenotype(input.genome),s=p.scores,e=p.expressed,v=p.strength;
   const background=patternTraits({...input.genome,mendelian:{version:1,loci:{
@@ -31,10 +40,11 @@ export function renderAppearancePrototype(input:PrototypeInput):PrototypeResult 
   }}});
   const old=buildPatternPlan(background,input.seed),da=patternAnchors(input.seed,'dorsal'),fa=patternAnchors(input.seed,'flank'),cs=clusters(input.seed);
   const layers=LAYER_ORDER.map(layer),[silhouette,body,shadow,highlight,dorsal,flank,spots,details]=layers;
-  const white=new Uint8Array(PIXEL_COUNT),dark=new Uint8Array(PIXEL_COUNT);
+  const white=new Uint8Array(PIXEL_COUNT),dark=new Uint8Array(PIXEL_COUNT),materials=new Uint8Array(PIXEL_COUNT);
   const metrics:PrototypeMetrics={skinPixels:0,whitePixels:0,headWhite:0,headSkin:0,dorsalWhite:0,dorsalSkin:0,flankWhite:0,flankSkin:0,tailBaseWhite:0,tailTipDark:0,meanSkinLuminance:0};
   const fired=(c:RGB):RGB=>input.fire==='down'?mix(c,e.axanthic?[191,196,201]:[221,208,183],.20):c;
   const shade=(c:RGB,i:number):RGB=>{
+    if(refined)return shadeRelief(c,i,p,input.fire);
     const light=A.light[i]*(.60+p.contrast*.55);
     return fired(light<0?mix(c,p.palette.ink,-light*.95):mix(c,e.axanthic?[255,255,255]:[255,250,231],light*.55));
   };
@@ -93,14 +103,16 @@ export function renderAppearancePrototype(input:PrototypeInput):PrototypeResult 
     }
     if(whiteMaterial)white[i]=255;
     if(darkMaterial)dark[i]=255;
+    materials[i]=whiteMaterial?4:darkMaterial?3:kind===1?2:1;
     // Body/shadow/highlight keep independent masks. Pattern materials use their
     // own final layers, with the same local authored pixel texture underneath.
     put(body,i,shade(p.palette.base,i));
-    if(A.light[i]<-.035)put(shadow,i,shade(p.palette.base,i));
-    if(A.light[i]>.055)put(highlight,i,shade(p.palette.base,i));
+    const light=refined?relief.form[i]:A.light[i];
+    if(light<-.035)put(shadow,i,shade(p.palette.base,i));
+    if(light>.055)put(highlight,i,shade(p.palette.base,i));
     if(kind||whiteMaterial||darkMaterial||e.axanthic||e.cappuccino||e.highway||e.sable||e.lilly)
       put(isHead||(isBody&&depth<.75)?dorsal:flank,i,shade(material,i));
-    if(old.spots[i]&&!e.lilly){put(spots,i,shade(p.palette.ink,i));dark[i]=255;white[i]=0;}
+    if(old.spots[i]&&!e.lilly){put(spots,i,shade(p.palette.ink,i));dark[i]=255;white[i]=0;materials[i]=5;}
     metrics.skinPixels++;metrics.whitePixels+=Number(!!white[i]);
     if(isHead){metrics.headSkin++;metrics.headWhite+=Number(!!white[i]);}
     if(isBody){if(depth<.94){metrics.dorsalSkin++;metrics.dorsalWhite+=Number(!!white[i]);}else{metrics.flankSkin++;metrics.flankWhite+=Number(!!white[i]);}}
@@ -110,5 +122,5 @@ export function renderAppearancePrototype(input:PrototypeInput):PrototypeResult 
   const pixels=compositeLayers(layers);
   for(let i=0;i<PIXEL_COUNT;i++)if(A.skin[i])metrics.meanSkinLuminance+=lum(pixels.subarray(i*4,i*4+3));
   metrics.meanSkinLuminance/=metrics.skinPixels;
-  return {sprite:{width:96,height:96,layers,pixels,version:PROTOTYPE_VERSION},phenotype:p,white,dark,metrics};
+  return {sprite:{width:96,height:96,layers,pixels,version:refined?RELIEF_VERSION:PROTOTYPE_VERSION},phenotype:p,white,dark,materials,metrics};
 }

@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync,readdirSync} from 'node:fs';
 import {join} from 'node:path';
 import {comparison,fixtureGenome,MORPHS,comparisonSubject} from '@/prototype/appearance/fixtures';
-import {renderAppearancePrototype} from '@/prototype/appearance/render';
+import {renderAppearancePrototype,renderAppearanceRelief} from '@/prototype/appearance/render';
 import {prototypePhenotype} from '@/prototype/appearance/phenotype';
 import {anatomy,sourceBase as B} from '@/prototype/appearance/anatomy';
 import {artColor,PART} from '@/engine/art';
@@ -118,7 +118,8 @@ test('existing allele inheritance produces varied siblings with inherited expres
  const values=new Set<string>();
  for(let n=0;n<32;n++){
   const childSeed='prototype-child-'+n,polygenic=inheritPoly(father.polygenic,mother.polygenic,childSeed),mendelian=inherit(father.mendelian,mother.mendelian,childSeed),genome={version:1 as const,polygenic,mendelian};
-  const r=renderAppearancePrototype({genome,seed:childSeed});values.add(JSON.stringify(r.phenotype.strength));
+   const r=renderAppearancePrototype({genome,seed:childSeed});values.add(JSON.stringify(r.phenotype.strength));
+   expect(renderAppearanceRelief({genome,seed:childSeed}).phenotype).toEqual(r.phenotype);
   for(const id of POLY_IDS){expect(father.polygenic.loci[id]).toContain(polygenic.loci[id][0]);expect(mother.polygenic.loci[id]).toContain(polygenic.loci[id][1]);}
   expect(inheritPoly(father.polygenic,mother.polygenic,childSeed)).toEqual(polygenic);expect(inherit(father.mendelian,mother.mendelian,childSeed)).toEqual(mendelian);
  }
@@ -131,10 +132,10 @@ test('current/legacy backups, production pixels, quotes, pending embryos and all
  game=act(game,{type:'breed',fatherId:f,motherId:m},game.lastDate);
  const check=(g:typeof game)=>Object.values(g.individuals).concat(Object.values(g.shop.offers).map(o=>o.individual),Object.values(g.matings).flatMap(m=>m.lifecycle!.offspring.map(o=>o.embryo))).map(a=>({id:a.id,pixels:hash(renderSprite(specimen(a)).pixels),quote:valueGecko(a),challenges:BREEDING_CHALLENGES.map(c=>evaluateBreedingChallenge(a,c.id))}));
  const backup=exportBackup(game),before=check(game);
- for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)])if(g.genetics?.genome)renderAppearancePrototype({genome:g.genetics.genome,seed:g.visualSeed});
+ for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)])if(g.genetics?.genome)for(const render of [renderAppearancePrototype,renderAppearanceRelief])render({genome:g.genetics.genome,seed:g.visualSeed});
  expect(exportBackup(game)).toBe(backup);expect(check(game)).toEqual(before);expect(parseBackup(backup,game.lastDate)).toEqual(game);
  const legacy=readFileSync('tests/fixtures/pre-pattern-v7.json','utf8'),loaded=parseBackup(legacy,game.lastDate),original=exportBackup(loaded),old=check(loaded);
- for(const o of Object.values(loaded.shop.offers))if(o.individual.genetics?.genome)renderAppearancePrototype({genome:o.individual.genetics.genome,seed:o.individual.visualSeed});
+ for(const o of Object.values(loaded.shop.offers))if(o.individual.genetics?.genome)for(const render of [renderAppearancePrototype,renderAppearanceRelief])render({genome:o.individual.genetics.genome,seed:o.individual.visualSeed});
  expect(check(loaded)).toEqual(old);expect(exportBackup(loaded)).toBe(original);
 });
 

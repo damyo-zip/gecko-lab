@@ -24,6 +24,7 @@ function buildAnatomy() {
   const protectedPixels = Uint8Array.from(base.silhouette,(_,i)=>base.outline[i]||base.eye[i]||mouth[i]||nostrils[i]?255:0);
   const skin = Uint8Array.from(base.silhouette,(_,i)=>base.silhouette[i]&&!protectedPixels[i]?255:0);
   const dorsalDepth = new Float32Array(PIXEL_COUNT), tailProgress = new Float32Array(PIXEL_COUNT), light = new Float32Array(PIXEL_COUNT);
+  const tailNormalX = new Float32Array(PIXEL_COUNT), tailNormalY = new Float32Array(PIXEL_COUNT);
   for(let i=0;i<PIXEL_COUNT;i++) {
     if(!base.silhouette[i])continue;
     const x=i%96,y=Math.floor(i/96),part=base.parts[i];
@@ -34,7 +35,10 @@ function buildAnatomy() {
         const a=tailSpine[n],b=tailSpine[n+1],dx=b[0]-a[0],dy=b[1]-a[1];
         const t=unit(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));
         const distance=(x-a[0]-dx*t)**2+(y-a[1]-dy*t)**2;
-        if(distance<best){best=distance;progress=(travelled+lengths[n]*t)/tailLength;}
+        if(distance<best){
+          best=distance;progress=(travelled+lengths[n]*t)/tailLength;
+          tailNormalX[i]=x-a[0]-dx*t;tailNormalY[i]=y-a[1]-dy*t;
+        }
         travelled+=lengths[n];
       }
       tailProgress[i]=progress;
@@ -52,6 +56,6 @@ function buildAnatomy() {
       part===PART.farLeg?-.27:part===PART.tail?-.03:((y%12)/12-.5)*-.22;
     light[i]=Math.max(-.48,Math.min(.36,residual*.90+illumination));
   }
-  return {skin,protectedPixels,mouth,nostrils,dorsalDepth,tailProgress,light};
+  return {skin,protectedPixels,mouth,nostrils,dorsalDepth,tailProgress,light,tailNormalX,tailNormalY};
 }
 export const anatomy = buildAnatomy();

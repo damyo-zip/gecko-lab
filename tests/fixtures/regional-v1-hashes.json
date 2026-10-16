@@ -1,0 +1,702 @@
+[
+  {
+    "profile": "low",
+    "morph": "normal",
+    "fire": "up",
+    "production": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+    "v1": "6aa4a8cd23663656aaf93ec72dab8118d01d649bfddb55da3aab57aabe29a812"
+  },
+  {
+    "profile": "low",
+    "morph": "normal",
+    "fire": "down",
+    "production": "1a373dfab92f0d826a9fbe79d007eb38b0dabff43797870f1631c6187c892574",
+    "v1": "c12f68818708cc517baf95a7db7c01cfb3134744fe31754b94c459f541c93cd2"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly",
+    "fire": "up",
+    "production": "dcc81e2b90f3ce3b6cf8cf7cc7b2de65ecfecc4c6114001486214f58ec182098",
+    "v1": "7462c2f042cb5385aca824594f6c36db0ff74f817682bb734ce1455121d760b5"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly",
+    "fire": "down",
+    "production": "6f1e71e1c4aec1fdc862a1022dc3c602e3c84d088ca7ed2292085ed334753ea4",
+    "v1": "cd3263aa69a584a024b1af10c8998f7c84bd73b1963a94dbe2ae0f761e128171"
+  },
+  {
+    "profile": "low",
+    "morph": "axanthic",
+    "fire": "up",
+    "production": "bf77f641280d0f8ad9f5628dcb432c3b370b8a370f4a316a2a82abad0246fcbd",
+    "v1": "aa12d571c52976af9e7a18f8f8a1a77e59a5547cd1ef626e93e53ee7a067d8ef"
+  },
+  {
+    "profile": "low",
+    "morph": "axanthic",
+    "fire": "down",
+    "production": "fa569fe01352a83ddf47a0379aa9254c285010846fb9ed09ddb78da48f7d3426",
+    "v1": "25d1a86f5f5e17d75c49e8729c51b618ab9c142f950c11e6ec7fa1ac5397c724"
+  },
+  {
+    "profile": "low",
+    "morph": "cappuccino",
+    "fire": "up",
+    "production": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+    "v1": "16d3a75f27609478794eb680484bb18e8e47dd4c72df7f1b39e1dfcfae556002"
+  },
+  {
+    "profile": "low",
+    "morph": "cappuccino",
+    "fire": "down",
+    "production": "1a373dfab92f0d826a9fbe79d007eb38b0dabff43797870f1631c6187c892574",
+    "v1": "76ff974a81215eb1a08362858fe03e1acc60526545675c94377616b40bc938cc"
+  },
+  {
+    "profile": "low",
+    "morph": "highway",
+    "fire": "up",
+    "production": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+    "v1": "d7b6e81f755706c2b8e6f0b7625af6e20df333a016ea4e767b28fcb8105a51ba"
+  },
+  {
+    "profile": "low",
+    "morph": "highway",
+    "fire": "down",
+    "production": "1a373dfab92f0d826a9fbe79d007eb38b0dabff43797870f1631c6187c892574",
+    "v1": "2089d24465153a6f0665627f2392a09e46b4b7564787780e5c9e2d9002602c94"
+  },
+  {
+    "profile": "low",
+    "morph": "sable",
+    "fire": "up",
+    "production": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+    "v1": "cbb9ba36238c70c59b88b4ec6c8a8905bb80d2fa9147d41c8fc5f628be76acb3"
+  },
+  {
+    "profile": "low",
+    "morph": "sable",
+    "fire": "down",
+    "production": "1a373dfab92f0d826a9fbe79d007eb38b0dabff43797870f1631c6187c892574",
+    "v1": "3a5ecff4341c04295ced81975552213027c17d7f31144504394e6188b4ba8cb1"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly-axanthic",
+    "fire": "up",
+    "production": "e3aad00c8410cdfcb6b68a061d865a25d6a7083a7e08c3f20b3e2324a4b6de67",
+    "v1": "73b63f91ca7b2a13c58bc1bff4c1551d4186a2af8ba52606f74e9d83f533e0c6"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly-axanthic",
+    "fire": "down",
+    "production": "462038d366f330a9e07d2f9ce51618c49d20c332cac5e894ed772c8f0cc12dd4",
+    "v1": "f1dae2ec072d18330bf7b22b3a569c5c644e14ba8127357a8d259b7ed07e7ee1"
+  },
+  {
+    "profile": "low",
+    "morph": "frappuccino",
+    "fire": "up",
+    "production": "dcc81e2b90f3ce3b6cf8cf7cc7b2de65ecfecc4c6114001486214f58ec182098",
+    "v1": "92b035b80a75c8492e434ad42d94306d149a404a77fdc938d1386be455a7aa60"
+  },
+  {
+    "profile": "low",
+    "morph": "frappuccino",
+    "fire": "down",
+    "production": "6f1e71e1c4aec1fdc862a1022dc3c602e3c84d088ca7ed2292085ed334753ea4",
+    "v1": "ee39416c21d76e8bed6804294fa72cd54c99655384a0a144747f86dc44becd22"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly-sable",
+    "fire": "up",
+    "production": "dcc81e2b90f3ce3b6cf8cf7cc7b2de65ecfecc4c6114001486214f58ec182098",
+    "v1": "373d4c0727b2745bb5f2a64ac77b027b7e565cee70a454ff73e483a802f42ba8"
+  },
+  {
+    "profile": "low",
+    "morph": "lilly-sable",
+    "fire": "down",
+    "production": "6f1e71e1c4aec1fdc862a1022dc3c602e3c84d088ca7ed2292085ed334753ea4",
+    "v1": "b3e0506d93a3f1642730bd9805bcf8f3eedf70cf27b12414ec29cdbb5543306d"
+  },
+  {
+    "profile": "low",
+    "morph": "axanthic-highway",
+    "fire": "up",
+    "production": "bf77f641280d0f8ad9f5628dcb432c3b370b8a370f4a316a2a82abad0246fcbd",
+    "v1": "c3ea59cc8246ac7a802fd6728b863893b8b731f329e70cdf7afeb770d0265922"
+  },
+  {
+    "profile": "low",
+    "morph": "axanthic-highway",
+    "fire": "down",
+    "production": "fa569fe01352a83ddf47a0379aa9254c285010846fb9ed09ddb78da48f7d3426",
+    "v1": "a08302ab7624f32ff23f7a0b554783fe8882d5414c37687ba7016bf9db7ba94b"
+  },
+  {
+    "profile": "typical",
+    "morph": "normal",
+    "fire": "up",
+    "production": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+    "v1": "378c560954947a7b202713c31be7f275befad9f5cd894c8cd343691567c8ac82"
+  },
+  {
+    "profile": "typical",
+    "morph": "normal",
+    "fire": "down",
+    "production": "16c7f7f945b31b7dffba2ad6559f42639ab725e8aa7ad09fd657f3520822c634",
+    "v1": "4e63dca44ce1afe7217d2e0d3562b0e51aec10ae5defdf8c2f76c46df877c2fb"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly",
+    "fire": "up",
+    "production": "f7700d322f227a84bed87b1128b862a00bf8daf6a3ae4dc6c3a12b4778c9ff8e",
+    "v1": "f8ed7d74f465a6c1c6f95c0923acbe26f684e6b61fd647e32a8e2bffeeb9d573"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly",
+    "fire": "down",
+    "production": "6a22bf7975e70c9993a446700297f8c3c2e3ce65b7dea156e65e3b46e8107918",
+    "v1": "c401f988b159869f45429c8e13d6b8d79b00dd5c522b23fd101ef4df8881694a"
+  },
+  {
+    "profile": "typical",
+    "morph": "axanthic",
+    "fire": "up",
+    "production": "ebd037f41a2f80af6efd04405f58dd23930541309cbc9aab7e104ed0d54cd04d",
+    "v1": "f99eec79029a0301975524f780703962adac4b74cf65caeebd3f0bb772d5d0d6"
+  },
+  {
+    "profile": "typical",
+    "morph": "axanthic",
+    "fire": "down",
+    "production": "81d9acb79f721217ee7ae0e120d98bbfcf70fcfb4dc674aa97176e6d30e691ed",
+    "v1": "a04bad0645a152eae47940538e1340df3f6f36c560810f293a9ca3deb8003d66"
+  },
+  {
+    "profile": "typical",
+    "morph": "cappuccino",
+    "fire": "up",
+    "production": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+    "v1": "bc1e9480068da9597ec98751e5e822b657bca2f5bed3c65f106cd43f12e33a79"
+  },
+  {
+    "profile": "typical",
+    "morph": "cappuccino",
+    "fire": "down",
+    "production": "16c7f7f945b31b7dffba2ad6559f42639ab725e8aa7ad09fd657f3520822c634",
+    "v1": "988dfcc0a7557d562b0a6f256515bbb5f6d01baee4e8201efd937d6e5194e39f"
+  },
+  {
+    "profile": "typical",
+    "morph": "highway",
+    "fire": "up",
+    "production": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+    "v1": "41efc4b8f3f87e10002b2f1030590be79322b4e7fe7eafdce70b9ca5ce121bdb"
+  },
+  {
+    "profile": "typical",
+    "morph": "highway",
+    "fire": "down",
+    "production": "16c7f7f945b31b7dffba2ad6559f42639ab725e8aa7ad09fd657f3520822c634",
+    "v1": "27f2c984639e00d935adde3738865e78bb4f4fef135832359a7c718bf193e292"
+  },
+  {
+    "profile": "typical",
+    "morph": "sable",
+    "fire": "up",
+    "production": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+    "v1": "9adde8a0a8d8c665aeffade3a389b2c261ad2377ee6471e3e050eeda2cdf263b"
+  },
+  {
+    "profile": "typical",
+    "morph": "sable",
+    "fire": "down",
+    "production": "16c7f7f945b31b7dffba2ad6559f42639ab725e8aa7ad09fd657f3520822c634",
+    "v1": "d87d823bd665cb4d927e2d82db6a92765f0ca206cea1e332899a79c036461df2"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly-axanthic",
+    "fire": "up",
+    "production": "64bc305d4f36977e674c00880f604e316a7a37c6157cdee8f2e5cad29314f479",
+    "v1": "533b643ad0daee38c840409a28010869d3b050cb1868115b97ee19b5a2228368"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly-axanthic",
+    "fire": "down",
+    "production": "fb0a8ff2259b66672bddd5b251472d8f249e5def8d7cf4a7a0799df2b6a9ec8f",
+    "v1": "9c47412c0a7f7ed4abaf3e35f4ee675d93f789e43a23f58954cce08424b3925c"
+  },
+  {
+    "profile": "typical",
+    "morph": "frappuccino",
+    "fire": "up",
+    "production": "f7700d322f227a84bed87b1128b862a00bf8daf6a3ae4dc6c3a12b4778c9ff8e",
+    "v1": "15f7ef72ff64b48bf617914b0d2613e523b16e4928f78b51983ff7a160d9d8a2"
+  },
+  {
+    "profile": "typical",
+    "morph": "frappuccino",
+    "fire": "down",
+    "production": "6a22bf7975e70c9993a446700297f8c3c2e3ce65b7dea156e65e3b46e8107918",
+    "v1": "e489e3626bac942f2abb1dfcd53525a709d645c752adb6e18b25783d7291c74b"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly-sable",
+    "fire": "up",
+    "production": "f7700d322f227a84bed87b1128b862a00bf8daf6a3ae4dc6c3a12b4778c9ff8e",
+    "v1": "12cfbb208dd1b3710e3f13b25b8ce4dec29758bde281e2a5adf24e82df8d7fa1"
+  },
+  {
+    "profile": "typical",
+    "morph": "lilly-sable",
+    "fire": "down",
+    "production": "6a22bf7975e70c9993a446700297f8c3c2e3ce65b7dea156e65e3b46e8107918",
+    "v1": "7f8d5c846e161c97508c643951f5caefe50200277e6682b866a0520b37ff1831"
+  },
+  {
+    "profile": "typical",
+    "morph": "axanthic-highway",
+    "fire": "up",
+    "production": "ebd037f41a2f80af6efd04405f58dd23930541309cbc9aab7e104ed0d54cd04d",
+    "v1": "e2a8938c2d83612d036318396676a0ae0008bbd343289a1d3dc91b50c4795c86"
+  },
+  {
+    "profile": "typical",
+    "morph": "axanthic-highway",
+    "fire": "down",
+    "production": "81d9acb79f721217ee7ae0e120d98bbfcf70fcfb4dc674aa97176e6d30e691ed",
+    "v1": "32e4aa11e94dc07bf57f4b3da089352458c7ea6cb036925c6cbf930ef7dd4f77"
+  },
+  {
+    "profile": "high",
+    "morph": "normal",
+    "fire": "up",
+    "production": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+    "v1": "d1180e2ecc0afbc09720904a52d3a57cb904de99f2cc97c0a686ff9513cf01c1"
+  },
+  {
+    "profile": "high",
+    "morph": "normal",
+    "fire": "down",
+    "production": "30f9f1651c3c31cb1c38203dbc4cfa2d1a1ace726033c67e86aae9660b39fd88",
+    "v1": "120cfc1d2848744a71a2751bf5c932c5cd8fe38f0c59d839e0490e287f8eb869"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly",
+    "fire": "up",
+    "production": "fa416f4b9838b00d5243bd16f8801cb85d88876162a5796b69dbfe88be65e3fc",
+    "v1": "667ffdddf62c157a226a9471991c3d6fa43f97a9df08e9cec179e62819f9abdf"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly",
+    "fire": "down",
+    "production": "469cd1b14caaae11046e891741d1026eccbf1425dccc6a5780faab9e243cc44a",
+    "v1": "c313c7bd30c904fc712260ec7a5eb07c308e813635524fabd9dd830a0b21e5dd"
+  },
+  {
+    "profile": "high",
+    "morph": "axanthic",
+    "fire": "up",
+    "production": "eb160372730f9560b032c639c737168b8d438f827175936b158fcff4ef83acb4",
+    "v1": "c5551bdfae8f51f6652b78c044e1717da735114c984cafb6b643e005ee9d84b0"
+  },
+  {
+    "profile": "high",
+    "morph": "axanthic",
+    "fire": "down",
+    "production": "12b80dd51856558adc60eedbef6d78288e62a06688b11aa44e08510a77618e41",
+    "v1": "91850e1642e851abefa6c914cf461c71d1e1aebc4bf0cd28f7d73def1e2d11fd"
+  },
+  {
+    "profile": "high",
+    "morph": "cappuccino",
+    "fire": "up",
+    "production": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+    "v1": "330d2e62ff08c0e617d572bfa1fe7f95de54a4ede88eae36f0cb2ce77ce9d5a7"
+  },
+  {
+    "profile": "high",
+    "morph": "cappuccino",
+    "fire": "down",
+    "production": "30f9f1651c3c31cb1c38203dbc4cfa2d1a1ace726033c67e86aae9660b39fd88",
+    "v1": "2426f9a3dd3f939465be39b0ace79bf53d330aec91bb8f8429dc416170b8ca25"
+  },
+  {
+    "profile": "high",
+    "morph": "highway",
+    "fire": "up",
+    "production": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+    "v1": "a14bc52934b449b2678b571b2e17f91bde117a796cd20c55f248efab6f72b77a"
+  },
+  {
+    "profile": "high",
+    "morph": "highway",
+    "fire": "down",
+    "production": "30f9f1651c3c31cb1c38203dbc4cfa2d1a1ace726033c67e86aae9660b39fd88",
+    "v1": "f9a8b93fb32a963fe88e258ef53867944bf3c6e3a272a28837abcdef84351623"
+  },
+  {
+    "profile": "high",
+    "morph": "sable",
+    "fire": "up",
+    "production": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+    "v1": "e30dfee8192be0b8c6cdc2715ebf1bc95d3ab2c42a6d870e8078e722e02107ed"
+  },
+  {
+    "profile": "high",
+    "morph": "sable",
+    "fire": "down",
+    "production": "30f9f1651c3c31cb1c38203dbc4cfa2d1a1ace726033c67e86aae9660b39fd88",
+    "v1": "5953a0979e97a8a59612c67bf52d20c0c38aee263fd1f4ae7589bec29908dc9d"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly-axanthic",
+    "fire": "up",
+    "production": "f85e7c59e21eecaf71c652bc3ac7ac907c249682e2194a770ebd06bc49794752",
+    "v1": "11db44b033144da86da3329cbfed9072645049da06e2736a4d8694ed7000e36e"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly-axanthic",
+    "fire": "down",
+    "production": "04a65cbd3b591dfe4ab0c3b8ce77b6bdd74d1bc175f92fb54dc22c564217f876",
+    "v1": "b566f85bcf61b7052acdc847de9252edb55d4eae62c0089bd316648d5c4cceb1"
+  },
+  {
+    "profile": "high",
+    "morph": "frappuccino",
+    "fire": "up",
+    "production": "fa416f4b9838b00d5243bd16f8801cb85d88876162a5796b69dbfe88be65e3fc",
+    "v1": "1a87159edd999c3a468df537c863da136c63b17d4f172b4bc0414a342897324b"
+  },
+  {
+    "profile": "high",
+    "morph": "frappuccino",
+    "fire": "down",
+    "production": "469cd1b14caaae11046e891741d1026eccbf1425dccc6a5780faab9e243cc44a",
+    "v1": "30851386f1f82d14ed7febc532278a0d2814ebfa96d64cc4648cbdd3ff18af77"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly-sable",
+    "fire": "up",
+    "production": "fa416f4b9838b00d5243bd16f8801cb85d88876162a5796b69dbfe88be65e3fc",
+    "v1": "4c245cd16bb79fbcf6633cfcd3d25da77b55fbd3296f08b40f7791760af1e18f"
+  },
+  {
+    "profile": "high",
+    "morph": "lilly-sable",
+    "fire": "down",
+    "production": "469cd1b14caaae11046e891741d1026eccbf1425dccc6a5780faab9e243cc44a",
+    "v1": "6e9539d224d339249b57d8e776536cdd894ae6a8e00ca80125318cf514a46b08"
+  },
+  {
+    "profile": "high",
+    "morph": "axanthic-highway",
+    "fire": "up",
+    "production": "eb160372730f9560b032c639c737168b8d438f827175936b158fcff4ef83acb4",
+    "v1": "346c722c4d132fe0ef9da7b2657cb477b2bff1cfe98fea63b48037a0eaede24b"
+  },
+  {
+    "profile": "high",
+    "morph": "axanthic-highway",
+    "fire": "down",
+    "production": "12b80dd51856558adc60eedbef6d78288e62a06688b11aa44e08510a77618e41",
+    "v1": "06f928070f2edba30e59af09af7f72f245e9b861a7f4f9e3e078d580bb68a39b"
+  },
+  {
+    "profile": "dark",
+    "morph": "normal",
+    "fire": "up",
+    "production": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+    "v1": "b1569e717d25d1a819e6ea948ed4f0fa82d59b928483dd728dad6ea49893a39f"
+  },
+  {
+    "profile": "dark",
+    "morph": "normal",
+    "fire": "down",
+    "production": "cdc0f537d0b310fcf1c2ffd5c4c621367f0cc62d81b0654db90377b2419bc327",
+    "v1": "d25a17811ecd4bd148cbf90ba34aecbb8f53e80fddcfb54b0c44031bf2b8169c"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly",
+    "fire": "up",
+    "production": "5b602ea9f24422c82c45d2289aee52577128c1b460b065bbc7e38e250de28b21",
+    "v1": "380eff2f30262ff7f02ff460a6267ce8da176583b9ec81eeb29ee8042f8afbca"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly",
+    "fire": "down",
+    "production": "826e4ebd537ec2e11cf6b4d03d84bc361c5b2842935e760093c3672a264e2c6b",
+    "v1": "0e80236de473552bfb068a41994da481c3a5ffda86bd01bce7abe57b9747b320"
+  },
+  {
+    "profile": "dark",
+    "morph": "axanthic",
+    "fire": "up",
+    "production": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+    "v1": "7e171911ba386f36cf3ae2afbc8b3f43113f410088e620609540154377adf439"
+  },
+  {
+    "profile": "dark",
+    "morph": "axanthic",
+    "fire": "down",
+    "production": "6fe1b990923bac2d825c3ebcb78c90d719311b7fceeed52fd759f3353415e15f",
+    "v1": "1dffcf61b12b670eb90e4047c6f5860f36babad7dc1e0030d6f9d85e56e66dc9"
+  },
+  {
+    "profile": "dark",
+    "morph": "cappuccino",
+    "fire": "up",
+    "production": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+    "v1": "77ab83d1d9e15d25c8364f843b6d62f363b8266ddb0032fe62f01e70dbd03440"
+  },
+  {
+    "profile": "dark",
+    "morph": "cappuccino",
+    "fire": "down",
+    "production": "cdc0f537d0b310fcf1c2ffd5c4c621367f0cc62d81b0654db90377b2419bc327",
+    "v1": "e2e42b6507e6c3d9a4b1b0898982a039dc62a91ca4997f22d28ec6d6fc2a615f"
+  },
+  {
+    "profile": "dark",
+    "morph": "highway",
+    "fire": "up",
+    "production": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+    "v1": "5487fe832f1fa9e8eb8c2f6189acd7b6021d9b1f73d2add90fcfd9562ddad80a"
+  },
+  {
+    "profile": "dark",
+    "morph": "highway",
+    "fire": "down",
+    "production": "cdc0f537d0b310fcf1c2ffd5c4c621367f0cc62d81b0654db90377b2419bc327",
+    "v1": "e15940049a6d0a9a43040362245c2a3b9c13bbb2c92e4b68f79431e3a1812df6"
+  },
+  {
+    "profile": "dark",
+    "morph": "sable",
+    "fire": "up",
+    "production": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+    "v1": "6aa3aab3ccb8dd5daf7ad8e0d6416d87f8cba7060dbe732964d76310c9e1468d"
+  },
+  {
+    "profile": "dark",
+    "morph": "sable",
+    "fire": "down",
+    "production": "cdc0f537d0b310fcf1c2ffd5c4c621367f0cc62d81b0654db90377b2419bc327",
+    "v1": "1464a48adf6403c012d0d5bf6ef941c1075a71602162f26b8ae31a6af4b54e50"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly-axanthic",
+    "fire": "up",
+    "production": "cb3ff0135799dabdb1c51867d4bf997dd5def1f6233129790b63d8742f72ed25",
+    "v1": "ff7ff9b1bd657930fe18982772fd3d81e9a84757941dbeb75ebc13bed6859b93"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly-axanthic",
+    "fire": "down",
+    "production": "fcca2fccd37bb189bbd5439b1e99480e73fd936fbb0371f8b2f5dc0302ef0840",
+    "v1": "d026bd7bb62d662b2133e830ee4201806bf710757dccfbd4734866fd122dffdb"
+  },
+  {
+    "profile": "dark",
+    "morph": "frappuccino",
+    "fire": "up",
+    "production": "5b602ea9f24422c82c45d2289aee52577128c1b460b065bbc7e38e250de28b21",
+    "v1": "701c825b4096d6a8203920e9b9de9c3b6c74135efc2260863c165a9bfbd20c43"
+  },
+  {
+    "profile": "dark",
+    "morph": "frappuccino",
+    "fire": "down",
+    "production": "826e4ebd537ec2e11cf6b4d03d84bc361c5b2842935e760093c3672a264e2c6b",
+    "v1": "4a1f47812b274a45df7def9008e54954c4eee32ab646a8fdcac15a14a91e3fbc"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly-sable",
+    "fire": "up",
+    "production": "5b602ea9f24422c82c45d2289aee52577128c1b460b065bbc7e38e250de28b21",
+    "v1": "9d7212b592bec45bcabb22ee0bfa5674b36c7435625b63b0f123dec748117678"
+  },
+  {
+    "profile": "dark",
+    "morph": "lilly-sable",
+    "fire": "down",
+    "production": "826e4ebd537ec2e11cf6b4d03d84bc361c5b2842935e760093c3672a264e2c6b",
+    "v1": "603b238e3590a9912eab8cf76f05a642d1ada1c21f528c6c610a35dd9271a43f"
+  },
+  {
+    "profile": "dark",
+    "morph": "axanthic-highway",
+    "fire": "up",
+    "production": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+    "v1": "76ece7e0dbed4a8d6cbcaa0c4d4d0fc04aa106c0ac2c4a8e383422185e2b27f9"
+  },
+  {
+    "profile": "dark",
+    "morph": "axanthic-highway",
+    "fire": "down",
+    "production": "6fe1b990923bac2d825c3ebcb78c90d719311b7fceeed52fd759f3353415e15f",
+    "v1": "aac558ea07a13f673cc7cfc2cd09b5104f98b3b1d1aa1f6c456cb89b93c1b77f"
+  },
+  {
+    "profile": "bright",
+    "morph": "normal",
+    "fire": "up",
+    "production": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+    "v1": "287de0cb0f2bf3cf5faadde612ca5562211570f57742bc9eba9a72748e26394f"
+  },
+  {
+    "profile": "bright",
+    "morph": "normal",
+    "fire": "down",
+    "production": "a6d14282b8153c019f0eac5eb50b2552345c53e5b7ccf67f436e82ab067cd77f",
+    "v1": "b522e0eac86b62de05e1f5c5b7d9ef4f251a2a2015f70828bbf50cd08c3ce1e0"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly",
+    "fire": "up",
+    "production": "e79079d0e49ccec9859b1eae77c074bfd5505b23ffb59c7a3e26ec13f8d89299",
+    "v1": "66f12b9cda8deecf75a568fb5c60abdb60e731f2cb26b28ff3f51cd0a7e4e739"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly",
+    "fire": "down",
+    "production": "21cad7c6b034d301df90dbc1ce52c63afd48573df3b20d736d03b969024df431",
+    "v1": "f17b1b7f9fb0e9a81564baff7b6b56c380e9b03e20fe31c813489e30267359ca"
+  },
+  {
+    "profile": "bright",
+    "morph": "axanthic",
+    "fire": "up",
+    "production": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+    "v1": "87097e8a326389e6b4d1243b7f1763b089d269652e82a9af777df85a4ad02d68"
+  },
+  {
+    "profile": "bright",
+    "morph": "axanthic",
+    "fire": "down",
+    "production": "6fe1b990923bac2d825c3ebcb78c90d719311b7fceeed52fd759f3353415e15f",
+    "v1": "8aae29770dc443012cd5f1995b3516dc28f51cdcc4c24880c38532d284d288d0"
+  },
+  {
+    "profile": "bright",
+    "morph": "cappuccino",
+    "fire": "up",
+    "production": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+    "v1": "289de3771fc180e51798df6cd2788c8ae91ec028ccb4199c6b6d8d6146d805e6"
+  },
+  {
+    "profile": "bright",
+    "morph": "cappuccino",
+    "fire": "down",
+    "production": "a6d14282b8153c019f0eac5eb50b2552345c53e5b7ccf67f436e82ab067cd77f",
+    "v1": "1eb92798235b2d3af95eadef71a107f5c79af25d26bcd459fcc16e2ea30d6aba"
+  },
+  {
+    "profile": "bright",
+    "morph": "highway",
+    "fire": "up",
+    "production": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+    "v1": "7e284b140d4607d72c5ebfd1cc1f5034677c503e83d704be00ce889e64f50d5b"
+  },
+  {
+    "profile": "bright",
+    "morph": "highway",
+    "fire": "down",
+    "production": "a6d14282b8153c019f0eac5eb50b2552345c53e5b7ccf67f436e82ab067cd77f",
+    "v1": "3f5d8ee59de50c227a0133299783456bbba822dc773c12b2922fe428022af660"
+  },
+  {
+    "profile": "bright",
+    "morph": "sable",
+    "fire": "up",
+    "production": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+    "v1": "d498057d4bdd1780b9c41a9064444c2ac08df8107badf9c10e8c6d305db7408a"
+  },
+  {
+    "profile": "bright",
+    "morph": "sable",
+    "fire": "down",
+    "production": "a6d14282b8153c019f0eac5eb50b2552345c53e5b7ccf67f436e82ab067cd77f",
+    "v1": "b4e72a31fe65600c66917105f35acb2b674a697ff3a8f671676582ffec3fc7db"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly-axanthic",
+    "fire": "up",
+    "production": "89ce21bb147f59decfdf8aa364c0f90d4184ad9ad9dbb67a658343af77221bfc",
+    "v1": "dede01076dbd21cc98cc765f7adc0dde3e16e1f547ba022597856fa5d3721639"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly-axanthic",
+    "fire": "down",
+    "production": "d8991e1947b948886f8ce88757814176e460f6b20e7f6c936fddabb6e0550767",
+    "v1": "999deb0e9fdce121d25c22f6a11a6be5ba33f726368e468c347df370122ac531"
+  },
+  {
+    "profile": "bright",
+    "morph": "frappuccino",
+    "fire": "up",
+    "production": "e79079d0e49ccec9859b1eae77c074bfd5505b23ffb59c7a3e26ec13f8d89299",
+    "v1": "0cb0c4c0f8d522f6da04cd34078f53fd302fbeee8190b4ecd83ba23c334017fe"
+  },
+  {
+    "profile": "bright",
+    "morph": "frappuccino",
+    "fire": "down",
+    "production": "21cad7c6b034d301df90dbc1ce52c63afd48573df3b20d736d03b969024df431",
+    "v1": "1ca76cf5533305312738e793a76c8fab3d39aa063f15b53153fe2da7b7028d5f"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly-sable",
+    "fire": "up",
+    "production": "e79079d0e49ccec9859b1eae77c074bfd5505b23ffb59c7a3e26ec13f8d89299",
+    "v1": "a0d60a6219cb5044ecac862abfe47a3f8740081c92a116c13313e939706e6de6"
+  },
+  {
+    "profile": "bright",
+    "morph": "lilly-sable",
+    "fire": "down",
+    "production": "21cad7c6b034d301df90dbc1ce52c63afd48573df3b20d736d03b969024df431",
+    "v1": "1761bc0b8ac85ea9d5ca2400a645a387d615461f7ccf99295a32dfddbb75d036"
+  },
+  {
+    "profile": "bright",
+    "morph": "axanthic-highway",
+    "fire": "up",
+    "production": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+    "v1": "1fd5d2a54016c67c717f9be6689ac74783861818c241731e27323a1bcbadc3ba"
+  },
+  {
+    "profile": "bright",
+    "morph": "axanthic-highway",
+    "fire": "down",
+    "production": "6fe1b990923bac2d825c3ebcb78c90d719311b7fceeed52fd759f3353415e15f",
+    "v1": "95e396ccb912f4b19c1bd80391f085470843000c09e7cff7b6105b3c88554e9c"
+  }
+]
