@@ -18,7 +18,7 @@ async function restore(p:Page,g:HardcoreGame,mobile:boolean){
  await touch(p.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);await p.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'age-gen.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(g))});await touch(p.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(p.getByRole('dialog')).toHaveCount(0);
 }
 const age=(p:Page)=>p.locator('.home-facts>div').filter({has:p.locator('dt').filter({hasText:/^나이$/})}).locator('dd');
-const tree=(p:Page)=>p.getByRole('dialog',{name:'혈통 기록',exact:true});
+const tree=(p:Page)=>p.getByRole('dialog',{name:'가족 혈통도',exact:true});
 const errors=new WeakMap<Page,string[]>();
 test.beforeEach(async({page})=>{errors.set(page,[]);page.on('pageerror',e=>errors.get(page)!.push(e.message));await page.clock.setFixedTime(new Date(REFERENCE_DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/^보유 개체/})).toBeVisible();});
 test.afterEach(({page})=>{expect(errors.get(page)).toEqual([]);});
@@ -41,13 +41,13 @@ test('age replaces image dimensions; panel, cards, sprite and Gen badge geometry
 test('Gen opens the existing real three-generation popup without selecting a card; archived parents and manager remain available',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=lineageFixture(),game=act(f.game,{type:'sell',id:f.fatherId},f.game.lastDate);await restore(page,game,mobile);
  const child=game.individuals[f.selectedId],hero=await page.locator('.home-name').textContent(),card=page.getByTestId('hc-card-'+child.id);await expect(card.locator('.home-card-select')).toHaveAttribute('aria-pressed','false');
- const open=async(target:ReturnType<Page['getByTestId']>)=>{await touch(target.getByRole('button',{name:child.name+' 가족 혈통도',exact:true}),mobile);await expect(tree(page)).toBeVisible();await expect(tree(page).locator('.lineage-root')).toHaveAttribute('data-id',child.id);await expect(tree(page).getByRole('heading',{name:'가족 혈통도',exact:true})).toBeVisible();};
+ const open=async(target:ReturnType<Page['getByTestId']>)=>{await touch(target.getByRole('button',{name:child.name+' 가족 혈통도',exact:true}),mobile);await expect(tree(page)).toBeVisible();await expect(tree(page).locator('.album-tree-cell.is-current .album-tree-card')).toHaveAttribute('data-id',child.id);await expect(tree(page).getByRole('heading',{name:'가족 혈통도',exact:true})).toBeVisible();};
  await open(card);const family=tree(page);await expect(family.locator('.album-tree-card[data-id="'+f.fatherId+'"]')).toContainText('판매 완료');await expect(family.locator('.album-tree-card')).toHaveCount(7);
- await touch(family.getByRole('button',{name:'아버지 '+game.individuals[f.fatherId].name+' 혈통 보기',exact:true}),mobile);await expect(family.locator('.lineage-root')).toHaveAttribute('data-id',f.fatherId);
+ await touch(family.getByRole('button',{name:'아버지 '+game.individuals[f.fatherId].name+' 혈통 보기',exact:true}),mobile);await expect(family.locator('.album-tree-cell.is-current .album-tree-card')).toHaveAttribute('data-id',f.fatherId);
  await touch(family.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);await expect(family).toHaveCount(0);expect(await page.locator('.home-name').textContent()).toBe(hero);await expect(card.locator('.home-card-select')).toHaveAttribute('aria-pressed','false');
  await touch(card.locator('.home-card-select>.home-morph'),mobile);await expect(card.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');
  await openCollectionCatalog(page,mobile);const manager=page.getByRole('dialog',{name:'전체 개체',exact:true}),entry=manager.getByTestId('collection-list-'+child.id),scroll=await manager.locator('.collection-list-scroll').evaluate(n=>n.scrollTop);
- await open(entry);if(mobile)await page.screenshot({path:'docs/collection-age-gen/family-popup-360.png',scale:'css'});await touch(tree(page).getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);await expect(manager).toBeVisible();expect(await manager.locator('.collection-list-scroll').evaluate(n=>n.scrollTop)).toBe(scroll);await expect(entry.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');expect(await saved(page)).toEqual(game);await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view','collection');
+ await open(entry);if(mobile){await mkdir('docs/gen-family-popup',{recursive:true});await page.screenshot({path:'docs/gen-family-popup/from-manager-360.png',scale:'css'});}await touch(tree(page).getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);await expect(manager).toBeVisible();expect(await manager.locator('.collection-list-scroll').evaluate(n=>n.scrollTop)).toBe(scroll);await expect(entry.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');expect(await saved(page)).toEqual(game);await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view','collection');
 });
 
 test('age uses the same game turns after a month boundary and reload without changing growth rules',async({page},info)=>{

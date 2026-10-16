@@ -25,7 +25,7 @@ export default function HardcoreHub() {
   const {game,loading,busy,error,conflict,act,replace,prepareRush}=useHardcore();
   const [tab,setTab]=useState("collection"),[detail,setDetail]=useState(""),[settings,setSettings]=useState(false),[resources,setResources]=useState(false);
   const [breedingOpen,setBreedingOpen]=useState(false);
-  const [catalogOpen,setCatalogOpen]=useState(false),[lineagePreview,setLineagePreview]=useState(false);
+  const [catalogOpen,setCatalogOpen]=useState(false),[lineagePreview,setLineagePreview]=useState<"full"|"family"|null>(null);
   const [rushOpen,setRushOpen]=useState(false);
   const backgroundRef=useRef<ReactNode>(null),[rushBackground,setRushBackground]=useState<ReactNode>(null);
   const openRush=async()=>{await prepareRush();setRushBackground(backgroundRef.current);setRushOpen(true);};
@@ -42,7 +42,7 @@ export default function HardcoreHub() {
   };
   const previewLineage=(id:string)=>{
     if(disabled||!game?.individuals[id])return;
-    setLineage(id);setLineagePreview(true);
+    setLineage(id);setLineagePreview("family");
   };
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
   const isCollection=tab==="collection",isIncubator=tab==="incubator",isShop=tab==="shop",isLineage=tab==="lineage",isReference=isCollection||isIncubator||isShop||isLineage;
@@ -73,11 +73,11 @@ export default function HardcoreHub() {
   return <main className={"lab-shell game-shell hc-shell"+(isReference?" reference-shell":"")+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":isLineage?" lineage-shell":"")}><OfflineShell/>
     {rushOpen?rushBackground:background}
     {props&&breedingOpen&&<Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onClose={()=>setBreedingOpen(false)} onStarted={()=>{setBreedingOpen(false);if(!catalogOpen)setTab("incubator");}}/>}
-    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");if(catalogOpen)setLineagePreview(true);else setTab("lineage");}}/>}
-    {props&&lineagePreview&&<Dialog title="혈통 기록" className="collection-lineage-dialog" onClose={()=>setLineagePreview(false)}><div className="lineage-shell"><Lineage {...props} selectedId={lineage} onSelect={setLineage}/></div></Dialog>}
+    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");if(catalogOpen)setLineagePreview("full");else setTab("lineage");}}/>}
+    {props&&lineagePreview&&<Dialog title={lineagePreview==="family"?"가족 혈통도":"혈통 기록"} className={lineagePreview==="family"?"collection-family-dialog":"collection-lineage-dialog"} onClose={()=>setLineagePreview(null)}><div className="lineage-shell"><Lineage {...props} selectedId={lineage} onSelect={setLineage} view={lineagePreview}/></div></Dialog>}
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
     {rushOpen&&props&&<CafeRush {...props} saveError={error} onClose={()=>{setRushOpen(false);setRushBackground(null);}}/>}
-    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setLineagePreview(false);setCatalogOpen(false);setBreedingOpen(false);setTab("collection");}}/>}
+    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setLineagePreview(null);setCatalogOpen(false);setBreedingOpen(false);setTab("collection");}}/>}
     {props&&celebration&&!rushOpen&&<ChallengeCelebration key={celebration.challengeId} game={props.game} completion={celebration} busy={disabled} play={act}/>}
   </main>;
 }

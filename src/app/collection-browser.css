@@ -96,3 +96,7 @@
 
 /* The existing Gen badge keeps its box; enlarge only the invisible touch target. */
 .home-card>.home-gen-badge::after{content:"";position:absolute;inset:-5px -4px -10px -4px}
+
+/* Gen opens only the shared family/descendants view. Natural height until full. */
+.hc-shell .game-dialog.collection-family-dialog{--album-x:min(1px,calc(100vw / 720));width:calc(100vw - 20px);max-width:720px;height:fit-content;max-height:min(92dvh,calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 20px));padding:10px;overflow:auto;overscroll-behavior:contain}
+.hc-shell .collection-family-dialog>.dialog-heading{top:-10px;margin:0 0 7px;padding:0 0 6px;min-height:44px}
