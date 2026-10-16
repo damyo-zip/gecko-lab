@@ -40,6 +40,10 @@ export default function HardcoreHub() {
     if(disabled||!game||!parent||collectionStatus(game,parent).action!=="breed")return;
     setFather(parent.sex==="male"?id:"");setMother(parent.sex==="female"?id:"");setBreedingOpen(true);
   };
+  const previewLineage=(id:string)=>{
+    if(disabled||!game?.individuals[id])return;
+    setLineage(id);setLineagePreview(true);
+  };
   const props=game ? {game,busy:disabled,play:act,onDetail:setDetail} : null;
   const isCollection=tab==="collection",isIncubator=tab==="incubator",isShop=tab==="shop",isLineage=tab==="lineage",isReference=isCollection||isIncubator||isShop||isLineage;
   const background=<>
@@ -53,7 +57,7 @@ export default function HardcoreHub() {
     {error && <div className="game-error-banner" role="alert">{error}{conflict && <button className="game-secondary full-width" onClick={()=>location.reload()}>저장 상태 새로고침</button>}</div>}
     {!isReference&&game && game.notices.length>0 && <div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
     {loading ? <section className="game-loading"><h1>연구소를 여는 중</h1><p>날짜와 저장된 혈통을 확인합니다.</p></section> : props ? <div className="game-tab-content" data-view={tab} aria-busy={busy}>
-      {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} catalogOpen={catalogOpen} onCatalog={setCatalogOpen} onShop={()=>setTab("shop")} onRush={openRush} onResources={()=>setResources(true)} onBreed={breedFromCollection}/>}
+      {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} catalogOpen={catalogOpen} onCatalog={setCatalogOpen} onShop={()=>setTab("shop")} onRush={openRush} onResources={()=>setResources(true)} onBreed={breedFromCollection} onLineage={previewLineage}/>}
 
       {tab==="incubator" && <Incubator {...props} onTab={navigate}/>}{tab==="shop" && <Shop {...props} onResources={()=>setResources(true)}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}

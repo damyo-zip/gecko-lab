@@ -75,7 +75,7 @@
   --sprite-placement:translate(-50%,-50%);
   z-index:2;pointer-events:none;image-rendering:pixelated;
 }
-.home-card-select>.home-gen-badge,.home-card-select>.home-sex{z-index:3}
+.home-card>.home-gen-badge,.home-card-select>.home-sex{z-index:3}
 .home-card-select>.home-sex{position:relative}
 @media(min-width:600px){
  .home-shell :is(.home-card-grid,.collection-catalog) .home-card .home-card-art canvas{--card-tail-inset:27px}
@@ -93,3 +93,6 @@
 
 .home-card-name>span{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .home-shell .collection-list-price{overflow:hidden;text-overflow:ellipsis}
+
+/* The existing Gen badge keeps its box; enlarge only the invisible touch target. */
+.home-card>.home-gen-badge::after{content:"";position:absolute;inset:-5px -4px -10px -4px}

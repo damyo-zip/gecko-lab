@@ -23,14 +23,15 @@ export const CollectionEggs=memo(function CollectionEggs({game,gecko:g,busy,play
 });
 
 /** One card for the six-card home and the windowed manager. Selection is UI only. */
-export interface CardActionHandlers {onRename:(id:string)=>void;onSell:(id:string)=>void}
-export const CollectionCard=memo(function CollectionCard({game,gecko:g,busy,play,selected,onSelect,onDetail,onResources,onBreed,onRename,onSell,catalog=false}:{game:HardcoreGame;gecko:Gecko;busy:boolean;play:Play;selected:boolean;onSelect:(id:string)=>void;onDetail:(id:string)=>void;onResources:()=>void;onBreed:(id:string)=>void;catalog?:boolean}&CardActionHandlers) {
+export interface CardActionHandlers {onRename:(id:string)=>void;onSell:(id:string)=>void;onLineage:(id:string)=>void}
+export const CollectionCard=memo(function CollectionCard({game,gecko:g,busy,play,selected,onSelect,onDetail,onResources,onBreed,onRename,onSell,onLineage,catalog=false}:{game:HardcoreGame;gecko:Gecko;busy:boolean;play:Play;selected:boolean;onSelect:(id:string)=>void;onDetail:(id:string)=>void;onResources:()=>void;onBreed:(id:string)=>void;catalog?:boolean}&CardActionHandlers) {
  const art=useMemo(()=>specimen(g),[g]),status=useMemo(()=>collectionStatus(game,g),[game,g]);
  return <article className={"home-card hc-card home-frame "+(selected?"selected ":"")+(catalog?"collection-list-row":"")} data-testid={(catalog?"collection-list-":"hc-card-")+g.id}>
   <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={selected} onClick={()=>onSelect(g.id)}>
-   <span className="home-gen-badge">Gen {g.generation}</span><div className="home-card-art"><SpriteCanvas specimen={art} growthStage={g.stage} scale={3} testId={(catalog?"collection-list-sprite-":"hardcore-sprite-")+g.id}/></div>
+   <div className="home-card-art"><SpriteCanvas specimen={art} growthStage={g.stage} scale={3} testId={(catalog?"collection-list-sprite-":"hardcore-sprite-")+g.id}/></div>
    <CollectionSex gecko={g}/><strong className="home-card-name-placeholder" aria-hidden="true" title={g.name}>{g.name}</strong><span className="home-morph" title={morphDescription(g)}>{collectionMorph(g)}</span><CollectionStatusLabel status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
   </button>
+  <button type="button" className="home-gen-badge" aria-label={g.name+" 가족 혈통도"} disabled={busy} onClick={event=>{event.stopPropagation();onLineage(g.id);}}>Gen {g.generation}</button>
   <button type="button" className="home-card-name" aria-label={g.name+" 이름 수정"} disabled={busy} onClick={event=>{event.stopPropagation();onRename(g.id);}}><span>{g.name}</span></button>
   <CollectionEggs game={game} gecko={g} busy={busy} play={play}/>
   {status.action&&<button type="button" className="home-card-status-action" disabled={busy} data-testid={"collection-status-"+g.id} aria-label={g.name+": "+status.label+(status.action==="breed"?" · 교배 열기":" · 사육장 관리 열기")} onClick={event=>{event.stopPropagation();if(status.action==="expand")onResources();else onBreed(g.id);}}><CollectionStatusLabel status={status}/></button>}
