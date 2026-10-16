@@ -86,7 +86,12 @@ test("reference home binds six real specimens, preserves read-only state and adv
   await expect(page.locator(".home-card-grid")).toHaveClass(/columns-3/);
   const first=page.locator(".home-card").first(),thumb=first.locator("canvas"),thumbBox=await thumb.boundingBox();
   const fraction=await thumb.evaluate(el=>{const c=el as HTMLCanvasElement,rgba=c.getContext("2d")!.getImageData(0,0,c.width,c.height).data;for(let y=c.height-1;y>=0;y--)for(let x=0;x<c.width;x++)if(rgba[(y*c.width+x)*4+3])return (y+1)/c.height;return 0;});
-  expect(fraction).toBeGreaterThan(0);expect(thumbBox!.y+thumbBox!.height*fraction).toBeLessThanOrEqual((await first.locator(".home-card-select > strong").boundingBox())!.y);
+  // The enlarged card intentionally lets the tail enter only the top of the name
+  // row. Bound the real opaque pixels, not the canvas's transparent padding.
+  const nameBox=(await first.locator(".home-card-select > strong").boundingBox())!,paintBottom=thumbBox!.y+thumbBox!.height*fraction;
+  expect(fraction).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeLessThanOrEqual(4);
+  expect(paintBottom).toBeLessThan(nameBox.y+nameBox.height*.25);
+  expect(paintBottom).toBeLessThan((await first.locator(".home-status").first().boundingBox())!.y);
   if(mobile)await page.screenshot({path:info.outputPath("home-three-columns.png"),fullPage:true,animations:"disabled",scale:"css"});
   await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog").locator(".collection-list-row")).toHaveCount(6);await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"그레이 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.keyboard.press("Escape");
