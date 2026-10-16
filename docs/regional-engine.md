@@ -52,7 +52,8 @@ Node 24 클라우드에서 300개 서로 다른 외형의 최초 관찰은 6,847
 
 - 타입 검사·프로덕션 빌드·PNG/런타임 아트 해시 검사 통과.
 - 전체 단위 테스트 36파일 **382개 통과**. v2 픽셀 기준100·C/S/H 전 조합·보호 구조·형제 상속·여러 세대·목표 해칭·가격·공개 정보·새 저장·구형 안내·중복 수령/급여를 포함합니다.
-- 전체 모바일·PC E2E: 최종 실행 결과를 아래에 기록합니다.
+- 전체 모바일·PC E2E 274개 실행에서 262개가 먼저 통과했습니다. 카드 터치 보정을 제거하고 Next 경로 안내와 겹치던 alert 선택자를 수정한 최종 빌드에서 실패 12개와 연속 관리 2개를 재실행해 **14개 모두 통과**했습니다. 미해결 실패·건너뛴 시나리오는 없습니다. 전체 단일 실행 로그가 모두 녹색이었다고 주장하는 대신, 전체 실행과 수정 영역 재검증을 구분해 기록합니다.
+- GitHub CI의 30개 가족 콜드 렌더 검증이 기본 5초 제한에 걸려, 해당 테스트만 30초로 조정했습니다. 검증할 가족 수·상속·가격 assertion은 그대로이며 해당 파일 11개도 재검증 통과했습니다. GitHub 전체 CI 상태는 [PR 검사](https://github.com/damyo-zip/gecko-lab/pull/31/checks)에서 확인할 수 있습니다.
 - 동일한 신규 20마리 근무, 390×844, Chromium 156, CPU 4배 제한에서 측정했습니다. 게임 중 배경 재그리기·컬렉션 commit·메인 스레드 전체 스냅샷/active 저장은 모두 0회였으며 Worker의 체크포인트 저장은 계속 수행됐습니다. 급여는 수령 전 상태로 보존됐습니다.
 
 | 보유 | 프레임 P95 | P99 | 최대 | 33.4ms 초과 | 50ms 초과 | Long Task |
@@ -72,6 +73,8 @@ PLAYWRIGHT_BROWSERS_PATH=/tmp/gecko-ci-browsers npm run test:e2e -- --workers=2
 XDG_CACHE_HOME=/tmp/gecko-font-cache node scripts/regional-engine-report.mjs
 node scripts/compile-gecko-art.mjs --check
 ```
+
+실제 브라우저 캡처(검증용 게임 상태): [컬렉션](regional-engine/collection-390.png) · [상점](regional-engine/shop-390.png) · [인큐베이터](regional-engine/incubator-390.png) · [혈통](regional-engine/lineage-390.png) · [300마리 목록](regional-engine/catalog-300-390.png). 300마리 창의 동시 카드 수는 15개, 선택 시 카드 재그리기는 0회였습니다. 창 열기 측정은 [모바일](regional-engine/catalog-performance-mobile-chromium.json)·[PC](regional-engine/catalog-performance-desktop-chromium.json)에 있습니다.
 
 [실제 정식 외형 96px](regional-engine/typical-core-1x.png) · [4배](regional-engine/typical-core-4x.png) · [고발현](regional-engine/high-core-4x.png) · [C/S/H 복합](regional-engine/typical-compounds-3x.png) · [정량 보고서](regional-engine/report.json).
 
