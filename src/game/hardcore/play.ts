@@ -1,3 +1,4 @@
+import {selectChallenge,acknowledgeChallenge,equipChallengeTitle} from "./challenges";
 import type { GameplayAction, HardcoreGame, Rules, TimeMode } from "./model";
 import { createGame } from "./create";
 import { catchUp } from "./calendar";
@@ -33,6 +34,9 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
   const game = structuredClone(synchronize(source, date, table)); game.notices = [];
   if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 개체당 사료 1개를 자동 급여합니다.");
   switch (action.type) {
+    case "selectChallenge": selectChallenge(game,action.challengeId); break;
+    case "acknowledgeChallenge": acknowledgeChallenge(game,action.challengeId); break;
+    case "equipChallengeTitle": equipChallengeTitle(game,action.challengeId); break;
     case 'collectEggs': collectEggs(game,action.matingId); break;
     case 'receiveHatchling': receiveHatchling(game,action.eggId); break;
     case 'removeFailedEgg': removeFailedEgg(game,action.eggId); break;

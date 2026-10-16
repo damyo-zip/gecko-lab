@@ -12,18 +12,20 @@ import { Shop } from "./shop";
 import { Lineage } from "./lineage";
 import { Details } from "./details";
 import { Settings } from "./settings";
-import { won } from "./common";
+import { Dialog, won } from "./common";
 import { HomeHeader } from "./home-header";
 import { HomeFooter } from "./home-footer";
 import { OfflineShell } from "./offline";
 import { EndTurnButton } from "./end-turn";
 import { collectionStatus } from "./collection-status";
 import {CafeRush} from './cafe-rush';
+import {ChallengeCelebration} from './breeding-challenges';
 const TABS = [{id:"home",label:"오늘",icon:"leaf"},{id:"collection",label:"컬렉션",icon:"grid"},{id:"breeding",label:"교배",icon:"dna"},{id:"incubator",label:"부화",icon:"egg"},{id:"shop",label:"상점",icon:"sliders"},{id:"lineage",label:"혈통",icon:"tree"}] as const;
 export default function HardcoreHub() {
   const {game,loading,busy,error,conflict,act,replace,prepareRush}=useHardcore();
   const [tab,setTab]=useState("collection"),[detail,setDetail]=useState(""),[settings,setSettings]=useState(false),[resources,setResources]=useState(false);
   const [breedingOpen,setBreedingOpen]=useState(false);
+  const [catalogOpen,setCatalogOpen]=useState(false),[lineagePreview,setLineagePreview]=useState(false);
   const [rushOpen,setRushOpen]=useState(false);
   const backgroundRef=useRef<ReactNode>(null),[rushBackground,setRushBackground]=useState<ReactNode>(null);
   const openRush=async()=>{await prepareRush();setRushBackground(backgroundRef.current);setRushOpen(true);};
@@ -32,6 +34,7 @@ export default function HardcoreHub() {
   const navigate=(next:string)=>{if(next==="breeding")setBreedingOpen(true);else setTab(next);};
   const [father,setFather]=useState(""),[mother,setMother]=useState(""),[lineage,setLineage]=useState("");
   const g=game?.individuals[detail],disabled=busy||conflict;
+  const celebration=game?.breedingChallenges?.completed.find(c=>!c.announced);
   const breedFromCollection=(id:string)=>{
     const parent=game?.individuals[id];
     if(disabled||!game||!parent||collectionStatus(game,parent).action!=="breed")return;
@@ -50,7 +53,7 @@ export default function HardcoreHub() {
     {error && <div className="game-error-banner" role="alert">{error}{conflict && <button className="game-secondary full-width" onClick={()=>location.reload()}>저장 상태 새로고침</button>}</div>}
     {!isReference&&game && game.notices.length>0 && <div className="hc-notices" role="status">{game.notices.slice(-5).map((n,i)=><p key={i}>{n}</p>)}</div>}
     {loading ? <section className="game-loading"><h1>연구소를 여는 중</h1><p>날짜와 저장된 혈통을 확인합니다.</p></section> : props ? <div className="game-tab-content" data-view={tab} aria-busy={busy}>
-      {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")} onRush={openRush} onResources={()=>setResources(true)} onBreed={breedFromCollection}/>}
+      {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} catalogOpen={catalogOpen} onCatalog={setCatalogOpen} onShop={()=>setTab("shop")} onRush={openRush} onResources={()=>setResources(true)} onBreed={breedFromCollection}/>}
 
       {tab==="incubator" && <Incubator {...props} onTab={navigate}/>}{tab==="shop" && <Shop {...props} onResources={()=>setResources(true)}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}
@@ -65,10 +68,12 @@ export default function HardcoreHub() {
   useLayoutEffect(()=>{if(!rushOpen)backgroundRef.current=background;});
   return <main className={"lab-shell game-shell hc-shell"+(isReference?" reference-shell":"")+(isCollection?" home-shell":isIncubator?" incubator-shell":isShop?" shop-shell":isLineage?" lineage-shell":"")}><OfflineShell/>
     {rushOpen?rushBackground:background}
-    {props&&breedingOpen&&<Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onClose={()=>setBreedingOpen(false)} onStarted={()=>{setBreedingOpen(false);setTab("incubator");}}/>}
-    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");setTab("lineage");}}/>}
+    {props&&breedingOpen&&<Breeding {...props} fatherId={father} motherId={mother} onFather={setFather} onMother={setMother} onClose={()=>setBreedingOpen(false)} onStarted={()=>{setBreedingOpen(false);if(!catalogOpen)setTab("incubator");}}/>}
+    {props && g && <Details key={g.id} {...props} gecko={g} onClose={()=>setDetail("")} onBreed={()=>{if(g.sex==="male")setFather(g.id);else setMother(g.id);setDetail("");setBreedingOpen(true);}} onLineage={()=>{setLineage(g.id);setDetail("");if(catalogOpen)setLineagePreview(true);else setTab("lineage");}}/>}
+    {props&&lineagePreview&&<Dialog title="혈통 기록" className="collection-lineage-dialog" onClose={()=>setLineagePreview(false)}><div className="lineage-shell"><Lineage {...props} selectedId={lineage} onSelect={setLineage}/></div></Dialog>}
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
     {rushOpen&&props&&<CafeRush {...props} saveError={error} onClose={()=>{setRushOpen(false);setRushBackground(null);}}/>}
-    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setBreedingOpen(false);setTab("collection");}}/>}
+    {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setLineagePreview(false);setCatalogOpen(false);setBreedingOpen(false);setTab("collection");}}/>}
+    {props&&celebration&&!rushOpen&&<ChallengeCelebration key={celebration.challengeId} completion={celebration} busy={disabled} play={act}/>}
   </main>;
 }

@@ -1,3 +1,4 @@
+import {recordChallengeHatch} from "./challenges";
 import { forecastCross } from "@/genetics/mendel";
 import { expandedGenotype, HARDCORE_LOCI } from "@/genetics/hardcore";
 import { seededRandom } from "@/genetics/random";
@@ -109,6 +110,7 @@ export function breedingEvents(game: HardcoreGame): void {
     const success = seededRandom(egg.seed, "hatch")() < egg.hatchChance;
     egg.status = success ? "hatched" : "failed"; egg.resolvedDate = egg.dueDate;
     if (success) {
+      recordChallengeHatch(game,egg);
       game.individuals[egg.embryo.id] = structuredClone(egg.embryo);
       game.notices.push(egg.embryo.name + " 부화 · 성체가 되면 성별 공개");
     } else game.notices.push("알 부화 실패 · 공간 예약 해제");

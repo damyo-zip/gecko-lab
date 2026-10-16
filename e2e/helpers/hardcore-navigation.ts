@@ -17,6 +17,8 @@ export async function navigateGame(page:Page,name:string,mobile:boolean) {
   }
   const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
   if(await resources.count())await touch(resources.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
+  const catalog=page.getByRole("dialog",{name:"전체 개체",exact:true});
+  if(await catalog.count())await touch(catalog.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
   const nav=page.getByRole("navigation",{name:"게임 탭"});
   const direct=nav.getByRole("button",{name,exact:true});
   if(await direct.count()){await touch(direct,mobile);return;}
@@ -77,11 +79,11 @@ export async function closeBreeding(page:Page,mobile:boolean){
  }
 }
 
-/** Keep the home grid toggle intact; the retained catalog is in the care dialog. */
+/** The existing grid icon opens the persistent management dialog. */
 export async function openCollectionCatalog(page:Page,mobile:boolean) {
-  await touch(page.getByRole('button',{name:'컨디션 관리',exact:true}),mobile);
-  await touch(page.getByRole('dialog',{name:'컨디션 관리',exact:true}).getByRole('button',{name:'전체 개체 목록 열기',exact:true}),mobile);
-  await expect(page.getByRole('dialog',{name:'전체 개체 목록',exact:true})).toBeVisible();
+  const catalog=page.getByRole('dialog',{name:'전체 개체',exact:true});
+  if(!await catalog.count())await touch(page.getByRole('button',{name:'전체 개체 열기',exact:true}),mobile);
+  await expect(catalog).toBeVisible();
 }
 
 /** Explicit player care actions for existing breeding scenarios after ending a turn. */

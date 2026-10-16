@@ -83,12 +83,16 @@ test("reference home binds six real specimens, preserves read-only state and adv
   await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("axanthic");await expect(page.locator(".home-card")).toHaveCount(1);
   await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("all");
   await page.getByRole("combobox",{name:"개체 정렬",exact:true}).selectOption("name");
-  await touch(page.getByRole("button",{name:"2열로 보기",exact:true}),mobile);await expect(page.locator(".home-card-grid")).toHaveClass(/columns-2/);
+  await expect(page.locator(".home-card-grid")).toHaveClass(/columns-3/);
   const first=page.locator(".home-card").first(),thumb=first.locator("canvas"),thumbBox=await thumb.boundingBox();
   const fraction=await thumb.evaluate(el=>{const c=el as HTMLCanvasElement,rgba=c.getContext("2d")!.getImageData(0,0,c.width,c.height).data;for(let y=c.height-1;y>=0;y--)for(let x=0;x<c.width;x++)if(rgba[(y*c.width+x)*4+3])return (y+1)/c.height;return 0;});
-  expect(fraction).toBeGreaterThan(0);expect(thumbBox!.y+thumbBox!.height*fraction).toBeLessThanOrEqual((await first.locator(".home-card-select > strong").boundingBox())!.y);
-  if(mobile)await page.screenshot({path:info.outputPath("home-two-columns.png"),fullPage:true,animations:"disabled",scale:"css"});
-  await touch(page.getByRole("button",{name:"3열로 보기",exact:true}),mobile);
+  // The enlarged card intentionally lets the tail enter only the top of the name
+  // row. Bound the real opaque pixels, not the canvas's transparent padding.
+  const nameBox=(await first.locator(".home-card-select > strong").boundingBox())!,paintBottom=thumbBox!.y+thumbBox!.height*fraction;
+  expect(fraction).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeLessThanOrEqual(4);
+  expect(paintBottom).toBeLessThan(nameBox.y+nameBox.height*.25);
+  expect(paintBottom).toBeLessThan((await first.locator(".home-status").first().boundingBox())!.y);
+  if(mobile)await page.screenshot({path:info.outputPath("home-three-columns.png"),fullPage:true,animations:"disabled",scale:"css"});
   await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog").locator(".collection-list-row")).toHaveCount(6);await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"그레이 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("공개 유전 정보");await page.keyboard.press("Escape");
   expect(await saved(page)).toEqual(original);
@@ -136,14 +140,14 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   await expect(page.locator(".home-card")).toHaveCount(1);expect(await saved(page)).toEqual(fixture);await noOverflow(page);
 });
 
-test("long names, two-column view, pagination and empty filters do not damage records or overflow",async({page},info)=>{
+test("long names, six main cards, full management and empty filters do not damage records or overflow",async({page},info)=>{
   const mobile=info.project.name.startsWith("mobile");await page.setViewportSize({width:360,height:800});await ready(page);
   const fixture=referenceHomeGame(),source=Object.values(fixture.individuals)[0];fixture.capacity=40;fixture.rules.initialCapacity=40;
   for(let n=0;n<9;n++){const g=structuredClone(source);g.id=fixture.gameId+"-extra-"+n;g.name="아주 긴 개체 이름을 가진 연구소 게코";g.visualSeed=g.id;fixture.individuals[g.id]=g;}
   await touch(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"many.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(fixture))});await touch(page.getByRole("button",{name:"복원 실행",exact:true}),mobile);await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(page.locator(".home-card")).toHaveCount(12);await touch(page.getByRole("button",{name:"개체 더 보기",exact:true}),mobile);await expect(page.locator(".home-card")).toHaveCount(15);
-  await noOverflow(page);await touch(page.getByRole("button",{name:"2열로 보기",exact:true}),mobile);await noOverflow(page);
-  await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog").locator(".collection-list-row")).toHaveCount(15);await page.keyboard.press("Escape");
+  await expect(page.locator(".home-card-grid .home-card")).toHaveCount(6);await expect(page.getByRole("button",{name:"개체 더 보기",exact:true})).toHaveCount(0);
+  await noOverflow(page);await expect(page.locator(".home-card-grid")).toHaveClass(/columns-3/);
+  await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog",{name:"전체 개체",exact:true}).getByRole("status")).toHaveText("15 / 15마리");await page.keyboard.press("Escape");
   await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("normal");await expect(page.locator(".home-card")).toHaveCount(1);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("hatchling");await page.keyboard.press("Escape");await expect(page.locator(".home-card")).toHaveCount(0);
   await expect(page.locator(".home-empty")).toContainText("필터에 맞는");expect(await saved(page)).toEqual(fixture);await noOverflow(page);

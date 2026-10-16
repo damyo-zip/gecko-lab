@@ -75,7 +75,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await buyFood(page,mobile,1000);
  for(const name of ["노멀 수컷 구매","노멀 암컷 구매"])await click(page.getByRole("button",{name,exact:true}),mobile);
  let g=await saved(page);const [father,mother]=Object.values(g.individuals);await page.screenshot({path:info.outputPath("phase3-shop.png"),scale:"css"});
- await tab(page,"혈통",mobile);await click(page.getByRole("button",{name:"관심 혈통 등록",exact:true}),mobile);await page.getByLabel("혈통 이름",{exact:true}).fill("Moonlight Line");await click(page.getByRole("button",{name:"혈통 이름 등록",exact:true}),mobile);
+ await tab(page,"혈통",mobile);await expect(page.getByRole('button',{name:'전체 도전 목표 보기',exact:true})).toBeVisible();await expect(page.locator('.album-favorites')).toHaveCount(0);
  await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',father.id);await chooseBreedingParent(page,'female',mother.id);
  await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("100%");await closeGenetics(page,mobile);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
@@ -91,7 +91,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await click(page.getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
  await chooseBreedingParent(page,'male',child.sex==='male'?child.id:partner.id);await chooseBreedingParent(page,'female',child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  await tab(page,"컬렉션",mobile);for(let t=0;t<6;t++)await finishTurn(page,mobile);g=await saved(page);const grandchild=Object.values(g.individuals).find(i=>i.generation===3)!;expect(grandchild).toBeDefined();
- await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(grandchild.id);await expect(page.locator(".ancestor-list")).toContainText(father.name);await expect(page.locator(".lineage-root")).toContainText("Moonlight Line");await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");
+ await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(grandchild.id);await expect(page.locator(".ancestor-list")).toContainText(father.name);await expect(page.locator(".lineage-root")).toContainText("등록된 가문 없음");await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");
  await page.screenshot({path:info.outputPath("phase3-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("24");expect(await saved(page)).toEqual(g);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 

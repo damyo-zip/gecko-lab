@@ -1,3 +1,4 @@
+import {recordChallengeHatch} from "./challenges";
 import { seededRandom } from "@/genetics/random";
 import type { HardcoreGame, Mating } from "./model";
 import { addDays } from "./time";
@@ -51,6 +52,7 @@ export function seasonEvents(game:HardcoreGame):void {
     const failure=eggFailure(egg),success=failure===null;
     egg.status=success?"hatched":"failed";egg.resolvedDate=egg.dueDate;
     egg.lifecycle.failure=failure;
+    if(success)recordChallengeHatch(game,egg);
     if(egg.care)continue;
     if(success){game.individuals[egg.embryo.id]=bornIndividual(egg.embryo);game.notices.push(egg.embryo.name+" 부화 · 정확히 12턴 후 성체");}
     else game.notices.push(failure==='genetic'?"유전적 비생존으로 부화 실패 · 공간 해제":failure==='health'?"배아 발달 실패 · 공간 해제":failure==="infertile"?"무정란 확정 · 공간 해제":"수정란 부화 실패 · 공간 해제");

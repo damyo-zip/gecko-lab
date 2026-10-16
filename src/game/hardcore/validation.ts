@@ -1,3 +1,4 @@
+import {validateChallenges} from "./challenge-validation";
 import { canonicalJSON } from "@/game/save";
 import { cachedGenotype, advancedSafety } from "./genetics";
 import { validateKnowledge } from "@/genetics/advanced/inference";
@@ -42,6 +43,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
   }
+  validateChallenges(game);delete base.breedingChallenges;
   const catalog=game.saveVersion>=7;
   if(game.saveVersion>=8){
     const index=pedigreeIndex(game);

@@ -1,0 +1,34 @@
+.breeding-challenge-panel{padding:10px 12px;min-width:0;display:grid;gap:6px}
+.breeding-challenge-panel .album-section-title{margin:0;min-height:28px}
+.breeding-challenge-panel .challenge-count{margin-left:auto;flex:none;color:#b1ed7a;font-size:12px}
+.challenge-active-name{font-size:16px;color:#f2e4bb;line-height:1.35}
+.breeding-challenge-panel p{margin:0;font-size:12px;line-height:1.45;color:#b4c9ce}
+.challenge-status{display:flex;flex-wrap:wrap;justify-content:space-between;gap:3px 8px;line-height:1.5;font-size:11px;color:#adeb76}
+.challenge-status small{color:#96acb8;font-size:10px}
+.breeding-challenge-panel>.album-small-button{width:100%;min-height:44px;justify-content:center}
+.game-dialog.breeding-challenge-dialog,.game-dialog.challenge-celebration{max-width:600px;color:#dce9e2;background:#081b25}
+.challenge-goals{display:grid;gap:10px;margin:12px 0}
+.challenge-goal{border:1px solid #385565;border-radius:6px;background:linear-gradient(140deg,#102b31,#081923);padding:12px;min-width:0}
+.challenge-goal.is-selected{border-color:#a8e66e;box-shadow:inset 0 0 0 1px #65954b}
+.challenge-goal header{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:7px}
+.challenge-goal h3{margin:0;font-size:16px;color:#f2e6c4}
+.challenge-goal header>span{font-size:11px;color:#a6e776;flex:none}
+.challenge-goal>strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.challenge-goal p{font-size:12px;line-height:1.55;margin:6px 0;color:#b5c9d1}
+.challenge-goal .challenge-hint{color:#a7cf92}
+.challenge-goal>small{display:block;color:#c8bfa0;font-size:11px;margin:7px 0}
+.challenge-goal button{margin-top:8px;min-height:44px}
+.challenge-history{display:flex;align-items:center;gap:8px;background:#07151f;border:1px solid #2f454f;border-radius:4px;padding:5px;margin-top:8px;min-width:0}
+.challenge-history canvas{width:70px!important;height:70px!important;flex-shrink:0}
+.challenge-history>div{font-size:13px;min-width:0;overflow-wrap:anywhere}
+.challenge-history small{display:block;font-size:10px;color:#9fb4bd;overflow-wrap:anywhere}
+.challenge-rewards{border-top:1px solid #385565;padding-top:12px;font-size:13px}
+.challenge-rewards h3{margin:0}.challenge-rewards p{margin:6px 0}.challenge-rewards>small{display:block;font-size:11px;color:#a4b4be;line-height:1.5}
+.challenge-rewards label{display:grid;gap:6px;margin-top:12px}.challenge-rewards select{min-height:44px;width:100%;background:#0b222c;border:1px solid #4b686d;color:#dce9e2;padding:6px}
+.challenge-celebration{text-align:center}.challenge-celebration h3{color:#bbf17c;font-size:21px;margin:12px 0}
+.challenge-winner{display:grid;place-items:center;background:radial-gradient(ellipse,#314a2980,transparent 70%);height:190px;overflow:hidden}
+.challenge-winner canvas{width:192px!important;height:192px!important}
+.challenge-celebration>p{font-size:13px;line-height:1.7}.challenge-celebration>small{color:#b1c2bf;font-size:11px}
+.challenge-unlocked{color:#b1ed7a}.challenge-celebration button{min-height:44px}
+.home-breeder-title{position:absolute;bottom:5px;left:8px;max-width:47%;padding:3px 6px;border:1px solid #557d4c;border-radius:4px;background:#071b20e8;color:#c4ed8a;font-size:10px;line-height:1.4;overflow-wrap:anywhere;z-index:4;pointer-events:none}
+@media(max-width:390px){.breeding-challenge-panel{padding:8px}.challenge-active-name{font-size:15px}.challenge-status{font-size:10px}}
