@@ -1,0 +1,18 @@
+{
+  "mobile": {
+    "owned": 300,
+    "openMs": 344.6058639999992,
+    "mountedAtOpen": 15,
+    "mountedAtBottom": 15,
+    "scrollTop": 17716,
+    "selectionCardPaints": 0
+  },
+  "desktop": {
+    "owned": 300,
+    "openMs": 358.84904800000004,
+    "mountedAtOpen": 15,
+    "mountedAtBottom": 15,
+    "scrollTop": 17716,
+    "selectionCardPaints": 0
+  }
+}

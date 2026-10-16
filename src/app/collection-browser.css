@@ -31,26 +31,23 @@
 }
 /* A native stacked dialog keeps selection, controls and scroll mounted while
    existing details, breeding and resource dialogs are used above it. */
-.game-dialog.collection-catalog[open]{display:grid;grid-template-rows:auto auto auto minmax(80px,1fr) auto;gap:8px;width:calc(100vw - 16px);max-width:720px;height:min(960px,94dvh);max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 16px);padding:10px;overflow:hidden;border-color:#54716c;border-radius:10px;background:linear-gradient(145deg,#142630,#0a1721)}
+.game-dialog.collection-catalog[open]{display:grid;grid-template-rows:auto auto auto minmax(0,1fr) auto;gap:8px;width:calc(100vw - 16px);max-width:720px;height:min(960px,94dvh);max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 16px);padding:10px;overflow:hidden;border-color:#54716c;border-radius:10px;background:linear-gradient(145deg,#142630,#0a1721)}
 .collection-catalog>.dialog-heading{margin:0;min-height:44px}
 .collection-catalog>.dialog-heading h2{font-size:20px}
-.collection-list-controls{min-width:0;max-height:30dvh;overflow:auto;overscroll-behavior:contain}
+.collection-list-tools{min-width:0}
+.collection-list-controls{min-width:0;max-height:clamp(44px,calc(100dvh - 390px),240px);overflow:auto;overscroll-behavior:contain}
+.collection-list-controls[hidden]{display:none}
+.collection-filter-toggle svg{display:block;transform:rotate(90deg)}
+.collection-filter-toggle[aria-expanded="true"] svg{transform:rotate(-90deg)}
 .collection-list-search{display:flex;align-items:center;gap:7px;color:#9ee380}
 .hc-shell .collection-list-search input{min-height:44px;padding:8px;flex:1}
 .collection-list-primary-filters,.collection-list-extra>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:5px}
 .collection-list-controls label{min-width:0;font-size:10px;color:#a8bccb}
 .hc-shell .collection-list-controls select{display:block;margin-top:2px;min-height:34px;padding:5px 7px;font-size:11px}
 .collection-list-extra summary{min-height:28px;display:list-item;align-content:center;color:#a7bcb2;font-size:11px;cursor:pointer}
-.collection-list-controls>p{display:flex;align-items:center;justify-content:space-between;margin:0;color:#bdccbe;font-size:11px}
-.collection-list-controls>p button{min-height:28px;padding:3px 8px;border:1px solid #3d5563;border-radius:5px;color:#bce4a4;background:#10252c}
-.collection-manager-selected{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;padding:7px 8px;border:1px solid #456057;border-radius:6px;background:#0c1e26}
-.collection-manager-selected>div:first-child{display:flex;flex-direction:column;gap:2px;min-width:0}
-.collection-manager-selected strong{font-size:14px;color:#e7edd2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.collection-manager-selected span:not(.hc-hearts,.home-status,.home-status-label),.collection-manager-selected small{font-size:10px;color:#b4c3c7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.collection-manager-selected .hc-hearts{font-size:14px}
-.collection-manager-selected>p{margin:0;font-size:12px;color:#b8c7b8;grid-column:1/-1}
-.collection-manager-actions{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-.hc-shell .collection-manager-actions button,.hc-shell .collection-manager-footer button{min-height:44px;padding:5px;font-size:12px}
+.collection-list-count{display:flex;align-items:center;justify-content:space-between;margin:0;color:#bdccbe;font-size:11px}
+.collection-list-count button{min-height:28px;padding:3px 8px;border:1px solid #3d5563;border-radius:5px;color:#bce4a4;background:#10252c}
+.hc-shell .collection-manager-footer button{min-height:44px;padding:5px;font-size:12px}
 .collection-list-scroll{min-height:0;min-width:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#688a65 #0a1720;overflow-anchor:none;padding:2px}
 .collection-list-window{position:relative;min-width:0}
 .collection-list-grid{position:absolute;left:0;right:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(176px,calc((100vw - 42px) * .5),228px);gap:6px}
@@ -64,10 +61,7 @@
 .collection-manager-footer>p>span{display:block;color:#92a8b7;font-size:10px}
 .collection-manager-footer>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .game-dialog.collection-lineage-dialog{--album-x:min(1px,calc(100vw / 720));width:calc(100vw - 20px);max-width:720px;max-height:92dvh}
-@media(max-height:650px){.game-dialog.collection-catalog[open]{gap:5px;padding:8px}.collection-catalog>.dialog-heading{min-height:36px}.collection-list-controls{max-height:27dvh}.collection-manager-selected{padding:5px 7px}.collection-manager-footer>p>span{display:none}}
-
-/* Short landscape dialogs scroll as a whole instead of clipping their controls. */
-@media(max-height:500px){.game-dialog.collection-catalog[open]{display:flex;flex-direction:column;overflow:auto}.collection-catalog>.dialog-heading,.collection-list-controls,.collection-manager-selected,.collection-manager-footer{flex-shrink:0}.collection-list-controls{max-height:none;overflow:visible}.collection-list-scroll{min-height:190px;flex-shrink:0}}
+@media(max-height:650px){.game-dialog.collection-catalog[open]{gap:5px;padding:8px}.collection-manager-footer>p>span{display:none}}
 
 /* Shared collection-card framing only; the hero and other sprite views retain their size.
    The authored 96px sprite has 12px transparent margins above/below: its visible
