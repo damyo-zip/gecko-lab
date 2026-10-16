@@ -36,7 +36,7 @@ test('all five public goals, exact lock expiry, unchanged target after expiry an
  if(mobile){await mkdir('docs/breeding-challenges',{recursive:true});await page.screenshot({path:'docs/breeding-challenges/lineage-360.png',scale:'css'});}
 });
 
-test('real hatch earns once before manual receipt, restores celebration, keeps award portrait and equips title only on request',async({page},info)=>{
+test('real hatch earns once before manual receipt, restores celebration and automatically promotes the player rank',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),fixture=challengeClutch('white');let g=fixture.game;for(let n=0;n<3;n++)g=challengeTurn(g);
  await restore(page,g,mobile);let dialog=await goals(page,mobile);await touch(dialog.locator('.challenge-goal').filter({has:page.getByRole('heading',{name:'순백의 계승자',exact:true})}).getByRole('button'),mobile);await page.keyboard.press('Escape');
  const before=await saved(page);await turn(page,mobile);
@@ -47,8 +47,8 @@ test('real hatch earns once before manual receipt, restores celebration, keeps a
  await page.reload();await expect(success).toBeVisible();await touch(success.getByRole('button',{name:'확인',exact:true}),mobile);await expect(success).toHaveCount(0);
  await navigateGame(page,'혈통도',mobile);await expect(page.locator('.breeding-challenge-panel')).toContainText('완료 1/5');await expect(page.locator('.breeding-challenge-panel')).toContainText('변경 가능');
  dialog=await goals(page,mobile);await expect(dialog.locator('.challenge-history')).toContainText(record.specimen.name);await expect(dialog.getByRole('button',{name:'이 목표 선택',exact:true})).toHaveCount(4);
- await dialog.getByLabel('컬렉션 칭호',{exact:true}).selectOption('white');await expect.poll(async()=>(await saved(page)).breedingChallenges?.equippedTitle).toBe('white');
- if(mobile)await page.screenshot({path:'docs/breeding-challenges/goals-390.png',scale:'css'});await page.keyboard.press('Escape');await navigateGame(page,'컬렉션',mobile);await expect(page.getByLabel('착용 중인 칭호',{exact:true})).toHaveText('순백의 브리더');
+ await expect(dialog.getByLabel('컬렉션 칭호',{exact:true})).toHaveCount(0);await expect(dialog).toContainText('현재 칭호: 신예 브리더');
+ if(mobile)await page.screenshot({path:'docs/breeding-challenges/goals-390.png',scale:'css'});await page.keyboard.press('Escape');await navigateGame(page,'컬렉션',mobile);await expect(page.getByTestId('breeder-rank')).toHaveText('신예 브리더');
  await navigateGame(page,'인큐베이터',mobile);await expect(page.getByTestId('receive-hatchling-'+record.eggId)).toBeVisible();await touch(page.getByTestId('receive-hatchling-'+record.eggId),mobile);
  state=await saved(page);expect(state.individuals[record.specimen.id]).toBeDefined();expect(state.breedingChallenges!.completed).toHaveLength(1);expect(state.breedingChallenges!.completed[0].specimen).toEqual(record.specimen);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');await expect(success).toHaveCount(0);expect((await saved(page)).breedingChallenges).toEqual(state.breedingChallenges);
