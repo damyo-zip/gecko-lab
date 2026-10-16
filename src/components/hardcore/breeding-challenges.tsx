@@ -10,9 +10,9 @@ import {challengePreview} from '@/game/hardcore/challenge-previews';
 import {SpriteCanvas} from '@/components/sprite-canvas';
 
 type Props=Pick<ViewProps,'game'|'busy'|'play'>;
-const ChallengePreview=memo(function ChallengePreview({id}:{id:ChallengeId}){
+const ChallengePreview=memo(function ChallengePreview({id,testId='challenge-preview'}:{id:ChallengeId;testId?:string}){
  return <div className="challenge-preview" data-challenge-id={id}>
-  <SpriteCanvas specimen={challengePreview(id)} scale={3} testId="challenge-preview"/>
+  <SpriteCanvas specimen={challengePreview(id)} scale={3} testId={testId}/>
  </div>;
 });
 export function BreedingChallengePanel({game,busy,play}:Props){
@@ -35,7 +35,10 @@ export function BreedingChallengePanel({game,busy,play}:Props){
    <p className="game-small-note">선택하면 10턴 동안 목표를 바꿀 수 없습니다. 성공하면 즉시 잠금이 풀립니다. 목표를 선택한 뒤 실제 부화한 개체만 인정합니다.</p>
    <div className="challenge-goals">{BREEDING_CHALLENGES.map(c=>{const record=completed.find(r=>r.challengeId===c.id),selected=active?.id===c.id;return <article key={c.id} className={'challenge-goal'+(selected?' is-selected':'')}>
     <header><h3>{c.name}</h3><span>{record?'완료':selected?'현재 목표':'미완료'}</span></header>
-    <strong>{c.target}</strong><p>{c.description}</p><p className="challenge-hint">힌트 · {c.hint}</p>
+    <div className="challenge-goal-body">
+     <div className="challenge-goal-copy"><strong>{c.target}</strong><p>{c.description}</p><p className="challenge-hint">힌트 · {c.hint}</p></div>
+     <ChallengePreview id={c.id} testId="challenge-goal-preview"/>
+    </div>
     <small>보상: 먹이 면제 슬롯 +1 · 브리더 칭호 승급</small>
     {record&&<div className="challenge-history"><Sprite gecko={record.specimen}/><div>{record.specimen.name}<small>{record.morph} · {record.achievedTurn}턴 달성</small><small>#{record.specimen.id}</small></div></div>}
     <button className="game-secondary full-width" disabled={busy||!!record||selected||remaining>0} onClick={()=>play({type:'selectChallenge',challengeId:c.id})}>{record?'달성 완료':selected?'현재 선택한 목표':remaining?`잠금 · ${remaining}턴`:'이 목표 선택'}</button>

@@ -19,7 +19,9 @@
 .challenge-goal header{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:7px}
 .challenge-goal h3{margin:0;font-size:16px;color:#f2e6c4}
 .challenge-goal header>span{font-size:11px;color:#a6e776;flex:none}
-.challenge-goal>strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.challenge-goal-body{display:grid;grid-template-columns:minmax(0,1fr) clamp(88px,30%,120px);gap:8px;align-items:center}
+.challenge-goal-copy{min-width:0;overflow-wrap:anywhere}
+.challenge-goal-copy>strong{display:block;font-size:13px}
 .challenge-goal p{font-size:12px;line-height:1.55;margin:6px 0;color:#b5c9d1}
 .challenge-goal .challenge-hint{color:#a7cf92}
 .challenge-goal>small{display:block;color:#c8bfa0;font-size:11px;margin:7px 0}

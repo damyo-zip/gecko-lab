@@ -118,3 +118,41 @@ test('mobile 360–430px keeps shared chrome, readable goal controls and no hori
  }
  await navigateGame(page,'상점',mobile);await expect(page.locator('.shop-offer')).toHaveCount(4);await navigateGame(page,'인큐베이터',mobile);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();
 });
+
+test('goal picker shows all five matching live previews with readable mobile copy and unchanged selection rules',async({page},info)=>{
+ const mobile=info.project.name.startsWith('mobile');await restore(page,newGame('goal-picker-previews',DATE),mobile);
+ const before=await saved(page),dialog=await goals(page,mobile);
+ await expect(dialog.getByTestId('challenge-goal-preview')).toHaveCount(5);
+ for(const c of BREEDING_CHALLENGES){
+  const goal=dialog.locator('.challenge-goal').filter({has:page.getByRole('heading',{name:c.name,exact:true})}),canvas=goal.getByTestId('challenge-goal-preview');
+  await canvas.scrollIntoViewIfNeeded();await expect(canvas).toBeVisible();await expect(goal.locator('.challenge-preview')).toHaveAttribute('data-challenge-id',c.id);
+  await expect.poll(()=>canvas.evaluate(el=>{
+   const canvas=el as HTMLCanvasElement,rgba=canvas.getContext('2d')!.getImageData(0,0,canvas.width,canvas.height).data,result:number[]=[];
+   for(let y=0;y<96;y++)for(let x=0;x<96;x++){const i=((y*3+1)*canvas.width+x*3+1)*4;result.push(...rgba.slice(i,i+4));}
+   return result;
+  })).toEqual(Array.from(renderSprite(challengePreview(c.id)).pixels));
+ }
+ for(const width of [360,390,430]){
+  await page.setViewportSize({width,height:800});expect(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
+  for(const goal of await dialog.locator('.challenge-goal').all()){
+   await goal.scrollIntoViewIfNeeded();
+   const copy=(await goal.locator('.challenge-goal-copy').boundingBox())!,frame=(await goal.locator('.challenge-preview').boundingBox())!,art=(await goal.getByTestId('challenge-goal-preview').boundingBox())!;
+   expect(copy.x+copy.width).toBeLessThan(frame.x);expect(art.width).toBeCloseTo(art.height,0);
+   expect(art.x).toBeGreaterThanOrEqual(frame.x);expect(art.y).toBeGreaterThanOrEqual(frame.y);expect(art.x+art.width).toBeLessThanOrEqual(frame.x+frame.width);expect(art.y+art.height).toBeLessThanOrEqual(frame.y+frame.height);
+   expect(await goal.locator('.challenge-goal-copy').evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
+   expect((await goal.getByRole('button').boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  }
+ }
+ expect(await saved(page)).toEqual(before);
+ if(mobile){
+  await page.setViewportSize({width:390,height:844});await dialog.locator('.challenge-goal').first().scrollIntoViewIfNeeded();
+  await page.screenshot({path:'docs/challenge-previews/picker-top-390.png',scale:'css'});
+  await dialog.locator('.challenge-goal').last().scrollIntoViewIfNeeded();await page.screenshot({path:'docs/challenge-previews/picker-bottom-390.png',scale:'css'});
+ }
+ const sun=dialog.locator('.challenge-goal').filter({has:page.getByRole('heading',{name:'타오르는 태양',exact:true})});
+ await sun.getByRole('button').scrollIntoViewIfNeeded();await touch(sun.getByRole('button'),mobile);
+ await expect(sun.getByRole('button')).toHaveText('현재 선택한 목표');await expect(dialog.getByRole('button',{name:'잠금 · 10턴',exact:true})).toHaveCount(4);
+ await expect(dialog.getByTestId('challenge-goal-preview')).toHaveCount(5);
+ const selected=await saved(page);expect(selected.breedingChallenges!.activeId).toBe('sun');expect(selected.breedingChallenges!.completed).toHaveLength(0);expect(selected.money).toBe(before.money);
+ await page.keyboard.press('Escape');await expect(page.locator('.breeding-challenge-panel .challenge-preview')).toHaveAttribute('data-challenge-id','sun');
+});
