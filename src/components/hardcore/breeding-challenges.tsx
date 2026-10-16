@@ -1,22 +1,34 @@
 "use client";
-import {useState} from 'react';
-import {BREEDING_CHALLENGES,challengeById} from '@/game/hardcore/challenge-rules';
+import {memo,useState} from 'react';
+import {BREEDING_CHALLENGES,challengeById,type ChallengeId} from '@/game/hardcore/challenge-rules';
 import {challengeLockRemaining,challengeFeedSlots} from '@/game/hardcore/challenges';
 import type {ChallengeCompletion} from '@/game/hardcore/challenges';
 import {Dialog,Sprite,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
 import {breederRank} from '@/game/hardcore/breeder-rank';
+import {challengePreview} from '@/game/hardcore/challenge-previews';
+import {SpriteCanvas} from '@/components/sprite-canvas';
 
 type Props=Pick<ViewProps,'game'|'busy'|'play'>;
+const ChallengePreview=memo(function ChallengePreview({id}:{id:ChallengeId}){
+ return <div className="challenge-preview" data-challenge-id={id}>
+  <SpriteCanvas specimen={challengePreview(id)} scale={3} testId="challenge-preview"/>
+ </div>;
+});
 export function BreedingChallengePanel({game,busy,play}:Props){
  const [open,setOpen]=useState(false),s=game.breedingChallenges,active=s?.activeId?challengeById(s.activeId):null;
  const rank=breederRank(game),remaining=challengeLockRemaining(game),completed=s?.completed??[],done=completed.some(c=>c.challengeId===active?.id);
  return <>
   <section className="breeding-challenge-panel album-metal" aria-labelledby="challenge-title">
    <div className="album-section-title"><HomeIcon name="star"/><h2 id="challenge-title">브리딩 도전</h2><span className="challenge-count">완료 {rank.completed}/5</span></div>
-   <strong className="challenge-active-name">{active?.name??'도전 목표를 선택하세요'}</strong>
-   <p>{active?active.target:'원하는 모프의 새끼를 탄생시키는 나만의 목표를 골라보세요.'}</p>
-   <div className="challenge-status"><span>{done?'목표 달성 · 변경 가능':remaining?`목표 변경까지 ${remaining}턴` : active?'목표 유지 중 · 변경 가능':'5개 목표 모두 도전 가능'}</span><small>최초 달성: 먹이 면제 슬롯 +1 · 칭호 승급</small></div>
+   <div className={'challenge-summary'+(active?' has-preview':'')}>
+    <div className="challenge-summary-copy">
+     <strong className="challenge-active-name">{active?.name??'도전 목표를 선택하세요'}</strong>
+     <p>{active?active.target:'원하는 모프의 새끼를 탄생시키는 나만의 목표를 골라보세요.'}</p>
+     <div className="challenge-status"><span>{done?'목표 달성 · 변경 가능':remaining?`목표 변경까지 ${remaining}턴` : active?'목표 유지 중 · 변경 가능':'5개 목표 모두 도전 가능'}</span><small>최초 달성: 먹이 면제 슬롯 +1 · 칭호 승급</small></div>
+    </div>
+    {active&&<ChallengePreview id={active.id}/>}
+   </div>
    <button className="album-small-button" disabled={busy} onClick={()=>setOpen(true)}>전체 도전 목표 보기</button>
   </section>
   {open&&<Dialog title="전체 도전 목표" className="breeding-challenge-dialog" onClose={()=>setOpen(false)}>

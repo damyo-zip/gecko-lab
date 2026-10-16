@@ -174,3 +174,5 @@ PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
 현재 유전·외형 엔진을 읽는 임시 판정이며 팬텀 유전자나 실제 전신 품질을 검증하지 않습니다. [목표별 기준·보상 적용 범위·저장 호환성](docs/breeding-challenges.md)을 확인하세요.
 
 칭호의 단계·구세이브 호환·모바일 검증은 [자동 브리더 칭호](docs/breeder-rank.md)에 정리했습니다.
+
+선택한 도전 옆에는 **현재 게임 렌더러로 그린 대표 외형**을 표시합니다. 별도 일러스트나 저장 개체를 만들지 않고 고정된 합법 유전체를 기존 외형 어댑터에 연결합니다. 실제 성공 판정·잠금·보상은 기존 부화 이벤트가 담당합니다. [목표별 외형 설정·캐시·모바일 검증](docs/challenge-previews.md).
