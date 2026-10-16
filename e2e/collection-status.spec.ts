@@ -62,10 +62,10 @@ test('native status buttons preserve layout and selection, preload exact sex/ID,
     if(mobile)await page.screenshot({path:`docs/collection-status/home-${width}.png`,scale:'css'});
   }
   const femaleCard=page.getByTestId('hc-card-'+f.female),maleCard=page.getByTestId('hc-card-'+f.otherMale);
-  await touch(femaleCard.locator('.home-card-select>strong'),mobile);await expect(femaleCard.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');await expect(page.getByRole('dialog')).toHaveCount(0);
+  await touch(femaleCard.locator('.home-card-select>.home-morph'),mobile);await expect(femaleCard.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');await expect(page.getByRole('dialog')).toHaveCount(0);
   await touch(maleCard.locator('.home-card-select>.home-morph'),mobile);await expect(maleCard.locator('.home-card-select')).toHaveAttribute('aria-pressed','true');await expect(page.getByRole('dialog')).toHaveCount(0);
   await touch(maleCard.getByRole('button',{name:'같은 이름 상세보기',exact:true}),mobile);await expect(page.getByRole('dialog')).toContainText('같은 이름 상세');await close(page,mobile);
-  await touch(femaleCard.locator('.home-card-select>strong'),mobile);
+  await touch(femaleCard.locator('.home-card-select>.home-morph'),mobile);
   const selected=await page.locator('.home-name').textContent();await tapStatusText(page,f.otherMale,mobile);
   await expect(page.getByRole('dialog',{name:'교배',exact:true})).toBeVisible();await expect(page.getByTestId('breed-parent-male')).toHaveAttribute('data-parent-id',f.otherMale);await expect(page.getByTestId('breed-parent-female')).toHaveAttribute('data-parent-id','');expect(await saved(page)).toEqual(f.game);expect(await page.locator('.home-name').textContent()).toBe(selected);
   await chooseBreedingParent(page,'female',f.female);await expect(page.getByTestId('breed-submit')).toBeEnabled();await close(page,mobile);

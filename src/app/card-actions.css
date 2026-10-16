@@ -1,0 +1,14 @@
+.hc-shell .game-dialog.card-rename-dialog{inset:auto;left:50%;top:calc(var(--card-viewport-top,0px) + var(--card-viewport-height,100dvh) / 2);transform:translate(-50%,-50%);margin:0;padding:14px;width:calc(100vw - 32px);max-width:360px;max-height:calc(var(--card-viewport-height,100dvh) - 24px);overscroll-behavior:contain}
+.hc-shell .card-rename-dialog input{font-size:16px;min-height:48px}
+.card-action-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.card-action-error{font-size:12px;line-height:1.5;color:#f0a6a2;margin:9px 0 0;overflow-wrap:anywhere}
+.hc-shell .game-dialog.card-sale-dialog{max-width:380px;overscroll-behavior:contain}
+.card-sale-art{position:relative;overflow:hidden;height:clamp(120px,24dvh,200px);display:grid;place-items:center;border:1px solid #334d50;border-radius:6px;background:linear-gradient(#07151b55,#07151b99),url('/ui/home-terrarium.png') center/cover}
+.card-sale-art canvas{position:absolute;left:50%;top:50%;--sprite-placement:translate(-50%,-50%);width:auto!important;height:100%!important;max-width:none;image-rendering:pixelated}
+.hc-shell .card-sale-name{font-size:18px;color:#eee9da;line-height:1.4;margin:8px 0 0;overflow-wrap:anywhere}
+.card-sale-price{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:8px 0 10px;color:#b2c3cb;font-size:12px}
+.card-sale-price strong{color:#ffd48a;font-size:22px}
+.card-sale-tags{display:flex;flex-wrap:wrap;gap:5px}
+.card-price-tag{font-size:11px;line-height:1.5;border:1px solid;border-radius:4px;padding:3px 6px}
+.card-price-tag.positive{color:#b9eca0;background:#193529;border-color:#476d43}
+.card-price-tag.negative{color:#f1b1a9;background:#382426;border-color:#794644}

@@ -6,12 +6,12 @@ import {STAGE_LABELS} from "@/game/model";
 import {PATTERN_FILTERS} from "@/phenotype/rules";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
-import {CollectionCard} from "./collection-card";
+import {CollectionCard,type CardActionHandlers} from "./collection-card";
 import {BreedingChallengeStatus} from "./breeding-challenges";
 import {EndTurnButton} from "./end-turn";
 import {collectionEntries,COLLECTION_MORPHS,COLLECTION_SORTS,type CollectionQuery,type CollectionSort} from "./collection-query";
 
-export function CollectionCatalog({game,busy,play,initial,selectedId,onSelect,onQuery,onClose,onDetail,onResources,onBreed}:ViewProps&{initial:CollectionQuery;selectedId:string;onSelect:(id:string)=>void;onQuery:(query:CollectionQuery)=>void;onClose:()=>void;onResources:()=>void;onBreed:(id:string)=>void}) {
+export function CollectionCatalog({game,busy,play,initial,selectedId,onSelect,onQuery,onClose,onDetail,onResources,onBreed,onRename,onSell,onLineage}:ViewProps&CardActionHandlers&{initial:CollectionQuery;selectedId:string;onSelect:(id:string)=>void;onQuery:(query:CollectionQuery)=>void;onClose:()=>void;onResources:()=>void;onBreed:(id:string)=>void}) {
  const [query,setQuery]=useState<CollectionQuery>({...initial,sex:"all",search:""}),[filtersOpen,setFiltersOpen]=useState(false),filterId=useId();
  const [viewport,setViewport]=useState({top:0,height:360,pitch:182});
  const scroll=useRef<HTMLDivElement>(null),grid=useRef<HTMLDivElement>(null),frame=useRef(0);
@@ -45,7 +45,7 @@ export function CollectionCatalog({game,busy,play,initial,selectedId,onSelect,on
   <BreedingChallengeStatus game={game} busy={busy} play={play}/>
   <div className="collection-list-scroll" ref={scroll} tabIndex={0} role="region" aria-label="개체·분양가격 목록">
    <div className="collection-list-window" style={{height:rows?rows*viewport.pitch-6:0}}>
-    <div ref={grid} className="collection-list-grid" style={{top:start*viewport.pitch}}>{entries.slice(start*3,end*3).map(g=><CollectionCard key={g.id} game={game} gecko={g} busy={busy} play={play} selected={g.id===selected?.id} onSelect={onSelect} onDetail={onDetail} onResources={onResources} onBreed={onBreed} catalog/>)}</div>
+    <div ref={grid} className="collection-list-grid" style={{top:start*viewport.pitch}}>{entries.slice(start*3,end*3).map(g=><CollectionCard key={g.id} game={game} gecko={g} busy={busy} play={play} selected={g.id===selected?.id} onSelect={onSelect} onDetail={onDetail} onResources={onResources} onBreed={onBreed} onRename={onRename} onSell={onSell} onLineage={onLineage} catalog/>)}</div>
    </div>
    {!entries.length&&<p className="collection-list-empty">{animals.length?"조건에 맞는 개체가 없습니다.":"보유 개체가 없습니다."}</p>}
   </div>

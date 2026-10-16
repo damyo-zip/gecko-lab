@@ -1,0 +1,620 @@
+{
+  "360": {
+    ".home-info": [
+      {
+        "x": 199.046875,
+        "y": 127.53125,
+        "width": 145.3125,
+        "height": 202.640625
+      }
+    ],
+    ".home-facts>div": [
+      {
+        "x": 205.046875,
+        "y": 167.46875,
+        "width": 133.3125,
+        "height": 19
+      },
+      {
+        "x": 205.046875,
+        "y": 193.40625,
+        "width": 133.3125,
+        "height": 19
+      },
+      {
+        "x": 205.046875,
+        "y": 219.34375,
+        "width": 133.3125,
+        "height": 19
+      },
+      {
+        "x": 205.046875,
+        "y": 245.296875,
+        "width": 133.3125,
+        "height": 19
+      },
+      {
+        "x": 205.046875,
+        "y": 271.234375,
+        "width": 133.3125,
+        "height": 19
+      }
+    ],
+    ".home-card-grid .home-card": [
+      {
+        "x": 13,
+        "y": 387.375,
+        "width": 107.328125,
+        "height": 148.28125
+      },
+      {
+        "x": 126.328125,
+        "y": 387.375,
+        "width": 107.328125,
+        "height": 148.28125
+      },
+      {
+        "x": 239.65625,
+        "y": 387.375,
+        "width": 107.34375,
+        "height": 148.28125
+      },
+      {
+        "x": 13,
+        "y": 541.65625,
+        "width": 107.328125,
+        "height": 148.296875
+      },
+      {
+        "x": 126.328125,
+        "y": 541.65625,
+        "width": 107.328125,
+        "height": 148.296875
+      },
+      {
+        "x": 239.65625,
+        "y": 541.65625,
+        "width": 107.34375,
+        "height": 148.296875
+      }
+    ],
+    ".home-gen-badge": [
+      {
+        "x": 74.078125,
+        "y": 394.375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 188.40625,
+        "y": 393.375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 301.75,
+        "y": 393.375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 75.078125,
+        "y": 547.65625,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 188.40625,
+        "y": 547.65625,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 301.75,
+        "y": 547.65625,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      }
+    ],
+    ".home-card-grid canvas": [
+      {
+        "x": 9.9921875,
+        "y": 382.4921875,
+        "width": 113.328125,
+        "height": 113.328125
+      },
+      {
+        "x": 122.3203125,
+        "y": 381.7421875,
+        "width": 115.328125,
+        "height": 115.328125
+      },
+      {
+        "x": 235.65625,
+        "y": 381.71875,
+        "width": 115.34375,
+        "height": 115.34375
+      },
+      {
+        "x": 8.9921875,
+        "y": 536.0390625,
+        "width": 115.328125,
+        "height": 115.328125
+      },
+      {
+        "x": 122.3203125,
+        "y": 536.0390625,
+        "width": 115.328125,
+        "height": 115.328125
+      },
+      {
+        "x": 235.65625,
+        "y": 536.015625,
+        "width": 115.34375,
+        "height": 115.34375
+      }
+    ],
+    ".home-hero-art canvas": [
+      {
+        "x": 24.296875,
+        "y": 154.25,
+        "width": 183.375,
+        "height": 183.375
+      }
+    ]
+  },
+  "390": {
+    ".home-info": [
+      {
+        "x": 223.125,
+        "y": 127.09375,
+        "width": 150,
+        "height": 200.328125
+      }
+    ],
+    ".home-facts>div": [
+      {
+        "x": 230.125,
+        "y": 167.25,
+        "width": 136,
+        "height": 19.0625
+      },
+      {
+        "x": 230.125,
+        "y": 192.484375,
+        "width": 136,
+        "height": 19.0625
+      },
+      {
+        "x": 230.125,
+        "y": 217.71875,
+        "width": 136,
+        "height": 19.0625
+      },
+      {
+        "x": 230.125,
+        "y": 242.953125,
+        "width": 136,
+        "height": 19.0625
+      },
+      {
+        "x": 230.125,
+        "y": 268.171875,
+        "width": 136,
+        "height": 19.0625
+      }
+    ],
+    ".home-card-grid .home-card": [
+      {
+        "x": 13.5,
+        "y": 384.53125,
+        "width": 117,
+        "height": 146.265625
+      },
+      {
+        "x": 136.5,
+        "y": 384.53125,
+        "width": 117,
+        "height": 146.265625
+      },
+      {
+        "x": 259.5,
+        "y": 384.53125,
+        "width": 117,
+        "height": 146.265625
+      },
+      {
+        "x": 13.5,
+        "y": 536.796875,
+        "width": 117,
+        "height": 146.265625
+      },
+      {
+        "x": 136.5,
+        "y": 536.796875,
+        "width": 117,
+        "height": 146.265625
+      },
+      {
+        "x": 259.5,
+        "y": 536.796875,
+        "width": 117,
+        "height": 146.265625
+      }
+    ],
+    ".home-gen-badge": [
+      {
+        "x": 84.25,
+        "y": 391.53125,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 208.25,
+        "y": 390.53125,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 331.25,
+        "y": 390.53125,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 85.25,
+        "y": 542.796875,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 208.25,
+        "y": 542.796875,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 331.25,
+        "y": 542.796875,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      }
+    ],
+    ".home-card-grid canvas": [
+      {
+        "x": 12.5,
+        "y": 372.671875,
+        "width": 119,
+        "height": 119
+      },
+      {
+        "x": 134.5,
+        "y": 371.921875,
+        "width": 121,
+        "height": 121
+      },
+      {
+        "x": 257.5,
+        "y": 371.921875,
+        "width": 121,
+        "height": 121
+      },
+      {
+        "x": 11.5,
+        "y": 524.1875,
+        "width": 121,
+        "height": 121
+      },
+      {
+        "x": 134.5,
+        "y": 524.1875,
+        "width": 121,
+        "height": 121
+      },
+      {
+        "x": 257.5,
+        "y": 524.1875,
+        "width": 121,
+        "height": 121
+      }
+    ],
+    ".home-hero-art canvas": [
+      {
+        "x": 26.25,
+        "y": 136.046875,
+        "width": 198.734375,
+        "height": 198.734375
+      }
+    ]
+  },
+  "430": {
+    ".home-info": [
+      {
+        "x": 246.046875,
+        "y": 126.96875,
+        "width": 165.46875,
+        "height": 199.671875
+      }
+    ],
+    ".home-facts>div": [
+      {
+        "x": 253.046875,
+        "y": 167.1875,
+        "width": 151.46875,
+        "height": 20.8125
+      },
+      {
+        "x": 253.046875,
+        "y": 192.28125,
+        "width": 151.46875,
+        "height": 20.8125
+      },
+      {
+        "x": 253.046875,
+        "y": 217.359375,
+        "width": 151.46875,
+        "height": 20.8125
+      },
+      {
+        "x": 253.046875,
+        "y": 242.453125,
+        "width": 151.46875,
+        "height": 20.8125
+      },
+      {
+        "x": 253.046875,
+        "y": 267.546875,
+        "width": 151.46875,
+        "height": 20.8125
+      }
+    ],
+    ".home-card-grid .home-card": [
+      {
+        "x": 14.15625,
+        "y": 383.734375,
+        "width": 129.890625,
+        "height": 145.703125
+      },
+      {
+        "x": 150.046875,
+        "y": 383.734375,
+        "width": 129.890625,
+        "height": 145.703125
+      },
+      {
+        "x": 285.9375,
+        "y": 383.734375,
+        "width": 129.890625,
+        "height": 145.703125
+      },
+      {
+        "x": 14.15625,
+        "y": 535.4375,
+        "width": 129.890625,
+        "height": 145.703125
+      },
+      {
+        "x": 150.046875,
+        "y": 535.4375,
+        "width": 129.890625,
+        "height": 145.703125
+      },
+      {
+        "x": 285.9375,
+        "y": 535.4375,
+        "width": 129.890625,
+        "height": 145.703125
+      }
+    ],
+    ".home-gen-badge": [
+      {
+        "x": 97.796875,
+        "y": 390.734375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 234.6875,
+        "y": 389.734375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 370.578125,
+        "y": 389.734375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 98.796875,
+        "y": 541.4375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 234.6875,
+        "y": 541.4375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      },
+      {
+        "x": 370.578125,
+        "y": 541.4375,
+        "width": 39.25,
+        "height": 20,
+        "fontSize": "10px",
+        "lineHeight": "18px",
+        "fontWeight": "400",
+        "color": "rgb(169, 181, 204)",
+        "background": "rgba(26, 38, 50, 0.91) none repeat scroll 0% 0% / auto padding-box border-box",
+        "border": "1px solid rgb(67, 86, 105)",
+        "padding": "0px 5px"
+      }
+    ],
+    ".home-card-grid canvas": [
+      {
+        "x": 19.9609375,
+        "y": 371.9453125,
+        "width": 118.265625,
+        "height": 118.265625
+      },
+      {
+        "x": 154.515625,
+        "y": 370.609375,
+        "width": 120.9375,
+        "height": 120.9375
+      },
+      {
+        "x": 290.40625,
+        "y": 370.609375,
+        "width": 120.9375,
+        "height": 120.9375
+      },
+      {
+        "x": 18.625,
+        "y": 522.3125,
+        "width": 120.9375,
+        "height": 120.9375
+      },
+      {
+        "x": 154.515625,
+        "y": 522.3125,
+        "width": 120.9375,
+        "height": 120.9375
+      },
+      {
+        "x": 290.40625,
+        "y": 522.3125,
+        "width": 120.9375,
+        "height": 120.9375
+      }
+    ],
+    ".home-hero-art canvas": [
+      {
+        "x": 28.828125,
+        "y": 114.734375,
+        "width": 219.25,
+        "height": 219.25
+      }
+    ]
+  }
+}

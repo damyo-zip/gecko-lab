@@ -13,6 +13,7 @@ import { validateGame } from "./validation";
 import type { GameDate } from "./time";
 import { isV12 } from "./lifecycle";
 import { collectEggs, receiveHatchling, removeFailedEgg } from "./brood-care";
+import {validatedGeckoName} from "./names";
 import {startRush,stepRush,claimRush} from '@/game/rush';
 
 export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}, table: PriceTable = MARKET, timeMode: TimeMode = "turn"): HardcoreGame {
@@ -59,8 +60,8 @@ export function act(source: HardcoreGame, action: GameplayAction, date: GameDate
     case "renameLineage": renameLineage(game,action.lineageId,action.name);break;
     case "unfavoriteLineage": unfavoriteLineage(game,action.lineageId);break;
     case "rename": {
-      const i = game.individuals[action.id], name = action.name.trim();
-      if (!i || !name || name.length > 24) throw new Error("개체 이름은 1~24자여야 합니다.");
+      const i = game.individuals[action.id], name = validatedGeckoName(action.name);
+      if (!i) throw new Error("개체 이름은 1~24자여야 합니다.");
       i.name = name; break;
     }
     default: throw new Error("지원하지 않는 게임 행동입니다.");

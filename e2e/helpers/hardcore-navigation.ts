@@ -47,7 +47,7 @@ export async function finishTurn(page:Page,mobile:boolean) {
 export async function feedCollection(page:Page,mobile:boolean) {
   await navigateGame(page,"컬렉션",mobile);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);
-  await expect(page.getByRole("dialog")).toContainText("자동 급여");
+  await expect(page.getByRole("dialog")).toContainText("급여는 턴 종료 시 자동 처리합니다.");
   await expect(page.locator(".game-tab-content")).toHaveAttribute("aria-busy","false");
   await touch(page.getByRole("dialog").getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
 }
