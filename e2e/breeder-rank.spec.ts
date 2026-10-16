@@ -42,7 +42,8 @@ test('all six automatic ranks fit the original generation frame at mobile sizes,
 test('legacy equipped data is ignored, switching and selling animals preserve rank, reload persists it and actual new game resets it',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),g=structuredClone(states[1]);g.breedingChallenges!.equippedTitle='midnight';await restore(page,g,mobile);
  await expect(page.getByTestId('breeder-rank')).toHaveText('신예 브리더');const before=await saved(page);expect(before.breedingChallenges!.equippedTitle).toBe('midnight');
- const chosen=Object.values(g.individuals)[1];await touch(page.getByTestId('hc-card-'+chosen.id).locator('.home-card-select'),mobile);await expect(page.locator('.home-name')).toContainText(chosen.name);await expect(page.getByTestId('breeder-rank')).toHaveText('신예 브리더');
+ // The name is now a separate rename button; select through the card's morph row.
+ const chosen=Object.values(g.individuals)[1];await touch(page.getByTestId('hc-card-'+chosen.id).locator('.home-card-select>.home-morph'),mobile);await expect(page.locator('.home-name')).toContainText(chosen.name);await expect(page.getByTestId('breeder-rank')).toHaveText('신예 브리더');
  await touch(page.getByTestId('hc-card-'+chosen.id).getByRole('button',{name:chosen.name+' 상세보기',exact:true}),mobile);
  const dialog=page.getByRole('dialog');await touch(dialog.getByRole('button',{name:/^분양 준비/}),mobile);await touch(dialog.getByRole('button',{name:'분양 확정',exact:true}),mobile);await expect(dialog).toContainText('판매 완료');await page.keyboard.press('Escape');
  await expect(page.getByTestId('breeder-rank')).toHaveText('신예 브리더');expect((await saved(page)).breedingChallenges).toEqual(before.breedingChallenges);
