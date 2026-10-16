@@ -19,6 +19,7 @@ import type {HardcoreGame} from '@/game/hardcore/model';
 const DATE='2026-10-14',end=(g:HardcoreGame)=>tendBrood(actWithTime(g,{type:'endTurn'},DATE));
 const stocked=(seed='real-market')=>newGame(seed,DATE,{initialMoney:100_000_000,initialCapacity:100});
 
+// Thirty cold-rendered families verify inheritance and prices, not a 5s speed budget.
 test('four deterministic real descendants inherit all Mendelian and polygenic alleles, unique visuals and actual market prices',()=>{
  for(let n=0;n<30;n++){
   const g=stocked('family-'+n);expect(g).toEqual(stocked('family-'+n));expect(Object.values(g.shop.offers)).toHaveLength(4);
@@ -32,7 +33,7 @@ test('four deterministic real descendants inherit all Mendelian and polygenic al
    for(const p of [f.father,f.mother])if(!p.genotype.loci.axanthic.every(a=>a==='ax'))expect(carrierProbability(p.genetics!.knowledge)).toBeNull();
   }
  }
-});
+},30000);
 test('reroll costs exactly 2000, preserves clocks/genes/economy history, changes all IDs, repeats deterministically and rejects insufficient funds',()=>{
  const g=stocked(),before=structuredClone(g),next=act(g,{type:'refreshShop'},DATE);expect(next.money).toBe(g.money-2000);expect(next.turn).toBe(g.turn);expect(next.lastDate).toBe(g.lastDate);
  expect(Object.keys(next.shop.offers).some(id=>id in g.shop.offers)).toBe(false);expect(next).toEqual(act(g,{type:'refreshShop'},DATE));expect(g).toEqual(before);

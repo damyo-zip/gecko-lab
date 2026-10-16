@@ -16,6 +16,7 @@ const put=(l:SpriteLayer,i:number,color:RGB)=>{l.mask[i]=255;paint(l.pixels,i,co
 const lum=(c:ArrayLike<number>)=>c[0]*.30+c[1]*.59+c[2]*.11;
 type Cluster={x:number;y:number;rx:number;ry:number};
 function clusters(seed:string):Cluster[] {
+  // Preserve the reviewed v2 random stream; renaming it changes every specimen.
   const rng=randomFor(seed,'prototype:regional-clusters');
   return [[15,19],[26,18],[35,24],[44,31],[53,34],[63,35],[73,38]].map(([x,y])=>
     ({x:x+(rng()-.5)*5,y:y+(rng()-.5)*4,rx:3+rng()*4,ry:2+rng()*3}));

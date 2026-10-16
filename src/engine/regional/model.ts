@@ -26,7 +26,7 @@ export interface RegionalResult {
   white: Uint8Array;
   dark: Uint8Array;
   /** Pigment labels before illumination: base / cream / dark / white / spot.
-   * For boundary diagnostics only, never a genotype or a saved mask. */
+   * Used for final observations and boundary diagnostics; never stored as genotype. */
   materials: Uint8Array;
   metrics: RegionalMetrics;
 }

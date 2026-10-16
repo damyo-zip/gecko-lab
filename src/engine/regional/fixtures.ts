@@ -43,7 +43,7 @@ export function fixtureGenome(profile:ProfileId,morph:MorphId):Genome {
   return {version:1,mendelian,polygenic:{version:1,loci:Object.fromEntries(FEATURES.flatMap(f=>
     Array.from({length:6},(_,n)=>[f+'-'+n,[recipes[profile][f],recipes[profile][f]]])))}};
 }
-/** Transient old-adapter subject. Never inserted into a game, save or collection. */
+/** Transient legal gallery/test specimen. Never inserted into a game, save or collection. */
 export function comparisonSubject(genome:Genome,seed:string):Gecko {
   return {id:'prototype-comparison',name:'비교 개체',sex:'female',birthTurn:-12,birthDate:'2000-01-01',stage:'adult',parents:null,generation:1,
     genotype:{modelVersion:1,loci:{'lilly-white':genome.mendelian.loci['lilly-white'],axanthic:genome.mendelian.loci.axanthic}},
