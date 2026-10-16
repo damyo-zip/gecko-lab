@@ -44,7 +44,7 @@ test("every living owned stage and breeding state consumes one food; eggs consum
  const next=end(g);expect(next.food).toBe(g.food-count);expect(next.individuals[father].hearts).toBe(5);
 });
 test("food shortage is counted before a turn; health-priority feeding is deterministic; starvation preserves records",()=>{
- let {g,father,mother}=pair();g.food=1;g.individuals[mother].hearts=1;expect(foodDemand(g)).toEqual({needed:2,missing:1});
+ let {g,father,mother}=pair();g.food=1;g.individuals[mother].hearts=1;expect(foodDemand(g)).toEqual({animals:2,exempt:0,needed:2,missing:1});
  g=end(g);expect(g.food).toBe(0);expect(g.individuals[mother].hearts).toBe(2);expect(g.individuals[father].hearts).toBe(4);
  g.individuals[father].hearts=1;const genes=structuredClone(g.individuals[father].genetics);g=end(g);
  expect(g.individuals[father]).toMatchObject({status:"dead",deathCause:"starvation",hearts:0});expect(g.individuals[father].genetics).toEqual(genes);

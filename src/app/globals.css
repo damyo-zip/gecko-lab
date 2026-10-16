@@ -292,6 +292,7 @@ button:disabled, fieldset:disabled { opacity: .5; cursor: not-allowed; }
 .game-dialog::backdrop { background: #060e0bbd; backdrop-filter: blur(3px); }
 .dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #3c5032; padding-bottom: 12px; }
 .dialog-heading h2 { font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
+.dialog-header-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
 .dialog-heading button { width: 44px; height: 44px; border: 1px solid #485e3a; background: #243423; color: #c1dba4; font-size: 25px; flex-shrink: 0; }
 .detail-art { display: flex; justify-content: center; align-items: center; background: radial-gradient(ellipse,#36523355,#102018); margin: 14px 0; overflow: auto; }
 .name-form > label { display: block; font-size: 11px; margin-bottom: 8px; color: #bdd2a7; }

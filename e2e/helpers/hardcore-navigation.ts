@@ -120,3 +120,9 @@ export async function openIncubatorRecords(page:Page,mobile:boolean){
  await touch(page.getByRole('button',{name:'부화 확률과 슬롯 규칙',exact:true}),mobile);
  await expect(page.getByRole('dialog',{name:'부화 확률과 슬롯 규칙',exact:true})).toBeVisible();
 }
+
+/** Search is collapsed by default; existing workflows explicitly open it. */
+export async function expandCollectionFilters(page:Page,mobile:boolean){
+ const dialog=page.getByRole('dialog',{name:'전체 개체',exact:true}),toggle=dialog.getByRole('button',{name:'검색·필터 펼치기',exact:true});
+ if(await toggle.count())await touch(toggle,mobile);
+}
