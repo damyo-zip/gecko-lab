@@ -52,7 +52,7 @@ export default function HardcoreHub() {
     {loading ? <section className="game-loading"><h1>연구소를 여는 중</h1><p>날짜와 저장된 혈통을 확인합니다.</p></section> : props ? <div className="game-tab-content" data-view={tab} aria-busy={busy}>
       {tab==="home" && <Dashboard {...props} onTab={navigate}/>}{tab==="collection" && <Collection {...props} onShop={()=>setTab("shop")} onRush={openRush} onResources={()=>setResources(true)} onBreed={breedFromCollection}/>}
 
-      {tab==="incubator" && <Incubator {...props} onTab={navigate}/>}{tab==="shop" && <Shop {...props}/>}
+      {tab==="incubator" && <Incubator {...props} onTab={navigate}/>}{tab==="shop" && <Shop {...props} onResources={()=>setResources(true)}/>}
       {tab==="lineage" && <Lineage {...props} selectedId={lineage} onSelect={setLineage}/>}
     </div> : <section className="game-loading"><h1>저장 데이터를 불러오지 못했습니다</h1><p>기존 저장을 덮어쓰지 않았습니다. 복구 전 원본을 아카이브에 남깁니다.</p><button className="game-primary" onClick={()=>setSettings(true)}>백업 복원 또는 새 게임</button></section>}
     {!isReference&&<footer className="game-footer-note"><a href="/lab">스프라이트 연구실 ↗</a><span>v1.2 · 저장 v9 · 가격표는 현재 임시 추정</span></footer>}
