@@ -1,6 +1,5 @@
 import {openIncubatorRecords} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
-import {preRiskRecord} from '../tests/helpers/risk-projection';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
@@ -45,15 +44,11 @@ for(const available of [0,1,2])test(`${available} free slots: exact shortage, tw
  }
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(errors).toEqual([]);
 });
-for(const key of ['beforeLaying','laid1'] as const)test(`real v6 ${key}: atomic archive, released reservations and no future clutches after reload`,async({page},info)=>{
+for(const key of ['beforeLaying','laid1'] as const)test(`real v6 ${key}: old clutch record stays untouched across repeated new-game-required loads`,async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),record={save:oldSaves[key],writeRevision:17},errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
- await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(record.save.game.turn));let g=await saved(page);const m=Object.values(g.matings)[0],old=Object.values(record.save.game.matings)[0];
- expect(g.rulesVersion).toBe(4);expect(preRiskRecord(g.eggs)).toEqual(record.save.game.eggs);expect(preRiskRecord(m.lifecycle!.offspring)).toEqual(old.lifecycle!.offspring.slice(0,2));expect(g.individuals[m.parents.motherId].nextBreedTurn).toBe(6);expect(reserved(g)).toBe(2);
- for(const id of Object.keys(record.save.game.individuals)){expect(g.individuals[id].genetics).toEqual(record.save.game.individuals[id].genetics);}
- const archives=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise<unknown[]>(resolve=>{const tx=db.transaction('games','readonly'),items:unknown[]=[],r=tx.objectStore('games').openCursor();r.onsuccess=()=>{const c=r.result;if(!c)return;if(String(c.key).startsWith('archive-'))items.push({key:c.key,value:c.value});c.continue();};tx.oncomplete=()=>{db.close();resolve(items);};});});
- expect(archives).toEqual([{key:'archive-v6-18',value:record}]);await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(g.turn));expect(await saved(page)).toEqual(g);
- const revision=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise<number>(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.writeRevision);tx.oncomplete=()=>db.close();});});expect(revision).toBe(18);
- await navigateGame(page,'부화',mobile);while(g.turn<10){await finishTurn(page,mobile);g=await saved(page);}
- expect(Object.values(g.eggs)).toHaveLength(2);expect(g.matings[m.id].status).toBe('laid');expect(g.matings[m.id].lifecycle!.maxClutches).toBe(1);expect(errors).toEqual([]);
+ await page.reload();await expect(page.getByRole('alert').filter({hasText:'새 외형 엔진'})).toContainText('새 게임');expect(await saved(page)).toEqual(record.save.game);
+ await page.reload();expect(await saved(page)).toEqual(record.save.game);
+ const active=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(active).toEqual(record);expect(errors).toEqual([]);
+
 });

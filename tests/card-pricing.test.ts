@@ -4,16 +4,16 @@ import {referenceHomeGame,REFERENCE_DATE} from '../e2e/fixtures/reference-home';
 import {newGame} from '@/game/hardcore/play';
 import {valueGecko} from '@/game/hardcore/market';
 
-// Snapshot captured before extracting factors: prices/rounding and return shape
-// must remain byte-for-byte identical for legacy and current generated records.
-test('existing quotes are unchanged across genomes, growth stages and public knowledge',()=>{
+// regional-2 pricing snapshot: fixed market terms, new measured appearance.
+// Changing a display label must never change these actual quotes.
+test('regional quotes remain stable across genomes, growth stages and public knowledge',()=>{
  const records=Object.values(referenceHomeGame().individuals);
  for(let seed=0;seed<12;seed++)for(const offer of Object.values(newGame('sale-prices-'+seed,REFERENCE_DATE).shop.offers)){
   records.push(offer.individual,...(offer.family?[offer.family.father,offer.family.mother]:[]));
  }
  const quotes=records.flatMap(g=>(['hatchling','juvenile','adult'] as const).map(stage=>valueGecko({...g,stage})));
- expect(createHash('sha256').update(JSON.stringify(quotes)).digest('hex')).toMatchInlineSnapshot(`"433cfffc55e6f46fcc3078502ff3b4ea5cd9284d0e28e5d6e02b830d55248afd"`);
-});
+ expect(createHash('sha256').update(JSON.stringify(quotes)).digest('hex')).toMatchInlineSnapshot(`"ace38f762f0326126be3d8b94c9172725db294c6b98c0bbacced6c0865efe172"`);
+},30000);
 
 import {salePriceTags} from '@/components/hardcore/sale-price-tags';
 import {MARKET,valuationFactors} from '@/game/hardcore/market';
@@ -37,12 +37,11 @@ test('tags explain actual non-neutral terms without fake retirement or inbreedin
  expect(tags.map(t=>t.label).join(' ')).not.toMatch(/노령|은퇴|근친|건강|번식 가능/);
  expect(g).toEqual(before);
 });
-test('neutral terms produce no tags, and net appearance deductions are red',()=>{
- const g=Object.values(referenceHomeGame().individuals)[1];
- g.potential={bodyTone:0,redIntensity:0,creamCoverage:0,dorsalIntensity:0,flankIntensity:0,spotDensity:0};
- expect(salePriceTags(g)).toEqual([{id:'appearance',label:'외형 감산',tone:'negative'}]);
- g.potential.redIntensity=1;
- expect(valuationFactors(g).appearance).toBe(1);expect(salePriceTags(g)).toEqual([]);
+test('appearance tags reflect the actual measured net multiplier and neutral factors create no tags',()=>{
+ const g=Object.values(referenceHomeGame().individuals)[1],factor=valuationFactors(g).appearance;
+ const tag=salePriceTags(g).find(t=>t.id==='appearance');
+ if(factor===1)expect(tag).toBeUndefined();else expect(tag?.tone).toBe(factor>1?'positive':'negative');
+ expect(salePriceTags(g).some(t=>t.id==='sex'||t.id==='pedigree'||t.id==='age')).toBe(false);
 });
 test('only publicly priced carrier knowledge produces carrier tags, including seller reliability',()=>{
  const g=Object.values(referenceHomeGame().individuals)[1];

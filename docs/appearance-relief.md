@@ -1,3 +1,5 @@
+> 역사 기록: 명암 개선 v2는 현재 `regional-2` 정식 엔진에 통합되었습니다. 최신 계약·검증은 [정식 외형 엔진](regional-engine.md)에 있습니다. 아래 비교와 수치는 실험 당시 자료입니다.
+
 # regional-prototype-2 — 원화 질감과 구조적 명암
 
 개발용 **`/lab/appearance`**에서 정식 → 기존 `regional-prototype-1` → 명암 개선 `regional-prototype-2`를 비교합니다. 동일한 유전체·시드·파이어 상태이며, **정식 게임·저장 형식·유전 확률·상속·가격·도전 판정은 변경하지 않았습니다.**

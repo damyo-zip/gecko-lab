@@ -1,0 +1,3500 @@
+{
+  "version": "regional-2",
+  "source": "regional-prototype-2",
+  "seed": "regional-review-01",
+  "frozenV2Matches": 100,
+  "examples": [
+    {
+      "profile": "low",
+      "morph": "normal",
+      "pixels": "57ad4894b06f0a12851abab4d12ebe84a2b679a3fdf2ac8c614d0d663fd33cfb",
+      "names": {
+        "primary": "옐로 패턴리스",
+        "features": [],
+        "base": "패턴리스",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.06584362139917696,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9602470088768815,
+        "creamArea": 0.03975299112311849,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 162.23707834813104,
+        "baseLuminance": 160.0358078778163,
+        "contrast": 0.2915263157894739,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "lilly",
+      "pixels": "aec3466a908f5977849721fb5001ae883ab10f572ddc40f84704698a9dbb5618",
+      "names": {
+        "primary": "릴리화이트 옐로 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.043209876543209874,
+        "flank": 0.2,
+        "limbs": 0,
+        "baseArea": 0.7800077190274025,
+        "creamArea": 0.21999228097259746,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.21999228097259746,
+        "headWhite": 0,
+        "meanLuminance": 174.13460825935735,
+        "baseLuminance": 157.0163038099975,
+        "contrast": 0.40815789473684233,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "axanthic",
+      "pixels": "2e5dac36b6db1076ce67cb3369e63c26bd069af37057217be25e5c00c9b6e698",
+      "names": {
+        "primary": "아잔틱 패턴리스",
+        "features": [],
+        "base": "패턴리스",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.06584362139917696,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9602470088768815,
+        "creamArea": 0.03975299112311849,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 109.94123890390036,
+        "baseLuminance": 105.41708199357272,
+        "contrast": 0.6011052631578947,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "cappuccino",
+      "pixels": "847885b439388a090d38c1779e86750be518cb5abf28c3138d8e9f8a9d29a0bb",
+      "names": {
+        "primary": "Cappuccino 옐로 패턴리스",
+        "features": [],
+        "base": "패턴리스",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.03497942386831276,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9282130451563103,
+        "creamArea": 0.05441914318795832,
+        "secondaryArea": 0.01736781165573138,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.028560401389424932,
+        "headWhite": 0,
+        "meanLuminance": 142.06016209957787,
+        "baseLuminance": 138.58799168399364,
+        "contrast": 0.742736842105263,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "highway",
+      "pixels": "f46451fab709c31f72aeffa149c4e9a76e44c9df3d37e9b4103c981314b0ee8d",
+      "names": {
+        "primary": "Highway 옐로 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.3271604938271605,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9112311848707063,
+        "creamArea": 0.08876881512929372,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.05866460825935932,
+        "headWhite": 0,
+        "meanLuminance": 160.2727711308371,
+        "baseLuminance": 154.16248623464614,
+        "contrast": 0.3617368421052631,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "sable",
+      "pixels": "a18b551c415003d40285c46ca7c4083be4dee9ac9952b9ffc1771d87c6966204",
+      "names": {
+        "primary": "Sable 옐로 패턴리스",
+        "features": [],
+        "base": "패턴리스",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.1111111111111111,
+        "flank": 0,
+        "limbs": 0,
+        "baseArea": 0.9494403705133153,
+        "creamArea": 0.05055962948668468,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.028174450019297567,
+        "headWhite": 0.038461538461538464,
+        "meanLuminance": 126.30913546893248,
+        "baseLuminance": 121.15508536585477,
+        "contrast": 0.5369473684210527,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0,
+          "cappuccino": 0,
+          "highway": 0,
+          "sable": 0
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "normal",
+      "pixels": "6148b0173a26c260c930ebcd48182b9d1f0b6d15cd08513696d55c854be49694",
+      "names": {
+        "primary": "오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.5802469135802469,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5970667695870321,
+        "creamArea": 0.40293323041296797,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 163.82045542261608,
+        "baseLuminance": 138.51348416289915,
+        "contrast": 0.33136842105263176,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "lilly",
+      "pixels": "4d12db7be2cc4f7cdd10934b4661144f25acb1d2106c52e597ec7972bcd613ea",
+      "names": {
+        "primary": "릴리화이트 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.38054805094558086,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 190.10690467000467,
+        "baseLuminance": 131.9575152129819,
+        "contrast": 0.49468421052631584,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "axanthic",
+      "pixels": "9feb2062634c32231f677df361b3bb3dc801cd117a6d1aa3322121ba3e1935b5",
+      "names": {
+        "primary": "아잔틱 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.5802469135802469,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5970667695870321,
+        "creamArea": 0.40293323041296797,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 143.11079505982022,
+        "baseLuminance": 101.39619263089898,
+        "contrast": 0.5447894736842106,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "cappuccino",
+      "pixels": "f51d2c63c91f8e66ea90008b0339f1395545a8415390be01e1138124f17842a2",
+      "names": {
+        "primary": "Cappuccino 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.565843621399177,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5789270551910459,
+        "creamArea": 0.38788112697800076,
+        "secondaryArea": 0.0331918178309533,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.04862987263604786,
+        "headWhite": 0,
+        "meanLuminance": 143.90935932072935,
+        "baseLuminance": 108.86358666666659,
+        "contrast": 0.674,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "highway",
+      "pixels": "78e4558ddb29a9254671f1772fae74b26b27c863c54c2e330b6f41bfa65a460e",
+      "names": {
+        "primary": "Highway 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8353909465020576,
+        "flank": 0,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5700501736781166,
+        "creamArea": 0.42994982632188344,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.11617136240833655,
+        "headWhite": 0,
+        "meanLuminance": 163.88552682362183,
+        "baseLuminance": 131.0803182125929,
+        "contrast": 0.3991578947368421,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "sable",
+      "pixels": "b7f9127c6997718683f00988e0c9d6e168a2bfaa4991e6b4cd25468ece3d9f07",
+      "names": {
+        "primary": "Sable 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6872427983539094,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5619451949054419,
+        "creamArea": 0.4380548050945581,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.10575067541489773,
+        "headWhite": 0.1396011396011396,
+        "meanLuminance": 139.8110459282144,
+        "baseLuminance": 91.14337225274575,
+        "contrast": 0.5826842105263158,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "normal",
+      "pixels": "e5934793ad1ea40bc96129be326318f69169e03aed944fb08b082b21e9caad30",
+      "names": {
+        "primary": "크림 익스트림 할리퀸",
+        "features": [
+          "풀 핀스트라이프",
+          "화이트월"
+        ],
+        "base": "익스트림 할리퀸",
+        "color": "크림",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.7037037037037037,
+        "flank": 0.9272727272727272,
+        "limbs": 0.44873501997336884,
+        "baseArea": 0.30104206869934386,
+        "creamArea": 0.46931686607487455,
+        "secondaryArea": 0.22964106522578154,
+        "pin": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.23154362416107382,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 169.87557699730013,
+        "baseLuminance": 195.93208974359078,
+        "contrast": 0.7181052631578947,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "lilly",
+      "pixels": "ff3bbdb335a5ebb8d7c829d3f99cd3481364cd4c4ad68e0058fbb251ba39d2c5",
+      "names": {
+        "primary": "릴리화이트 크림 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "크림",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.7263374485596708,
+        "flank": 1,
+        "limbs": 1,
+        "baseArea": 0.051331532226939404,
+        "creamArea": 0.9486684677730606,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.19966442953020133,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0.9486684677730606,
+        "headWhite": 1,
+        "meanLuminance": 216.73968351986957,
+        "baseLuminance": 215.9354887218041,
+        "contrast": 0.004052631578947422,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "axanthic",
+      "pixels": "82fe3424b54ce161a0ee59866e3730af56e1955f5a953fa9a32ff0cf0ec35cbe",
+      "names": {
+        "primary": "아잔틱 익스트림 할리퀸",
+        "features": [
+          "풀 핀스트라이프",
+          "화이트월"
+        ],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.7037037037037037,
+        "flank": 0.9272727272727272,
+        "limbs": 0.44873501997336884,
+        "baseArea": 0.30104206869934386,
+        "creamArea": 0.46931686607487455,
+        "secondaryArea": 0.22964106522578154,
+        "pin": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.23154362416107382,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 150.49243535314275,
+        "baseLuminance": 142.87405128204992,
+        "contrast": 0.8553157894736841,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "cappuccino",
+      "pixels": "e0562247d7986c705f25f0036075666b3a93664dd0f010e76d3869a48f570201",
+      "names": {
+        "primary": "Cappuccino 크림 트라이컬러 익스트림 할리퀸",
+        "features": [
+          "파셜 핀스트라이프",
+          "화이트월"
+        ],
+        "base": "트라이컬러 익스트림 할리퀸",
+        "color": "크림",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.7037037037037037,
+        "flank": 0.9272727272727272,
+        "limbs": 0.44873501997336884,
+        "baseArea": 0.2848321111539946,
+        "creamArea": 0.4507912003087611,
+        "secondaryArea": 0.26437668853724433,
+        "pin": [
+          {
+            "coverage": 1,
+            "longestRun": 26,
+            "gapCount": 0,
+            "length": 26
+          },
+          {
+            "coverage": 0.7307692307692307,
+            "longestRun": 17,
+            "gapCount": 2,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.23154362416107382,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0.06561173292165187,
+        "headWhite": 0,
+        "meanLuminance": 144.9850714010042,
+        "baseLuminance": 125.02368563685638,
+        "contrast": 0.7354210526315791,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "highway",
+      "pixels": "d4e374ebbb3865698b402125978ff975a194d707c92334aad49271b02e37c907",
+      "names": {
+        "primary": "Highway 크림 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "크림",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8703703703703703,
+        "flank": 0,
+        "limbs": 0.44873501997336884,
+        "baseArea": 0.32072558857583944,
+        "creamArea": 0.4612118873021999,
+        "secondaryArea": 0.21806252412196064,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.13087248322147652,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0.15746815901196448,
+        "headWhite": 0,
+        "meanLuminance": 170.68305287534184,
+        "baseLuminance": 182.75695547533022,
+        "contrast": 0.7582631578947369,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "sable",
+      "pixels": "299e5535565f7f371ab76935e078907f3a75e10aef122ed755cf5d4018807528",
+      "names": {
+        "primary": "Sable 크림 익스트림 할리퀸",
+        "features": [
+          "화이트월"
+        ],
+        "base": "익스트림 할리퀸",
+        "color": "크림",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8683127572016461,
+        "flank": 0.9272727272727272,
+        "limbs": 0.44873501997336884,
+        "baseArea": 0.26167502894635275,
+        "creamArea": 0.554612118873022,
+        "secondaryArea": 0.18371285218062525,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0.23154362416107382,
+        "bars": 0,
+        "brokenBars": true,
+        "spots": 0,
+        "whiteArea": 0.21883442686221535,
+        "headWhite": 0.32336182336182334,
+        "meanLuminance": 148.2307680432275,
+        "baseLuminance": 93.38125368731592,
+        "contrast": 0.7726315789473684,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 1,
+          "cappuccino": 1,
+          "highway": 1,
+          "sable": 1
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "normal",
+      "pixels": "9a72fc1398d246e14712d7da4b57c5bfb7d7dce7d24ce1ba9515f96f2b869fdc",
+      "names": {
+        "primary": "다크 타이거",
+        "features": [
+          "파셜 핀스트라이프"
+        ],
+        "base": "타이거",
+        "color": "다크",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.07818930041152264,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8942493245851023,
+        "creamArea": 0.023928984947896564,
+        "secondaryArea": 0.08182169046700116,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 2,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 66.09265534542597,
+        "baseLuminance": 61.071791109194,
+        "contrast": 0.8291052631578948,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "lilly",
+      "pixels": "adc2c1cb10b4ebbf59ccaefe7405b448e0e31337a521edf318b72448abff453d",
+      "names": {
+        "primary": "릴리화이트 다크 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "다크",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.3627942879197221,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0.01775376302585874,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 160.5128483211069,
+        "baseLuminance": 55.1314999999996,
+        "contrast": 0.8926842105263157,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "axanthic",
+      "pixels": "6059d4fddcb451cf6a30942678f8256b3d3297b91102d5d388e7a59fa52c98f8",
+      "names": {
+        "primary": "아잔틱 타이거",
+        "features": [
+          "파셜 핀스트라이프"
+        ],
+        "base": "타이거",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.07818930041152264,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8942493245851023,
+        "creamArea": 0.023928984947896564,
+        "secondaryArea": 0.08182169046700116,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 2,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 53.59311462755619,
+        "baseLuminance": 50.56979283556198,
+        "contrast": 0.9757894736842105,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "cappuccino",
+      "pixels": "3e95d67d9e17f0965055ea14d0f1514d07529c717c9e2194e18923d992d5d5a7",
+      "names": {
+        "primary": "Cappuccino 다크 타이거",
+        "features": [],
+        "base": "타이거",
+        "color": "다크",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.06584362139917696,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8050945580856812,
+        "creamArea": 0.07410266306445387,
+        "secondaryArea": 0.12080277884986491,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.3076923076923077,
+            "longestRun": 2,
+            "gapCount": 6,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.05326128907757623,
+        "headWhite": 0,
+        "meanLuminance": 75.30453492859982,
+        "baseLuminance": 62.08613135186882,
+        "contrast": 0.8412631578947368,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "highway",
+      "pixels": "b48924a39c5d0da6d653683e2795c45e2a7b9a6829030a9606560c225b4cf290",
+      "names": {
+        "primary": "Highway 다크 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "다크",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6255144032921811,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8305673485140872,
+        "creamArea": 0.12659204940177538,
+        "secondaryArea": 0.0428406020841374,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 1,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.11617136240833655,
+        "headWhite": 0,
+        "meanLuminance": 80.53671555383868,
+        "baseLuminance": 59.16052973977876,
+        "contrast": 0.8684736842105264,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "sable",
+      "pixels": "9fea38982a744de70b36480c898a38258843fb7125a76a4086afab4061b97655",
+      "names": {
+        "primary": "Sable 다크 타이거",
+        "features": [],
+        "base": "타이거",
+        "color": "다크",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.46502057613168724,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8016209957545349,
+        "creamArea": 0.13894249324585103,
+        "secondaryArea": 0.05943651099961405,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 3,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.13624083365495948,
+        "headWhite": 0.1866096866096866,
+        "meanLuminance": 82.84065225781785,
+        "baseLuminance": 60.26747231583877,
+        "contrast": 0.8470526315789474,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6964436620278466,
+          "highway": 0.5456403417931535,
+          "sable": 0.6305116231703152
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "normal",
+      "pixels": "5e624d77a1099e4b69ce2dc36d4977292f6b9a75b8c07729c0c32852ba688b6c",
+      "names": {
+        "primary": "옐로 타이거",
+        "features": [
+          "파셜 핀스트라이프"
+        ],
+        "base": "타이거",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.07818930041152264,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8942493245851023,
+        "creamArea": 0.023928984947896564,
+        "secondaryArea": 0.08182169046700116,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 2,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 176.5051370127338,
+        "baseLuminance": 184.5046870953788,
+        "contrast": 0.7469473684210526,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "lilly",
+      "pixels": "466a691a960fb976094dd1eb2ac62cb94f26e68ce6f28b9d6484b835a1014182",
+      "names": {
+        "primary": "릴리화이트 옐로 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.3627942879197221,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0.01775376302585874,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 204.01937475877193,
+        "baseLuminance": 174.1766914893603,
+        "contrast": 0.7578947368421051,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "axanthic",
+      "pixels": "9febf9434d663ab758c73713697c92bfc625868b05571b2503ef651a3ba32cf6",
+      "names": {
+        "primary": "아잔틱 타이거",
+        "features": [
+          "파셜 핀스트라이프"
+        ],
+        "base": "타이거",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.07818930041152264,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8942493245851023,
+        "creamArea": 0.023928984947896564,
+        "secondaryArea": 0.08182169046700116,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.38461538461538464,
+            "longestRun": 2,
+            "gapCount": 7,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0,
+        "headWhite": 0,
+        "meanLuminance": 166.7146738710892,
+        "baseLuminance": 175.3404445403514,
+        "contrast": 0.8763684210526316,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "cappuccino",
+      "pixels": "f43c5ec0eee4bfde44eeb31e5d0e18e2eeb4c09c9fd036391a255a9b792b65be",
+      "names": {
+        "primary": "Cappuccino 옐로 타이거",
+        "features": [],
+        "base": "타이거",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.06378600823045268,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8101119258973369,
+        "creamArea": 0.07217290621381706,
+        "secondaryArea": 0.117715167888846,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0.3076923076923077,
+            "longestRun": 2,
+            "gapCount": 6,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 6,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.05171748359706677,
+        "headWhite": 0,
+        "meanLuminance": 135.2454689309134,
+        "baseLuminance": 136.4081896141015,
+        "contrast": 0.7822631578947368,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "highway",
+      "pixels": "0b22adb4e65918a0fd4087e0b2fdb9d6afcd92c68e48c9418128751243f7b6d4",
+      "names": {
+        "primary": "Highway 옐로 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6255144032921811,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8305673485140872,
+        "creamArea": 0.12659204940177538,
+        "secondaryArea": 0.0428406020841374,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 1,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.11617136240833655,
+        "headWhite": 0,
+        "meanLuminance": 180.52887688151606,
+        "baseLuminance": 179.51506970260354,
+        "contrast": 0.8036842105263159,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "sable",
+      "pixels": "67f03650e660c86df66779c9b58c8638ef378fc94e6344712dd7b98cf82790f0",
+      "names": {
+        "primary": "Sable 옐로 타이거",
+        "features": [],
+        "base": "타이거",
+        "color": "옐로",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.42592592592592593,
+        "flank": 0,
+        "limbs": 0.0013315579227696406,
+        "baseArea": 0.8108838286375917,
+        "creamArea": 0.12466229255113856,
+        "secondaryArea": 0.06445387881126978,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 5,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.12118873021999228,
+        "headWhite": 0.16096866096866097,
+        "meanLuminance": 122.95849093014236,
+        "baseLuminance": 112.41683008091455,
+        "contrast": 0.8342631578947368,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.5950820698313425,
+          "highway": 0.5456403417931535,
+          "sable": 0.5689451631213823
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "lilly-axanthic",
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.38054805094558086,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 179.93663836356515,
+        "baseLuminance": 106.44386409736147,
+        "contrast": 0.6210526315789474,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "frappuccino",
+      "pixels": "8310ee56805da85965c1afbaeed3fcadcf0af897c18a2b913adc061886a82358",
+      "names": {
+        "primary": "Frappuccino 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.38054805094558086,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 180.70546121188133,
+        "baseLuminance": 107.25250507099618,
+        "contrast": 0.6236315789473684,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "lilly-sable",
+      "pixels": "27eb6ccb620089bea8c36f1623ea6fa80cb1edf804b8d0db10f56314aa204b23",
+      "names": {
+        "primary": "릴리화이트 + Sable 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6893004115226338,
+        "flank": 0.8727272727272727,
+        "limbs": 0.6684420772303595,
+        "baseArea": 0.38054805094558086,
+        "creamArea": 0.6194519490544191,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.6194519490544191,
+        "headWhite": 0.18518518518518517,
+        "meanLuminance": 173.98349671940687,
+        "baseLuminance": 89.58860040567876,
+        "contrast": 0.7176315789473685,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "axanthic-highway",
+      "pixels": "69cc01af0779c00f091c3351700cd6a4eac0df6a1002b35e045af7f6b9212dd6",
+      "names": {
+        "primary": "아잔틱 + Highway 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "회색",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8353909465020576,
+        "flank": 0,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5700501736781166,
+        "creamArea": 0.42994982632188344,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.11617136240833655,
+        "headWhite": 0,
+        "meanLuminance": 147.98782709378366,
+        "baseLuminance": 99.48855788760989,
+        "contrast": 0.5921578947368421,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "super-cappuccino",
+      "pixels": "89c4f2a50fc787004dd6c3d298e145e668cc42446a656d71c609f5cb653d7219",
+      "names": {
+        "primary": "Super Cappuccino 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.5679012345679012,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5739096873793902,
+        "creamArea": 0.38788112697800076,
+        "secondaryArea": 0.03820918564260903,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.052103434967194134,
+        "headWhite": 0,
+        "meanLuminance": 140.85285218062714,
+        "baseLuminance": 103.92963685272433,
+        "contrast": 0.6897894736842105,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.6660151644741096,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "luwak",
+      "pixels": "f901154873315f75e9febf19e910c61240c31ad81e5a5bc96d67b6f6f389876b",
+      "names": {
+        "primary": "Luwak 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.6872427983539094,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5411038209185642,
+        "creamArea": 0.42570436125048244,
+        "secondaryArea": 0.0331918178309533,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.1543805480509456,
+        "headWhite": 0.1396011396011396,
+        "meanLuminance": 133.79055191046416,
+        "baseLuminance": 83.08657631954352,
+        "contrast": 0.7002631578947369,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "cappuccino-highway",
+      "pixels": "ba317cb2c305ea59a2925457fa4eb15376f8498f9a4f0916a00b714755244c37",
+      "names": {
+        "primary": "Cappuccino/Highway 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8353909465020576,
+        "flank": 0,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5492087996912389,
+        "creamArea": 0.4175993824778078,
+        "secondaryArea": 0.0331918178309533,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.1648012350443844,
+        "headWhite": 0,
+        "meanLuminance": 148.07566962563195,
+        "baseLuminance": 106.60077301475708,
+        "contrast": 0.7087368421052631,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "super-sable",
+      "pixels": "5616a93ee347547587dc5cdb6a84888af61bbcbfbe442c531f462bab7974bf91",
+      "names": {
+        "primary": "Super Sable 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.7654320987654321,
+        "flank": 0.4909090909090909,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5399459668081822,
+        "creamArea": 0.4600540331918178,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.14974913160941722,
+        "headWhite": 0.19943019943019943,
+        "meanLuminance": 142.10912389039092,
+        "baseLuminance": 89.77006433166464,
+        "contrast": 0.5979473684210526,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.6840416812183725
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "sable-highway",
+      "pixels": "91008a131a641d8b5e94ac0988c3738e399c2d394a6b85359a9037b6b5fc8aba",
+      "names": {
+        "primary": "Sable/Highway · 미검증 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8847736625514403,
+        "flank": 0,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5457352373600927,
+        "creamArea": 0.4542647626399074,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.18602856040138943,
+        "headWhite": 0.1396011396011396,
+        "meanLuminance": 144.24757622539735,
+        "baseLuminance": 92.91874115982895,
+        "contrast": 0.5943684210526315,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.5456403417931535,
+          "sable": 0.5036086439449754
+        }
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "super-highway",
+      "pixels": "24bea127d3bbdaca44db3be10f904df52c5574357b4e5954d5c5de11d18cc236",
+      "names": {
+        "primary": "Super Highway · 미검증 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      },
+      "observation": {
+        "dorsal": 0.8703703703703703,
+        "flank": 0,
+        "limbs": 0.2170439414114514,
+        "baseArea": 0.5634890003859514,
+        "creamArea": 0.43651099961404866,
+        "secondaryArea": 0,
+        "pin": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "side": [
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          },
+          {
+            "coverage": 0,
+            "longestRun": 0,
+            "gapCount": 1,
+            "length": 26
+          }
+        ],
+        "drips": 0,
+        "wall": 0,
+        "bars": 0,
+        "brokenBars": false,
+        "spots": 0,
+        "whiteArea": 0.13508297954457738,
+        "headWhite": 0,
+        "meanLuminance": 164.58262060980502,
+        "baseLuminance": 130.88841095890396,
+        "contrast": 0.40652631578947374,
+        "spotRegions": {},
+        "expression": {
+          "lilly": 0.3733913012916432,
+          "cappuccino": 0.48751353970902633,
+          "highway": 0.7311171828083319,
+          "sable": 0.5036086439449754
+        }
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "pair": [
+        "n",
+        "n"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "6148b0173a26c260c930ebcd48182b9d1f0b6d15cd08513696d55c854be49694",
+      "names": {
+        "primary": "오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "n"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "9feb2062634c32231f677df361b3bb3dc801cd117a6d1aa3322121ba3e1935b5",
+      "names": {
+        "primary": "아잔틱 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "n"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "4d12db7be2cc4f7cdd10934b4661144f25acb1d2106c52e597ec7972bcd613ea",
+      "names": {
+        "primary": "릴리화이트 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "n"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "C"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "f51d2c63c91f8e66ea90008b0339f1395545a8415390be01e1138124f17842a2",
+      "names": {
+        "primary": "Cappuccino 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "C"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "895906c96ef321cb2c51c3407a8f39b06ef4f2c0a2a27d1e2deead91295b7688",
+      "names": {
+        "primary": "아잔틱 + Cappuccino 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "C"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "8310ee56805da85965c1afbaeed3fcadcf0af897c18a2b913adc061886a82358",
+      "names": {
+        "primary": "Frappuccino 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "C"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "아잔틱 + Frappuccino 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "S"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "b7f9127c6997718683f00988e0c9d6e168a2bfaa4991e6b4cd25468ece3d9f07",
+      "names": {
+        "primary": "Sable 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "S"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "ccf364235f1c6fc176c58c7bb8c86ef54a4263cc49ea9fcce10024f93cc60022",
+      "names": {
+        "primary": "아잔틱 + Sable 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "S"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "27eb6ccb620089bea8c36f1623ea6fa80cb1edf804b8d0db10f56314aa204b23",
+      "names": {
+        "primary": "릴리화이트 + Sable 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "S"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Sable 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "H"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "78e4558ddb29a9254671f1772fae74b26b27c863c54c2e330b6f41bfa65a460e",
+      "names": {
+        "primary": "Highway 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "H"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "69cc01af0779c00f091c3351700cd6a4eac0df6a1002b35e045af7f6b9212dd6",
+      "names": {
+        "primary": "아잔틱 + Highway 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "H"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "4d12db7be2cc4f7cdd10934b4661144f25acb1d2106c52e597ec7972bcd613ea",
+      "names": {
+        "primary": "릴리화이트 + Highway 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "n",
+        "H"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Highway 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "C"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "89c4f2a50fc787004dd6c3d298e145e668cc42446a656d71c609f5cb653d7219",
+      "names": {
+        "primary": "Super Cappuccino 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "C"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "cc65b36c9de140362aa671d818bf3ec0428ed8ed776b8fe5828ebce5f3049b1e",
+      "names": {
+        "primary": "아잔틱 + Super Cappuccino 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "C"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "9b4ea21d31147c18f201b3b6dc455bb4a10a2ddb2d7317a47579b7fb8c7537f7",
+      "names": {
+        "primary": "Sorak · 건강 위험 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "C"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "아잔틱 + Sorak · 건강 위험 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "S"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "f901154873315f75e9febf19e910c61240c31ad81e5a5bc96d67b6f6f389876b",
+      "names": {
+        "primary": "Luwak 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "S"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "760333ceb176018b3dcd1905155405e2d7edba5fc14f5f6ba9df7326841cb997",
+      "names": {
+        "primary": "아잔틱 + Luwak 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "S"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "9b75196c5303d121508807609a0a85e0fe2731f38b5bf0b96a44294473991862",
+      "names": {
+        "primary": "릴리화이트 + Luwak 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "S"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Luwak 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "H"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "ba317cb2c305ea59a2925457fa4eb15376f8498f9a4f0916a00b714755244c37",
+      "names": {
+        "primary": "Cappuccino/Highway 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "H"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "f7decfffbcde1cf43d98f9d3900de58f29d1e3c5873cadd47b8f686100506213",
+      "names": {
+        "primary": "아잔틱 + Cappuccino/Highway 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "H"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "8310ee56805da85965c1afbaeed3fcadcf0af897c18a2b913adc061886a82358",
+      "names": {
+        "primary": "릴리화이트 + Cappuccino/Highway 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "C",
+        "H"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Cappuccino/Highway 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "S"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "5616a93ee347547587dc5cdb6a84888af61bbcbfbe442c531f462bab7974bf91",
+      "names": {
+        "primary": "Super Sable 오렌지 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "S"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "28c0e1d4c20e88eb57aa5c8f0485a5b8e08e36f589979db850a2ef4c7612f9c3",
+      "names": {
+        "primary": "아잔틱 + Super Sable 할리퀸",
+        "features": [],
+        "base": "할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "S"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "1145cae0b3a6887ced9a51127476fbc5d99a9e439001f46c046e8dc6b8b84da8",
+      "names": {
+        "primary": "릴리화이트 + Super Sable 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "S"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Super Sable 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "H"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "91008a131a641d8b5e94ac0988c3738e399c2d394a6b85359a9037b6b5fc8aba",
+      "names": {
+        "primary": "Sable/Highway · 미검증 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "H"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "47b4c05528965864551a7189c2a68ad47b6927f44b9bb7fd7cdd98e75f78f458",
+      "names": {
+        "primary": "아잔틱 + Sable/Highway · 미검증 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "H"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "27eb6ccb620089bea8c36f1623ea6fa80cb1edf804b8d0db10f56314aa204b23",
+      "names": {
+        "primary": "릴리화이트 + Sable/Highway · 미검증 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "S",
+        "H"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Sable/Highway · 미검증 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "H",
+        "H"
+      ],
+      "lilly": false,
+      "ax": false,
+      "pixels": "24bea127d3bbdaca44db3be10f904df52c5574357b4e5954d5c5de11d18cc236",
+      "names": {
+        "primary": "Super Highway · 미검증 오렌지 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "H",
+        "H"
+      ],
+      "lilly": false,
+      "ax": true,
+      "pixels": "2adb8ad8b60a899572b54d1045b994b76fcbd9102210a1bca0a6ce321ab76cf4",
+      "names": {
+        "primary": "아잔틱 + Super Highway · 미검증 플레임",
+        "features": [],
+        "base": "플레임",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "H",
+        "H"
+      ],
+      "lilly": true,
+      "ax": false,
+      "pixels": "4d12db7be2cc4f7cdd10934b4661144f25acb1d2106c52e597ec7972bcd613ea",
+      "names": {
+        "primary": "릴리화이트 + Super Highway · 미검증 오렌지 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "오렌지",
+        "rulesVersion": 1
+      }
+    },
+    {
+      "pair": [
+        "H",
+        "H"
+      ],
+      "lilly": true,
+      "ax": true,
+      "pixels": "7a17889c331e7182854784c3b84ebbdbbe4a6605650eb37e9d0597c859fcc830",
+      "names": {
+        "primary": "릴리화이트 + 아잔틱 + Super Highway · 미검증 익스트림 할리퀸",
+        "features": [],
+        "base": "익스트림 할리퀸",
+        "color": "회색",
+        "rulesVersion": 1
+      }
+    }
+  ],
+  "performance": {
+    "environment": "Node 24 cloud CPU; not Android device timing",
+    "individuals": 300,
+    "coldObservationMs": 6846.642744,
+    "cachedObservationMs": 2.610684000001129,
+    "visibleSprites": 24,
+    "coldPixelsMs": 504.3314300000002,
+    "cachedPixelsMs": 0.24759199999971315,
+    "cache": {
+      "pixels": 32,
+      "observations": 364
+    }
+  },
+  "priceCalibration": {
+    "note": "Same market bases, coefficients and rounding. Compare only the appearance multiplier on a controlled grid, not observed domestic prices.",
+    "meanRatio": 1.0108015639871224,
+    "minRatio": 0.8154431499652984,
+    "maxRatio": 1.0717419418108836,
+    "examples": [
+      {
+        "profile": "low",
+        "morph": "normal",
+        "before": 0.8800713278455459,
+        "after": 0.8926649137246407,
+        "ratio": 1.0143097331780193
+      },
+      {
+        "profile": "low",
+        "morph": "lilly",
+        "before": 1.0438699822641675,
+        "after": 0.927353432965129,
+        "ratio": 0.8883802089544595
+      },
+      {
+        "profile": "low",
+        "morph": "axanthic",
+        "before": 0.8800713278455459,
+        "after": 0.9298143874088513,
+        "ratio": 1.0565216227246927
+      },
+      {
+        "profile": "low",
+        "morph": "cappuccino",
+        "before": 0.8800713278455459,
+        "after": 0.943209353837268,
+        "ratio": 1.0717419418108836
+      },
+      {
+        "profile": "low",
+        "morph": "highway",
+        "before": 0.8800713278455459,
+        "after": 0.9315771453324669,
+        "ratio": 1.058524594379196
+      },
+      {
+        "profile": "low",
+        "morph": "sable",
+        "before": 0.8800713278455459,
+        "after": 0.9273966471734892,
+        "ratio": 1.053774413312382
+      },
+      {
+        "profile": "typical",
+        "morph": "normal",
+        "before": 1.01523711126716,
+        "after": 1.0400542042147412,
+        "ratio": 1.0244446274394026
+      },
+      {
+        "profile": "typical",
+        "morph": "lilly",
+        "before": 1.1018539101438343,
+        "after": 1.1695835774358556,
+        "ratio": 1.0614688269184251
+      },
+      {
+        "profile": "typical",
+        "morph": "axanthic",
+        "before": 1.01523711126716,
+        "after": 1.0656647305305307,
+        "ratio": 1.0496707800608567
+      },
+      {
+        "profile": "typical",
+        "morph": "cappuccino",
+        "before": 1.01523711126716,
+        "after": 1.079489609600634,
+        "ratio": 1.0632881694536143
+      },
+      {
+        "profile": "typical",
+        "morph": "highway",
+        "before": 1.01523711126716,
+        "after": 1.020683017624997,
+        "ratio": 1.0053641718741346
+      },
+      {
+        "profile": "typical",
+        "morph": "sable",
+        "before": 1.01523711126716,
+        "after": 1.0826949521751774,
+        "ratio": 1.0664454048806593
+      },
+      {
+        "profile": "high",
+        "morph": "normal",
+        "before": 1.3426898096665574,
+        "after": 1.3288056341897572,
+        "ratio": 0.9896594318532527
+      },
+      {
+        "profile": "high",
+        "morph": "lilly",
+        "before": 1.324980394297172,
+        "after": 1.1685590181214351,
+        "ratio": 0.8819443843478834
+      },
+      {
+        "profile": "high",
+        "morph": "axanthic",
+        "before": 1.3426898096665574,
+        "after": 1.345270897347652,
+        "ratio": 1.001922326111744
+      },
+      {
+        "profile": "high",
+        "morph": "cappuccino",
+        "before": 1.3426898096665574,
+        "after": 1.304921990465061,
+        "ratio": 0.971871523169692
+      },
+      {
+        "profile": "high",
+        "morph": "highway",
+        "before": 1.3426898096665574,
+        "after": 1.0948872078208045,
+        "ratio": 0.8154431499652984
+      },
+      {
+        "profile": "high",
+        "morph": "sable",
+        "before": 1.3426898096665574,
+        "after": 1.2045531816592543,
+        "ratio": 0.8971194783688663
+      },
+      {
+        "profile": "dark",
+        "morph": "normal",
+        "before": 0.9739446976424626,
+        "after": 0.9645392958205122,
+        "ratio": 0.9903429816449362
+      },
+      {
+        "profile": "dark",
+        "morph": "lilly",
+        "before": 1.1451024454638299,
+        "after": 1.2173435774358556,
+        "ratio": 1.0630870471530292
+      },
+      {
+        "profile": "dark",
+        "morph": "axanthic",
+        "before": 0.9739446976424626,
+        "after": 0.9821414010836701,
+        "ratio": 1.0084159844609746
+      },
+      {
+        "profile": "dark",
+        "morph": "cappuccino",
+        "before": 0.9739446976424626,
+        "after": 0.9645579139708262,
+        "ratio": 0.9903620978743884
+      },
+      {
+        "profile": "dark",
+        "morph": "highway",
+        "before": 0.9739446976424626,
+        "after": 1.027348870913674,
+        "ratio": 1.0548328600181118
+      },
+      {
+        "profile": "dark",
+        "morph": "sable",
+        "before": 0.9739446976424626,
+        "after": 1.0060540647624936,
+        "ratio": 1.0329683679142718
+      },
+      {
+        "profile": "bright",
+        "morph": "normal",
+        "before": 0.9529628480577863,
+        "after": 0.9546803484520912,
+        "ratio": 1.001802274241651
+      },
+      {
+        "profile": "bright",
+        "morph": "lilly",
+        "before": 1.1241205958791536,
+        "after": 1.2011688405937504,
+        "ratio": 1.0685409065513463
+      },
+      {
+        "profile": "bright",
+        "morph": "axanthic",
+        "before": 0.9529628480577863,
+        "after": 0.9702108747678806,
+        "ratio": 1.0180993695034881
+      },
+      {
+        "profile": "bright",
+        "morph": "cappuccino",
+        "before": 0.9529628480577863,
+        "after": 0.9572378591011418,
+        "ratio": 1.0044860206796815
+      },
+      {
+        "profile": "bright",
+        "morph": "highway",
+        "before": 0.9529628480577863,
+        "after": 1.0195741340715687,
+        "ratio": 1.0698991426051303
+      },
+      {
+        "profile": "bright",
+        "morph": "sable",
+        "before": 0.9529628480577863,
+        "after": 0.9999582853963829,
+        "ratio": 1.0493150781632012
+      }
+    ]
+  }
+}

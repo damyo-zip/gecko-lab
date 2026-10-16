@@ -1,3 +1,5 @@
+> 역사 기록: 명암 개선 v2는 현재 `regional-2` 정식 엔진에 통합되었습니다. 최신 계약·검증은 [정식 외형 엔진](regional-engine.md)에 있습니다. 아래 비교와 수치는 실험 당시 자료입니다.
+
 # 모프 외형 생성 프로토타입 — regional-prototype-1
 
 **후속 비교:** 현재 `/lab/appearance`는 이 문서의 v1 출력을 보존하면서 정식 / v1 / 명암 개선 v2를 함께 표시합니다. 아래는 최초 v1 개발 기록이며, 후속 변경·측정·최신 검증은 [regional-prototype-2 명암 개선](appearance-relief.md)에 정리했습니다. 기존 v1 PNG·JSON은 덮어쓰지 않았습니다.

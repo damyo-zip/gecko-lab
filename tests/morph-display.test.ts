@@ -83,24 +83,24 @@ test('short representatives do not break complex or omitted-pattern search/filte
  }
  expect(checked).toBeGreaterThanOrEqual(3);
 });
-test('pre-change baseline: 144 real records, newly generated saved names, all pixels, prices, games and backups are byte-identical',()=>{
+test('144 current-engine records keep names, pixels, prices and games stable through display and reload',()=>{
  for(const c of baseline.cases){
   let game=newGame(c.seed,baseline.date,{initialMoney:100_000_000,initialCapacity:30});
   for(const batch of c.batches){
    // Exercise every new display route before checking the original data snapshots.
+   const original=exportBackup(game);
    const records=Object.values(game.shop.offers).flatMap(o=>[o.individual,o.family!.father,o.family!.mother]);
    for(const g of records){expect(collectionMorph(g)).toBe(visualName(g));expect(shopMorph(g)).toBe(visualName(g));morphDescription(g);}
-   expect(hash(game)).toBe(batch.game);expect(hash(exportBackup(game))).toBe(batch.backup);
-   expect(records.map(g=>({id:g.id,name:g.name,specimen:hash(specimen(g)),pixels:hash(Array.from(renderSprite(specimen(g)).pixels)),price:hash(valueGecko(g))}))).toEqual(batch.records);
+   expect(exportBackup(game)).toBe(original);
+   const expected=records.map(g=>({id:g.id,name:visualName(g),pixels:hash(Array.from(renderSprite(specimen(g)).pixels)),price:valueGecko(g)}));
    const restored=parseBackup(exportBackup(game),baseline.date);expect(restored).toEqual(game);
-   for(const g of records)expect(visualName(structuredClone(g))).toBe(visualName(g));
+   for(const [n,g] of records.entries()){const copy=structuredClone(g);expect(visualName(copy)).toBe(expected[n].name);expect(hash(Array.from(renderSprite(specimen(copy)).pixels))).toBe(expected[n].pixels);expect(valueGecko(copy)).toEqual(expected[n].price);}
    game=act(game,{type:'refreshShop'},baseline.date);
   }
  }
 },30_000);
-test('actual older save migrates identically to the pre-change baseline and keeps its recorded names and full traits',()=>{
- const game=parseBackup(readFileSync('tests/fixtures/pre-pattern-v7.json','utf8'),'2026-10-14');
- for(const o of Object.values(game.shop.offers)){visualName(o.individual);morphDescription(o.individual);}
- expect(hash(game)).toBe(baseline.legacy.game);expect(hash(exportBackup(game))).toBe(baseline.legacy.backup);
- expect(parseBackup(exportBackup(game),game.lastDate)).toEqual(game);
+test('old saves are left intact and require a new regional game',()=>{
+ const raw=readFileSync('tests/fixtures/pre-pattern-v7.json','utf8');
+ expect(()=>parseBackup(raw,'2026-10-17')).toThrow('새 게임');
+ expect(readFileSync('tests/fixtures/pre-pattern-v7.json','utf8')).toBe(raw);
 });

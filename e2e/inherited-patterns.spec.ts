@@ -1,3 +1,4 @@
+import {regionalObservation} from '../src/engine/regional';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {createHash} from "node:crypto";
@@ -23,12 +24,12 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
 async function pixels(l:Locator){return l.evaluate(el=>{const c=el as HTMLCanvasElement,ctx=c.getContext("2d")!,scale=c.width/96,raw=ctx.getImageData(0,0,c.width,c.height).data,p:number[]=[];
  for(let y=0;y<96;y++)for(let x=0;x<96;x++)p.push(...raw.slice((y*scale*c.width+x*scale)*4,(y*scale*c.width+x*scale)*4+4));return {pixels:p,smoothing:ctx.imageSmoothingEnabled};});}
 const hash=(p:readonly number[]|Uint8ClampedArray)=>createHash("sha256").update(Buffer.from(p)).digest("hex");
-async function sameSprite(l:Locator,g:Gecko){await expect(l).toHaveAttribute("data-renderer-version","2.1.0");await expect.poll(async()=>hash((await pixels(l)).pixels)).toBe(hash(renderSprite(specimen(g)).pixels));expect((await pixels(l)).smoothing).toBe(false);}
+async function sameSprite(l:Locator,g:Gecko){await expect(l).toHaveAttribute("data-renderer-version","regional-2");await expect.poll(async()=>hash((await pixels(l)).pixels)).toBe(hash(renderSprite(specimen(g)).pixels));expect((await pixels(l)).smoothing).toBe(false);}
 test("14 anatomical patterns have matching browser pixels and Korean names, distinct tiger/brindle and responsive 360–430px gallery",async({page},info)=>{
  await page.goto("/lab/patterns");await expect(page.getByRole("heading",{name:"실제 무늬 비교 연구실"})).toBeVisible();
- for(const e of PATTERN_EXAMPLES){const traits=patternTraits(exampleGenome(e.id)),seed="patterns-v1|"+e.id,o=buildPatternPlan(traits,seed).observation,n=classifyPattern(traits,o);
+ for(const e of PATTERN_EXAMPLES){const genome=exampleGenome(e.id),seed="patterns-v1|"+e.id,{traits,observation:o}=regionalObservation({genome,seed}),n=classifyPattern(traits,o);
   const article=page.getByTestId("pattern-example-"+e.id);await expect(article.getByTestId("pattern-name")).toHaveText(n.primary);await expect(article).toContainText(e.title);
-  const r=renderSprite({schemaVersion:1,id:e.id,name:n.primary,seed,state:{fire:"up"},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:traits.dorsal,flankCoverage:traits.flank,spotCount:Math.min(70,traits.spots.count),patterns:traits}});
+  const r=renderSprite({genome,schemaVersion:1,id:e.id,name:n.primary,seed,state:{fire:"up"},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:traits.dorsal,flankCoverage:traits.flank,spotCount:Math.min(70,traits.spots.count),patterns:traits}});
   await expect.poll(async()=>hash((await pixels(page.getByTestId("pattern-sprite-"+e.id))).pixels)).toBe(hash(r.pixels));
  }
  if(info.project.name.startsWith("mobile")){await mkdir("docs/inherited-patterns",{recursive:true});for(const width of [360,390,430]){await page.setViewportSize({width,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:info.outputPath("patterns-"+width+".png"),fullPage:true,scale:"css"});}await page.setViewportSize({width:390,height:844});await page.screenshot({path:"docs/inherited-patterns/gallery-mobile.png",fullPage:true,scale:"css"});}

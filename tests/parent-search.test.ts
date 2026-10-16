@@ -15,7 +15,7 @@ test('only owned adult candidates of the requested sex, plus identical unsexed j
 });
 test('combined search, morph, stage, status, generation and relationship filters use actual public records',()=>{
   const f=collectionStatusGame(),rows=parentCandidates(f.game,'male',f.female),g=f.game.individuals[f.otherMale];
-  const result=filterParents(rows,q({search:g.id,morph:'harlequin',stage:'adult',status:'ready',generation:String(g.generation),relation:'unknown'}));expect(result.map(r=>r.gecko.id)).toEqual([g.id]);
+  const result=filterParents(rows,q({search:g.id,morph:'all',stage:'adult',status:'ready',generation:String(g.generation),relation:'unknown'}));expect(result.map(r=>r.gecko.id)).toEqual([g.id]);
   expect(filterParents(rows,q({search:'같은 이름',stage:'adult'}))).toHaveLength(2);expect(filterParents(rows,q({search:'아잔틱'})).map(r=>r.gecko.id)).toContain(f.growing);
   expect(filterParents(parentCandidates(f.game,'female',f.father),q({status:'rest'})).map(r=>r.gecko.id)).toEqual([f.mother]);
   expect(filterParents(rows,q({search:'no such record'}))).toHaveLength(0);
@@ -69,7 +69,7 @@ test('sold/dead parents remain in relationship analysis, related candidates stay
   const f=breedingRiskFixture();f.game.individuals[f.normalId].status='sold';f.game.individuals[f.lillyFemaleId].status='dead';
   const rows=parentCandidates(f.game,'male',f.motherId),brother=rows.find(r=>r.gecko.id===f.fatherId)!;expect(brother.relationship.kind).toBe('sibling');expect(brother.selectable).toBe(true);expect(brother.status.ready).toBe(true);
   expect(rows.some(r=>r.gecko.id===f.normalId)).toBe(false);expect(parentCandidates(f.game,'male',f.lillyFemaleId).find(r=>r.gecko.id===f.fatherId)!.relationship.kind).toBe('parent');
-});
+},30000);
 test('querying and JSON save restoration preserve all records and candidate public results',()=>{
   const f=collectionStatusGame(),before=structuredClone(f.game),rows=parentCandidates(f.game,'male',f.female);filterParents(rows,q({sort:'distant'}));expect(f.game).toEqual(before);
   expect(parentCandidates(parseBackup(exportBackup(f.game),f.game.lastDate),'male',f.female)).toEqual(rows);

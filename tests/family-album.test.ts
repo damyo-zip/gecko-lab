@@ -1,3 +1,4 @@
+import {readArchiveSave} from '@/game/hardcore/save';
 import {test,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
 import {lineageFixture} from '../e2e/fixtures/lineage-reference';
@@ -14,7 +15,7 @@ const DATE='2026-10-14';
 
 test('living migrated adults use canonical turn age even when the preserved historical birth date uses the previous daily calendar',()=>{
  let old=legacyGame('album-old-age',DATE);const id=Object.keys(old.shop.offers)[0];old=act(old,{type:'buyGecko',offerId:id},DATE);
- const current=readSave(makeSave(old),DATE),g=current.individuals[id],age=recordedAge(current,g);
+ const current=readArchiveSave(makeSave(old),DATE),g=current.individuals[id],age=recordedAge(current,g);
  expect(age.turns).toBe(current.turn-g.birthTurn);expect(age.turns).toBeGreaterThanOrEqual(12);expect(age.days).toBe(age.turns*7);expect(g.birthDate).toBe(old.individuals[id].birthDate);
 });
 
@@ -48,18 +49,18 @@ test('registering during a pending mating updates real embryos and eggs and reta
  expect(parseBackup(exportBackup(game),DATE)).toEqual(game);
 });
 test('actual v7 upgrade preserves all data except lineage metadata and version, derives a unique actual founder, and is idempotent',()=>{
- const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),original=structuredClone(envelope),game=readSave(envelope,DATE);
+ const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),original=structuredClone(envelope),game=readArchiveSave(envelope,DATE);
  expect(envelope).toEqual(original);expect(game.saveVersion).toBe(10);
  const stripped={...structuredClone(game),saveVersion:7};for(const line of Object.values(stripped.lineages)){delete line.founderId;delete line.favorite;}
  for(const g of [...Object.values(stripped.individuals),...Object.values(stripped.eggs).map(e=>e.embryo),...Object.values(stripped.shop.offers).flatMap(o=>[o.individual,...(o.family?[o.family.father,o.family.mother]:[])]),...Object.values(stripped.matings).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])])delete g.healthGenome;for(const m of Object.values(stripped.matings))delete m.riskModel;
  expect(stripped).toEqual(original.game);expect(game.lineages[Object.keys(game.lineages)[0]].founderId).toBe(JSON.parse(readFileSync('docs/lineage-reference/baseline.json','utf8')).fatherId);
  for(const g of Object.values(game.individuals)){expect(renderSprite(specimen(g)).pixels).toEqual(renderSprite(specimen(original.game.individuals[g.id])).pixels);expect(visualName(g)).toBe(visualName(original.game.individuals[g.id]));}
- expect(migrateAlbum(game)).toBe(game);expect(readSave(makeSave(game),DATE)).toBe(game);
+ expect(migrateAlbum(game)).toBe(game);expect(readArchiveSave(makeSave(game),DATE)).toBe(game);
 });
 test('ambiguous old family membership never fabricates a founder and retains its original name',()=>{
  const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),game=envelope.game as HardcoreGame;
  const [line]=Object.keys(game.lineages),mother=Object.values(game.individuals).find(g=>g.name==='라임')!;mother.lineageIds.push(line);envelope.checksum=checksum(game);
- const next=readSave(envelope,DATE);expect(next.lineages[line]).toMatchObject({name:game.lineages[line].name,founderId:null,favorite:true});expect(familySummary(next,next.lineages[line]).founder).toBeUndefined();expect(familySummary(next,next.lineages[line]).representative).toBeDefined();expect(familySummary(next,next.lineages[line]).descendantCount).toBeNull();
+ const next=readArchiveSave(envelope,DATE);expect(next.lineages[line]).toMatchObject({name:game.lineages[line].name,founderId:null,favorite:true});expect(familySummary(next,next.lineages[line]).founder).toBeUndefined();expect(familySummary(next,next.lineages[line]).representative).toBeDefined();expect(familySummary(next,next.lineages[line]).descendantCount).toBeNull();
 });
 test('sold and dead records retain relationships and pixel/name identity; recorded age stops at the actual event date',()=>{
  let {game,selectedId,fatherId}=lineageFixture();const original=structuredClone(game.individuals[fatherId]);game=act(game,{type:'sell',id:fatherId},game.lastDate);

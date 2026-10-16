@@ -1,145 +1,115 @@
-import {test,expect} from 'vitest';
+import {test,expect,vi} from 'vitest';
 import {createHash} from 'node:crypto';
 import {readFileSync,readdirSync} from 'node:fs';
 import {join} from 'node:path';
-import {comparison,fixtureGenome,MORPHS,comparisonSubject} from '@/prototype/appearance/fixtures';
-import {renderAppearancePrototype,renderAppearanceRelief} from '@/prototype/appearance/render';
-import {prototypePhenotype} from '@/prototype/appearance/phenotype';
-import {anatomy,sourceBase as B} from '@/prototype/appearance/anatomy';
+import {fixtureGenome,MORPHS,comparisonSubject} from '@/engine/regional/fixtures';
+import {renderRegional} from '@/engine/regional/render';
+import {regionalAppearance,regionalObservation,regionalCacheSize} from '@/engine/regional';
+import {anatomy as A,sourceBase as B} from '@/engine/regional/anatomy';
 import {artColor,PART} from '@/engine/art';
 import {renderSprite} from '@/engine/render';
-import {buildPatternPlan} from '@/engine/pattern-plan';
-import {patternTraits} from '@/genetics/advanced/pattern-traits';
-import {specimen} from '@/game/hardcore/adapter';
+import {specimen,visualName} from '@/game/hardcore/adapter';
 import {founderPoly,inheritPoly,POLY_IDS} from '@/genetics/advanced/polygenic';
 import {inherit} from '@/genetics/advanced/inheritance';
+import {regionalPhenotype} from '@/engine/regional/phenotype';
+import {observeRegional} from '@/engine/regional/observe';
+import {buildPatternPlan} from '@/engine/pattern-plan';
+import {patternTraits} from '@/genetics/advanced/pattern-traits';
 import {newGame,act} from '@/game/hardcore/play';
-import {exportBackup,parseBackup} from '@/game/hardcore/save';
+import {makeSave,readSave,exportBackup,parseBackup} from '@/game/hardcore/save';
 import {valueGecko} from '@/game/hardcore/market';
 import {evaluateBreedingChallenge} from '@/game/hardcore/challenge-evaluator';
 import {BREEDING_CHALLENGES} from '@/game/hardcore/challenge-rules';
-
-const hash=(v:Uint8Array|Uint8ClampedArray)=>createHash('sha256').update(v).digest('hex');
+const hash=(v:ArrayBufferView)=>createHash('sha256').update(new Uint8Array(v.buffer,v.byteOffset,v.byteLength)).digest('hex');
 const seed='regional-review-01';
-test('controlled panels change only the morph genotype, never the background or visual seed; C/S/H gain real pixel differences',()=>{
- const rows=MORPHS.slice(0,6).map(m=>comparison('typical',m.id,seed));
- for(const row of rows)expect(row.genome.polygenic).toEqual(rows[0].genome.polygenic);
- expect(new Set([0,3,4,5].map(n=>hash(rows[n].old.pixels))).size).toBe(1);
- expect(new Set(rows.map(r=>hash(r.improved.sprite.pixels))).size).toBe(6);
- for(const r of rows)expect(hash(r.old.pixels)).toBe(hash(renderSprite(specimen(comparisonSubject(r.genome,seed))).pixels));
-});
+vi.setConfig({testTimeout:30000});
 
-test('Lilly spans low to extreme, reaches the front snout and keeps nested coverage for inherited cream changes',()=>{
- const low=comparison('low','lilly',seed).improved,high=comparison('high','lilly',seed).improved;
- expect(low.metrics.headWhite/low.metrics.headSkin).toBeLessThan(.10);
- expect(high.metrics.headWhite/high.metrics.headSkin).toBeGreaterThan(.95);
- expect(high.metrics.whitePixels/high.metrics.skinPixels).toBeLessThan(.99);
- let noseSkin=0,noseWhite=0;
- for(let i=0;i<9216;i++)if(B.parts[i]===PART.head&&i%96<12&&Math.floor(i/96)>=30&&Math.floor(i/96)<34&&anatomy.skin[i]){noseSkin++;noseWhite+=Number(!!high.white[i]);}
- expect(noseSkin).toBeGreaterThan(10);expect(noseWhite).toBe(noseSkin);
- const g=fixtureGenome('typical','lilly');let previous:Uint8Array=new Uint8Array(9216);
- for(let a=0;a<=4;a++){
-  for(let n=0;n<6;n++)g.polygenic.loci['cream-'+n]=[a,a];
-  const next=renderAppearancePrototype({genome:g,seed});
-  for(let i=0;i<9216;i++)if(previous[i])expect(next.white[i]).toBe(255);
-  previous=next.white;
+test('production is exactly the reviewed v2 pixels in all 100 fixed conditions, never the v1 finish',()=>{
+ const cases=JSON.parse(readFileSync('tests/fixtures/regional-v2-hashes.json','utf8'));
+ for(const c of cases){const genome=fixtureGenome(c.profile,c.morph),input=specimen(comparisonSubject(genome,seed),c.fire),r=renderSprite(input);
+  expect(r.version).toBe('regional-2');expect(hash(r.pixels)).toBe(c.pixels);expect(hash(renderRegional({genome,seed,fire:c.fire}).sprite.pixels)).toBe(c.pixels);}
+});
+test('all C/S/H allele pairs, Ax and Lilly combinations render without invented viability rules or genome mutation',()=>{
+ const alleles=['n','C','S','H'],seen=new Set<string>();
+ for(let a=0;a<4;a++)for(let b=a;b<4;b++)for(const lilly of [false,true])for(const ax of [false,true]){
+  const genome=fixtureGenome('typical',lilly?'lilly':'normal');genome.mendelian.loci['cappuccino-complex']=[alleles[a],alleles[b]];if(ax)genome.mendelian.loci.axanthic=['ax','ax'];
+  const before=JSON.stringify(genome),r=renderRegional({genome,seed});expect(r.sprite.pixels.length).toBe(36864);expect(JSON.stringify(genome)).toBe(before);seen.add(hash(r.sprite.pixels));
  }
+ expect(seen.size).toBeGreaterThan(24);
+ const genome=fixtureGenome('high','lilly');genome.mendelian.loci['lilly-white']=['Lw','Lw'];expect(()=>renderRegional({genome,seed})).toThrow('비생존');
 });
-
-test('all low/high expressions and both fire states preserve exact eye, nostril, mouth and authored silhouette pixels',()=>{
- for(const profile of ['low','high'] as const)for(const morph of MORPHS.slice(0,6))for(const fire of ['up','down'] as const){
-  const {sprite}=renderAppearancePrototype({genome:fixtureGenome(profile,morph.id),seed,fire});
-  let alphaErrors=0,structuralErrors=0,escapedPattern=0;
+test('every morph, low/high expression and fire state preserve alpha, real eye, nostrils and mouth pixels',()=>{
+ let alphaErrors=0,protectedErrors=0,escaped=0;
+ for(const profile of ['low','high'] as const)for(const m of MORPHS)for(const fire of ['up','down'] as const){
+  const r=renderRegional({genome:fixtureGenome(profile,m.id),seed,fire}).sprite;
   for(let i=0;i<9216;i++){
-   alphaErrors+=Number(sprite.pixels[i*4+3]!==B.silhouette[i]);
-   if((B.eye[i]||anatomy.mouth[i]||anatomy.nostrils[i])&&!B.outline[i]){
-    const source=[...artColor(B.details[i]),255];for(let k=0;k<4;k++)structuralErrors+=Number(sprite.pixels[i*4+k]!==source[k]);
-   }
-   if(anatomy.protectedPixels[i])for(const l of sprite.layers.slice(4,7))escapedPattern+=Number(!!l.mask[i]);
+   alphaErrors+=Number(r.pixels[i*4+3]!==B.silhouette[i]);
+   if((B.eye[i]||A.mouth[i]||A.nostrils[i])&&!B.outline[i]){const expected=[...artColor(B.details[i]),255];for(let k=0;k<4;k++)protectedErrors+=Number(r.pixels[i*4+k]!==expected[k]);}
+   if(A.protectedPixels[i])for(const l of r.layers.slice(4,7))escaped+=Number(!!l.mask[i]);
   }
-  expect({alphaErrors,structuralErrors,escapedPattern}).toEqual({alphaErrors:0,structuralErrors:0,escapedPattern:0});
  }
+ expect({alphaErrors,protectedErrors,escaped}).toEqual({alphaErrors:0,protectedErrors:0,escaped:0});
 });
-
-test('high-white skin retains tonal pixel clusters rather than one flat white fill',()=>{
- const r=comparison('high','lilly',seed).improved,colors=new Set<string>();
- for(let i=0;i<9216;i++)if(r.white[i])colors.add([...r.sprite.pixels.subarray(i*4,i*4+3)].join());
- expect(colors.size).toBeGreaterThan(20);
+test('Lilly high expression reaches the nose while low expression remains distinct; white retains structure',()=>{
+ const a=regionalAppearance({genome:fixtureGenome('low','lilly'),seed}),b=regionalAppearance({genome:fixtureGenome('high','lilly'),seed});
+ expect(a.metrics.headWhite).toBe(0);expect(b.metrics.headWhite).toBe(b.metrics.headSkin);expect(b.white[32*96+12]).toBe(255);expect(b.metrics.whitePixels).toBeLessThan(b.metrics.skinPixels);
+ const colors=new Set<string>();for(let i=0;i<9216;i++)if(b.white[i])colors.add([...b.sprite.pixels.subarray(i*4,i*4+3)].join());expect(colors.size).toBeGreaterThan(12);
 });
-
-test('Axanthic inherits real brightness in final skin and retains achromatic dark/light materials; hidden carriers do not change appearance',()=>{
- const dark=comparison('dark','axanthic',seed).improved,bright=comparison('bright','axanthic',seed).improved;
+test('Ax brightness is inherited and the skin stays neutral; an undisclosed recessive carrier has no visual effect',()=>{
+ const dark=regionalAppearance({genome:fixtureGenome('dark','axanthic'),seed}),bright=regionalAppearance({genome:fixtureGenome('bright','axanthic'),seed});
  expect(bright.metrics.meanSkinLuminance-dark.metrics.meanSkinLuminance).toBeGreaterThan(80);
- expect(hash(bright.sprite.pixels)).not.toBe(hash(dark.sprite.pixels));
- for(const r of [dark,bright])for(let i=0;i<9216;i++)if(anatomy.skin[i]){
-  const c=[...r.sprite.pixels.subarray(i*4,i*4+3)];expect(Math.max(...c)-Math.min(...c)).toBeLessThanOrEqual(8);
- }
- const g=fixtureGenome('typical','normal'),before=hash(renderAppearancePrototype({genome:g,seed}).sprite.pixels);
- g.mendelian.loci.axanthic=['A','ax'];expect(hash(renderAppearancePrototype({genome:g,seed}).sprite.pixels)).toBe(before);
+ let chroma=0;for(const r of [dark,bright])for(let i=0;i<9216;i++)if(A.skin[i]){const c=[...r.sprite.pixels.subarray(i*4,i*4+3)];chroma=Math.max(chroma,Math.max(...c)-Math.min(...c));}expect(chroma).toBeLessThanOrEqual(8);
+ const g=fixtureGenome('typical','normal'),before=hash(renderRegional({genome:g,seed}).sprite.pixels);g.mendelian.loci.axanthic=['A','ax'];expect(hash(renderRegional({genome:g,seed}).sprite.pixels)).toBe(before);
 });
-
-test('Cappuccino has variable tail-base white and distal darkening, Highway grows inward and reduces the lower flank, Sable has crown clusters',()=>{
- const c0=comparison('low','cappuccino',seed).improved,c1=comparison('high','cappuccino',seed).improved;
- expect(c1.metrics.tailBaseWhite).toBeGreaterThan(c0.metrics.tailBaseWhite);expect(c1.metrics.tailTipDark).toBeGreaterThan(c0.metrics.tailTipDark);
- const h0=comparison('low','highway',seed).improved,h1=comparison('high','highway',seed).improved;
- expect(h1.metrics.dorsalWhite).toBeGreaterThan(h0.metrics.dorsalWhite*2);expect(h1.metrics.flankWhite).toBe(0);
- const s0=comparison('low','sable',seed).improved,s1=comparison('high','sable',seed).improved;
- expect(s1.metrics.headWhite).toBeGreaterThan(s0.metrics.headWhite*3);expect(s1.metrics.tailBaseWhite).toBe(0);
- expect(s1.metrics.headWhite).toBeGreaterThan(h1.metrics.headWhite);expect(hash(s1.sprite.pixels)).not.toBe(hash(c1.sprite.pixels));
+test('Cappuccino tail markers, Highway dorsal expansion and Sable crown clusters remain distinct',()=>{
+ const render=(profile:'low'|'high',m:typeof MORPHS[number]['id'])=>regionalAppearance({genome:fixtureGenome(profile,m),seed});
+ expect(render('high','cappuccino').metrics.tailBaseWhite).toBeGreaterThan(render('low','cappuccino').metrics.tailBaseWhite);
+ expect(render('high','highway').metrics.dorsalWhite).toBeGreaterThan(render('low','highway').metrics.dorsalWhite*2);
+ expect(render('high','sable').metrics.headWhite).toBeGreaterThan(render('low','sable').metrics.headWhite*3);
 });
-
-test('combinations compose pigment and regional effects; unsupported supers do not get fabricated phenotypes',()=>{
- for(const id of ['lilly-axanthic','frappuccino','lilly-sable','axanthic-highway'] as const){
-  const c=comparison('typical',id,seed),p=c.improved.phenotype;
-  expect(Object.values(p.expressed).filter(Boolean)).toHaveLength(2);
-  expect(hash(c.improved.sprite.pixels)).not.toBe(hash(c.old.pixels));
- }
- const g=fixtureGenome('typical','cappuccino');g.mendelian.loci['cappuccino-complex']=['C','S'];
- expect(()=>prototypePhenotype(g)).toThrow('아직 모델링');g.mendelian.loci['cappuccino-complex']=['n','n'];g.mendelian.loci['lilly-white']=['Lw','Lw'];
- expect(()=>prototypePhenotype(g)).toThrow('비생존');
+test('blanket white cannot earn hidden drip, pin or spot observations from underlying intended geometry',()=>{
+ const input={genome:fixtureGenome('high','normal'),seed},r=structuredClone(renderRegional(input));
+ const mask=buildPatternPlan(patternTraits(input.genome),seed).shapes.drips[0];expect(mask).toBeDefined();
+ // Controlled final materials exercise the observer, never the pixel renderer.
+ for(let i=0;i<9216;i++)if(A.skin[i]){r.materials[i]=mask[i]?2:1;r.sprite.pixels.set(mask[i]?[230,230,230,255]:[50,50,50,255],i*4);}
+ const before=observeRegional(input,r).observation;expect(before.drips).toBeGreaterThan(0);
+ for(let i=0;i<9216;i++)if(A.skin[i]){r.materials[i]=4;r.sprite.pixels.set([230,230,230,255],i*4);}
+ const after=observeRegional(input,r).observation;expect(after.drips).toBe(0);expect(after.spots).toBe(0);expect(after.pin.every(l=>l.coverage===0)).toBe(true);
 });
-
-test('twelve seeds per morph preserve genetic strength, stay deterministic and do not mutate the shared production pattern cache',()=>{
- for(const m of MORPHS.slice(1,6)){
-  const genome=fixtureGenome('typical',m.id),before=JSON.stringify(genome),t=patternTraits(genome),plan=buildPatternPlan(t,seed);
-  const cacheBefore=hash(plan.dorsal)+hash(plan.flank)+hash(plan.spots),seen=new Set<string>(),strength=prototypePhenotype(genome).strength;
-  for(let n=0;n<12;n++){
-   const input={genome,seed:'regional-diversity-'+n},r=renderAppearancePrototype(input);
-   expect(r.phenotype.strength).toEqual(strength);seen.add(hash(r.sprite.pixels));
-   expect(hash(renderAppearancePrototype(JSON.parse(JSON.stringify(input))).sprite.pixels)).toBe(hash(r.sprite.pixels));
-  }
+test('material observations follow Lilly and Highway base-skin overrides instead of their former cream geometry',()=>{
+ const lilly=renderRegional({genome:fixtureGenome('low','lilly'),seed});
+ expect(lilly.materials.some(m=>m===2)).toBe(false);
+ const highway=renderRegional({genome:fixtureGenome('typical','highway'),seed});
+ const flank=Array.from({length:9216},(_,i)=>i).filter(i=>A.skin[i]&&B.parts[i]===PART.body&&A.dorsalDepth[i]>=.94);
+ expect(flank.length).toBeGreaterThan(10);expect(flank.every(i=>highway.materials[i]===1)).toBe(true);
+});
+test('12 seeds per morph are deterministic through JSON and maintain inherited expression strength',()=>{
+ for(const m of MORPHS){const genome=fixtureGenome('typical',m.id),before=JSON.stringify(genome),strength=regionalPhenotype(genome).strength,seen=new Set<string>();
+  for(let n=0;n<12;n++){const input={genome,seed:'regional-diversity-'+n},r=regionalAppearance(input);expect(r.phenotype.strength).toEqual(strength);seen.add(hash(r.sprite.pixels));expect(hash(regionalAppearance(JSON.parse(JSON.stringify(input))).sprite.pixels)).toBe(hash(r.sprite.pixels));}
   expect(seen.size).toBe(12);expect(JSON.stringify(genome)).toBe(before);
-  expect(hash(plan.dorsal)+hash(plan.flank)+hash(plan.spots)).toBe(cacheBefore);
  }
 });
-
-test('existing allele inheritance produces varied siblings with inherited expression; previewing never changes inheritance',()=>{
- const father=fixtureGenome('typical','lilly'),mother=fixtureGenome('typical','normal');father.polygenic=founderPoly('proto-f');mother.polygenic=founderPoly('proto-m');
- const values=new Set<string>();
- for(let n=0;n<32;n++){
-  const childSeed='prototype-child-'+n,polygenic=inheritPoly(father.polygenic,mother.polygenic,childSeed),mendelian=inherit(father.mendelian,mother.mendelian,childSeed),genome={version:1 as const,polygenic,mendelian};
-   const r=renderAppearancePrototype({genome,seed:childSeed});values.add(JSON.stringify(r.phenotype.strength));
-   expect(renderAppearanceRelief({genome,seed:childSeed}).phenotype).toEqual(r.phenotype);
+test('actual parent allele inheritance gives siblings different appearances without inheriting a morph name',()=>{
+ const father=fixtureGenome('typical','cappuccino'),mother=fixtureGenome('typical','sable');father.polygenic=founderPoly('f');mother.polygenic=founderPoly('m');const seen=new Set<string>();
+ for(let n=0;n<32;n++){const childSeed='offspring-'+n,polygenic=inheritPoly(father.polygenic,mother.polygenic,childSeed),mendelian=inherit(father.mendelian,mother.mendelian,childSeed),genome={version:1 as const,polygenic,mendelian};
   for(const id of POLY_IDS){expect(father.polygenic.loci[id]).toContain(polygenic.loci[id][0]);expect(mother.polygenic.loci[id]).toContain(polygenic.loci[id][1]);}
-  expect(inheritPoly(father.polygenic,mother.polygenic,childSeed)).toEqual(polygenic);expect(inherit(father.mendelian,mother.mendelian,childSeed)).toEqual(mendelian);
+  seen.add(hash(renderRegional({genome,seed:childSeed}).sprite.pixels));expect(inheritPoly(father.polygenic,mother.polygenic,childSeed)).toEqual(polygenic);
  }
- expect(values.size).toBeGreaterThan(20);
+ expect(seen.size).toBe(32);
 });
-
-test('current/legacy backups, production pixels, quotes, pending embryos and all challenge verdicts are unchanged after previewing',()=>{
- let game=newGame('prototype-isolation','2026-10-16',{initialMoney:10_000_000,initialCapacity:30});
- const [f,m]=Object.keys(game.shop.offers);for(const id of [f,m])game=act(game,{type:'buyGecko',offerId:id},game.lastDate);
- game=act(game,{type:'breed',fatherId:f,motherId:m},game.lastDate);
- const check=(g:typeof game)=>Object.values(g.individuals).concat(Object.values(g.shop.offers).map(o=>o.individual),Object.values(g.matings).flatMap(m=>m.lifecycle!.offspring.map(o=>o.embryo))).map(a=>({id:a.id,pixels:hash(renderSprite(specimen(a)).pixels),quote:valueGecko(a),challenges:BREEDING_CHALLENGES.map(c=>evaluateBreedingChallenge(a,c.id))}));
- const backup=exportBackup(game),before=check(game);
- for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)])if(g.genetics?.genome)for(const render of [renderAppearancePrototype,renderAppearanceRelief])render({genome:g.genetics.genome,seed:g.visualSeed});
- expect(exportBackup(game)).toBe(backup);expect(check(game)).toEqual(before);expect(parseBackup(backup,game.lastDate)).toEqual(game);
- const legacy=readFileSync('tests/fixtures/pre-pattern-v7.json','utf8'),loaded=parseBackup(legacy,game.lastDate),original=exportBackup(loaded),old=check(loaded);
- for(const o of Object.values(loaded.shop.offers))if(o.individual.genetics?.genome)for(const render of [renderAppearancePrototype,renderAppearanceRelief])render({genome:o.individual.genetics.genome,seed:o.individual.visualSeed});
- expect(check(loaded)).toEqual(old);expect(exportBackup(loaded)).toBe(original);
+test('new game, real purchases, embryos, prices and challenge decisions survive storage exactly',()=>{
+ let game=newGame('regional-state','2026-10-17',{initialMoney:10000000,initialCapacity:30});const [f,m]=Object.keys(game.shop.offers);for(const id of [f,m])game=act(game,{type:'buyGecko',offerId:id},game.lastDate);game=act(game,{type:'breed',fatherId:f,motherId:m},game.lastDate);
+ const check=(g:typeof game)=>Object.values(g.individuals).concat(Object.values(g.shop.offers).map(o=>o.individual),Object.values(g.matings).flatMap(m=>m.lifecycle!.offspring.map(o=>o.embryo))).map(a=>({id:a.id,pixels:hash(renderSprite(specimen(a)).pixels),name:visualName(a),price:valueGecko(a),goals:BREEDING_CHALLENGES.map(c=>evaluateBreedingChallenge(a,c.id))}));
+ const saved=exportBackup(game);expect(check(parseBackup(saved,game.lastDate))).toEqual(check(game));expect(readSave(makeSave(game),game.lastDate)).toEqual(game);
 });
-
-test('gameplay, genetics, pricing, storage and production renderer cannot import the experimental path',()=>{
+test('old save is rejected with a new-game message and its raw backup remains unchanged',()=>{
+ const raw=readFileSync('tests/fixtures/pre-pattern-v7.json','utf8'),before=hash(new TextEncoder().encode(raw));expect(()=>parseBackup(raw,'2026-10-17')).toThrow('새 게임');expect(hash(new TextEncoder().encode(raw))).toBe(before);
+});
+test('bounded caches reuse pixels and observations for identical genome/seed/fire and never key by individual name',()=>{
+ const input={genome:fixtureGenome('typical','lilly'),seed},a=regionalAppearance(input);expect(regionalAppearance(JSON.parse(JSON.stringify(input)))).toBe(a);
+ for(let n=0;n<550;n++)regionalObservation({...input,seed:'cache-'+n});expect(regionalCacheSize().pixels).toBeLessThanOrEqual(32);expect(regionalCacheSize().observations).toBeLessThanOrEqual(4096);
+},30000);
+test('production contains no prototype, alternate shader or legacy renderer imports',()=>{
  function walk(dir:string):string[]{return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(join(dir,e.name)):/\.tsx?$/.test(e.name)?[join(dir,e.name)]:[]);}
- for(const dir of ['src/game','src/genetics','src/engine','src/phenotype','src/storage','src/components/hardcore'])for(const file of walk(dir))expect(readFileSync(file,'utf8'),file).not.toMatch(/(?:from\s*|import\s*\()['"][^'"]*prototype\/appearance/);
+ for(const file of walk('src'))expect(readFileSync(file,'utf8'),file).not.toMatch(/from\s*['"][^'"]*(?:prototype\/appearance|legacy\/render)/);
 });

@@ -2,7 +2,7 @@
 import {useState} from "react";
 import {PATTERN_EXAMPLES,exampleGenome} from "@/genetics/advanced/pattern-examples";
 import {patternTraits} from "@/genetics/advanced/pattern-traits";
-import {buildPatternPlan} from "@/engine/pattern-plan";
+import {regionalObservation} from "@/engine/regional";
 import {classifyPattern} from "@/phenotype/names";
 import {SpriteCanvas} from "./sprite-canvas";
 import type {GeckoSpecimen} from "@/engine/model";
@@ -14,8 +14,8 @@ export default function PatternLab(){
     <label>외형 시드 <input value={seed} maxLength={90} onChange={e=>setSeed(e.target.value||"patterns-v1")}/></label>
     <button className="game-secondary" onClick={()=>setFire(fire==="up"?"down":"up")}>파이어 {fire==="up"?"다운":"업"}</button>
     <div className="pattern-lab-grid">{PATTERN_EXAMPLES.map(e=>{
-      const traits=patternTraits(exampleGenome(e.id)),s=seed+"|"+e.id,o=buildPatternPlan(traits,s).observation,n=classifyPattern(traits,o);
-      const specimen:GeckoSpecimen={schemaVersion:1,id:e.id,name:n.primary,seed:s,state:{fire},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:traits.dorsal,flankCoverage:traits.flank,spotCount:Math.min(70,traits.spots.count),patterns:traits}};
+      const genome=exampleGenome(e.id),s=seed+"|"+e.id,{traits,observation:o}=regionalObservation({genome,seed:s,fire}),n=classifyPattern(traits,o);
+      const specimen:GeckoSpecimen={genome,schemaVersion:1,id:e.id,name:n.primary,seed:s,state:{fire},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:traits.dorsal,flankCoverage:traits.flank,spotCount:Math.min(70,traits.spots.count),patterns:traits}};
       return <article className="genetic-panel" key={e.id} data-testid={"pattern-example-"+e.id}><h2>{e.title} 형질 예제</h2><div className="pattern-lab-art"><SpriteCanvas specimen={specimen} scale={3} testId={"pattern-sprite-"+e.id}/></div>
         <strong data-testid="pattern-name">{n.primary}</strong><p>{n.features.join(" · ")||"추가 특징 없음"}</p><p>실제 반점 {o.spots}개 · 등 {Math.round(o.dorsal*100)}% · 측면 {Math.round(o.flank*100)}%</p>
       </article>;

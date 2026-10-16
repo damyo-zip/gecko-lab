@@ -1,3 +1,4 @@
+import {readArchiveSave} from '@/game/hardcore/save';
 import {tendBrood} from './helpers/tend-brood';
 import {test,expect} from 'vitest';
 import {newGame,act,synchronize} from '@/game/hardcore/play';
@@ -62,10 +63,10 @@ test('v8 is stable across wall clock/reload; end-turn uses exactly the common en
 });
 test.each([5,6])('v%i migration preserves original owned genes/eggs/history/unknown legacy parents and is idempotent',version=>{
  let old=(version===5?v5Game:oldGame)('shop-migration',DATE,{initialCapacity:20});const [id]=Object.keys(old.shop.offers);old=act(old,{type:'buyGecko',offerId:id},DATE);
- const original=structuredClone(old),envelope=makeSave(old),next=readSave(envelope,DATE);expect(old).toEqual(original);expect(next.saveVersion).toBe(10);expect(next.individuals[id].parents).toBeNull();
+ const original=structuredClone(old),envelope=makeSave(old),next=readArchiveSave(envelope,DATE);expect(old).toEqual(original);expect(next.saveVersion).toBe(10);expect(next.individuals[id].parents).toBeNull();
  expect(next.individuals[id].genetics).toEqual(old.individuals[id].genetics);expect(next.money).toBe(old.money);expect(next.sales).toEqual(old.sales);expect(next.nextClutch).toBe(old.nextClutch);
  for(const offer of Object.values(next.shop.offers).filter(o=>o.id in old.shop.offers)){expect(offer.family).toBeNull();const {healthGenome,...preserved}=offer.individual;expect(healthGenome).toBeDefined();expect(preserved).toEqual(readV6Save(envelope,DATE).shop.offers[offer.id].individual);expect(offer.askPrice).toBe(old.shop.offers[offer.id].askPrice);}
- expect(Object.values(next.shop.offers)).toHaveLength(4);expect(readSave(makeSave(next),DATE)).toBe(next);expect(parseBackup(exportBackup(next),DATE)).toEqual(next);
+ expect(Object.values(next.shop.offers)).toHaveLength(4);expect(readArchiveSave(makeSave(next),DATE)).toBe(next);expect(readArchiveSave(makeSave(next),DATE)).toEqual(next);
 });
 test('closed save schema rejects false parents, corrupted allele inheritance, purchase receipts, seeds and parent ages',()=>{
  const g=stocked();const changes:((g:HardcoreGame)=>void)[]=[x=>Object.values(x.shop.offers)[0].family!.seed+='bad',x=>Object.values(x.shop.offers)[0].purchased=true,x=>Object.values(x.shop.offers)[0].individual.parents!.fatherId='missing',x=>Object.values(x.shop.offers)[0].family!.father.birthTurn=0,x=>{delete Object.values(x.shop.offers)[0].family;},x=>{x.shop.batch=NaN;}];

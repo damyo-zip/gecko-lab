@@ -1,7 +1,7 @@
 export const SPRITE_SIZE = 96;
 export const PIXEL_COUNT = SPRITE_SIZE * SPRITE_SIZE;
-export const ENGINE_VERSION = "2.0.1";
-export const PATTERN_ENGINE_VERSION = "2.1.0";
+export const ENGINE_VERSION = "regional-2";
+export const PATTERN_ENGINE_VERSION = ENGINE_VERSION;
 
 export type BodyColor = "orange" | "brown" | "cream" | "slate";
 export type PatternStyle = "normal" | "lilly" | "axanthic" | "dalmatian" | "harlequin" | "tricolor";
@@ -32,6 +32,8 @@ export interface AppearanceTraits {
 }
 
 export interface GeckoSpecimen {
+  /** Required by the sole production renderer; absent old inputs are rejected. */
+  genome?: import("@/genetics/advanced/model").Genome;
   schemaVersion: 1;
   id: string;
   name: string;

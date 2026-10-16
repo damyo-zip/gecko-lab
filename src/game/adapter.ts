@@ -1,3 +1,4 @@
+import {sampleGenome} from '@/engine/sample-genome';
 import type { GeckoSpecimen, PatternStyle } from "@/engine/model";
 import { hasLilly } from "@/genetics/mendel";
 import { clamp } from "@/genetics/traits";
@@ -24,8 +25,9 @@ export function phenotypeOf(individual: Individual): Phenotype {
 export function toSpecimen(individual: Individual): GeckoSpecimen {
   const traits = individual.potential, phenotype = phenotypeOf(individual);
   const lilly = phenotype.geneticMorph === "Lilly White";
+  const genome=sampleGenome({bodyColor:traits.bodyTone<.42?"brown":"orange",patternStyle:phenotype.visualClass,dorsalCoverage:traits.dorsalIntensity,flankCoverage:traits.flankIntensity,spotCount:Math.round(traits.spotDensity*100)});
   return {
-    schemaVersion: 1, id: individual.id, name: individual.name, seed: individual.visualSeed,
+    genome,schemaVersion: 1, id: individual.id, name: individual.name, seed: individual.visualSeed,
     appearance: {
       bodyColor: lilly ? "cream" : traits.redIntensity > .55 ? "orange" : traits.bodyTone < .42 ? "brown" : traits.creamCoverage > .7 ? "cream" : "orange",
       patternStyle: phenotype.visualClass,

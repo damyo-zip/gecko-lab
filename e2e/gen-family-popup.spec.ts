@@ -49,12 +49,16 @@ test('existing descendants, archived parents and other-individual picker navigat
  if(mobile)await page.screenshot({path:'docs/gen-family-popup/descendants-360.png',scale:'css'});await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);expect(await page.locator('.home-name').textContent()).toBe(hero);expect(await saved(page)).toEqual(game);
 });
 
-test('full lineage tab retains the original selected info, family, comparison markup and geometry',async({page},info)=>{
+test('full lineage keeps selected info, family and comparison geometry with live v2 names and sprites',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=lineageFixture();await restore(page,f.game,mobile);await navigateGame(page,'혈통도',mobile);await page.getByLabel('혈통을 볼 개체',{exact:true}).selectOption(f.selectedId);
  const baseline=JSON.parse(readFileSync('docs/gen-family-popup/full-before-'+info.project.name+'.json','utf8'));
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});await page.locator('.reference-content').evaluate(n=>n.scrollTop=0);
-  const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,html:n.outerHTML,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));expect(actual).toEqual(baseline[width]);
+  const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));
+  // Geometry remains fixed; v2 names, canvas labels and renderer attributes are live data.
+  expect(actual).toEqual(baseline[width].map(({className,rect}:{className:string;rect:unknown})=>({className,rect})));
+  await expect(page.locator('.album-selected')).toContainText(f.game.individuals[f.selectedId].name);
+  for(const canvas of await page.locator('.album-selected canvas,.album-family canvas,.album-comparison canvas').all())await expect(canvas).toHaveAttribute('data-renderer-version','regional-2');
  }
  await expect(page.locator('.breeding-challenge-panel')).toBeVisible();await expect(page.locator('.album-save-note')).toHaveCount(1);expect(await saved(page)).toEqual(f.game);
 });

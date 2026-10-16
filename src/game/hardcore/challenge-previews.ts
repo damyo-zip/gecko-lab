@@ -32,7 +32,7 @@ function referenceGecko(id:ChallengeId):Gecko {
   id:'challenge-preview:'+id,name:challengeById(id).name,sex:'female',birthTurn:-12,stage:'adult',parents:null,generation:1,
   genotype:{modelVersion:1,loci:{'lilly-white':genome.mendelian.loci['lilly-white'],axanthic:genome.mendelian.loci.axanthic}},
   potential:legacyTraits(polyScores(genome.polygenic)),visualSeed:recipe.seed,nextBreedTurn:0,
-  genetics:{version:1,genome,appearanceVersion:'patterns-1',knowledge:unknownKnowledge()},
+  genetics:{version:1,genome,appearanceVersion:'regional-2',knowledge:unknownKnowledge()},
   birthDate:'2000-01-01',status:'pedigree',hearts:5,lastFedDate:null,diedDate:null,
   cycleAnchor:'2000-01-01',recoverUntil:'2000-01-01',lineageIds:[],provenance:'known',
  };

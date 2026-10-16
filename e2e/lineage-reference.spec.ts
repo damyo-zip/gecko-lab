@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {lineageFixture} from './fixtures/lineage-reference';
 import {newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
-import {exportBackup,readSave} from '../src/game/hardcore/save';
+import {exportBackup} from '../src/game/hardcore/save';
 import {familyTree} from '../src/game/hardcore/family-album';
 import {renderSprite} from '../src/engine/render';
 import {specimen,visualName} from '../src/game/hardcore/adapter';
@@ -104,13 +104,13 @@ test('empty album and missing family records stay honest; lineage end-turn is th
  const noFood=structuredClone(f.game);noFood.food=0;await restore(page,noFood,mobile);await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(page.getByRole('dialog',{name:'턴 종료 전 사료 부족',exact:true})).toContainText('부족 4개');expect(await saved(page)).toEqual(noFood);await page.keyboard.press('Escape');
  await navigateGame(page,'인큐베이터',mobile);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();await navigateGame(page,'상점',mobile);await expect(page.locator('.shop-offer')).toHaveCount(4);
 });
-test('actual v7 active migration archives original record once, preserves genealogy and named families, and survives JSON restore',async({page},info)=>{
+test('v7 active save preserves the exact family record and requests a new game',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),envelope=JSON.parse(await readFile('docs/lineage-reference/baseline-game.json','utf8')),record={save:envelope,writeRevision:20};
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
- await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');const game=await saved(page);expect(game).toEqual(readSave(envelope,DATE));
- const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('archive-v7-21');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(archive).toEqual(record);
- await navigateGame(page,'혈통도',mobile);await expect(page.locator('.album-favorite')).toHaveCount(0);await expect(page.locator('.breeding-challenge-panel')).toBeVisible();await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');expect(await saved(page)).toEqual(game);
- await restore(page,game,mobile);expect(await saved(page)).toEqual(game);await touch(page.getByRole('button',{name:'다른 개체 보기',exact:true}),mobile);await page.getByLabel('이름 또는 고유 ID',{exact:true}).fill('없는 개체');await expect(page.getByRole('dialog')).toContainText('일치하는 개체 기록이 없습니다');
+ await page.reload();await expect(page.getByRole('alert').filter({hasText:'새 외형 엔진'})).toContainText('새 게임');expect(await saved(page)).toEqual(envelope.game);
+ await page.reload();expect(await saved(page)).toEqual(envelope.game);
+ const active=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(active).toEqual(record);
+
 });
 
 test('offline PWA reload keeps the album, live sprites and terrarium available without progressing real time',async({page,context},info)=>{

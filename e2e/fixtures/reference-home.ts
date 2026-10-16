@@ -1,3 +1,4 @@
+import {regionalFixture} from './regional';
 import {migrateBroodCare} from '../../src/game/hardcore/brood-care';
 import {migrateRisk} from "../../src/game/hardcore/migrate-risk";
 import {migrateAlbum} from "../../src/game/hardcore/migrate-album";
@@ -36,5 +37,5 @@ export function referenceHomeGame() {
   game.shop.offers = {};
   game.food = 38;
   validateGame(game);
-  return migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(game))));
+  return regionalFixture(migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(game)))));
 }

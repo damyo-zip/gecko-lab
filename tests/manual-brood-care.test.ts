@@ -1,3 +1,4 @@
+import {readArchiveSave} from '@/game/hardcore/save';
 import {test,expect} from 'vitest';
 import {newGame,act} from '@/game/hardcore/play';
 import {actWithTime} from '@/game/hardcore/time-source';
@@ -62,10 +63,10 @@ test('infertile and other failed eggs persist and reserve until one-tap removal,
 });
 test('v9 migration keeps existing incubation dates and settled offspring, with no pending rewards re-created',()=>{
  let {g,matingId}=start();g.saveVersion=9;g=turn(turn(g));
- const old=structuredClone(g),migrated=readSave(makeSave(g),g.lastDate);
+ const old=structuredClone(g),migrated=readArchiveSave(makeSave(g),g.lastDate);
  expect(g).toEqual(old);expect(migrated.saveVersion).toBe(10);
  for(const e of Object.values(g.eggs))expect(migrated.eggs[e.id]).toMatchObject({...e,care:{version:1,collectedTurn:2,settledTurn:null}});
- for(let n=0;n<4;n++)g=turn(g);const settled=readSave(makeSave(g),g.lastDate);
+ for(let n=0;n<4;n++)g=turn(g);const settled=readArchiveSave(makeSave(g),g.lastDate);
  expect(settled.individuals).toEqual(g.individuals);expect(settled.eggs).toEqual(g.eggs);expect(Object.keys(settled.matings)).toContain(matingId);
 });
 test('tampered half-clutch collection, premature claim and reservation overflow are rejected',()=>{

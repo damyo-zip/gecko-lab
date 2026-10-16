@@ -64,7 +64,7 @@ test('optional extension preserves old saves exactly; progress, pending wages an
   let game=newGame('rush-save',DATE);expect(game.cafeRush).toBeUndefined();expect(parseBackup(exportBackup(game),DATE)).toEqual(game);
   game=act(game,{type:'startRush'},DATE);game=act(game,{type:'stepRush',elapsedMs:2000},DATE);expect(parseBackup(exportBackup(game),DATE)).toEqual(game);
   game=act(game,{type:'stepRush',elapsedMs:rushDuration(game.cafeRush!.shift)},DATE);const pending=parseBackup(exportBackup(game),DATE);expect(pending.cafeRush!.shift.paid).toBe(false);
-  game=act(game,{type:'claimRush'},DATE);expect(parseBackup(exportBackup(game),DATE)).toEqual(game);expect(game.saveVersion).toBe(10);expect(game.rulesVersion).toBe(4);
+  game=act(game,{type:'claimRush'},DATE);expect(parseBackup(exportBackup(game),DATE)).toEqual(game);expect(game.saveVersion).toBe(11);expect(game.rulesVersion).toBe(4);
 });
 test('existing turn advance unlocks one new shift; an unfinished previous shift and unclaimed wages survive turns',()=>{
   let game=act(newGame('rush-turn',DATE),{type:'startRush'},DATE),next=actWithTime(game,{type:'endTurn'},DATE);expect(next.turn).toBe(1);expect(()=>act(next,{type:'startRush'},DATE)).toThrow('먼저');

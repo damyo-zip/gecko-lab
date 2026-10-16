@@ -31,14 +31,14 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
   if(record!.genome===null){if(record!.appearanceVersion!=="legacy-1")fail();
     if(Object.hasOwn(record!,'unresolvedComplex')&&(!Array.isArray(record!.unresolvedComplex)||record!.unresolvedComplex.length!==2||record!.unresolvedComplex.some(a=>a!==null&&!LOCI[2].alleles.includes(a))))fail();return;}
   if(Object.hasOwn(record!,'unresolvedComplex'))fail();
-  if(!["5.0","patterns-1"].includes(record!.appearanceVersion))fail();keys(record!.genome,"version mendelian polygenic");if(record!.genome.version!==1)fail();
+  if(!["5.0","patterns-1","regional-2"].includes(record!.appearanceVersion))fail();keys(record!.genome,"version mendelian polygenic");if(record!.genome.version!==1)fail();
   validateMendelian(record!.genome.mendelian);validatePoly(record!.genome.polygenic);
   if(!allowRisk&&risks(record!.genome.mendelian).length)fail();
   for(const l of LOCI){const probabilities=record!.knowledge.loci[l.id].probabilities;
     if(probabilities&&!probabilities[pairKey(record!.genome.mendelian.loci[l.id],l)])fail();}
 }
 export function validateGame(value:unknown):asserts value is HardcoreGame {
-  if(!value||typeof value!=="object"||![5,6,7,8,9,10].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
+  if(!value||typeof value!=="object"||![5,6,7,8,9,10,11].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
@@ -60,6 +60,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   const all=[...relatives,...Object.values(game.individuals??{}),...Object.values(game.eggs??{}).map(e=>e.embryo),...Object.values(game.shop?.offers??{}).map(o=>o.individual),...Object.values(game.matings??{}).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])];
   for(const g of all){
     if(!Object.hasOwn(g,"genetics"))fail();validateGenetics(g.genetics,game.saveVersion>=9);
+    if(game.saveVersion===11&&(!g.genetics.genome||g.genetics.appearanceVersion!=="regional-2"))fail();
     if(game.saveVersion>=9){
       validateHealth(g.healthGenome!);
       if(g.parents){const f=individuals[g.parents.fatherId],m=individuals[g.parents.motherId];

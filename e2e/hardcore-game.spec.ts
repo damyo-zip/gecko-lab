@@ -1,3 +1,4 @@
+import {breedingRiskFixture} from './fixtures/breeding-risk';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
@@ -12,7 +13,6 @@ import { createNewGame, applyAction } from "../src/game/play";
 import { makeSave as legacySave } from "../src/game/save";
 import type { HardcoreGame } from "../src/game/hardcore/model";
 import { addDays } from "../src/game/hardcore/time";
-import { migrateV2 } from "../src/game/hardcore/create";
 import type { TimeMode } from "../src/game/hardcore/model";
 
 test.setTimeout(90_000);
@@ -108,17 +108,15 @@ test("offline time stays paused; five unfed manual turns kill once and preserve 
   await expect(page.getByRole("button",{name:/분양 준비/})).toHaveCount(0);
 });
 
-test("Phase 2 IndexedDB migration preserves embryos, IDs and reserves capacity atomically",async({page},info)=>{
+test("Phase 2 active save stays untouched and requests an explicit new game",async({page},info)=>{
   const old=createNewGame("legacy-import"),[father,mother]=Object.values(old.individuals),bred=applyAction(old,{type:"breed",fatherId:father.id,motherId:mother.id});
   await page.evaluate(async record=>{
     const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:legacySave(bred),writeRevision:50});
-  await page.reload();await expect(page.getByTestId("game-date")).toHaveText(DATE);const g=await saved(page);
-  expect(g.migration).toEqual({from:2,date:DATE});expect(g.capacity).toBeGreaterThanOrEqual(8);expect(g.nextClutch).toBe(bred.nextClutch);
-  for(const i of Object.values(bred.individuals)){expect(g.individuals[i.id].genotype).toEqual(i.genotype);expect(g.individuals[i.id].potential).toEqual(i.potential);expect(g.individuals[i.id].visualSeed).toBe(i.visualSeed);}
-  for(const e of Object.values(bred.eggs)){expect(g.eggs[e.id].embryo.genotype).toEqual(e.embryo.genotype);expect(g.eggs[e.id].embryo.potential).toEqual(e.embryo.potential);expect(g.eggs[e.id].embryo.parents).toEqual(e.embryo.parents);}
-  for(let t=0;t<4;t++)await finishTurn(page,info.project.name.startsWith("mobile"));expect(Object.values((await saved(page)).eggs).every(e=>e.status!=="incubating")).toBe(true);
+  await page.reload();await expect(page.getByRole('alert').filter({hasText:'새 외형 엔진'})).toContainText('새 게임');
+  expect(await saved(page)).toEqual(bred);await page.reload();expect(await saved(page)).toEqual(bred);
+
 });
 
 test("backup, corruption rejection, recovery archive and new-game separation",async({page},info)=>{
@@ -184,8 +182,8 @@ test("corrupt active v3 stays untouched until confirmed recovery and is archived
 });
 
 test("live UI distinguishes lethal conditional odds and allows acknowledged risky and lineal matings after adulthood",async({page},info)=>{
-  const mobile=info.project.name.startsWith("mobile"),fixture=migrateV2(legacySave(createNewGame("risk-ui")),DATE);
-  fixture.capacity=12;fixture.rules={...fixture.rules,fertilizationChance:1,hatchChance:1,juvenileAfter:1,adultAfter:1};
+  const mobile=info.project.name.startsWith("mobile"),fixture=breedingRiskFixture().game;
+  fixture.capacity=20;
   fixture.time.mode="turn";fixture.food=500;
   await restore(page,exportBackup(fixture),mobile);
   const [normal,lillyFemale,,,lillyMale]=Object.values(fixture.individuals);

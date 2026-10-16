@@ -18,6 +18,8 @@ export interface PatternPlan {
   dorsal:Uint8Array; flank:Uint8Array; secondary:Uint8Array; pins:Uint8Array; edges:Uint8Array; spots:Uint8Array;
   spotCenters:readonly {x:number;y:number;radius:number}[];
   observation:PatternObservation;
+  /** Geometry intent, checked against final regional pixels before naming. */
+  shapes:{drips:Uint8Array[];bars:Uint8Array[];wall:Uint8Array};
 }
 const cache=new Map<string,PatternPlan>();
 export const patternCacheSize=()=>cache.size;
@@ -33,7 +35,7 @@ function route(offset:number):readonly (readonly [number,number])[] {
   }
   return points;
 }
-const ROUTES=[route(1),route(4),route(8),route(11)];
+export const PATTERN_ROUTES=[route(1),route(4),route(8),route(11)];
 function drawPath(target:Uint8Array,points:readonly (readonly [number,number])[],strength:number,seed:string):LineObservation {
   const rng=randomFor(seed,"line-gaps"),bits=points.map(()=>rng()<Math.max(0,(strength-.25)/.68));
   let longestRun=0,run=0,gapCount=0,covered=0;
@@ -68,7 +70,7 @@ export function buildPatternPlan(t:PatternTraits,seed:string):PatternPlan {
       }
     }
   }
-  const rng=randomFor(seed,"patterns-v1:shape"),barPixels:number[]=[];
+  const rng=randomFor(seed,"patterns-v1:shape"),barPixels:number[]=[],barMasks:Uint8Array[]=[],dripMasks:Uint8Array[]=[];
   if(striped)for(let n=0;n<6;n++){
     const cx=39+n*7+Math.floor(rng()*2),mask=new Uint8Array(PIXEL_COUNT),bend=(rng()-.5)*2;
     for(let y=20;y<49;y++){
@@ -76,23 +78,23 @@ export function buildPatternPlan(t:PatternTraits,seed:string):PatternPlan {
       if(broken&&y%6===n%6)continue;
       for(let w=0;w<2;w++){const i=y*96+x+w;if(allowed(i)&&[PART.body,PART.head,PART.hindLeg].includes(B.parts[i] as 3|4|6)){mask[i]=255;dorsal[i]=255;secondary[i]=255;}}
     }
-    barPixels.push(mask.filter(Boolean).length);
+    barPixels.push(mask.filter(Boolean).length);barMasks.push(mask);
   }
   let drips=0;
   if(t.drippy>.30)for(let n=0;n<5;n++){
-    const x=49+n*5+Math.floor(rng()*2),root=ROUTES[1][Math.min(25,x-49)]?.[1]??31,length=Math.round(2+t.drippy*12),mask=new Uint8Array(PIXEL_COUNT);
+    const x=49+n*5+Math.floor(rng()*2),root=PATTERN_ROUTES[1][Math.min(25,x-49)]?.[1]??31,length=Math.round(2+t.drippy*12),mask=new Uint8Array(PIXEL_COUNT);
     for(let y=root;y<=root+length;y++)for(let w=0;w<(y<root+length-1?2:1);w++){
       const i=y*96+x+w;if(allowed(i)){mask[i]=255;flank[i]=255;secondary[i]=0;
         if(y>root+3)for(const xx of [x-1,x+2])if(allowed(y*96+xx))edges[y*96+xx]=255;}
     }
-    if(mask.filter(Boolean).length>=8)drips++;
+    if(mask.filter(Boolean).length>=8){drips++;dripMasks.push(mask);}
   }
   if(t.wall>.32)for(let x=49;x<=74;x++){
-    const y=ROUTES[2][x-49][1],height=Math.round(t.wall*11);
+    const y=PATTERN_ROUTES[2][x-49][1],height=Math.round(t.wall*11);
     for(let yy=y;yy<y+height;yy++){const i=yy*96+x;if(allowed(i)){wall[i]=255;flank[i]=255;secondary[i]=0;}}
   }
-  const pin=[drawPath(pins,ROUTES[0],t.pin[0],seed+"|pin-left"),drawPath(pins,ROUTES[1],t.pin[1],seed+"|pin-right")] as const;
-  const side=[drawPath(pins,ROUTES[2],t.side[0],seed+"|side-left"),drawPath(pins,ROUTES[3],t.side[1],seed+"|side-right")] as const;
+  const pin=[drawPath(pins,PATTERN_ROUTES[0],t.pin[0],seed+"|pin-left"),drawPath(pins,PATTERN_ROUTES[1],t.pin[1],seed+"|pin-right")] as const;
+  const side=[drawPath(pins,PATTERN_ROUTES[2],t.side[0],seed+"|side-left"),drawPath(pins,PATTERN_ROUTES[3],t.side[1],seed+"|side-right")] as const;
   for(let i=0;i<PIXEL_COUNT;i++)if(pins[i])for(const n of [i-96,i+96])if(allowed(n)&&!pins[n])edges[n]=255;
   for(let i=0;i<PIXEL_COUNT;i++){
     if(!allowed(i)){dorsal[i]=flank[i]=pins[i]=secondary[i]=edges[i]=0;continue;}
@@ -112,9 +114,9 @@ export function buildPatternPlan(t:PatternTraits,seed:string):PatternPlan {
     eligible++;if(spots[i])spotN++;else if(secondary[i]&&!edges[i])secondaryN++;else if((dorsal[i]||flank[i])&&!edges[i])creamN++;
   }
   // Spot count measures actual separated marks, never the requested density alone.
-  const plan:PatternPlan={dorsal,flank,secondary,pins,edges,spots,spotCenters:centers,
+  const plan:PatternPlan={dorsal,flank,secondary,pins,edges,spots,spotCenters:centers,shapes:{drips:dripMasks,bars:barMasks,wall},
     observation:{dorsal:fraction(dorsal,B.dorsalRegion),flank:fraction(flank,torsoRegion),limbs:fraction(flank,limbRegion),
       baseArea:1-(creamN+secondaryN+spotN)/eligible,creamArea:creamN/eligible,secondaryArea:secondaryN/eligible,
       pin,side,drips,wall:fraction(wall,torsoRegion),bars:barPixels.filter(n=>n>=8).length,brokenBars:broken,spots:centers.length}};
-  cache.set(key,plan);if(cache.size>128)cache.delete(cache.keys().next().value!);return plan;
+  cache.set(key,plan);if(cache.size>32)cache.delete(cache.keys().next().value!);return plan;
 }

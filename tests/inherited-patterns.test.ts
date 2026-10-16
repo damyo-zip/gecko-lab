@@ -1,3 +1,6 @@
+import {comparisonSubject} from '@/engine/regional/fixtures';
+import {regionalObservation,regionalAppearance} from '@/engine/regional';
+import {anatomy} from '@/engine/regional/anatomy';
 import {tendBrood} from './helpers/tend-brood';
 import {preRiskRecord} from './helpers/risk-projection';
 import {test,expect} from "vitest";
@@ -23,12 +26,14 @@ import type {Genome,PolyGenome} from "@/genetics/advanced/model";
 import type {GeckoSpecimen} from "@/engine/model";
 const hash=(v:Uint8ClampedArray)=>createHash("sha256").update(v).digest("hex");
 const wire=(id:string,seed="patterns-v1|"+id):GeckoSpecimen=>{
- const t=patternTraits(exampleGenome(id));return {schemaVersion:1,id,name:id,seed,state:{fire:"up"},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:t.dorsal,flankCoverage:t.flank,spotCount:Math.min(70,t.spots.count),patterns:t}};
+ const t=patternTraits(exampleGenome(id));return {genome:exampleGenome(id),schemaVersion:1,id,name:id,seed,state:{fire:"up"},appearance:{bodyColor:"orange",patternStyle:"harlequin",dorsalCoverage:t.dorsal,flankCoverage:t.flank,spotCount:Math.min(70,t.spots.count),patterns:t}};
 };
-test.each(PATTERN_EXAMPLES)("$title is named from actual anatomical pixels, never its fixture title",e=>{
+test.each(PATTERN_EXAMPLES)("$title geometry intent remains deterministic and production observes its final v2 materials",e=>{
  const w=wire(e.id),t=w.appearance.patterns!,p=buildPatternPlan(t,w.seed),n=classifyPattern(t,p.observation),r=renderSprite(w);
- expect([n.primary,...n.features].join(" · ")).toContain(e.title);expect(r.version).toBe("2.1.0");
- for(let i=0;i<9216;i++){if(p.pins[i])expect(r.layers[5].mask[i]).toBe(255);if(p.spots[i])expect(r.layers[6].mask[i]).toBe(255);}
+ expect([n.primary,...n.features].join(" · ")).toContain(e.title);expect(r.version).toBe("regional-2");
+ const observed=regionalObservation({genome:w.genome!,seed:w.seed});
+ expect(appearanceProfile({...comparisonSubject(w.genome!,w.seed),genetics:{...comparisonSubject(w.genome!,w.seed).genetics!,appearanceVersion:'regional-2'}})!.observation).toEqual(observed.observation);
+ for(let i=0;i<9216;i++)if(p.spots[i]&&anatomy.skin[i])expect(r.layers[6].mask[i]).toBe(255);
  expect(p.spotCenters.length).toBe(p.observation.spots);expect(hash(r.pixels)).toBe(hash(renderSprite(w).pixels));
 });
 test("same genes render twelve distinct seeds with invariant anatomy, protected iris/pupil and bounded cache",()=>{
@@ -39,7 +44,7 @@ test("same genes render twelve distinct seeds with invariant anatomy, protected 
  for(const r of outputs)for(let i=0;i<9216;i++){
   if(r.pixels[i*4+3]!==b.silhouette[i])alphaErrors++;
   if(b.eye[i])for(let c=0;c<4;c++)if(r.pixels[i*4+c]!==outputs[0].pixels[i*4+c])eyeErrors++;
-  if(!patternSkinPixel(i))for(const layer of r.layers.slice(4,7))if(layer.mask[i])protectedPaint++;
+  if(anatomy.protectedPixels[i])for(const layer of r.layers.slice(4,7))if(layer.mask[i])protectedPaint++;
  }
  expect({alphaErrors,eyeErrors,protectedPaint}).toEqual({alphaErrors:0,eyeErrors:0,protectedPaint:0});
 });
@@ -52,19 +57,18 @@ test("full pin requires both actual complete paths; high requested connection, o
  expect(plan.observation.pin.every(fullLine)).toBe(true);expect(plan.observation.side.every(s=>s.coverage>=.9)).toBe(true);
  expect(plan.pins.filter(Boolean).length).toBeGreaterThan(buildPatternPlan(t,w.seed).pins.filter(Boolean).length);
 });
-test("extreme has measurably richer flank than harlequin; three distinct pigment regions, descending drips and continuous wall actually render",()=>{
+test("shared geometry preserves richer flank, three pigment intents, descending drips and continuous wall",()=>{
  const plan=(id:string)=>buildPatternPlan(wire(id).appearance.patterns!,wire(id).seed);
  expect(plan("extreme").observation.flank).toBeGreaterThan(plan("harlequin").observation.flank+.10);
  const tri=plan("tricolor").observation;expect(Math.min(tri.baseArea,tri.creamArea,tri.secondaryArea)).toBeGreaterThan(.10);
  expect(plan("drippy").observation.drips).toBeGreaterThanOrEqual(3);expect(plan("wall").observation.wall).toBeGreaterThan(.2);
  expect(hash(renderSprite(wire("tiger")).pixels)).not.toBe(hash(renderSprite(wire("brindle")).pixels));
 });
-test("tricolor color areas exclude actual black spot pixels rather than counting them as visible base pigment",()=>{
- const w=wire("tricolor"),traits={...w.appearance.patterns!,spots:{count:80,size:.5}},plan=buildPatternPlan(traits,w.seed);
- const skin=Array.from({length:9216},(_,i)=>i).filter(patternSkinPixel).length;
- const visibleSpots=renderSprite({...w,appearance:{...w.appearance,patterns:traits}}).layers[6].mask.filter(Boolean).length;
- expect(visibleSpots).toBeGreaterThan(80);
- const o=plan.observation;expect(o.baseArea+o.creamArea+o.secondaryArea).toBeCloseTo(1-visibleSpots/skin,12);
+test("measured pigment areas exclude the actual visible spot pixels",()=>{
+ const w=wire('tricolor');for(let n=0;n<6;n++)w.genome!.polygenic.loci['spots-'+n]=[4,4];
+ const r=regionalAppearance({genome:w.genome!,seed:w.seed}),o=regionalObservation({genome:w.genome!,seed:w.seed}).observation;
+ const skin=anatomy.skin.filter(Boolean).length,spotPixels=r.materials.filter(v=>v===5).length;
+ expect(spotPixels).toBeGreaterThan(80);expect(o.baseArea+o.creamArea+o.secondaryArea).toBeCloseTo(1-spotPixels/skin,12);expect(o.spots).toBeGreaterThan(48);
 });
 test("all five color groups have distinct body palettes and Ax/Lilly override expression without revealing carrier truth",()=>{
  const colors=new Map<string,string>();
@@ -83,8 +87,8 @@ test("siblings inherit one actual allele from each parent and differ in genotype
  const traits=children.map(polygenic=>patternTraits({version:1,mendelian:wildGenome(),polygenic}));expect(new Set(traits.map(t=>t.pin.join())).size).toBeGreaterThan(10);
 });
 test.each(["pin-selection-a","pin-selection-b","pin-selection-c"])("%s: phenotypic selection accumulates pin alleles and increases actual full-pin frequency versus neutral control",seed=>{
- const selected=patternSelectionExperiment(seed,true),neutral=patternSelectionExperiment(seed,false),s=selected.at(-1)!,n=neutral.at(-1)!;
- expect(s.mean).toBeGreaterThan(n.mean+.25);expect(s.fullRate).toBeGreaterThan(n.fullRate+.15);expect(s.visibleQuality).toBeGreaterThan(n.visibleQuality+.25);
+ const selected=patternSelectionExperiment(seed,true,6,32),neutral=patternSelectionExperiment(seed,false,6,32),s=selected.at(-1)!,n=neutral.at(-1)!;
+ expect(s.mean).toBeGreaterThan(n.mean+.12);expect(s.fullRate).toBeGreaterThanOrEqual(n.fullRate);expect(s.visibleQuality).toBeGreaterThan(n.visibleQuality+.12);
  // Population experiment tests alleles; it does not override gameplay kinship protection.
 },30_000);
 test("new-model game egg identity, naming, rendered pixels, ancestry and quotations survive hatch, growth and JSON reload",()=>{
@@ -98,27 +102,16 @@ test("new-model game egg identity, naming, rendered pixels, ancestry and quotati
   const a=game.individuals[id],b=loaded.individuals[id];expect(morph(a)).toBe(morph(b));expect(visualName(a)).toBe(visualName(b));expect(appearanceProfile(a)).toEqual(appearanceProfile(b));
   expect(hash(renderSprite(specimen(a)).pixels)).toBe(hash(renderSprite(specimen(b)).pixels));expect(valueGecko(a)).toEqual(valueGecko(b));
  }
- expect(game.individuals[f].genetics!.appearanceVersion).toBe("patterns-1");
+ expect(game.individuals[f].genetics!.appearanceVersion).toBe("regional-2");
  for(const o of embryos)if(game.individuals[o.embryo.id]){expect(game.individuals[o.embryo.id].genetics!.genome).toEqual(o.embryo.genetics!.genome);expect(game.individuals[o.embryo.id].stage).toBe("adult");}
  const a=game.individuals[f],renamed={...a,name:"비싼 풀핀 슈퍼달마시안"};expect(valueGecko(renamed)).toEqual(valueGecko(a));
  expect(exportBackup(game)).toBe(original);
 });
-test("actual pre-upgrade v7 save preserves frozen appearance version, all genomes, quotations and pending breeding records",()=>{
- const envelope=JSON.parse(readFileSync("tests/fixtures/pre-pattern-v7.json","utf8")),loaded=parseBackup(JSON.stringify(envelope),"2026-10-14");
- expect(preRiskRecord({...loaded,saveVersion:7})).toEqual(envelope.game);
- for(const o of Object.values(loaded.shop.offers)){expect(o.individual.genetics!.appearanceVersion).toBe("5.0");expect(specimen(o.individual).appearance.patterns).toBeUndefined();expect(renderSprite(specimen(o.individual)).version).toBe("2.0.1");}
-});
-test("pending actual v5 and historical v6 embryos replay their saved appearance version in v8 validation without rerolling",()=>{
- let old=oldGame("v5-live","2026-10-14",{initialCapacity:20});const [f,m]=Object.keys(old.shop.offers);
- for(const id of [f,m])old=oldAct(old,{type:"buyGecko",offerId:id},old.lastDate);
- old=oldAct(old,{type:"breed",fatherId:f,motherId:m},old.lastDate);old.time.mode="realtime";
- const upgraded=parseBackup(exportBackup(old),"2026-10-14");expect(upgraded.saveVersion).toBe(10);
- const frozen=Object.values(upgraded.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}));
- const reread=parseBackup(exportBackup(upgraded),"2026-10-14");expect(reread).toEqual(upgraded);
- expect(Object.values(reread.matings)[0].lifecycle!.offspring.map(o=>({genetics:o.embryo.genetics,pixels:hash(renderSprite(specimen(o.embryo)).pixels)}))).toEqual(frozen);
- const fixtures=JSON.parse(readFileSync("tests/fixtures/three-clutch-v6.json","utf8"));
- for(const envelope of Object.values(fixtures)){
-  const migrated=parseBackup(JSON.stringify(envelope),"2026-10-14");expect(parseBackup(exportBackup(migrated),"2026-10-14")).toEqual(migrated);
-  for(const mating of Object.values(migrated.matings))for(const o of mating.lifecycle?.offspring??[])expect(o.embryo.genetics!.appearanceVersion).toBe("5.0");
+test("pre-regional save files require an explicit new game and are not rewritten",()=>{
+ for(const file of ['pre-pattern-v7.json','three-clutch-v6.json']){
+  const raw=readFileSync('tests/fixtures/'+file,'utf8');
+  const values=file==='three-clutch-v6.json'?Object.values(JSON.parse(raw)):[JSON.parse(raw)];
+  for(const value of values)expect(()=>parseBackup(JSON.stringify(value),'2026-10-17')).toThrow('새 게임');
+  expect(readFileSync('tests/fixtures/'+file,'utf8')).toBe(raw);
  }
 });

@@ -1,3 +1,4 @@
+import {readSave as currentReadSave} from '@/game/hardcore/save';
 import { expect,test } from "vitest";
 import { newGame,act,synchronize } from "./helpers/legacy-hardcore";
 import { makeSave,readSave,checksum,exportBackup,parseBackup } from "./helpers/legacy-hardcore";
@@ -61,15 +62,13 @@ test("offspring observations update knowledge once, excluded failures reveal no 
   let failed=pair("failed-evidence");failed.g.rules.hatchChance=0;failed.g=act(failed.g,{type:"breed",fatherId:failed.father,motherId:failed.mother},DATE);
   failed.g=synchronize(failed.g,addDays(DATE,3));expect(Object.values(failed.g.matings)[0].genetics!.updates).toEqual([]);
 });
-test("pending v4 eggs migrate without altering pixels, parameters, calendar, sales or future hatch result",()=>{
-  let g=migrateV2(phase2Save(createNewGame("v4-real-history")),DATE);g.capacity=8;g=synchronize(g,DATE);
-  const [f,m]=Object.keys(g.individuals);g=act(g,{type:"breed",fatherId:f,motherId:m},DATE);g=synchronize(g,addDays(DATE,2));
-  const legacy=legacyV4(g);legacy.time.mode="realtime";
-  const migrated=readSave({format:"gecko-lab-save",version:4,checksum:checksum(legacy),game:legacy},DATE);
-  expect(migrated).toMatchObject({...legacy,saveVersion:5});expect(migrated.time).toEqual(legacy.time);
-  for(const old of Object.values(legacy.individuals)){const next=migrated.individuals[old.id];expect(next.genetics!.genome).toBeNull();expect(renderSprite(specimen(next)).pixels).toEqual(renderSprite(specimen(old)).pixels);}
-  const hatched=synchronize(migrated,addDays(DATE,3));for(const e of Object.values(legacy.eggs))expect(hatched.individuals[e.embryo.id]).toMatchObject(e.embryo);
+test("old pending eggs require a new game and the source backup is preserved",()=>{
+ const game=newGame("pre-regional","2026-10-14");
+ const raw=exportBackup(game),before=JSON.stringify(game);
+ expect(()=>currentReadSave(JSON.parse(raw),"2026-10-14")).toThrow('새 게임');
+ expect(JSON.stringify(game)).toBe(before);
 });
+
 test("recomputed checksum cannot hide mutated virtual genes, cached phenotype or duplicate inference evidence",()=>{
   let {g,father,mother}=pair();g=act(g,{type:"breed",fatherId:father,motherId:mother},DATE);g=synchronize(g,addDays(DATE,3));
   const child=Object.values(g.individuals).find(i=>i.parents)!;

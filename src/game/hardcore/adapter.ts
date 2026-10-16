@@ -1,4 +1,4 @@
-import { toSpecimen, phenotypeOf } from "@/game/adapter";
+import { phenotypeOf } from "@/game/adapter";
 import { axanthicState } from "@/genetics/hardcore";
 import type { Gecko } from "./model";
 import { carrierProbability } from "@/genetics/advanced/inference";
@@ -21,34 +21,25 @@ export function morph(g: Gecko): string {
   const p=carrierProbability(publicKnowledge(g));
   return [label,...complex].join(" · ") + (p===null?" · 유전 정보 미확인":p>1-1e-9?" · 100% het Ax":p>0?" · "+(p*100).toFixed(1)+"% possible het Ax":"");
 }
-/** Preserve the renderer; only the adapter knows the added locus. */
-export function specimen(g: Gecko,fire:"up"|"down"="up") {
-  const result = toSpecimen(legacyView(g));
-  if(g.genetics?.genome){const s=phenotype(g.genetics.genome,{stage:g.stage,fire:"up"}).scores,lilly=g.genotype.loci["lilly-white"].includes("Lw");
-    result.appearance.expression={red:s.red,orange:s.orange,brightness:s.brightness,cream:s.cream,harlequin:s.harlequin,pinstripe:s.pinstripe,contrast:s.contrast};
-    if(!lilly){result.appearance.bodyColor=s.red>.55||s.orange>.58?"orange":s.brightness<.42?"brown":s.cream>.7?"cream":"orange";
-      result.appearance.dorsalCoverage=(s.dorsal*.4+s.cream*.3+s.pinstripe*.3)*(.8+.2*s.contrast);
-      result.appearance.flankCoverage=(s.flank*.4+s.harlequin*.35+s.cream*.25)*(.8+.2*s.contrast);}
-  }
-  if (axanthicState(g.genotype) === "visual") {
-    result.appearance.bodyColor = "slate";
-    if (!g.genotype.loci["lilly-white"].includes("Lw")) result.appearance.patternStyle = "axanthic";
-  }
-  const profile=appearanceProfile(g);
-  if(profile){const t=profile.traits;
-    result.appearance.patterns=t;
-    const lilly=g.genotype.loci["lilly-white"].includes("Lw"),ax=axanthicState(g.genotype)==="visual";
-    result.appearance.patternStyle=lilly?"lilly":ax?"axanthic":profile.names.base.includes("트라이컬러")?"tricolor":profile.names.base.includes("할리퀸")?"harlequin":profile.names.base.includes("달마시안")?"dalmatian":"normal";
-    result.appearance.dorsalCoverage=t.dorsal;result.appearance.flankCoverage=t.flank;result.appearance.spotCount=Math.min(70,t.spots.count);
-  }
-  result.state.fire=fire;
-  return result;
+/** One graphics contract shared by all game screens and target previews. */
+export function specimen(g:Gecko,fire:"up"|"down"="up"):import("@/engine/model").GeckoSpecimen {
+  const genome=g.genetics?.genome;
+  if(!genome)throw new Error('새 외형 엔진을 이용하려면 새 게임을 시작해 주세요.');
+  const profile=appearanceProfile(g),t=profile?.traits,n=profile?.names;
+  const genetic=visibleGeneticMorphs(g),lilly=genetic.some(m=>m.includes('Lilly')||m==='Frappuccino'||m.startsWith('Sorak'));
+  const ax=genotypeAx(g);
+  const style:import('@/engine/model').PatternStyle=lilly?'lilly':ax?'axanthic':n?.base.includes('트라이컬러')?'tricolor':n?.base.includes('할리퀸')?'harlequin':n?.base.includes('달마시안')||n?.features.some(f=>f.includes('달마시안'))?'dalmatian':'normal';
+  return {schemaVersion:1 as const,id:g.id,name:g.name,seed:g.visualSeed,genome,
+    appearance:{bodyColor:t?.color==='회색'?'slate':t?.color==='크림'?'cream':t?.color==='다크'?'brown':'orange',patternStyle:style,
+      dorsalCoverage:t?.dorsal??0,flankCoverage:t?.flank??0,spotCount:Math.min(70,profile?.observation.spots??0),...(t?{patterns:t}:{})},state:{fire}};
+}
+function genotypeAx(g:Gecko){return g.genetics?.genome?.mendelian.loci.axanthic.every(a=>a==='ax')??false;
 }
 /** Frozen descriptive path also used to generate saved shop individual names.
  * Keep this separate from the changeable player-facing naming policy. */
 export function descriptiveVisualName(g:Gecko):string {
   return appearanceProfile(g)?.names.primary??morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,
-    {normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"}[specimen(g).appearance.patternStyle]).split(" · ").filter(s=>!s.includes("het")&&!s.includes("유전 정보")).join(" · ");
+    {normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"}[phenotypeOf(legacyView(g)).visualClass]).split(" · ").filter(s=>!s.includes("het")&&!s.includes("유전 정보")).join(" · ");
 }
 /** Only expressed morphs: a hidden recessive carrier is never a naming input. */
 export function visibleGeneticMorphs(g:Gecko):string[] {
@@ -61,7 +52,7 @@ export function visualName(g:Gecko):string {
   let name=displayNames.get(g);if(name!==undefined)return name;
   const profile=appearanceProfile(g),geneticMorphs=visibleGeneticMorphs(g);
   // Older sprites have no measured color/pattern profile. Do not invent those traits.
-  const legacyPattern=profile?'':{normal:'',lilly:'',axanthic:'',dalmatian:'달마시안',harlequin:'할리퀸',tricolor:'트라이컬러 할리퀸'}[specimen(g).appearance.patternStyle];
+  const legacyPattern=profile?'':{normal:'',lilly:'',axanthic:'',dalmatian:'달마시안',harlequin:'할리퀸',tricolor:'트라이컬러 할리퀸'}[phenotypeOf(legacyView(g)).visualClass];
   const fallback=profile?.names.primary??(geneticMorphs.length?[geneticMorphs.join(' + '),legacyPattern].filter(Boolean).join(' · '):descriptiveVisualName(g));
   name=representativeMorphName({geneticMorphs,color:profile?.names.color,pattern:profile?.names.base,fallback});
   displayNames.set(g,name);return name;

@@ -1,3 +1,4 @@
+import {readArchiveSave} from '@/game/hardcore/save';
 import {tendBrood} from './helpers/tend-brood';
 import { expect, test } from 'vitest';
 import { readFileSync } from 'node:fs';
@@ -121,8 +122,8 @@ test('public warning/confirmation tokens do not change with secret carrier or he
 });
 test('unknown legacy complex alleles remain unknown while the known parental gamete survives a mixed cross',()=>{
  let {g,father,mother}=riskyPair('partial-legacy');const f=g.individuals[father],m=g.individuals[mother];f.genetics!.genome!.mendelian.loci['cappuccino-complex']=['C','C'];f.genetics!.knowledge.loci['cappuccino-complex'].probabilities={'C/C':1};m.genetics=legacyRecord(m);
- validateGame(g);g=mate(g,father,mother);for(const o of Object.values(g.matings)[0].lifecycle!.offspring){expect(o.embryo.genetics!.genome).toBeNull();expect(o.embryo.genetics!.unresolvedComplex).toEqual(['C',null]);expect(o.embryo.genetics!.knowledge.loci['cappuccino-complex'].probabilities).toBeNull();}
- expect(parseBackup(exportBackup(turns(g,6)),DATE)).toBeDefined();
+ g.saveVersion=10;validateGame(g);g=mate(g,father,mother);for(const o of Object.values(g.matings)[0].lifecycle!.offspring){expect(o.embryo.genetics!.genome).toBeNull();expect(o.embryo.genetics!.unresolvedComplex).toEqual(['C',null]);expect(o.embryo.genetics!.knowledge.loci['cappuccino-complex'].probabilities).toBeNull();}
+ expect(readArchiveSave(makeSave(turns(g,6)),DATE)).toBeDefined();
 });
 test('ordinary sex, adulthood, retirement, recovery and two-slot requirements still block breeding',()=>{
  const {g,father,mother}=pair();const f=g.individuals[father],m=g.individuals[mother];expect(breedingCheck(g,father,mother).reasons).toEqual([]);
@@ -130,10 +131,10 @@ test('ordinary sex, adulthood, retirement, recovery and two-slot requirements st
 });
 test('v7/v8 migration deterministically adds only health fields; old genomes, pixels, names, failures and pending conception remain unchanged',()=>{
  const envelope=JSON.parse(readFileSync('docs/lineage-reference/baseline-game.json','utf8')),original=structuredClone(envelope);
- const migrated=readSave(envelope,DATE);expect(envelope).toEqual(original);expect(migrated.saveVersion).toBe(10);expect(readSave(envelope,DATE)).toEqual(migrated);
+ const migrated=readArchiveSave(envelope,DATE);expect(envelope).toEqual(original);expect(migrated.saveVersion).toBe(10);expect(readArchiveSave(envelope,DATE)).toEqual(migrated);
  for(const [id,old] of Object.entries(original.game.individuals) as [string,Gecko][]){const next=migrated.individuals[id];expect(next.genetics).toEqual(old.genetics);expect(next.genotype).toEqual(old.genotype);expect(next.parents).toEqual(old.parents);expect(renderSprite(specimen(next)).pixels).toEqual(renderSprite(specimen(old)).pixels);expect(visualName(next)).toBe(visualName(old));}
- expect(migrated.eggs).toMatchObject(original.game.eggs);expect(readSave(makeSave(migrated),DATE)).toBe(migrated);
- const corrupt=makeSave(structuredClone(migrated));delete Object.values(corrupt.game.individuals)[0].healthGenome;corrupt.checksum=checksum(corrupt.game);expect(()=>readSave(corrupt,DATE)).toThrow();
+ expect(migrated.eggs).toMatchObject(original.game.eggs);expect(readArchiveSave(makeSave(migrated),DATE)).toBe(migrated);
+ const corrupt=makeSave(structuredClone(migrated));delete Object.values(corrupt.game.individuals)[0].healthGenome;corrupt.checksum=checksum(corrupt.game);expect(()=>readArchiveSave(corrupt,DATE)).toThrow();
 });
 
 test('real adult siblings and parent/child matings are permitted with combined public warnings; healthy inbred offspring can hatch',()=>{
@@ -162,13 +163,13 @@ test('fictional vigor can fail unrelated viable embryos; baseline hatch and gene
 test('pending actual v8 conception outcomes and per-egg failures survive v9 migration and future turns unchanged',()=>{
  // This checked-in historical v7 save contains pending embryos produced by the older engine.
  const original=JSON.parse(readFileSync('tests/fixtures/pre-pattern-v7.json','utf8')),old=migrateAlbum(original.game as HardcoreGame);
- const next=readSave(makeSave(old),DATE);expect(Object.values(next.matings).every(m=>m.riskModel===null)).toBe(true);
+ const next=readArchiveSave(makeSave(old),DATE);expect(Object.values(next.matings).every(m=>m.riskModel===null)).toBe(true);
  const embryos=Object.values(old.matings).flatMap(m=>m.lifecycle?.offspring??[]);
  for(const o of Object.values(next.matings).flatMap(m=>m.lifecycle?.offspring??[])){
   const prior=embryos.find(x=>x.embryo.id===o.embryo.id)!;expect(o.fertilized).toBe(prior.fertilized);expect(o.embryo.genetics).toEqual(prior.embryo.genetics);expect(o.embryo.genotype).toEqual(prior.embryo.genotype);expect(o.embryo.development).toBeUndefined();
  }
  const frozen=structuredClone(next.matings);const advanced=turns(next,6);for(const m of Object.values(advanced.matings))expect(m.lifecycle!.offspring).toEqual(frozen[m.id].lifecycle!.offspring);
- expect(parseBackup(exportBackup(advanced),DATE)).toEqual(advanced);
+ expect(readArchiveSave(makeSave(advanced),DATE)).toEqual(advanced);
 });
 
 test('current shop supplies actual inherited C/S/H alleles while starter pair, four offers, hidden Ax knowledge and existing pricing remain intact',()=>{

@@ -110,7 +110,7 @@ export interface NamedLineage {
 export interface HardcoreGame {
   /** Optional v10 extension. Missing in old saves means no selected challenge/rewards. */
   breedingChallenges?: import("./challenges").BreedingChallenges;
-  saveVersion: 5 | 6 | 7 | 8 | 9 | 10;
+  saveVersion: 5 | 6 | 7 | 8 | 9 | 10 | 11;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
   seed: string;

@@ -1,0 +1,1021 @@
+{
+  "label": "regional-2",
+  "browser": "156.0.8078.4",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "cpuThrottle": 4,
+  "method": "Production build; no video; full 20-target normal v3 shift without input; browser rAF, Long Tasks, React hook, canvas, clone and IDB probes. CPU profile includes pre-start work; counters start after stage appears.",
+  "results": [
+    {
+      "count": 6,
+      "rate": 4,
+      "frames": {
+        "count": 2481,
+        "p50": 16.69999999999709,
+        "p95": 16.799999999995634,
+        "p99": 16.80000000000291,
+        "max": 50,
+        "over33": 3,
+        "over50": 0
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainClones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "mainFullSnapshots": 0,
+      "mainActiveWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0,
+      "collectionCommits": 0,
+      "workers": [
+        {
+          "clones": 7316,
+          "fullSnapshots": 868,
+          "cloneMs": 1126.4999991059303,
+          "activeWrites": 62,
+          "replyBytes": [
+            36,
+            2889,
+            2890,
+            2890,
+            2890,
+            2932,
+            2932,
+            2933,
+            2934,
+            2935,
+            2977,
+            2977,
+            2977,
+            2977,
+            2978,
+            3021,
+            3021,
+            3064,
+            3064,
+            3064,
+            3064,
+            3107,
+            3107,
+            3150,
+            3150,
+            3150,
+            3150,
+            3193,
+            3193,
+            3236,
+            3236,
+            3279,
+            3279,
+            3279,
+            3279,
+            3322,
+            3322,
+            3365,
+            3365,
+            3365,
+            3365,
+            3408,
+            3408,
+            3451,
+            3451,
+            3494,
+            3494,
+            3494,
+            3494,
+            3537,
+            3537,
+            3537,
+            3537,
+            3580,
+            3623,
+            3623,
+            3666,
+            3666,
+            3666,
+            3666,
+            3709,
+            3752,
+            3752
+          ]
+        }
+      ],
+      "saved": {
+        "count": 6,
+        "turn": 0,
+        "money": 500000,
+        "writeRevision": 65,
+        "rush": {
+          "version": 3,
+          "shift": {
+            "turn": 0,
+            "elapsedMs": 41208,
+            "results": [
+              {
+                "grade": "miss",
+                "atMs": 3665,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 7537,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11167,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11988,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 15072,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 16059,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19104,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19955,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 20807,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23775,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 24632,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 27531,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 28452,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 29330,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 32172,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 35165,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 35957,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 36839,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 39778,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 40558,
+                "source": "escape"
+              }
+            ],
+            "paid": false,
+            "assignment": {
+              "version": 1,
+              "difficulty": "normal",
+              "workload": "overtime",
+              "total": 20,
+              "waves": [
+                {
+                  "number": 1,
+                  "startMs": 500,
+                  "targets": [
+                    {
+                      "id": 0,
+                      "wave": 1,
+                      "spawnMs": 531,
+                      "flightMs": 3197,
+                      "x": 0.4349703580373898,
+                      "y": 0.5416093445569277,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "startMs": 4365,
+                  "targets": [
+                    {
+                      "id": 1,
+                      "wave": 2,
+                      "spawnMs": 4391,
+                      "flightMs": 3210,
+                      "x": 0.4032938143936917,
+                      "y": 0.5101990768313408,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "startMs": 8237,
+                  "targets": [
+                    {
+                      "id": 2,
+                      "wave": 3,
+                      "spawnMs": 8248,
+                      "flightMs": 2978,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 3,
+                      "wave": 3,
+                      "spawnMs": 9136,
+                      "flightMs": 2910,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 4,
+                  "startMs": 12688,
+                  "targets": [
+                    {
+                      "id": 4,
+                      "wave": 4,
+                      "spawnMs": 12690,
+                      "flightMs": 2430,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 5,
+                      "wave": 4,
+                      "spawnMs": 13571,
+                      "flightMs": 2538,
+                      "x": 0.5,
+                      "y": 0.25,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 5,
+                  "startMs": 16759,
+                  "targets": [
+                    {
+                      "id": 6,
+                      "wave": 5,
+                      "spawnMs": 16773,
+                      "flightMs": 2378,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 7,
+                      "wave": 5,
+                      "spawnMs": 17612,
+                      "flightMs": 2390,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 8,
+                      "wave": 5,
+                      "spawnMs": 18500,
+                      "flightMs": 2354,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 6,
+                  "startMs": 21507,
+                  "targets": [
+                    {
+                      "id": 9,
+                      "wave": 6,
+                      "spawnMs": 21542,
+                      "flightMs": 2278,
+                      "x": 0.25,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 10,
+                      "wave": 6,
+                      "spawnMs": 22360,
+                      "flightMs": 2318,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 7,
+                  "startMs": 25332,
+                  "targets": [
+                    {
+                      "id": 11,
+                      "wave": 7,
+                      "spawnMs": 25379,
+                      "flightMs": 2195,
+                      "x": 0.25,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 12,
+                      "wave": 7,
+                      "spawnMs": 26198,
+                      "flightMs": 2299,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 13,
+                      "wave": 7,
+                      "spawnMs": 27045,
+                      "flightMs": 2331,
+                      "x": 0.5,
+                      "y": 0.25,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 8,
+                  "startMs": 30030,
+                  "targets": [
+                    {
+                      "id": 14,
+                      "wave": 8,
+                      "spawnMs": 30040,
+                      "flightMs": 2175,
+                      "x": 0.4586262791417539,
+                      "y": 0.385534026324749,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 9,
+                  "startMs": 32872,
+                  "targets": [
+                    {
+                      "id": 15,
+                      "wave": 9,
+                      "spawnMs": 32884,
+                      "flightMs": 2327,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 0,
+                      "version": 3,
+                      "lean": 1
+                    },
+                    {
+                      "id": 16,
+                      "wave": 9,
+                      "spawnMs": 33763,
+                      "flightMs": 2238,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 0,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 17,
+                      "wave": 9,
+                      "spawnMs": 34599,
+                      "flightMs": 2285,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 10,
+                  "startMs": 37539,
+                  "targets": [
+                    {
+                      "id": 18,
+                      "wave": 10,
+                      "spawnMs": 37543,
+                      "flightMs": 2280,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 19,
+                      "wave": 10,
+                      "spawnMs": 38402,
+                      "flightMs": 2199,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                }
+              ],
+              "endMs": 41208
+            }
+          }
+        }
+      },
+      "errors": []
+    },
+    {
+      "count": 300,
+      "rate": 4,
+      "frames": {
+        "count": 2454,
+        "p50": 16.69999999999709,
+        "p95": 16.799999999999272,
+        "p99": 33.30000000000291,
+        "max": 66.60000000000582,
+        "over33": 15,
+        "over50": 1
+      },
+      "longTasks": {
+        "count": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainClones": {
+        "count": 0,
+        "totalMs": 0
+      },
+      "mainFullSnapshots": 0,
+      "mainActiveWrites": 0,
+      "backgroundPaints": 0,
+      "backgroundMutations": 0,
+      "collectionCommits": 0,
+      "workers": [
+        {
+          "clones": 6962,
+          "fullSnapshots": 826,
+          "cloneMs": 11683.29999923706,
+          "activeWrites": 59,
+          "replyBytes": [
+            36,
+            2889,
+            2890,
+            2890,
+            2890,
+            2932,
+            2932,
+            2933,
+            2934,
+            2935,
+            2977,
+            2977,
+            2977,
+            2977,
+            2978,
+            3021,
+            3021,
+            3064,
+            3064,
+            3064,
+            3064,
+            3107,
+            3150,
+            3150,
+            3150,
+            3150,
+            3193,
+            3193,
+            3236,
+            3279,
+            3279,
+            3279,
+            3279,
+            3322,
+            3322,
+            3365,
+            3365,
+            3365,
+            3365,
+            3408,
+            3451,
+            3451,
+            3494,
+            3494,
+            3494,
+            3494,
+            3537,
+            3537,
+            3537,
+            3537,
+            3580,
+            3623,
+            3623,
+            3666,
+            3666,
+            3666,
+            3666,
+            3709,
+            3752,
+            3752
+          ]
+        }
+      ],
+      "saved": {
+        "count": 300,
+        "turn": 0,
+        "money": 500000,
+        "writeRevision": 62,
+        "rush": {
+          "version": 3,
+          "shift": {
+            "turn": 0,
+            "elapsedMs": 41208,
+            "results": [
+              {
+                "grade": "miss",
+                "atMs": 3665,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 7537,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11167,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 11988,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 15072,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 16059,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19104,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 19955,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 20807,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 23775,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 24632,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 27531,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 28452,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 29330,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 32172,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 35165,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 35957,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 36839,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 39778,
+                "source": "escape"
+              },
+              {
+                "grade": "miss",
+                "atMs": 40558,
+                "source": "escape"
+              }
+            ],
+            "paid": false,
+            "assignment": {
+              "version": 1,
+              "difficulty": "normal",
+              "workload": "overtime",
+              "total": 20,
+              "waves": [
+                {
+                  "number": 1,
+                  "startMs": 500,
+                  "targets": [
+                    {
+                      "id": 0,
+                      "wave": 1,
+                      "spawnMs": 531,
+                      "flightMs": 3197,
+                      "x": 0.4349703580373898,
+                      "y": 0.5416093445569277,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "startMs": 4365,
+                  "targets": [
+                    {
+                      "id": 1,
+                      "wave": 2,
+                      "spawnMs": 4391,
+                      "flightMs": 3210,
+                      "x": 0.4032938143936917,
+                      "y": 0.5101990768313408,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "startMs": 8237,
+                  "targets": [
+                    {
+                      "id": 2,
+                      "wave": 3,
+                      "spawnMs": 8248,
+                      "flightMs": 2978,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 3,
+                      "wave": 3,
+                      "spawnMs": 9136,
+                      "flightMs": 2910,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 4,
+                  "startMs": 12688,
+                  "targets": [
+                    {
+                      "id": 4,
+                      "wave": 4,
+                      "spawnMs": 12690,
+                      "flightMs": 2430,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 5,
+                      "wave": 4,
+                      "spawnMs": 13571,
+                      "flightMs": 2538,
+                      "x": 0.5,
+                      "y": 0.25,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 5,
+                  "startMs": 16759,
+                  "targets": [
+                    {
+                      "id": 6,
+                      "wave": 5,
+                      "spawnMs": 16773,
+                      "flightMs": 2378,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 7,
+                      "wave": 5,
+                      "spawnMs": 17612,
+                      "flightMs": 2390,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 8,
+                      "wave": 5,
+                      "spawnMs": 18500,
+                      "flightMs": 2354,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 6,
+                  "startMs": 21507,
+                  "targets": [
+                    {
+                      "id": 9,
+                      "wave": 6,
+                      "spawnMs": 21542,
+                      "flightMs": 2278,
+                      "x": 0.25,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 10,
+                      "wave": 6,
+                      "spawnMs": 22360,
+                      "flightMs": 2318,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 7,
+                  "startMs": 25332,
+                  "targets": [
+                    {
+                      "id": 11,
+                      "wave": 7,
+                      "spawnMs": 25379,
+                      "flightMs": 2195,
+                      "x": 0.25,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 12,
+                      "wave": 7,
+                      "spawnMs": 26198,
+                      "flightMs": 2299,
+                      "x": 0.75,
+                      "y": 0.63,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 13,
+                      "wave": 7,
+                      "spawnMs": 27045,
+                      "flightMs": 2331,
+                      "x": 0.5,
+                      "y": 0.25,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 8,
+                  "startMs": 30030,
+                  "targets": [
+                    {
+                      "id": 14,
+                      "wave": 8,
+                      "spawnMs": 30040,
+                      "flightMs": 2175,
+                      "x": 0.4586262791417539,
+                      "y": 0.385534026324749,
+                      "variant": 1,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                },
+                {
+                  "number": 9,
+                  "startMs": 32872,
+                  "targets": [
+                    {
+                      "id": 15,
+                      "wave": 9,
+                      "spawnMs": 32884,
+                      "flightMs": 2327,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 0,
+                      "version": 3,
+                      "lean": 1
+                    },
+                    {
+                      "id": 16,
+                      "wave": 9,
+                      "spawnMs": 33763,
+                      "flightMs": 2238,
+                      "x": 0.25,
+                      "y": 0.33,
+                      "variant": 0,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 17,
+                      "wave": 9,
+                      "spawnMs": 34599,
+                      "flightMs": 2285,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": 1
+                    }
+                  ]
+                },
+                {
+                  "number": 10,
+                  "startMs": 37539,
+                  "targets": [
+                    {
+                      "id": 18,
+                      "wave": 10,
+                      "spawnMs": 37543,
+                      "flightMs": 2280,
+                      "x": 0.5,
+                      "y": 0.74,
+                      "variant": 3,
+                      "version": 3,
+                      "lean": -1
+                    },
+                    {
+                      "id": 19,
+                      "wave": 10,
+                      "spawnMs": 38402,
+                      "flightMs": 2199,
+                      "x": 0.75,
+                      "y": 0.33,
+                      "variant": 2,
+                      "version": 3,
+                      "lean": -1
+                    }
+                  ]
+                }
+              ],
+              "endMs": 41208
+            }
+          }
+        }
+      },
+      "errors": []
+    }
+  ]
+}
