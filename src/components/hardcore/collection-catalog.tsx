@@ -50,6 +50,6 @@ export function CollectionCatalog({game,busy,play,initial,selectedId,onSelect,on
    </div>
    {!entries.length&&<p className="collection-list-empty">{animals.length?"조건에 맞는 개체가 없습니다.":"보유 개체가 없습니다."}</p>}
   </div>
-  <div className="collection-manager-footer"><p>{isV12(game)?`턴 종료 시 ${demand.needed}마리 자동 급여 · 사료 ${game.food}개${demand.missing?` · ${demand.missing}개 부족`:""}`:`사료 ${game.food}개 · 수동 급여`}<span>TURN {game.turn} · 분양 예상가는 현재 게임 기준</span></p><div><button className="game-secondary" disabled={busy} onClick={onResources}>사료·사육장</button>{!isV12(game)&&selected?<button className="game-primary" disabled={busy||!game.food||!feedable(game,selected)} onClick={()=>void play({type:"feed",id:selected.id})}>먹이 1개 급여</button>:<EndTurnButton game={game} busy={busy} play={play} onShop={onResources} className="game-primary">턴 넘기기</EndTurnButton>}</div></div>
+  <div className="collection-manager-footer"><p>{isV12(game)?`턴 종료 시 ${demand.animals}마리 자동 급여 · 면제 ${demand.exempt}마리 · 필요 ${demand.needed}개 · 재고 ${game.food}개${demand.missing?` · ${demand.missing}개 부족`:""}`:`사료 ${game.food}개 · 수동 급여`}<span>TURN {game.turn} · 분양 예상가는 현재 게임 기준</span></p><div><button className="game-secondary" disabled={busy} onClick={onResources}>사료·사육장</button>{!isV12(game)&&selected?<button className="game-primary" disabled={busy||!game.food||!feedable(game,selected)} onClick={()=>void play({type:"feed",id:selected.id})}>먹이 1개 급여</button>:<EndTurnButton game={game} busy={busy} play={play} onShop={onResources} className="game-primary">턴 넘기기</EndTurnButton>}</div></div>
  </Dialog>;
 }

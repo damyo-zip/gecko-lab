@@ -3,12 +3,14 @@ import {CHALLENGE_LOCK_TURNS,challengeById,isChallengeId,type ChallengeId} from 
 import {evaluateBreedingChallenge} from './challenge-evaluator';
 import {bornIndividual} from './egg-outcome';
 import {visualName,morphDescription} from './adapter';
+import {breederRank} from './breeder-rank';
 
 export interface ChallengeCompletion {
  challengeId:ChallengeId;eggId:string;achievedTurn:number;evaluatorVersion:1;
  /** Immutable birth portrait includes seed, appearance version, genome and parents.
   * It never counts as another owned animal; the existing egg remains pedigree evidence. */
  specimen:Gecko;morph:string;phenotype:string;
+ /** Legacy field name retained for save compatibility; not assignable slots. */
  reward:{feedExemptionSlots:1;titleId:ChallengeId};announced:boolean;
 }
 export interface BreedingChallenges {
@@ -19,9 +21,9 @@ export interface BreedingChallenges {
 }
 export const emptyChallenges=():BreedingChallenges=>({version:1,activeId:null,selectedTurn:null,unlockTurn:null,completed:[],equippedTitle:null});
 export const challengeLockRemaining=(game:HardcoreGame)=>Math.max(0,(game.breedingChallenges?.unlockTurn??game.turn)-game.turn);
-/** Reward ledger only: no feed-exemption engine existed before this feature.
- * Do not silently change the established one-food-per-animal economy. */
-export const challengeFeedSlots=(game:HardcoreGame)=>game.breedingChallenges?.completed.reduce((n,c)=>n+c.reward.feedExemptionSlots,0)??0;
+/** @deprecated Compatibility accessor. Actual free meals use distinct completed
+ * goals, the same source as breeder rank, without a second reward counter. */
+export const challengeFeedSlots=(game:HardcoreGame)=>breederRank(game).completed;
 export function selectChallenge(game:HardcoreGame,id:ChallengeId):void {
  if(game.saveVersion!==10||!isChallengeId(id))throw new Error('지원하지 않는 브리딩 도전입니다.');
  const state=game.breedingChallenges??emptyChallenges();

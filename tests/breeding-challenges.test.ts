@@ -49,7 +49,9 @@ test('a clutch, duplicate event and receipt never double-pay; award snapshot sur
  const original=structuredClone(g.breedingChallenges!.completed[0]),id=original.specimen.id;
  seasonEvents(g);seasonEvents(g);expect(g.breedingChallenges!.completed).toHaveLength(1);expect(challengeFeedSlots(g)).toBe(1);
  g=act(g,{type:'receiveHatchling',eggId:original.eggId},g.lastDate);g=act(g,{type:'rename',id,name:'바뀐 이름'},g.lastDate);const forDeath=structuredClone(g);g=act(g,{type:'sell',id},g.lastDate);
- expect(g.breedingChallenges!.completed[0]).toEqual(original);let dead=forDeath;dead.food=0;for(let n=0;n<5;n++)dead=challengeTurn(dead);expect(dead.individuals[id].status).toBe('dead');expect(parseBackup(exportBackup(dead),dead.lastDate).breedingChallenges!.completed[0]).toEqual(original);
+ // One free meal protects the first low-heart parent; the other unfed records
+ // still follow the existing starvation rule and cannot erase an achievement.
+ expect(g.breedingChallenges!.completed[0]).toEqual(original);let dead=forDeath;dead.food=0;for(const g of Object.values(dead.individuals))if(g.status==='owned')g.hearts=1;dead=challengeTurn(dead);expect(dead.individuals[id].status).toBe('dead');expect(parseBackup(exportBackup(dead),dead.lastDate).breedingChallenges!.completed[0]).toEqual(original);
  expect(parseBackup(exportBackup(g),g.lastDate).breedingChallenges!.completed[0]).toEqual(original);
  g=act(g,{type:'equipChallengeTitle',challengeId:'sun'},g.lastDate);g=select(g,'white');expect(g.breedingChallenges!.equippedTitle).toBe('sun');
  expect(()=>act(g,{type:'equipChallengeTitle',challengeId:'stars'},g.lastDate)).toThrow('획득');

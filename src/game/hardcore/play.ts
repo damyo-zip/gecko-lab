@@ -32,7 +32,7 @@ export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTa
 /** Daily engine only receives logical dates; the time-source adapter chooses them. */
 export function act(source: HardcoreGame, action: GameplayAction, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   const game = structuredClone(synchronize(source, date, table)); game.notices = [];
-  if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 개체당 사료 1개를 자동 급여합니다.");
+  if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 자동 급여합니다. 도전 완료 수만큼 먹이가 면제됩니다.");
   switch (action.type) {
     case "selectChallenge": selectChallenge(game,action.challengeId); break;
     case "acknowledgeChallenge": acknowledgeChallenge(game,action.challengeId); break;

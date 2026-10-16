@@ -1,13 +1,14 @@
 "use client";
 import {memo,useState} from 'react';
 import {BREEDING_CHALLENGES,challengeById,type ChallengeId} from '@/game/hardcore/challenge-rules';
-import {challengeLockRemaining,challengeFeedSlots} from '@/game/hardcore/challenges';
+import {challengeLockRemaining} from '@/game/hardcore/challenges';
 import type {ChallengeCompletion} from '@/game/hardcore/challenges';
 import {Dialog,Sprite,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
 import {breederRank} from '@/game/hardcore/breeder-rank';
 import {challengePreview} from '@/game/hardcore/challenge-previews';
 import {SpriteCanvas} from '@/components/sprite-canvas';
+import {foodDemand} from '@/game/hardcore/lifecycle';
 
 type Props=Pick<ViewProps,'game'|'busy'|'play'>;
 const ChallengePreview=memo(function ChallengePreview({id,testId='challenge-preview'}:{id:ChallengeId;testId?:string}){
@@ -17,7 +18,7 @@ const ChallengePreview=memo(function ChallengePreview({id,testId='challenge-prev
 });
 export function BreedingChallengePanel({game,busy,play}:Props){
  const [open,setOpen]=useState(false),s=game.breedingChallenges,active=s?.activeId?challengeById(s.activeId):null;
- const rank=breederRank(game),remaining=challengeLockRemaining(game),completed=s?.completed??[],done=completed.some(c=>c.challengeId===active?.id);
+ const rank=breederRank(game),demand=foodDemand(game),remaining=challengeLockRemaining(game),completed=s?.completed??[],done=completed.some(c=>c.challengeId===active?.id);
  return <>
   <section className="breeding-challenge-panel album-metal" aria-labelledby="challenge-title">
    <div className="album-section-title"><HomeIcon name="star"/><h2 id="challenge-title">브리딩 도전</h2><span className="challenge-count">완료 {rank.completed}/5</span></div>
@@ -25,7 +26,7 @@ export function BreedingChallengePanel({game,busy,play}:Props){
     <div className="challenge-summary-copy">
      <strong className="challenge-active-name">{active?.name??'도전 목표를 선택하세요'}</strong>
      <p>{active?active.target:'원하는 모프의 새끼를 탄생시키는 나만의 목표를 골라보세요.'}</p>
-     <div className="challenge-status"><span>{done?'목표 달성 · 변경 가능':remaining?`목표 변경까지 ${remaining}턴` : active?'목표 유지 중 · 변경 가능':'5개 목표 모두 도전 가능'}</span><small>최초 달성: 먹이 면제 슬롯 +1 · 칭호 승급</small></div>
+     <div className="challenge-status"><span>{done?'목표 달성 · 변경 가능':remaining?`목표 변경까지 ${remaining}턴` : active?'목표 유지 중 · 변경 가능':'5개 목표 모두 도전 가능'}</span><small>최초 달성: 턴당 먹이 면제 +1마리 · 칭호 승급</small></div>
     </div>
     {active&&<ChallengePreview id={active.id}/>}
    </div>
@@ -39,11 +40,11 @@ export function BreedingChallengePanel({game,busy,play}:Props){
      <div className="challenge-goal-copy"><strong>{c.target}</strong><p>{c.description}</p><p className="challenge-hint">힌트 · {c.hint}</p></div>
      <ChallengePreview id={c.id} testId="challenge-goal-preview"/>
     </div>
-    <small>보상: 먹이 면제 슬롯 +1 · 브리더 칭호 승급</small>
+    <small>보상: 턴당 먹이 면제 +1마리 · 브리더 칭호 승급</small>
     {record&&<div className="challenge-history"><Sprite gecko={record.specimen}/><div>{record.specimen.name}<small>{record.morph} · {record.achievedTurn}턴 달성</small><small>#{record.specimen.id}</small></div></div>}
     <button className="game-secondary full-width" disabled={busy||!!record||selected||remaining>0} onClick={()=>play({type:'selectChallenge',challengeId:c.id})}>{record?'달성 완료':selected?'현재 선택한 목표':remaining?`잠금 · ${remaining}턴`:'이 목표 선택'}</button>
    </article>;})}</div>
-   <section className="challenge-rewards"><h3>획득한 보상</h3><p>먹이 면제 슬롯 {challengeFeedSlots(game)}개 적립</p><small>먹이 면제 기능은 아직 없어 슬롯을 보관합니다. 현재 자동 급여 규칙은 유지됩니다.</small>
+   <section className="challenge-rewards"><h3>획득한 보상</h3><p>매 턴 최대 {rank.completed}마리 먹이 면제</p><small>완료한 도전 1개마다 1마리분의 사료가 자동 면제됩니다. 별도 배정 없이 하트가 낮은 개체부터 급여합니다.</small><p>보유 {demand.animals}마리 · 면제 {demand.exempt}마리 · 필요 사료 {demand.needed}개</p>
     <p>현재 칭호: <strong>{rank.title}</strong></p><small>서로 다른 목표 {rank.completed}/5개 달성 · 칭호는 자동으로 승급합니다.</small>
    </section>
    <p className="game-small-note">현재는 렌더링된 무늬 면적과 체색의 게임용 임시 기준입니다. 이전 외형 버전은 정밀 판정할 수 없으며, 팬텀 유전자와 실제 전신 품질을 검증하지 않습니다.</p>
@@ -55,7 +56,7 @@ export function ChallengeCelebration({game,completion,busy,play}:Props&{completi
  return <Dialog title="브리딩 도전 성공!" className="challenge-celebration" onClose={close}>
   <h3>{c.name}</h3><div className="challenge-winner"><Sprite gecko={completion.specimen} large/></div>
   <strong>{completion.specimen.name}</strong><p>{completion.morph} · {completion.achievedTurn}턴</p>
-  <p>먹이 면제 슬롯 +1 적립<br/>현재 브리더 칭호: {rank.title}</p><small>목표 최초 달성 수에 따라 자동으로 승급합니다.</small>
+  <p>턴당 먹이 면제 +1마리<br/>매 턴 최대 {rank.completed}마리 면제<br/>현재 브리더 칭호: {rank.title}</p><small>다음 턴 급여부터 자동 적용됩니다. 칭호는 목표 최초 달성 수에 따라 승급합니다.</small>
   <p className="challenge-unlocked">목표 변경 잠금 해제! 다음 목표를 직접 선택하세요.</p>
   <button className="game-primary full-width" disabled={busy} onClick={close}>확인</button>
  </Dialog>;
