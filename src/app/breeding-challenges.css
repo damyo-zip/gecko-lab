@@ -24,11 +24,13 @@
 .challenge-history small{display:block;font-size:10px;color:#9fb4bd;overflow-wrap:anywhere}
 .challenge-rewards{border-top:1px solid #385565;padding-top:12px;font-size:13px}
 .challenge-rewards h3{margin:0}.challenge-rewards p{margin:6px 0}.challenge-rewards>small{display:block;font-size:11px;color:#a4b4be;line-height:1.5}
-.challenge-rewards label{display:grid;gap:6px;margin-top:12px}.challenge-rewards select{min-height:44px;width:100%;background:#0b222c;border:1px solid #4b686d;color:#dce9e2;padding:6px}
 .challenge-celebration{text-align:center}.challenge-celebration h3{color:#bbf17c;font-size:21px;margin:12px 0}
 .challenge-winner{display:grid;place-items:center;background:radial-gradient(ellipse,#314a2980,transparent 70%);height:190px;overflow:hidden}
 .challenge-winner canvas{width:192px!important;height:192px!important}
 .challenge-celebration>p{font-size:13px;line-height:1.7}.challenge-celebration>small{color:#b1c2bf;font-size:11px}
 .challenge-unlocked{color:#b1ed7a}.challenge-celebration button{min-height:44px}
-.home-breeder-title{position:absolute;bottom:5px;left:8px;max-width:47%;padding:3px 6px;border:1px solid #557d4c;border-radius:4px;background:#071b20e8;color:#c4ed8a;font-size:10px;line-height:1.4;overflow-wrap:anywhere;z-index:4;pointer-events:none}
 @media(max-width:390px){.breeding-challenge-panel{padding:8px}.challenge-active-name{font-size:15px}.challenge-status{font-size:10px}}
+
+/* Replace only the old generation chip; keep its original frame, position and height. */
+.home-generation.home-breeder-rank{width:max-content;max-width:calc(100% - 84px);gap:0;pointer-events:none}
+.home-breeder-rank.is-legendary>b{color:#f5d57d;text-shadow:0 1px 0 #6a471c}

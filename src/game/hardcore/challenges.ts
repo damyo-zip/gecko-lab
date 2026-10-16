@@ -13,7 +13,9 @@ export interface ChallengeCompletion {
 }
 export interface BreedingChallenges {
  version:1;activeId:ChallengeId|null;selectedTurn:number|null;unlockTurn:number|null;
- completed:ChallengeCompletion[];equippedTitle:ChallengeId|null;
+ completed:ChallengeCompletion[];
+ /** Legacy manual selection retained for save/client compatibility; automatic rank ignores it. */
+ equippedTitle:ChallengeId|null;
 }
 export const emptyChallenges=():BreedingChallenges=>({version:1,activeId:null,selectedTurn:null,unlockTurn:null,completed:[],equippedTitle:null});
 export const challengeLockRemaining=(game:HardcoreGame)=>Math.max(0,(game.breedingChallenges?.unlockTurn??game.turn)-game.turn);
@@ -43,11 +45,13 @@ export function recordChallengeHatch(game:HardcoreGame,egg:TimedEgg):void {
 export function acknowledgeChallenge(game:HardcoreGame,id:ChallengeId):void {
  const c=game.breedingChallenges?.completed.find(c=>c.challengeId===id);if(c)c.announced=true;
 }
+/** @deprecated Compatibility action only; does not affect the automatic breeder rank. */
 export function equipChallengeTitle(game:HardcoreGame,id:ChallengeId|null):void {
  const s=game.breedingChallenges;
  if(!s||id!==null&&!s.completed.some(c=>c.reward.titleId===id))throw new Error('아직 획득하지 않은 칭호입니다.');
  s.equippedTitle=id;
 }
+/** @deprecated Historical equipped label; gameplay UI uses breederRank instead. */
 export function equippedChallengeTitle(game:HardcoreGame):string|null {
  const id=game.breedingChallenges?.equippedTitle;return id?challengeById(id).title:null;
 }

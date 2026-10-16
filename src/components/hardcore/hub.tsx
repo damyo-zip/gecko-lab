@@ -74,6 +74,6 @@ export default function HardcoreHub() {
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
     {rushOpen&&props&&<CafeRush {...props} saveError={error} onClose={()=>{setRushOpen(false);setRushBackground(null);}}/>}
     {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setLineagePreview(false);setCatalogOpen(false);setBreedingOpen(false);setTab("collection");}}/>}
-    {props&&celebration&&!rushOpen&&<ChallengeCelebration key={celebration.challengeId} completion={celebration} busy={disabled} play={act}/>}
+    {props&&celebration&&!rushOpen&&<ChallengeCelebration key={celebration.challengeId} game={props.game} completion={celebration} busy={disabled} play={act}/>}
   </main>;
 }
