@@ -19,6 +19,7 @@ import { OfflineShell } from "./offline";
 import { EndTurnButton } from "./end-turn";
 import { collectionStatus } from "./collection-status";
 import {CafeRush} from './cafe-rush';
+import {ChallengeCelebration} from './breeding-challenges';
 const TABS = [{id:"home",label:"오늘",icon:"leaf"},{id:"collection",label:"컬렉션",icon:"grid"},{id:"breeding",label:"교배",icon:"dna"},{id:"incubator",label:"부화",icon:"egg"},{id:"shop",label:"상점",icon:"sliders"},{id:"lineage",label:"혈통",icon:"tree"}] as const;
 export default function HardcoreHub() {
   const {game,loading,busy,error,conflict,act,replace,prepareRush}=useHardcore();
@@ -33,6 +34,7 @@ export default function HardcoreHub() {
   const navigate=(next:string)=>{if(next==="breeding")setBreedingOpen(true);else setTab(next);};
   const [father,setFather]=useState(""),[mother,setMother]=useState(""),[lineage,setLineage]=useState("");
   const g=game?.individuals[detail],disabled=busy||conflict;
+  const celebration=game?.breedingChallenges?.completed.find(c=>!c.announced);
   const breedFromCollection=(id:string)=>{
     const parent=game?.individuals[id];
     if(disabled||!game||!parent||collectionStatus(game,parent).action!=="breed")return;
@@ -72,5 +74,6 @@ export default function HardcoreHub() {
     {resources && props && <ResourceManagement {...props} onClose={()=>setResources(false)}/>}
     {rushOpen&&props&&<CafeRush {...props} saveError={error} onClose={()=>{setRushOpen(false);setRushBackground(null);}}/>}
     {settings && <Settings game={game} busy={disabled} error={error} play={act} replace={replace} onClose={()=>setSettings(false)} onReplaced={()=>{setSettings(false);setDetail("");setFather("");setMother("");setLineage("");setLineagePreview(false);setCatalogOpen(false);setBreedingOpen(false);setTab("collection");}}/>}
+    {props&&celebration&&!rushOpen&&<ChallengeCelebration key={celebration.challengeId} completion={celebration} busy={disabled} play={act}/>}
   </main>;
 }

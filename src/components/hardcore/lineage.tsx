@@ -4,9 +4,10 @@ import {descendantIds,familySummary,familyTree,pedigreeIndex,recordedAge,searchI
 import {visualName,disclosedSex} from '@/game/hardcore/adapter';
 import {STAGE_LABELS} from '@/game/model';
 import type {Gecko} from '@/game/hardcore/model';
-import {Sprite,STATUS,Dialog,type ViewProps} from './common';
+import {Sprite,STATUS,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
 import {AlbumPicker} from './album-picker';
+import {BreedingChallengePanel} from './breeding-challenges';
 
 function Sex({g}:{g:Gecko}){
  const sex=g.stage==='adult'?g.sex:'unknown';
@@ -29,23 +30,15 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect}:ViewProps&
   const center=()=>{node.scrollLeft=(node.scrollWidth-node.clientWidth)/2;};center();
   const observer=new ResizeObserver(center);observer.observe(node);return()=>observer.disconnect();
  },[root?.id]);
- const [activeLine,setActiveLine]=useState(''),[favoriteLimit,setFavoriteLimit]=useState(8),[descendantLimit,setDescendantLimit]=useState(12),[descendantQuery,setDescendantQuery]=useState('');
+ const [descendantLimit,setDescendantLimit]=useState(12),[descendantQuery,setDescendantQuery]=useState('');
  const [picker,setPicker]=useState<'root'|'left'|'right'|null>(null),[comparison,setComparison]=useState<{left:string;right:string}|null>(null);
- const [editor,setEditor]=useState<{id:string|null;name:string;rootId:string}|null>(null),[remove,setRemove]=useState(false);
  const favorites=Object.values(game.lineages).filter(l=>l.favorite!==false),summaries=useMemo(()=>new Map(Object.values(game.lineages).filter(l=>l.favorite!==false).map(l=>[l.id,familySummary(game,l,index)])),[game,index]);
- const favoriteScroll=useRef<HTMLDivElement>(null);
- useEffect(()=>{const node=favoriteScroll.current;if(node&&node.scrollWidth-node.clientWidth-node.scrollLeft<32&&favoriteLimit<favorites.length)setFavoriteLimit(n=>Math.min(favorites.length,n+8));},[favorites.length,favoriteLimit]);
  const families=root?favorites.filter(l=>summaries.get(l.id)?.members.includes(root.id)):[];
- const currentLine=families.find(l=>l.id===activeLine)??families[0],lineSummary=currentLine?summaries.get(currentLine.id):undefined;
+ const currentLine=families[0],lineSummary=currentLine?summaries.get(currentLine.id):undefined;
  const future=useMemo(()=>root?[...descendantIds(index,root.id)]:[],[index,root]);
  const descendantResults=searchIndividuals(game,descendantQuery,0,descendantLimit,future);
  const tree=root?familyTree(game,root.id):null;
  const choose=(id:string)=>{onSelect(id);setComparison(null);setDescendantLimit(12);setDescendantQuery('');};
- const openFamily=(id:string)=>{
-  const summary=summaries.get(id);if(!summary?.representative)return;
-  const latest=summary.members.reduce((best,member)=>{const g=game.individuals[member];return !best||g.generation>best.generation||g.generation===best.generation&&g.birthTurn>best.birthTurn?g:best;},undefined as Gecko|undefined);
-  setActiveLine(id);choose(latest?.id??summary.representative.id);
- };
  const directAncestor=root?.parents?(game.individuals[root.parents.fatherId]??game.individuals[root.parents.motherId]):undefined;
  const defaultLeft=lineSummary?.founder??directAncestor;
  const left=comparison?game.individuals[comparison.left]:defaultLeft,right=comparison?game.individuals[comparison.right]:defaultLeft?.id===root?.id?undefined:root;
@@ -53,15 +46,7 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect}:ViewProps&
  const age=root?recordedAge(game,root):null;
  return <section className="album-reference" aria-label="혈통 앨범">
   <h1 className="sr-only">혈통도</h1>
-  <div className="album-toolbar album-metal"><div><HomeIcon name="star" size={27}/><strong>관심 혈통 <em>{favorites.length}개</em></strong></div><p>좋아하는 가문을 모아보고<br/>혈통을 확인하세요.</p></div>
-  <section className="album-favorites album-metal" aria-labelledby="album-favorites-title">
-   <div className="album-section-title"><HomeIcon name="star"/><h2 id="album-favorites-title">관심 혈통</h2><span>{favorites.length>2?'옆으로 밀어 가문을 살펴보세요.':'내가 좋아하는 가문을 등록해보세요.'}</span>{root&&<button className="album-small-button" disabled={busy} onClick={()=>{setEditor({id:null,name:'',rootId:root.id});setRemove(false);}} aria-label="관심 혈통 등록"><HomeIcon name="plus" size={15}/>등록</button>}</div>
-   {favorites.length?<div className="album-favorite-grid" ref={favoriteScroll} role="region" aria-label="관심 혈통 카드" tabIndex={favorites.length>2?0:undefined} onScroll={e=>{const node=e.currentTarget;if(node.scrollWidth-node.clientWidth-node.scrollLeft<32&&favoriteLimit<favorites.length)setFavoriteLimit(n=>Math.min(favorites.length,n+8));}}>{favorites.slice(0,favoriteLimit).map(l=>{const summary=summaries.get(l.id)!;return <article className="album-favorite" key={l.id}>
-    <button className="album-family-open" onClick={()=>openFamily(l.id)} disabled={!summary.representative} aria-label={l.name+' 혈통 열기'} aria-pressed={currentLine?.id===l.id}>
-     <div className="album-art">{summary.representative&&<Sprite gecko={summary.representative}/>}<HomeIcon name="heart" size={14}/></div><span><strong>{l.name}</strong><small>{summary.maxGeneration}세대 · {summary.founder?summary.descendantCount+'후손':summary.members.length+'기록'}</small><small>{summary.founder?'시조 '+summary.founder.name:'시조 기록 미확인'}</small></span><HomeIcon name="chevron" size={16}/>
-    </button><button className="album-family-manage" disabled={busy} aria-label={l.name+' 관리'} onClick={()=>{setEditor({id:l.id,name:l.name,rootId:l.founderId??''});setRemove(false);}}><HomeIcon name="pen" size={14}/></button>
-   </article>;})}</div>:<div className="album-empty"><HomeIcon name="heart"/><p>좋아하는 게코를 시조로 등록해<br/>우리 가문의 첫 페이지를 시작하세요.</p></div>}
-  </section>
+  <BreedingChallengePanel game={game} busy={busy} play={play}/>
   {root&&tree&&age?<>
    <section className="album-selected album-metal" aria-labelledby="album-selected-title">
     <div className="album-section-title"><HomeIcon name="collection"/><h2 id="album-selected-title">선택한 개체</h2><label className="album-quick-select"><span className="sr-only">혈통을 볼 개체</span><select aria-label="혈통을 볼 개체" value={root.id} onChange={e=>choose(e.target.value)}>{quickOptions.map(g=><option value={g.id} key={g.id}>{g.name} · Gen {g.generation} · {STATUS[g.status]}</option>)}</select></label></div>
@@ -96,11 +81,6 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect}:ViewProps&
   </>:<div className="album-metal album-empty"><HomeIcon name="collection" size={48}/><p>아직 가족 앨범에 개체가 없습니다.<br/>상점에서 첫 게코를 데려오면 혈통 기록이 시작됩니다.</p></div>}
   <p className="album-save-note" role="status">{game.lastDate} · {game.turn}턴 · {busy?'저장 중…':'자동 저장 완료'}{game.notices.length?' · '+game.notices.at(-1):''}</p>
   {picker&&<AlbumPicker game={game} title={picker==='root'?'혈통을 볼 개체 선택':picker==='left'?'왼쪽 비교 개체 선택':'오른쪽 비교 개체 선택'} onClose={()=>setPicker(null)} onChoose={id=>{if(picker==='root')choose(id);else setComparison({left:picker==='left'?id:left?.id??'',right:picker==='right'?id:right?.id??''});setPicker(null);}}/>}
-  {editor&&<Dialog title={editor.id?'관심 혈통 관리':'관심 혈통 등록'} onClose={()=>setEditor(null)}>
-   <p className="game-section-copy">{editor.id?'혈통 이름을 바꾸거나 관심 앨범에서 해제할 수 있습니다.':'선택 개체를 시조로 등록합니다. 실제 후손만 이 가문에 연결됩니다.'}</p>
-   {editor.rootId&&game.individuals[editor.rootId]&&<p className="game-small-note">시조: {game.individuals[editor.rootId].name} · {game.individuals[editor.rootId].id}</p>}
-   <form className="hc-line-name" onSubmit={async e=>{e.preventDefault();const action=editor.id?{type:'renameLineage' as const,lineageId:editor.id,name:editor.name}:{type:'lineage' as const,id:editor.rootId,name:editor.name};if(await play(action))setEditor(null);}}><label>혈통 이름<input value={editor.name} maxLength={40} required onChange={e=>setEditor({...editor,name:e.target.value})}/></label><button className="game-primary" disabled={busy}>{editor.id?'혈통 이름 저장':'혈통 이름 등록'}</button></form>
-   {editor.id&&(remove?<div className="game-warning"><p>관심 앨범에서 해제합니다. 개체·부모 관계·유전·번식 기록은 모두 보존됩니다.</p><button className="game-secondary" disabled={busy} onClick={()=>setRemove(false)}>취소</button><button className="game-primary" disabled={busy} onClick={async()=>{if(await play({type:'unfavoriteLineage',lineageId:editor.id!})){setEditor(null);setActiveLine('');}}}>등록 해제 확정</button></div>:<button className="game-secondary full-width" disabled={busy} onClick={()=>setRemove(true)}>관심 혈통 등록 해제</button>)}
-  </Dialog>}
+
  </section>;
 }

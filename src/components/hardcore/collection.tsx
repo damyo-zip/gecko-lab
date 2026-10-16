@@ -1,4 +1,5 @@
 "use client";
+import {equippedChallengeTitle} from "@/game/hardcore/challenges";
 import {useMemo,useState} from "react";
 import {owned,feedable,reserved} from "@/game/hardcore/survival";
 import {morphDescription,specimen} from "@/game/hardcore/adapter";
@@ -26,6 +27,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
   const move=(direction:number)=>{const index=animals.findIndex(g=>g.id===selected?.id);setSelected(animals[(index+direction+animals.length)%animals.length].id);};
   return <section className="home-collection" aria-label="홈 컬렉션">
     <div className="home-hero home-frame" data-testid="home-hero">
+      {equippedChallengeTitle(game)&&<span className="home-breeder-title" aria-label="착용 중인 칭호">{equippedChallengeTitle(game)}</span>}
       <div className="home-generation home-frame"><b>Gen {selected?.generation??"—"}</b><span>{selected?selected.generation+"세대":"컬렉션"}</span><button aria-label="선택 개체 이름 수정" disabled={!selected||busy} onClick={()=>onDetail(selected.id)}><HomeIcon name="pen" size={17}/></button></div>
       {selected&&<><span className="home-id" title={selected.id}>#{String(Object.keys(game.individuals).indexOf(selected.id)+1).padStart(4,"0")}</span>
         <div className="home-hero-art"><SpriteCanvas specimen={art!} growthStage={selected.stage} scale={3} testId="home-hero-sprite"/></div><CollectionEggs game={game} gecko={selected} busy={busy} play={play} hero/></>}

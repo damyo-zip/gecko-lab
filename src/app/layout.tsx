@@ -8,6 +8,7 @@ import "./reference-lineage.css";
 import "./reference-breeding.css";
 import "./reference-chrome.css";
 import "./collection-browser.css";
+import "./breeding-challenges.css";
 import "./collection-status.css";
 import "./parent-search.css";
 import "./cafe-rush.css";

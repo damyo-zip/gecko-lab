@@ -108,6 +108,8 @@ export interface NamedLineage {
   favorite?: boolean;
 }
 export interface HardcoreGame {
+  /** Optional v10 extension. Missing in old saves means no selected challenge/rewards. */
+  breedingChallenges?: import("./challenges").BreedingChallenges;
   saveVersion: 5 | 6 | 7 | 8 | 9 | 10;
   rulesVersion: 2 | 3 | 4;
   gameId: string;
@@ -139,6 +141,9 @@ export interface HardcoreGame {
 export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { saveVersion: 3 };
 export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 };
 export type GameplayAction =
+  | { type: "selectChallenge"; challengeId: import("./challenge-rules").ChallengeId }
+  | { type: "acknowledgeChallenge"; challengeId: import("./challenge-rules").ChallengeId }
+  | { type: "equipChallengeTitle"; challengeId: import("./challenge-rules").ChallengeId | null }
   | { type: "collectEggs"; matingId: string }
   | { type: "receiveHatchling"; eggId: string }
   | { type: "removeFailedEgg"; eggId: string }
