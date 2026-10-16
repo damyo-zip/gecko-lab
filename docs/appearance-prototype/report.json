@@ -1,0 +1,1338 @@
+{
+  "version": "regional-prototype-1",
+  "seed": "regional-review-01",
+  "examples": [
+    {
+      "profile": "low",
+      "morph": "normal",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+      "after": "6aa4a8cd23663656aaf93ec72dab8118d01d649bfddb55da3aab57aabe29a812",
+      "changedPixels": 3017,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 162.75187572365624
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "lilly",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "Lw"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "dcc81e2b90f3ce3b6cf8cf7cc7b2de65ecfecc4c6114001486214f58ec182098",
+      "after": "7462c2f042cb5385aca824594f6c36db0ff74f817682bb734ce1455121d760b5",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 570,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 21,
+        "dorsalSkin": 486,
+        "flankWhite": 22,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 177.92790042454223
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "axanthic",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "ax",
+          "ax"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "bf77f641280d0f8ad9f5628dcb432c3b370b8a370f4a316a2a82abad0246fcbd",
+      "after": "aa12d571c52976af9e7a18f8f8a1a77e59a5547cd1ef626e93e53ee7a067d8ef",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 109.84416827480052
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "cappuccino",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "C"
+        ]
+      },
+      "before": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+      "after": "16d3a75f27609478794eb680484bb18e8e47dd4c72df7f1b39e1dfcfae556002",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 74,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 74,
+        "tailTipDark": 45,
+        "meanSkinLuminance": 142.48287919722029
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "highway",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "H"
+        ]
+      },
+      "before": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+      "after": "d7b6e81f755706c2b8e6f0b7625af6e20df333a016ea4e767b28fcb8105a51ba",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 152,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 152,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 161.7934967194116
+      }
+    },
+    {
+      "profile": "low",
+      "morph": "sable",
+      "polygenicHash": "a5fe817e6bbfd58340de32f20efc3d01436ba6149751f73e05c324ee6db9e525",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "S"
+        ]
+      },
+      "before": "aa37eaf0bf70336cfaa951a52344342c7473d29c4a74b47e0616ecc34cf5ca53",
+      "after": "cbb9ba36238c70c59b88b4ec6c8a8905bb80d2fa9147d41c8fc5f628be76acb3",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0,
+        "cappuccino": 0,
+        "highway": 0,
+        "sable": 0
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 73,
+        "headWhite": 27,
+        "headSkin": 702,
+        "dorsalWhite": 46,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 126.90756078734117
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "normal",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+      "after": "378c560954947a7b202713c31be7f275befad9f5cd894c8cd343691567c8ac82",
+      "changedPixels": 3013,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 170.36925125434124
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "lilly",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "Lw"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "f7700d322f227a84bed87b1128b862a00bf8daf6a3ae4dc6c3a12b4778c9ff8e",
+      "after": "f8ed7d74f465a6c1c6f95c0923acbe26f684e6b61fd647e32a8e2bffeeb9d573",
+      "changedPixels": 3018,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 1605,
+        "headWhite": 130,
+        "headSkin": 702,
+        "dorsalWhite": 335,
+        "dorsalSkin": 486,
+        "flankWhite": 96,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 199.88663836356105
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "axanthic",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "ax",
+          "ax"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "ebd037f41a2f80af6efd04405f58dd23930541309cbc9aab7e104ed0d54cd04d",
+      "after": "f99eec79029a0301975524f780703962adac4b74cf65caeebd3f0bb772d5d0d6",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 148.8499961404846
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "cappuccino",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "C"
+        ]
+      },
+      "before": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+      "after": "bc1e9480068da9597ec98751e5e822b657bca2f5bed3c65f106cd43f12e33a79",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 126,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 126,
+        "tailTipDark": 86,
+        "meanSkinLuminance": 149.59819760710178
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "highway",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "H"
+        ]
+      },
+      "before": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+      "after": "41efc4b8f3f87e10002b2f1030590be79322b4e7fe7eafdce70b9ca5ce121bdb",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 301,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 301,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 170.7833423388649
+      }
+    },
+    {
+      "profile": "typical",
+      "morph": "sable",
+      "polygenicHash": "0cf7c6568e1c7ca8b2ad2a7fb4cd398d7e5abb040e9fb7f1e757b40aceab9b6c",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "S"
+        ]
+      },
+      "before": "a852479597d2fa01d6a769a431a112b41570d95d90a76f580c8cc5f7cfe7f9e2",
+      "after": "9adde8a0a8d8c665aeffade3a389b2c261ad2377ee6471e3e050eeda2cdf263b",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.48751353970902633,
+        "highway": 0.5456403417931535,
+        "sable": 0.5036086439449754
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 274,
+        "headWhite": 98,
+        "headSkin": 702,
+        "dorsalWhite": 176,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 145.4565727518327
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "normal",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+      "after": "d1180e2ecc0afbc09720904a52d3a57cb904de99f2cc97c0a686ff9513cf01c1",
+      "changedPixels": 3017,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 174.9515515245089
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "lilly",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "Lw"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "fa416f4b9838b00d5243bd16f8801cb85d88876162a5796b69dbfe88be65e3fc",
+      "after": "667ffdddf62c157a226a9471991c3d6fa43f97a9df08e9cec179e62819f9abdf",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 2458,
+        "headWhite": 702,
+        "headSkin": 702,
+        "dorsalWhite": 353,
+        "dorsalSkin": 486,
+        "flankWhite": 110,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 231.16455808567926
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "axanthic",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "ax",
+          "ax"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "eb160372730f9560b032c639c737168b8d438f827175936b158fcff4ef83acb4",
+      "after": "c5551bdfae8f51f6652b78c044e1717da735114c984cafb6b643e005ee9d84b0",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 152.56864531068882
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "cappuccino",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "C"
+        ]
+      },
+      "before": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+      "after": "330d2e62ff08c0e617d572bfa1fe7f95de54a4ede88eae36f0cb2ce77ce9d5a7",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 170,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 131,
+        "meanSkinLuminance": 147.34792358162977
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "highway",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "H"
+        ]
+      },
+      "before": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+      "after": "a14bc52934b449b2678b571b2e17f91bde117a796cd20c55f248efab6f72b77a",
+      "changedPixels": 3018,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 408,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 408,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 175.6072481667318
+      }
+    },
+    {
+      "profile": "high",
+      "morph": "sable",
+      "polygenicHash": "f0f22ddd2109ecad08e881f99e9c2adb4b379be8afca40da6454968007a52479",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "S"
+        ]
+      },
+      "before": "d5797b2c968cd0457e0924b5f185c1cbbb1f09024f35dc027254c789706690f2",
+      "after": "e30dfee8192be0b8c6cdc2715ebf1bc95d3ab2c42a6d870e8078e722e02107ed",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 1,
+        "cappuccino": 1,
+        "highway": 1,
+        "sable": 1
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 567,
+        "headWhite": 227,
+        "headSkin": 702,
+        "dorsalWhite": 339,
+        "dorsalSkin": 486,
+        "flankWhite": 1,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 152.40871478193765
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "normal",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+      "after": "b1569e717d25d1a819e6ea948ed4f0fa82d59b928483dd728dad6ea49893a39f",
+      "changedPixels": 2990,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 57.563064453880415
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "lilly",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "Lw"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "5b602ea9f24422c82c45d2289aee52577128c1b460b065bbc7e38e250de28b21",
+      "after": "380eff2f30262ff7f02ff460a6267ce8da176583b9ec81eeb29ee8042f8afbca",
+      "changedPixels": 3014,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 1605,
+        "headWhite": 130,
+        "headSkin": 702,
+        "dorsalWhite": 335,
+        "dorsalSkin": 486,
+        "flankWhite": 96,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 164.95126206097729
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "axanthic",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "ax",
+          "ax"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+      "after": "7e171911ba386f36cf3ae2afbc8b3f43113f410088e620609540154377adf439",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 44.00792358162741
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "cappuccino",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "C"
+        ]
+      },
+      "before": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+      "after": "77ab83d1d9e15d25c8364f843b6d62f363b8266ddb0032fe62f01e70dbd03440",
+      "changedPixels": 3018,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 138,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 138,
+        "tailTipDark": 101,
+        "meanSkinLuminance": 66.95481281358536
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "highway",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "H"
+        ]
+      },
+      "before": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+      "after": "5487fe832f1fa9e8eb8c2f6189acd7b6021d9b1f73d2add90fcfd9562ddad80a",
+      "changedPixels": 3016,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 301,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 301,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 73.27905055962967
+      }
+    },
+    {
+      "profile": "dark",
+      "morph": "sable",
+      "polygenicHash": "bc09a3c6508bea3a1c29cce4730f25634170dc47f744c2b78798ca789d56bd81",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "S"
+        ]
+      },
+      "before": "aa56722b70c667be8ac4dbded06f05d4c3ac2e5e681bed95cdf01e629f8903cb",
+      "after": "6aa3aab3ccb8dd5daf7ad8e0d6416d87f8cba7060dbe732964d76310c9e1468d",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.6964436620278466,
+        "highway": 0.5456403417931535,
+        "sable": 0.6305116231703152
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 353,
+        "headWhite": 131,
+        "headSkin": 702,
+        "dorsalWhite": 222,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 75.56731377846512
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "normal",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+      "after": "287de0cb0f2bf3cf5faadde612ca5562211570f57742bc9eba9a72748e26394f",
+      "changedPixels": 3010,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 176.13009648784407
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "lilly",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "Lw"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "e79079d0e49ccec9859b1eae77c074bfd5505b23ffb59c7a3e26ec13f8d89299",
+      "after": "66f12b9cda8deecf75a568fb5c60abdb60e731f2cb26b28ff3f51cd0a7e4e739",
+      "changedPixels": 3017,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 1605,
+        "headWhite": 130,
+        "headSkin": 702,
+        "dorsalWhite": 335,
+        "dorsalSkin": 486,
+        "flankWhite": 96,
+        "flankSkin": 110,
+        "tailBaseWhite": 165,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 213.67896950983837
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "axanthic",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "ax",
+          "ax"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "n"
+        ]
+      },
+      "before": "461293844e05bf9986b48820956292075448b6adcc27f732eba88a27d62517ad",
+      "after": "87097e8a326389e6b4d1243b7f1763b089d269652e82a9af777df85a4ad02d68",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 0,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 164.69787340794917
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "cappuccino",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "C"
+        ]
+      },
+      "before": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+      "after": "289de3771fc180e51798df6cd2788c8ae91ec028ccb4199c6b6d8d6146d805e6",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 134,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 0,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 134,
+        "tailTipDark": 93,
+        "meanSkinLuminance": 134.99979158626053
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "highway",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "H"
+        ]
+      },
+      "before": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+      "after": "7e284b140d4607d72c5ebfd1cc1f5034677c503e83d704be00ce889e64f50d5b",
+      "changedPixels": 3016,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 301,
+        "headWhite": 0,
+        "headSkin": 702,
+        "dorsalWhite": 301,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 181.5404940177541
+      }
+    },
+    {
+      "profile": "bright",
+      "morph": "sable",
+      "polygenicHash": "fff2db688e50bfd16f00f182d33ed8b287262b2763be707b18b01e7e05aeede0",
+      "genotype": {
+        "lilly-white": [
+          "n",
+          "n"
+        ],
+        "axanthic": [
+          "A",
+          "A"
+        ],
+        "cappuccino-complex": [
+          "n",
+          "S"
+        ]
+      },
+      "before": "4ca8433aafdf79cc22f2ca3012e9574555c12f4c6c64fa456a6b4b750b69de20",
+      "after": "d498057d4bdd1780b9c41a9064444c2ac08df8107badf9c10e8c6d305db7408a",
+      "changedPixels": 3019,
+      "strength": {
+        "lilly": 0.3733913012916432,
+        "cappuccino": 0.5950820698313425,
+        "highway": 0.5456403417931535,
+        "sable": 0.5689451631213823
+      },
+      "metrics": {
+        "skinPixels": 2591,
+        "whitePixels": 314,
+        "headWhite": 113,
+        "headSkin": 702,
+        "dorsalWhite": 201,
+        "dorsalSkin": 486,
+        "flankWhite": 0,
+        "flankSkin": 110,
+        "tailBaseWhite": 0,
+        "tailTipDark": 0,
+        "meanSkinLuminance": 124.18565032805812
+      }
+    }
+  ],
+  "diversity": [
+    {
+      "morph": "lilly",
+      "count": 12,
+      "unique": 12,
+      "protectedEyeErrors": 0,
+      "hashes": [
+        "5d3b71ebfcca71099bb860f1285655b85b578ba8275b8a1c73a178459d6b6ca0",
+        "27476553bbbb71f7d6078d41d1a8627b7b6ec830cc174c2ce0b4f6cd839cd0a9",
+        "43afb3b97c31ffab0552d13a75699fbcb814e6e7b86b52b876305e9161f9ea21",
+        "999a3f1e63787854970b1648e8bb7065abc2570712f2c9598ca8c6e25d63dae2",
+        "9a4b9042514355f70cf567ba7c50316c0df9c037cc15ac59e77e3b2853a71ede",
+        "89d80b4468b969e371d3a6e4674304cfa4c907a53936e743ca289766e5944ad8",
+        "1fa585681d3b66dae35344843ca7c9da76180dfc53405fc5fc8f432bdd02da93",
+        "0a85aaa7daf8952ab94e872fbedde9812ace71ff90f5f80e51729bbfc52026e6",
+        "62b7d97fb53beb0bf6cd54bc728ad11665e1043a90c52ee92df204090d0fbdd6",
+        "a2425a0a6296d639f0bc177a89bf121d424850ae239073c22667c7c9a46ccb5e",
+        "e512e61801466b79aff6510da4188c8ba562fd749877218ef0e1e6f7055ed39b",
+        "028f277f38dbeea8e822f79094a72e2797698b10f0f5dc73cfaefbf3c857b1eb"
+      ]
+    },
+    {
+      "morph": "axanthic",
+      "count": 12,
+      "unique": 12,
+      "protectedEyeErrors": 0,
+      "hashes": [
+        "95b36021253f2681f7f222c7fc95adebdf851a1c18ccb2abbc460836aea51be3",
+        "828fbbfb2dd37298539888c70126ba10d1a6f44cf52cdc69dc653840a604c55c",
+        "e363c7b5430e11302c9ac38a467406e5870e4b7bd1e55fe3b023a6acf285bf7f",
+        "2531a262b2ba321e3714a010dfba1737976909e76366ac85ea3f95054ea13440",
+        "91a4bc077d6f8eedb9ce2ec9f12c515cbef0680a2a972cf58516cf859d9be245",
+        "8556a35f0c73f00c6271cd20580852f51f1f2e41314d1cf67407d97815fb33a0",
+        "4564271cc84ea2d09b8c7f53d7410fb36649454291858b7fae441f4a33eae05c",
+        "035a3882ac7584d1bd0c54860ae6f1e03c107c25b9fcea54f2c0f31481f03913",
+        "b752b7cfa722e3657e8a91ac2013d4b03476127fe8db17cd1e7577900339b56b",
+        "7c58a6c07aa20d07ba4341f50f1d4d3d730761423170139e74e40ed7a3cb7780",
+        "f8f78880620848b5fa75e3b1712b9e066733927eca3a3117dc6dffd5783781ce",
+        "b76b52c4957ce692368b5694946599ebe49dec8d3ca9d663c4308aebd865e2a2"
+      ]
+    },
+    {
+      "morph": "cappuccino",
+      "count": 12,
+      "unique": 12,
+      "protectedEyeErrors": 0,
+      "hashes": [
+        "c53981c4e7c81d3af35fcecb296f602e308f6664c7733418e6b54f2cd1cd68ab",
+        "7165a621bc1b5cf6a2a34463aa881ec2f6b7a0041ea13182a8f41d5f2072d869",
+        "9e5bca8e16eddd0fdb780b40002cb641572f5eb1a7b50e38cb1ff4c12b7c3657",
+        "8adca6529b3759b91bc028fdd5577fc07d523b375a3bf7e6cae69a547fe562b5",
+        "a5aef5e7bc70b567428c975d0a1d6d93a2ee3060b2d10ceb9ea33d7758ebd28b",
+        "b6eef4bf16e45fcb75364d216f7cd9095843a74b4f943d7a35c05d59882ff6fb",
+        "1897462a90e92bc22090872e308bfddc935c9d5e33153236d4324cbf4e35a64f",
+        "802b5e1713e9419d2824ecc02c31cfcd0bc8240dcff4ef27f94daf3060da38f3",
+        "9a8028c5a43060723e8f2eda76ae1ab4ea9b338edb5bea00a641313f5aae18ad",
+        "85dafd0a879cf51a52955c7714ebdaec829c4e046fcedd04588d5abd0ba3469e",
+        "352d56a3e305fddacd5b6e2384dc5db3bdd53e80958bc02c2eefeb26d0b2e2dc",
+        "59a43cd4d5b1077fbf5ac1f6a5f751cbd989a6f0014ed5043bdd18b8f9c85eaa"
+      ]
+    },
+    {
+      "morph": "highway",
+      "count": 12,
+      "unique": 12,
+      "protectedEyeErrors": 0,
+      "hashes": [
+        "8e3aaffa189351c84c6266797d4376e05dab76cb98012faa2ed6baf27fc944f1",
+        "985be415382cac3d58b0fff00f4b3ed78ca63cfb1aa8fa3e0903d9af6bcb1a57",
+        "898e36d832b61cf079f7e93a6777014d8ddeee99bc54176d93e9e396929e59f9",
+        "5094aa42c728f45edccc6d39758e5dcd09b249e98c8565bc4a506a77bebb2a0d",
+        "1a23f7fd9287c133904be08c6bf2a670669137f9cc66d0faf3a095077ac91500",
+        "e2c08dd3f22f000d19915442fe6f9c6aa899c1c6929cc3b37d2acdcf7b09c904",
+        "4f2e0da4b42fc6b40e9c555a3c49588c6d566eb2c57712d79dac1b370dad97a1",
+        "32929983ea1b176167b5271512dd95ae8156db21e2998651acf59bb235976259",
+        "4fe856b6fd4b09ebf5db4621ffe93dfeafb387ed21ede651fd951ef62b20b0e3",
+        "f977b58f1d890b9460d91c024d9b99e5ce88e920077a85892a6a03439136d4b2",
+        "5edfb6b689b101b912b7df07f8a669c836f7f75932bfbb7ea4e3f2c7006f5813",
+        "736f4b11bed2a286de9247688e5b3ae3f562992dd8702251a03680a97a7b989f"
+      ]
+    },
+    {
+      "morph": "sable",
+      "count": 12,
+      "unique": 12,
+      "protectedEyeErrors": 0,
+      "hashes": [
+        "6753be3c182b4e32dcab80c011ff9243d9463d28dff4a2fdc44cc2889f19e0fd",
+        "78a40986682e3687298da9659e6b305bbf1781bd145d822fd9523b155012a970",
+        "d178701da5c357c342096bbf4fbcaaaad4e478ef4f92b361463c25acfcca5950",
+        "1e018c6487842102a466142a05929580161932ff6f03fd739f74b7c1a029c23f",
+        "0fd12a7507f37d8620527ddd9472739cf9294ba19fbbffd7e6169cd6b64dc063",
+        "90e48ac993ce0804b80cf7c59a046c7e44f7f80eaeccf916034617385f83a30a",
+        "a5595e6298917887b8a8f5c07e48db68934fccd3390453c168247c26b08ebb18",
+        "ffb3ba3163888c3f428f2a5deed7a0644fce4c53158637db29210a4f8341880f",
+        "56d3542c9cf1a4600c0af195a0293b585fd8ae73d310a6e3a8662593a09cb993",
+        "f0c5e721008fbeaf7b2f804bb20f0a65bc332b8f8977a63999d26481cfe9f78f",
+        "c2b3376831f2437ce55bb1aba8893c6c8f5f6f1f561337a097c6ff12fad7e395",
+        "e4d5a3a17c05932dcc365966901573bda23404a10aa521fad7c10f803d48045a"
+      ]
+    }
+  ]
+}

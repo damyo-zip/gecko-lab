@@ -25,7 +25,7 @@ export function createV6Game(seed: string, date: GameDate, overrides: Partial<Ru
   return game;
 }
 export function createGame(seed:string,date:GameDate,overrides:Partial<Rules>={},timeMode:TimeMode="turn"):HardcoreGame {
-  const game=createV6Game(seed,date,overrides,timeMode);game.saveVersion=10;game.shop.batch=0;return game;
+  const game=createV6Game(seed,date,overrides,timeMode);game.saveVersion=11;game.shop.batch=0;return game;
 }
 /** Phase 2 had no wall-clock anchor: start daily care at migration, never invent past neglect. */
 export function migrateV2(envelope: unknown, date: GameDate): HardcoreGame {

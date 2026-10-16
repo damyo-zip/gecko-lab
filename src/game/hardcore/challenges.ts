@@ -25,7 +25,7 @@ export const challengeLockRemaining=(game:HardcoreGame)=>Math.max(0,(game.breedi
  * goals, the same source as breeder rank, without a second reward counter. */
 export const challengeFeedSlots=(game:HardcoreGame)=>breederRank(game).completed;
 export function selectChallenge(game:HardcoreGame,id:ChallengeId):void {
- if(game.saveVersion!==10||!isChallengeId(id))throw new Error('지원하지 않는 브리딩 도전입니다.');
+ if(game.saveVersion<10||!isChallengeId(id))throw new Error('지원하지 않는 브리딩 도전입니다.');
  const state=game.breedingChallenges??emptyChallenges();
  if(state.activeId===id)return;
  if(state.completed.some(c=>c.challengeId===id))throw new Error('이미 완료한 도전입니다.');

@@ -1,3 +1,2 @@
-/** Phase 6 anatomy is compiled from real PNG art and painted region masks.
- * The original polygon implementation remains in legacy/base.ts for comparisons. */
+/** Shared PNG anatomy used by the regional production engine. */
 export {createBaseSprite,PART,type BaseSprite} from "./art";

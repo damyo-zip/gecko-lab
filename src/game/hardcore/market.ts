@@ -36,7 +36,7 @@ export function valuationFactors(g: Gecko, table: PriceTable = MARKET) {
     const o=profile.observation,r=PATTERN_PRICE_RULES;
     // One term per observable dimension; no premium based on generated labels.
     return .85+r.pattern*(o.dorsal+o.flank+o.limbs)/3+r.continuity*o.pin.reduce((n,l)=>n+l.longestRun/l.length,0)/2+
-      r.spots*Math.min(1,o.spots/100)+r.contrast*profile.traits.contrast;
+      r.spots*Math.min(1,o.spots/100)+r.contrast*o.contrast;
   })():.8 + .2 * t.redIntensity + .15 * t.creamCoverage + .15 * (t.dorsalIntensity + t.flankIntensity) / 2;
   // Genotype, game appearance, disclosed sex, age and documented pedigree; never lineage NAME.
   const knowledge=publicKnowledge(g),knownCarrier=carrierProbability(knowledge);
@@ -51,7 +51,7 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   const {bucket,marketBase,appearance,carrier,sex,age,pedigree,patternModel}=valuationFactors(g,table);
   const valuation = round(marketBase * appearance * carrier * sex * age * pedigree);
   return { bucket, marketBase, valuation, ask: round(valuation * table.buyMultiplier),
-    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(patternModel?"/patterns-1":""),
+    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(patternModel?"/regional-2":""),
     provisional: table.status === "provisional-game-prices" };
 }
 export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): void {

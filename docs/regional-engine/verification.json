@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-17",
+  "renderer": {
+    "version": "regional-2",
+    "reviewedSource": "regional-prototype-2",
+    "entry": "src/engine/render.ts",
+    "regional": "src/engine/regional/render.ts",
+    "lighting": "src/engine/regional/lighting.ts"
+  },
+  "frozenV2PixelCases": 100,
+  "CSHAxLillyCombinations": 40,
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "authoredArtHashes": "unchanged",
+  "unit": {
+    "files": 36,
+    "passed": 382,
+    "coldFamilyFileRetestPassed": 11
+  },
+  "browser": {
+    "fullRun": {
+      "total": 274,
+      "passed": 262,
+      "failed": 12
+    },
+    "finalBuildRetest": {
+      "total": 14,
+      "passed": 14,
+      "includesAll12Failures": true,
+      "extraCollectionManagementCases": 2
+    },
+    "unresolvedFailures": 0,
+    "skipped": 0,
+    "environment": "Chromium mobile touch emulation and desktop, not a physical Android device"
+  },
+  "ci": "https://github.com/damyo-zip/gecko-lab/pull/31/checks"
+}

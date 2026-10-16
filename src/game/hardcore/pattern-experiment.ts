@@ -1,7 +1,7 @@
 import {founderPoly,inheritPoly} from "@/genetics/advanced/polygenic";
 import {wildGenome} from "@/genetics/advanced/loci";
 import {patternTraits} from "@/genetics/advanced/pattern-traits";
-import {buildPatternPlan} from "@/engine/pattern-plan";
+import {regionalObservation} from "@/engine/regional";
 import {fullLine} from "@/phenotype/names";
 
 /** Gene-pool experiment, not gameplay mating permission. Rank only observable
@@ -12,7 +12,7 @@ export function patternSelectionExperiment(seed:string,selected:boolean,generati
   const history:{generation:number;mean:number;fullRate:number;visibleQuality:number}[]=[];
   for(let generation=0;generation<=generations;generation++){
     const observed=population.map((polygenic,i)=>{
-      const t=patternTraits({version:1,mendelian:wildGenome(),polygenic}),o=buildPatternPlan(t,seed+"|g-"+generation+"|visible-"+i).observation;
+      const genome={version:1 as const,mendelian:wildGenome(),polygenic},t=patternTraits(genome),o=regionalObservation({genome,seed:seed+"|g-"+generation+"|visible-"+i}).observation;
       return {polygenic,latent:t.pin.reduce((n,v)=>n+v,0)/2,full:o.pin.every(fullLine),quality:o.pin.reduce((n,l)=>n+(l.coverage+l.longestRun/l.length)/2,0)/2};
     });
     history.push({generation,mean:observed.reduce((n,o)=>n+o.latent,0)/size,fullRate:observed.filter(o=>o.full).length/size,visibleQuality:observed.reduce((n,o)=>n+o.quality,0)/size});

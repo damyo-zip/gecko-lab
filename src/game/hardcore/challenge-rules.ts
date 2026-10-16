@@ -8,9 +8,11 @@ export const BREEDING_CHALLENGES = [
 ] as const;
 export type ChallengeId=typeof BREEDING_CHALLENGES[number]['id'];
 export const CHALLENGE_LOCK_TURNS=10;
+/** regional-2: final base-skin luminance and white-only / all-skin area.
+ * These are newly calibrated measures, not renamed old creamArea values. */
 export const CHALLENGE_THRESHOLDS={
- darkLuminance:58,darkBaseArea:.72,orangeStrength:.75,orangeBaseArea:.70,
- solidMaxSpots:5,superSpots:65,regionSpots:3,whiteArea:.48,whiteExpression:.90,
+ darkLuminance:64,darkBaseArea:.72,orangeStrength:.75,orangeBaseArea:.70,
+ solidMaxSpots:5,superSpots:65,regionSpots:3,whiteArea:.72,whiteExpression:.85,
 } as const;
 export const challengeById=(id:ChallengeId)=>BREEDING_CHALLENGES.find(c=>c.id===id)!;
 export const isChallengeId=(id:unknown):id is ChallengeId=>BREEDING_CHALLENGES.some(c=>c.id===id);

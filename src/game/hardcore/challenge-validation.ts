@@ -12,7 +12,7 @@ export function validateChallenges(game:HardcoreGame):void {
  const integer=(v:unknown)=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=0&&v<=game.turn;
  const s=game.breedingChallenges;
  keys(s,'version activeId selectedTurn unlockTurn completed equippedTitle');
- if(!s||game.saveVersion!==10||s.version!==1||!Array.isArray(s.completed)||s.completed.length>5)fail();
+ if(!s||game.saveVersion<10||s.version!==1||!Array.isArray(s.completed)||s.completed.length>5)fail();
  for(const c of s!.completed){
   keys(c,'challengeId eggId achievedTurn evaluatorVersion specimen morph phenotype reward announced');keys(c.reward,'feedExemptionSlots titleId');
   const egg=game.eggs[c.eggId];

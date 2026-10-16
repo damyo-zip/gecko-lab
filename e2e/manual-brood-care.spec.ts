@@ -70,7 +70,7 @@ test('manual pair collection, newborn pickup and infertile removal persist with 
  await expect(page.getByTestId('hc-card-'+childId)).toBeVisible();expect(errors).toEqual([]);
 });
 
-test('v9 active migration archives exact original, preserves incubation and serializes duplicate pickup/removal',async({page},info)=>{
+test('old v9 care state remains untouched and requests a new game',async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith('mobile'),f=fixture(),old=structuredClone(f.game);
  old.saveVersion=9;for(const egg of Object.values(old.eggs))delete egg.care;
  const {makeSave}=await import('../src/game/hardcore/save'),record={save:makeSave(old),writeRevision:17};
@@ -79,16 +79,7 @@ test('v9 active migration archives exact original, preserves incubation and seri
   const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
   await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});
  },record);
- await page.reload();await expect(page.getByTestId('game-day')).toHaveText('2');let g=await saved(page);expect(g.saveVersion).toBe(10);
- for(const egg of Object.values(old.eggs))expect(g.eggs[egg.id]).toMatchObject({...egg,care:{version:1,collectedTurn:2,settledTurn:null}});
- const archived=await page.evaluate(async()=>{
-  const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
-  return new Promise(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('archive-v9-18');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});
- });expect(archived).toEqual(record);
- await navigateGame(page,'인큐베이터',mobile);await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');
- for(let n=0;n<4;n++)await finishTurn(page,mobile);await navigateGame(page,'인큐베이터',mobile);
- const pickup=page.getByTestId('receive-hatchling-'+f.successId),remove=page.getByTestId('remove-egg-'+f.failedId);
- for(const button of [pickup,remove]){await button.evaluate(el=>{(el as HTMLButtonElement).click();(el as HTMLButtonElement).click();});await expect(button).toHaveCount(0);}
- g=await saved(page);expect(Object.values(g.individuals).filter(i=>i.status==='owned')).toHaveLength(3);expect(g.money).toBe(old.money);await expect(page.getByTestId('incubator-free')).toHaveText('1');
- await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');expect(await saved(page)).toEqual(g);
+ await page.reload();await expect(page.getByRole('alert').filter({hasText:'새 외형 엔진이 적용'})).toBeVisible();
+ expect(await saved(page)).toEqual(old);
+ await expect(page.getByRole('button',{name:'백업 복원 또는 새 게임',exact:true})).toBeVisible();
 });

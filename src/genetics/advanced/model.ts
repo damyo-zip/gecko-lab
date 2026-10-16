@@ -42,7 +42,7 @@ export interface GeneticsRecord {
   /** Old numeric traits cannot reconstruct virtual alleles. null preserves the old model. */
   genome: Genome | null;
   knowledge: Knowledge;
-  appearanceVersion: "legacy-1" | "5.0" | "patterns-1";
+  appearanceVersion: "legacy-1" | "5.0" | "patterns-1" | "regional-2";
   /** v9 mixed legacy crosses retain actual transmitted complex alleles.
    * null is genuinely unknown; it is never silently substituted with wild type. */
   unresolvedComplex?: readonly [string|null,string|null];

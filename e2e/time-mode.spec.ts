@@ -80,10 +80,9 @@ test("v3 active slot migrates to manual v8 without changing records or applying 
     const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});
     await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});
   },{save:{format:"gecko-lab-save",version:3,game:legacy,checksum:checksum(legacy)},writeRevision:10});
-  await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");
-  const migrated=await saved(page);expect(migrated.saveVersion).toBe(10);expect(migrated.time.mode).toBe("turn");
-  for(const id of Object.keys(legacy.individuals)){expect(migrated.individuals[id].genotype).toEqual(legacy.individuals[id].genotype);expect(migrated.individuals[id].potential).toEqual(legacy.individuals[id].potential);}expect(migrated.individuals[offer.id].genetics?.genome).toBeNull();
-  expect(migrated.lastDate).toBe(DATE);expect(migrated.money).toBe(original.money);
+  await page.clock.setFixedTime(new Date(addDays(DATE,10)+"T03:00:00Z"));await page.reload();await expect(page.getByRole('alert').filter({hasText:'새 외형 엔진이 적용'})).toBeVisible();
+ expect(await saved(page)).toEqual(legacy);
+ await expect(page.getByRole('button',{name:'백업 복원 또는 새 게임',exact:true})).toBeVisible();
 });
 
 test("real-date signals during a pending v1.2 save cannot advance turns or replay the action",async({page},info)=>{

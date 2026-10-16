@@ -1,3 +1,4 @@
+import {sampleGenome} from './sample-genome';
 import type { AppearanceTraits, GeckoSpecimen, PatternStyle } from "./model";
 
 export interface MorphPreset {
@@ -32,5 +33,5 @@ export const MORPH_PRESETS: readonly MorphPreset[] = [
 
 export function specimenFromPreset(preset: MorphPreset, seed = "GECKO-0014"): GeckoSpecimen {
   return { schemaVersion: 1, id: preset.id + ":" + seed, name: preset.nickname, seed,
-    appearance: { ...preset.appearance }, state: { fire: "up" } };
+    genome:sampleGenome(preset.appearance),appearance: { ...preset.appearance }, state: { fire: "up" } };
 }

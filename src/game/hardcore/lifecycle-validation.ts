@@ -13,7 +13,7 @@ const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 function assert(condition:unknown):asserts condition {if(!condition)throw new Error("v1.2 턴·성장·산란·수명 기록이 손상되었습니다.");}
 function keys(value:object,names:string):void {assert(value&&Object.keys(value).sort().join()===names.split(" ").sort().join());}
 export function validateLifecycle(game:HardcoreGame):void {
-  assert([6,7,8,9,10].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
+  assert([6,7,8,9,10,11].includes(game.saveVersion)&&[3,4].includes(game.rulesVersion)&&game.time.mode==="turn");
   assert(game.rules.adultAfter===12&&game.rules.juvenileAfter===6&&game.rules.fertilizationChance===.95&&game.rules.hatchChance===.95&&game.rules.recoveryDays===4);
   for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)]){
     assert(Number.isSafeInteger(g.lastProcessedTurn)&&g.lastProcessedTurn!<=game.turn);

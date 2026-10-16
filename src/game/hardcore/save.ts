@@ -59,7 +59,8 @@ export function readV6Save(value: unknown,date:GameDate):HardcoreGame {
   }
   const game=migrateV12(readLegacySave(value,date));validateGame(game);return game;
 }
-export function readSave(value:unknown,date:GameDate):HardcoreGame {
+export function readArchiveSave(value:unknown,date:GameDate):HardcoreGame {
+  if((value as {version?:number})?.version===11)return readSave(value,date);
   const candidate=value as ReturnType<typeof makeSave>|null;
   if(candidate?.version===7||candidate?.version===8||candidate?.version===9||candidate?.version===10){
     if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
@@ -68,6 +69,16 @@ export function readSave(value:unknown,date:GameDate):HardcoreGame {
     const game=migrateBroodCare(migrateRisk(migrateAlbum(candidate.game)));validateGame(game);return game;
   }
   const game=migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date)))));validateGame(game);return game;
+}
+/** Old records are kept untouched. No migration invents regional alleles or
+ * rewrites an existing player's appearance; only explicit new-game replaces it. */
+export function readSave(value:unknown,_date:GameDate):HardcoreGame {
+  const candidate=value as ReturnType<typeof makeSave>|null;
+  if(!candidate||candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
+  if(candidate.version!==11)throw new Error("새 외형 엔진이 적용되었습니다. 기존 저장은 보존되어 있습니다. 설정에서 새 게임을 시작해 주세요.");
+  validateGame(candidate.game);
+  if(candidate.game.saveVersion!==11||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
+  return candidate.game;
 }
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");

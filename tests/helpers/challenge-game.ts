@@ -24,7 +24,7 @@ export function challengeParents(id:ChallengeId,seed='challenge-test'):HardcoreG
   for(const [feature,a] of Object.entries(values))for(let n=0;n<6;n++)genome.polygenic.loci[feature+'-'+n]=[a,a];
   if((id==='white'||id==='monochrome')&&sex==='female')genome.mendelian.loci['lilly-white']=['n','Lw'];
   if(id==='monochrome')genome.mendelian.loci.axanthic=['ax','ax'];
-  g.genetics={version:1,genome,appearanceVersion:'patterns-1',knowledge:childKnowledge(unknownKnowledge(),unknownKnowledge(),observedLoci(genome),g.id)};
+  g.genetics={version:1,genome,appearanceVersion:'regional-2',knowledge:childKnowledge(unknownKnowledge(),unknownKnowledge(),observedLoci(genome),g.id)};
   g.genotype=cachedGenotype(g.genetics,g.genotype);g.potential=legacyTraits(polyScores(genome.polygenic));game.individuals[g.id]=g;
  }
  return game;

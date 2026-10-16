@@ -1,7 +1,8 @@
+import {regionalFixture} from './regional';
 import {tendBrood} from '../../tests/helpers/tend-brood';
 import {createNewGame} from '../../src/game/play';
 import {makeSave as phase2Save} from '../../src/game/save';
-import {readSave} from '../../src/game/hardcore/save';
+import {readArchiveSave as readSave} from '../../src/game/hardcore/save';
 import {breedingRisk} from '../../src/game/hardcore/breeding-risk';
 import {act} from '../../src/game/hardcore/play';
 import {actWithTime} from '../../src/game/hardcore/time-source';
@@ -9,11 +10,13 @@ import {seededRandom} from '../../src/genetics/random';
 import {seasonEggSeed} from '../../src/game/hardcore/season';
 import {HEALTH_LOCI} from '../../src/genetics/health';
 const DATE='2026-10-14';
-/** Fixed review seed selected from genuine outcomes; played sibling clutch + 12 growth turns.
+/** Fixed regional review seed 27 selected from genuine outcomes; played sibling clutch + 12 growth turns.
  * No edited ancestry, Mendelian alleles or hatch outcomes; no searching/rerolling during tests. */
-export function breedingRiskFixture(){
- for(const n of [89]){
-  const original=readSave(phase2Save(createNewGame('real-risk-family-'+n)),DATE);original.capacity=20;original.food=1000;
+let cached:ReturnType<typeof buildRiskFixture>|undefined;
+export function breedingRiskFixture(){cached??=buildRiskFixture();return structuredClone(cached);}
+function buildRiskFixture(){
+ for(const n of [27]){
+  const original=regionalFixture(readSave(phase2Save(createNewGame('real-risk-family-'+n)),DATE));original.capacity=20;original.food=1000;
   // A known fictional wild-type fixture isolates Lilly/pedigree mechanics from hidden health effects.
   for(const g of Object.values(original.individuals))g.healthGenome={version:1,loci:Object.fromEntries(HEALTH_LOCI.map(l=>[l.id,['N','N'] as const]))};
   const [f,m,,,lillyMale]=Object.values(original.individuals);let game=act(original,{type:'breed',fatherId:f.id,motherId:m.id},DATE);
