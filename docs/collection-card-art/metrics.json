@@ -1,0 +1,128 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "main": [
+    {
+      "stage": "adult",
+      "cardWidth": 117,
+      "cardHeight": 146.265625,
+      "beforeCanvasWidth": 91.359375,
+      "afterCanvasWidth": 119,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": 3.0,
+      "growthScale": "1"
+    },
+    {
+      "stage": "adult",
+      "cardWidth": 117,
+      "cardHeight": 146.265625,
+      "beforeCanvasWidth": 94.171875,
+      "afterCanvasWidth": 121,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": 3.0,
+      "growthScale": "1"
+    },
+    {
+      "stage": "juvenile",
+      "cardWidth": 117,
+      "cardHeight": 146.265625,
+      "beforeCanvasWidth": 70.62890625,
+      "afterCanvasWidth": 90.75,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -8.34375,
+      "growthScale": "0.75"
+    },
+    {
+      "stage": "juvenile",
+      "cardWidth": 117,
+      "cardHeight": 146.265625,
+      "beforeCanvasWidth": 70.62890625,
+      "afterCanvasWidth": 90.75,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -8.34375,
+      "growthScale": "0.75"
+    },
+    {
+      "stage": "hatchling",
+      "cardWidth": 117,
+      "cardHeight": 146.265625,
+      "beforeCanvasWidth": 47.0859375,
+      "afterCanvasWidth": 60.5,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -19.6875,
+      "growthScale": "0.5"
+    }
+  ],
+  "catalog": [
+    {
+      "stage": "adult",
+      "cardWidth": 112,
+      "cardHeight": 176,
+      "beforeCanvasWidth": 86.234375,
+      "afterCanvasWidth": 118,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": 3.0,
+      "growthScale": "1"
+    },
+    {
+      "stage": "adult",
+      "cardWidth": 112,
+      "cardHeight": 176,
+      "beforeCanvasWidth": 88.46875,
+      "afterCanvasWidth": 120,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": 3.0,
+      "growthScale": "1"
+    },
+    {
+      "stage": "juvenile",
+      "cardWidth": 112,
+      "cardHeight": 176,
+      "beforeCanvasWidth": 66.3515625,
+      "afterCanvasWidth": 90,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -8.25,
+      "growthScale": "0.75"
+    },
+    {
+      "stage": "juvenile",
+      "cardWidth": 112,
+      "cardHeight": 176,
+      "beforeCanvasWidth": 66.3515625,
+      "afterCanvasWidth": 90,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -8.25,
+      "growthScale": "0.75"
+    },
+    {
+      "stage": "hatchling",
+      "cardWidth": 112,
+      "cardHeight": 176,
+      "beforeCanvasWidth": 44.234375,
+      "afterCanvasWidth": 60,
+      "cardAndNameUnchanged": true,
+      "paintWithinCard": true,
+      "paintBottomMinusNameTop": -19.5,
+      "growthScale": "0.5"
+    }
+  ],
+  "desktopViewport": [
+    1280,
+    900
+  ],
+  "desktopAdultCanvasWidths": [
+    186.65625,
+    189.328125
+  ]
+}

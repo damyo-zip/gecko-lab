@@ -34,9 +34,9 @@ async function checkSprites(root:Locator){
   for(const row of rows){expect(row.ratioX).toBeCloseTo(SCALES[row.stage as keyof typeof SCALES],4);expect(row.ratioY).toBeCloseTo(row.ratioX,4);expect(Math.abs(row.centerX)).toBeLessThan(.05);expect(Math.abs(row.centerY)).toBeLessThan(.05);expect(row.layoutStable).toBe(true);expect(row.transition).toBe('0s');expect(row.smoothing).toBe(false);}
   return rows;
 }
-async function centered(canvas:Locator){
+async function centered(canvas:Locator,vertical=true){
   const a=(await canvas.boundingBox())!,b=(await canvas.locator('..').boundingBox())!;
-  expect(Math.abs(a.x+a.width/2-b.x-b.width/2)).toBeLessThan(1);expect(Math.abs(a.y+a.height/2-b.y-b.height/2)).toBeLessThan(1);
+  expect(Math.abs(a.x+a.width/2-b.x-b.width/2)).toBeLessThan(1);if(vertical)expect(Math.abs(a.y+a.height/2-b.y-b.height/2)).toBeLessThan(1);
 }
 function hash(pixels:ArrayLike<number>){let value=2166136261;for(let i=0;i<pixels.length;i++)value=Math.imul(value^pixels[i],16777619);return value>>>0;}
 
@@ -46,7 +46,9 @@ test('collection, catalog and detail scale the same bitmap while preserving fram
   for(const [width,height] of mobile?[[360,800],[390,844],[430,932]]:[[1280,900]]){
     await page.setViewportSize({width,height});const rows=await checkSprites(page.locator('.home-collection'));
     expect(new Set(rows.map(r=>r.stage))).toEqual(new Set(['hatchling','juvenile','adult']));
-    for(const id of [f.hatchlingId,f.juvenileId])await centered(page.getByTestId('hc-card-'+id).locator('canvas'));
+    // Cards intentionally lower the adult frame into the name row. Keep horizontal
+    // centering here; checkSprites above still verifies the same center at 50/75/100%.
+    for(const id of [f.hatchlingId,f.juvenileId])await centered(page.getByTestId('hc-card-'+id).locator('canvas'),false);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   }
   for(const id of [f.hatchlingId,f.juvenileId,f.adultId]){
