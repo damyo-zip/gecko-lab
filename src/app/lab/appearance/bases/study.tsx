@@ -1,20 +1,12 @@
 'use client';
-import {memo,useEffect,useMemo,useRef,useState,type CSSProperties} from 'react';
+import {useMemo,useState,type CSSProperties} from 'react';
 import {DESIGNS,VARIANTS,type BaseId,type VariantId} from '@/lab/appearance/base-study/designs';
-import {renderBase,type StudySprite} from '@/lab/appearance/base-study/render';
+import {renderBase} from '@/lab/appearance/base-study/render';
+import {StudyPixels as Pixels} from '@/lab/appearance/pixels';
 import {referenceSprite,type ReferenceId} from '@/lab/appearance/base-study/reference';
 import {HomeIcon} from '@/components/hardcore/home-icons';
 import styles from './study.module.css';
 
-const Pixels=memo(function Pixels({sprite,size=96,testId}:{sprite:StudySprite;size?:number;testId:string}){
- const ref=useRef<HTMLCanvasElement>(null);
- useEffect(()=>{
-  if(!ref.current)return;const source=document.createElement('canvas');source.width=source.height=96;
-  const c=source.getContext('2d')!,image=c.createImageData(96,96);image.data.set(sprite.pixels);c.putImageData(image,0,0);
-  const ctx=ref.current.getContext('2d')!;ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,size,size);ctx.drawImage(source,0,0,size,size);
- },[sprite,size]);
- return <canvas ref={ref} width={size} height={size} role="img" aria-label={testId} data-testid={testId}/>;
-});
 const CONTEXTS=[{id:'collection',label:'컬렉션 · 3열'},{id:'shop',label:'상점 · 2열'},{id:'breeding',label:'교배 · 양쪽'},{id:'incubator',label:'인큐베이터 · 해칭'},{id:'lineage',label:'혈통도 · 가족'}] as const;
 type ContextId=typeof CONTEXTS[number]['id'];
 const GROWTH=[{size:48,label:'해칭 50%'},{size:72,label:'아성체 75%'},{size:96,label:'성체 100%'}] as const;
@@ -27,6 +19,7 @@ export default function BaseStudy(){
  return <main className={styles.page}>
   <a href="/lab/appearance">← 외형 연구실</a><p className={styles.eyebrow}>GECKO LAB / BASE DESIGN STUDY 01</p><h1>새 96px 베이스 탐색</h1>
   <p>얼굴·비율·자세부터 새로 만든 세 후보입니다. 각 후보의 동일한 베이스에 밝기·무늬만 달리해 확장 여지를 비교합니다. 정식 게임과 연결하지 않습니다.</p>
+  <p><a href="/lab/appearance/b-breeding">B · 모프 발현과 부모·자손 비교 →</a></p>
   <div className={styles.designs}>{DESIGNS.map(d=><article key={d.id}><h2>{d.name}</h2><Pixels sprite={base(d.id,'normal')} size={192} testId={'intro-'+d.id}/><p>{d.description}</p><small>{d.tradeoff}</small></article>)}</div>
   <section className={styles.controls} aria-label="베이스 비교 설정">
    <label>기존 참고 외형<select value={reference} onChange={e=>setReference(e.target.value as ReferenceId)}><option value="authored">기존 원화 정식 · c934363</option><option value="regional">현재 적용 v2 · regional-2</option></select></label>
