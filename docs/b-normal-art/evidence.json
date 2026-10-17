@@ -1,0 +1,523 @@
+{
+  "version": "B-normal-art-1",
+  "originalFileHash": "487aa44664d047f20a6875c48715f3a083ee876ddc524d5c01150ac9f03959de",
+  "designs": [
+    {
+      "id": "original",
+      "name": "01 · B 원본형",
+      "pixelHash": "8ebf9695758b0f95e93e0c2c4d0426917283a7d61949f507534ad2c83cdc51ad",
+      "maskHash": "ee133b382a3a9b0b225117b6978e74094c1fb5848ed27335f92fdb7f0b965934",
+      "metrics": {
+        "area": 330,
+        "domain": 1209,
+        "coverage": 0.2729528535980149,
+        "back": 79,
+        "flank": 80,
+        "tail": 162,
+        "limbs": 9,
+        "components": 9,
+        "largest": 149,
+        "largestFraction": 0.45151515151515154,
+        "boundary": 23.230335444166208,
+        "sizes": [
+          149,
+          76,
+          28,
+          19,
+          19,
+          14,
+          8,
+          5,
+          5,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "genes": "dorsal·flank·cream·harlequin의 기준 감상점",
+      "gap": "원화 자체가 개별 유전체를 의미하지 않습니다."
+    },
+    {
+      "id": "dorsal",
+      "name": "02 · 넓은 등무늬형",
+      "pixelHash": "3d63e0d4a71d0f7757c033f8110d697488ff1d207063c7ac579b6f15bd41ed17",
+      "maskHash": "35011c05c18013b6175532d058ae69bc003cb32cbaa15f88d7de1f64f68cbd7b",
+      "metrics": {
+        "area": 527,
+        "domain": 1209,
+        "coverage": 0.4358974358974359,
+        "back": 172,
+        "flank": 138,
+        "tail": 216,
+        "limbs": 1,
+        "components": 3,
+        "largest": 439,
+        "largestFraction": 0.8330170777988615,
+        "boundary": 13.503812097939996,
+        "sizes": [
+          439,
+          65,
+          22,
+          1
+        ]
+      },
+      "genes": "dorsal 높음·flank 낮음. cream은 밝은 무늬 면적, contrast는 안장과 바탕의 명암 차이",
+      "gap": "안장의 갈래와 홈 위치는 현재 좌위에 직접 대응하지 않는 아트 구조입니다."
+    },
+    {
+      "id": "islands",
+      "name": "03 · 측면 대형 패턴형",
+      "pixelHash": "221692bb0c40a92bc02ff1dbf87ac0be4dc8a89f0e96ec2a9b6ab5370c1ba64b",
+      "maskHash": "f0326c70914339d06816601a0ba8883f2135c7c485c29592f9349fc6f4198b13",
+      "metrics": {
+        "area": 492,
+        "domain": 1209,
+        "coverage": 0.40694789081885857,
+        "back": 104,
+        "flank": 241,
+        "tail": 139,
+        "limbs": 8,
+        "components": 8,
+        "largest": 104,
+        "largestFraction": 0.21138211382113822,
+        "boundary": 16.049719497080293,
+        "sizes": [
+          104,
+          101,
+          81,
+          73,
+          56,
+          48,
+          16,
+          12,
+          1
+        ]
+      },
+      "genes": "flank·cream 높음, dorsal 중간 이하. harlequin은 사지 확장과 별도로 평가",
+      "gap": "세 덩어리의 개수·위치는 flank 점수 하나로 설명할 수 없습니다."
+    },
+    {
+      "id": "filigree",
+      "name": "04 · 세밀한 분리형",
+      "pixelHash": "05c2e223512b4494147d148a32ed78b2c51aff563ff69dbf83a589f48d359a6f",
+      "maskHash": "4aa723dd835d0506a2cb8f65aa14dbe708070ecca42f362bbd0a7f52accb73c6",
+      "metrics": {
+        "area": 289,
+        "domain": 1209,
+        "coverage": 0.23904052936311002,
+        "back": 67,
+        "flank": 112,
+        "tail": 109,
+        "limbs": 1,
+        "components": 23,
+        "largest": 16,
+        "largestFraction": 0.05536332179930796,
+        "boundary": 22.470588235294116,
+        "sizes": [
+          16,
+          16,
+          15,
+          15,
+          15,
+          14,
+          14,
+          14,
+          14,
+          14,
+          13,
+          13,
+          13,
+          12,
+          12,
+          12,
+          12,
+          12,
+          11,
+          10,
+          10,
+          6,
+          5,
+          1
+        ]
+      },
+      "genes": "기존 harlequin의 앞 3좌위에서 파생되는 complexity, flank·dorsal 분포, contrast",
+      "gap": "경계 복잡도·무늬 수는 독립 형질이 아닙니다. spots를 크림 조각 개수로 전용하지 않습니다."
+    },
+    {
+      "id": "harlequin",
+      "name": "05 · 강한 할리퀸형",
+      "pixelHash": "cb76e842a288e59b8771cf2fb1005227d7ab3f95d680a8d5b067b36091d54d45",
+      "maskHash": "5ca29be4757de439635f884b61b5b60df947201f797e0798a9180d750119c6ff",
+      "metrics": {
+        "area": 871,
+        "domain": 1282,
+        "coverage": 0.6794071762870515,
+        "back": 188,
+        "flank": 313,
+        "tail": 268,
+        "limbs": 102,
+        "components": 4,
+        "largest": 769,
+        "largestFraction": 0.8828932261768083,
+        "boundary": 17.416225592592617,
+        "sizes": [
+          769,
+          63,
+          21,
+          18
+        ]
+      },
+      "genes": "flank·harlequin·cream 높음. 기존 파생 limbs 점수는 사지 확장 성향과 연결 가능",
+      "gap": "밝은 면적이 넓다고 풀핀으로 취급하지 않습니다. 어깨·다리의 정확한 연결은 별도 아트 선택이 필요합니다."
+    },
+    {
+      "id": "linked",
+      "name": "06 · 연결형",
+      "pixelHash": "0af9d222ad1eac40107d24ab4e7215f74d91a43e7168ec633dca94dc1a17ff17",
+      "maskHash": "2b5f5bf382f16af4e7bd7abc7b9b5aa2a448957c3381a73c7704b96cb7df197c",
+      "metrics": {
+        "area": 539,
+        "domain": 1209,
+        "coverage": 0.445822994210091,
+        "back": 151,
+        "flank": 150,
+        "tail": 231,
+        "limbs": 7,
+        "components": 3,
+        "largest": 353,
+        "largestFraction": 0.6549165120593692,
+        "boundary": 16.970781394805552,
+        "sizes": [
+          353,
+          179,
+          6,
+          1
+        ]
+      },
+      "genes": "dorsal·flank은 분포에, cream은 면적에 연결. pinstripe는 실제 등선 연속성을 분리해 평가해야 함",
+      "gap": "무늬끼리 연결된 망과 핀스트라이프 연속성은 다른 특성입니다. 현 점수만으로 전신 연결을 보장할 수 없습니다."
+    },
+    {
+      "id": "low",
+      "name": "07 · 저패턴형",
+      "pixelHash": "6c965d4e059d64b2fc83daf9de86b6d6ab0222c51ebc5279923ffd8d4b6360fd",
+      "maskHash": "1e35c66ad96962b3dc1b4522a0935c3b932077a7081bd45847c1115c56734787",
+      "metrics": {
+        "area": 102,
+        "domain": 1209,
+        "coverage": 0.08436724565756824,
+        "back": 36,
+        "flank": 20,
+        "tail": 45,
+        "limbs": 1,
+        "components": 8,
+        "largest": 21,
+        "largestFraction": 0.20588235294117646,
+        "boundary": 13.664036093078106,
+        "sizes": [
+          21,
+          16,
+          15,
+          12,
+          12,
+          9,
+          9,
+          8
+        ]
+      },
+      "genes": "cream·flank·harlequin 낮음, brightness·orange·contrast는 체색 감상점",
+      "gap": "현재는 동일 체색의 디자인 비교입니다. 저패턴을 낮은 가치나 낮은 유전 품질로 정의하지 않습니다."
+    },
+    {
+      "id": "freestyle",
+      "name": "08 · 빗살 창작형",
+      "pixelHash": "e2f193ac6e5da6d84d38287a29b4d315be454b687efaadd9ac8f08b356cc0e35",
+      "maskHash": "d497464464c4b86cb9b338117e2e8e01b8cfa762041594ff454be2248dc7be3e",
+      "metrics": {
+        "area": 442,
+        "domain": 1209,
+        "coverage": 0.3655913978494624,
+        "back": 105,
+        "flank": 144,
+        "tail": 185,
+        "limbs": 8,
+        "components": 10,
+        "largest": 99,
+        "largestFraction": 0.2239819004524887,
+        "boundary": 16.83806289306909,
+        "sizes": [
+          99,
+          77,
+          73,
+          43,
+          37,
+          35,
+          33,
+          28,
+          11,
+          5,
+          1
+        ]
+      },
+      "genes": "dorsal 하위군의 tiger와 contrast 하위군의 brindle 파생값을 참고할 수 있음",
+      "gap": "크림 빗살을 실제 타이거로 확정하지 않습니다. 줄 수·각도는 기존 60좌위에 독립적인 설명 변수가 없습니다."
+    }
+  ],
+  "pairwise": [
+    {
+      "a": "original",
+      "b": "dorsal",
+      "xor": 501,
+      "union": 679,
+      "differenceFraction": 0.7378497790868925,
+      "onlyA": 152,
+      "onlyB": 349
+    },
+    {
+      "a": "original",
+      "b": "islands",
+      "xor": 492,
+      "union": 657,
+      "differenceFraction": 0.7488584474885844,
+      "onlyA": 165,
+      "onlyB": 327
+    },
+    {
+      "a": "original",
+      "b": "filigree",
+      "xor": 401,
+      "union": 510,
+      "differenceFraction": 0.7862745098039216,
+      "onlyA": 221,
+      "onlyB": 180
+    },
+    {
+      "a": "original",
+      "b": "harlequin",
+      "xor": 693,
+      "union": 947,
+      "differenceFraction": 0.7317845828933475,
+      "onlyA": 76,
+      "onlyB": 617
+    },
+    {
+      "a": "original",
+      "b": "linked",
+      "xor": 427,
+      "union": 648,
+      "differenceFraction": 0.6589506172839507,
+      "onlyA": 109,
+      "onlyB": 318
+    },
+    {
+      "a": "original",
+      "b": "low",
+      "xor": 372,
+      "union": 402,
+      "differenceFraction": 0.9253731343283582,
+      "onlyA": 300,
+      "onlyB": 72
+    },
+    {
+      "a": "original",
+      "b": "freestyle",
+      "xor": 470,
+      "union": 621,
+      "differenceFraction": 0.7568438003220612,
+      "onlyA": 179,
+      "onlyB": 291
+    },
+    {
+      "a": "dorsal",
+      "b": "islands",
+      "xor": 511,
+      "union": 765,
+      "differenceFraction": 0.6679738562091503,
+      "onlyA": 273,
+      "onlyB": 238
+    },
+    {
+      "a": "dorsal",
+      "b": "filigree",
+      "xor": 470,
+      "union": 643,
+      "differenceFraction": 0.7309486780715396,
+      "onlyA": 354,
+      "onlyB": 116
+    },
+    {
+      "a": "dorsal",
+      "b": "harlequin",
+      "xor": 594,
+      "union": 996,
+      "differenceFraction": 0.5963855421686747,
+      "onlyA": 125,
+      "onlyB": 469
+    },
+    {
+      "a": "dorsal",
+      "b": "linked",
+      "xor": 390,
+      "union": 728,
+      "differenceFraction": 0.5357142857142857,
+      "onlyA": 189,
+      "onlyB": 201
+    },
+    {
+      "a": "dorsal",
+      "b": "low",
+      "xor": 495,
+      "union": 562,
+      "differenceFraction": 0.8807829181494662,
+      "onlyA": 460,
+      "onlyB": 35
+    },
+    {
+      "a": "dorsal",
+      "b": "freestyle",
+      "xor": 407,
+      "union": 688,
+      "differenceFraction": 0.5915697674418605,
+      "onlyA": 246,
+      "onlyB": 161
+    },
+    {
+      "a": "islands",
+      "b": "filigree",
+      "xor": 419,
+      "union": 600,
+      "differenceFraction": 0.6983333333333334,
+      "onlyA": 311,
+      "onlyB": 108
+    },
+    {
+      "a": "islands",
+      "b": "harlequin",
+      "xor": 557,
+      "union": 960,
+      "differenceFraction": 0.5802083333333333,
+      "onlyA": 89,
+      "onlyB": 468
+    },
+    {
+      "a": "islands",
+      "b": "linked",
+      "xor": 425,
+      "union": 728,
+      "differenceFraction": 0.5837912087912088,
+      "onlyA": 189,
+      "onlyB": 236
+    },
+    {
+      "a": "islands",
+      "b": "low",
+      "xor": 474,
+      "union": 534,
+      "differenceFraction": 0.8876404494382022,
+      "onlyA": 432,
+      "onlyB": 42
+    },
+    {
+      "a": "islands",
+      "b": "freestyle",
+      "xor": 492,
+      "union": 713,
+      "differenceFraction": 0.6900420757363254,
+      "onlyA": 271,
+      "onlyB": 221
+    },
+    {
+      "a": "filigree",
+      "b": "harlequin",
+      "xor": 700,
+      "union": 930,
+      "differenceFraction": 0.7526881720430108,
+      "onlyA": 59,
+      "onlyB": 641
+    },
+    {
+      "a": "filigree",
+      "b": "linked",
+      "xor": 422,
+      "union": 625,
+      "differenceFraction": 0.6752,
+      "onlyA": 86,
+      "onlyB": 336
+    },
+    {
+      "a": "filigree",
+      "b": "low",
+      "xor": 293,
+      "union": 342,
+      "differenceFraction": 0.8567251461988304,
+      "onlyA": 240,
+      "onlyB": 53
+    },
+    {
+      "a": "filigree",
+      "b": "freestyle",
+      "xor": 441,
+      "union": 586,
+      "differenceFraction": 0.7525597269624573,
+      "onlyA": 144,
+      "onlyB": 297
+    },
+    {
+      "a": "harlequin",
+      "b": "linked",
+      "xor": 510,
+      "union": 960,
+      "differenceFraction": 0.53125,
+      "onlyA": 421,
+      "onlyB": 89
+    },
+    {
+      "a": "harlequin",
+      "b": "low",
+      "xor": 773,
+      "union": 873,
+      "differenceFraction": 0.8854524627720504,
+      "onlyA": 771,
+      "onlyB": 2
+    },
+    {
+      "a": "harlequin",
+      "b": "freestyle",
+      "xor": 655,
+      "union": 984,
+      "differenceFraction": 0.665650406504065,
+      "onlyA": 542,
+      "onlyB": 113
+    },
+    {
+      "a": "linked",
+      "b": "low",
+      "xor": 501,
+      "union": 571,
+      "differenceFraction": 0.8774080560420315,
+      "onlyA": 469,
+      "onlyB": 32
+    },
+    {
+      "a": "linked",
+      "b": "freestyle",
+      "xor": 405,
+      "union": 693,
+      "differenceFraction": 0.5844155844155844,
+      "onlyA": 251,
+      "onlyB": 154
+    },
+    {
+      "a": "low",
+      "b": "freestyle",
+      "xor": 430,
+      "union": 487,
+      "differenceFraction": 0.8829568788501027,
+      "onlyA": 45,
+      "onlyB": 385
+    }
+  ]
+}
