@@ -10,7 +10,7 @@
 
 - Node.js 24 LTS와 `npm ci`를 사용합니다.
 - `src/engine/`은 React와 DOM에 의존하지 않는 결정적 렌더링 코드입니다. Canvas 출력은 `canvas.ts`에 둡니다.
-- Phase 6 기본 아트는 public/art/gecko-v2의 실제 PNG와 마스크입니다. compile-gecko-art.mjs로 런타임 데이터를 생성하고 --check로 해시/픽셀 일치를 검증합니다. 정식 외형은 명암 개선 실험본 v2를 옮긴 src/engine/regional의 regional-2 한 경로만 사용합니다. 구형 렌더러·전환 모드를 다시 추가하지 않습니다. 96×96·8레이어·고정 시드와 기존 50/75/100% 성장 표시를 유지합니다.
+- Phase 6 기본 아트는 public/art/gecko-v2의 실제 PNG와 마스크입니다. compile-gecko-art.mjs로 런타임 데이터를 생성하고 --check로 해시/픽셀 일치를 검증합니다. 정식 외형은 명암 개선 실험본 v2를 옮긴 src/engine/regional의 regional-2 한 경로만 사용합니다. 정식 경로에는 구형 렌더러·전환 모드를 추가하지 않습니다. 사용자 요청의 원화 보존 후보 비교는 src/lab/appearance와 /lab/appearance/candidates 안에서만 허용하며 게임·저장·평가 모듈이 실험 코드를 import하지 않도록 합니다. 96×96·8레이어·고정 시드와 기존 50/75/100% 성장 표시를 유지합니다.
 - 원화 준비 스크립트를 무조건 실행해 아티스트의 편집 PNG를 덮어쓰지 않습니다. 아트 변경 시 실제 전후·6모프·12시드·모바일 캡처를 검토하고 과장된 품질 주장을 하지 않습니다.
 - 유전학은 src/genetics, 게임 상태·혈통은 src/game, 그래픽 연결은 game/adapter.ts에 분리합니다.
 - Phase 3 정식 게임은 src/game/hardcore, src/components/hardcore, storage/hardcore.ts입니다. `/lab/breeding`의 Phase 2 회귀 시뮬레이터는 `phase2-lab` 슬롯을 사용하며 정식 `active` 슬롯에 쓰지 않습니다.

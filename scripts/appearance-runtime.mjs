@@ -18,7 +18,7 @@ export async function appearanceRuntime(run) {
           s.endsWith('.json')?`from ${q}${pathToFileURL(resolve(dirname(file),s))}${q}`:s.startsWith('.')?`from ${q}${s}${existsSync(resolve(dirname(file),s,'index.ts'))?'/index':''}.js${q}`:m);
       await mkdir(dirname(target),{recursive:true});await writeFile(target,js);
     }}
-    for(const d of ['engine','genetics','phenotype','game'])await compile('src/'+d);
+    for(const d of ['engine','genetics','phenotype','game','lab'])await compile('src/'+d);
     return await run(p=>import(pathToFileURL(join(root,p+'.js'))));
   } finally {await rm(root,{recursive:true,force:true});}
 }

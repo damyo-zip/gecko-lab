@@ -17,6 +17,7 @@ npm run dev
 - 컬렉션의 [상태·남은 턴·바로가기](docs/collection-status.md): 성장/휴식의 남은 턴을 표시하고 **브리딩 가능**은 해당 성별·ID가 선택된 기존 교배 팝업, **공간 확보 필요**는 기존 사육장 관리 팝업을 엽니다.
 - 성체 상세의 **부모로 선택**, 또는 인큐베이터의 교배 탭에서 [교배 팝업](docs/breeding-risk.md)을 엽니다.
 - `/lab`, `/lab/appearance`: 정식 `regional-2` 외형 갤러리. 96×96·8레이어·6개 기본 모프와 C/S/H 복합, 고정 시드·발현·파이어·정수 확대를 확인합니다. 구형 렌더러 전환은 없습니다.
+- `/lab/appearance/candidates`: [원화 보존 후보 A/B/C 비교](docs/appearance-candidates/README.md). 같은 유전체·시드로 이전 정식·현재 v2·세 후보의 6모프와 저/일반/고발현을 비교합니다. 게임 엔진·저장·평가는 바꾸지 않는 별도 실험 화면입니다.
 - `/lab/patterns`: 유전형 기반 14개 실제 무늬·한국어 자동 명칭 비교. [구현·판정·근거·한계](docs/inherited-patterns.md).
 - `/lab/breeding`: 별도 `phase2-lab` 슬롯의 이전 브리딩 회귀 시뮬레이터. 정식 `active` 게임과 분리됩니다.
 - 개발 포트 3000, E2E 프로덕션 포트 3100. PWA 셸과 IndexedDB는 브라우저 로컬 저장입니다.
