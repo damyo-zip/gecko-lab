@@ -68,6 +68,6 @@ B를 처음부터 수학적으로 그리는 생성 함수가 있는 구조는 �
 
 ## 확인 방법과 작업 상태
 
-`XDG_CACHE_HOME=/tmp/gecko-font-cache node scripts/b-original-review.mjs`로 Git 최초 파일과의 일치, PNG/런타임 픽셀 일치, 나란히 비교와 부위별 확대를 재현할 수 있다. [provenance.json](provenance.json)에 전체 경로·해시·비교 입력과 픽셀 차이를 기록했다.
+`XDG_CACHE_HOME=/tmp/gecko-font-cache node scripts/b-original-review.mjs`로 Git 최초 파일과의 일치, PNG/런타임 픽셀 일치, 나란히 비교와 부위별 확대를 재현할 수 있다. 중립 바디는 중단 시점의 보존 PNG를 읽으며 중단한 렌더러를 다시 실행하지 않는다. [provenance.json](provenance.json)에 전체 경로·해시·비교 입력과 픽셀 차이를 기록했다.
 
 원본 관련 기존 테스트 7개와 원화 `--check`를 실행했다. 새 기능 개발 중이던 전체 브라우저 회귀 검사는 사용자 중단 지시에 따라 멈췄으며 전체 통과로 보고하지 않는다. 수작업 조각 코드는 미완성 작업으로 보존하고 새 조각 추가·병합·정식 적용은 하지 않았다. 정식 게임·유전·저장 데이터에 변경은 없다.

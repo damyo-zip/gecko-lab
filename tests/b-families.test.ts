@@ -43,6 +43,7 @@ test('six morphs, five inherited backgrounds and 12 seeds retain original silhou
 });
 test('a seed only breaks close genetic matches, while low/high backgrounds select appropriate families',()=>{
  expect(selectFamily(input('normal','low').genome,seed).family).toBe('narrow');expect(selectFamily(input().genome,seed).family).toBe('classic');expect(['broad','flow']).toContain(selectFamily(input('normal','high').genome,seed).family);
+ const wide=fixtureGenome('high','normal');for(let n=0;n<6;n++)wide.polygenic.loci['pinstripe-'+n]=[2,2];expect(selectFamily(wide,seed).family).toBe('broad');
  for(const e of conditionExamples('lilly','diverse',seed))for(let n=0;n<20;n++){const r=selectFamily(e.genome,'tie-'+n),distance=r.ranked.find(f=>f.id===r.family)!.distance;expect(distance-r.ranked[0].distance).toBeLessThanOrEqual(.01500001);expect(r.coverage).toBe(selectFamily(e.genome,seed).coverage);}
  const g=input().genome,before=JSON.stringify(g);g.polygenic.loci['pinstripe-0']=[4,4];expect(selectFamily(g,seed).connection).toBeGreaterThan(selectFamily(JSON.parse(before),seed).connection);
 });
