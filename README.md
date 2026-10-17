@@ -20,6 +20,7 @@ npm run dev
 - `/lab/appearance/candidates`: [원화 보존 후보 A/B/C 비교](docs/appearance-candidates/README.md). 같은 유전체·시드로 이전 정식·현재 v2·세 후보의 6모프와 저/일반/고발현을 비교합니다. 게임 엔진·저장·평가는 바꾸지 않는 별도 실험 화면입니다.
 - `/lab/appearance/bases`: [원점에서 새로 만든 96px 베이스 A/B/C](docs/base-study/README.md). 얼굴·비율·자세가 다른 세 디자인의 기본/밝음/어두움/적은 무늬/많은 무늬와 48·72·96px, 다섯 게임 배치 모형을 비교합니다. 실제 게임과 연결하지 않습니다.
 - `/lab/appearance/b-breeding`: [B · 브리딩 감상형의 유전 발현 실험](docs/b-breeding/README.md). B 원형을 유지한 6모프×3발현, 같은 모프의 다양성·명도·패턴·시드 차이, 기존 상속 함수로 생성한 부모/자손 3조합, 5세대 선택교배와 컬렉션 크기 비교입니다. 96×96 출력이며 정식 게임·저장·경제에는 연결하지 않습니다.
+- `/lab/appearance/b-breeding/bases`: [B 내부 바디와 최종 표현형 분리 비교](docs/b-foundations/README.md). 현재·약한 패턴·패턴리스 내부 바디 위에 같은 일반 패턴과 6모프를 합성합니다. 일반 패턴 켜기/끄기, 96px·3배·모바일 카드 비교와 변경하지 않은 직전 B 대조군을 제공합니다.
 - `/lab/patterns`: 유전형 기반 14개 실제 무늬·한국어 자동 명칭 비교. [구현·판정·근거·한계](docs/inherited-patterns.md).
 - `/lab/breeding`: 별도 `phase2-lab` 슬롯의 이전 브리딩 회귀 시뮬레이터. 정식 `active` 게임과 분리됩니다.
 - 개발 포트 3000, E2E 프로덕션 포트 3100. PWA 셸과 IndexedDB는 브라우저 로컬 저장입니다.
