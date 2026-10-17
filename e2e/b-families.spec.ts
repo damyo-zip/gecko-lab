@@ -1,0 +1,43 @@
+import {test,expect,type Locator} from '@playwright/test';
+import {createHash} from 'node:crypto';
+import {mkdir} from 'node:fs/promises';
+import {renderFamily} from '../src/lab/appearance/b-breeding/families/render';
+import {FAMILIES,MORPH_FAMILIES,type ArtMorph} from '../src/lab/appearance/b-breeding/families/art-source';
+import {renderBase} from '../src/lab/appearance/base-study/render';
+import {fixtureGenome,type ProfileId} from '../src/engine/regional/fixtures';
+import {family,selectionStudy,conditionExamples} from '../src/lab/appearance/b-breeding/samples';
+const path='/lab/appearance/b-breeding/families',seed='b-families-01',hash=(p:Uint8ClampedArray)=>createHash('sha256').update(p).digest('hex');
+const input=(m:ArtMorph='normal',p:ProfileId='typical',s=seed)=>({genome:fixtureGenome(p,m),seed:s});
+async function pixels(canvas:Locator){return canvas.evaluate(async(el:HTMLCanvasElement)=>{const c=document.createElement('canvas');c.width=c.height=96;const ctx=c.getContext('2d')!;ctx.imageSmoothingEnabled=false;ctx.drawImage(el,0,0,96,96);const d=await crypto.subtle.digest('SHA-256',ctx.getImageData(0,0,96,96).data);return Array.from(new Uint8Array(d),v=>v.toString(16).padStart(2,'0')).join('');});}
+
+test('the first B is exact, all 24 whole-pattern examples match actual native pixels, and the lab does not access player storage',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>{(window as any).__storage=[];const open=indexedDB.open.bind(indexedDB);indexedDB.open=((...a:Parameters<IDBFactory['open']>)=>{(window as any).__storage.push(a[0]);return open(...a);}) as IDBFactory['open'];const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){(window as any).__storage.push(k);return set.call(this,k,v);};});
+ await page.goto('/lab/appearance/b-breeding');await page.getByRole('link',{name:'모프별 전체 패턴군 비교 →'}).click();await expect(page.getByRole('heading',{name:'B · 모프별 전체 패턴군'})).toBeVisible();
+ for(const id of ['original','selected'])await expect.poll(()=>pixels(page.getByTestId('family-native-'+id))).toBe(hash(renderBase('B').pixels));
+ for(const m of MORPH_FAMILIES)for(const f of FAMILIES){const expected=hash(renderFamily(input(m.id),{family:f.id,cadence:'a'}).pixels);await expect.poll(()=>pixels(page.getByTestId('family-native-'+m.id+'-'+f.id))).toBe(expected);expect(await pixels(page.getByTestId('family-zoom-'+m.id+'-'+f.id))).toBe(expected);}
+ expect(await page.evaluate(()=>(window as any).__storage)).toEqual([]);expect(errors).toEqual([]);
+});
+test('genetic auto-selection is distinct from manual art comparison, and brightness/profile controls update real output',async({page})=>{
+ await page.goto(path);for(const m of MORPH_FAMILIES){await page.getByLabel('모프',{exact:true}).selectOption(m.id);await expect.poll(()=>pixels(page.getByTestId('family-native-selected'))).toBe(hash(renderFamily(input(m.id)).pixels));}
+ for(const p of ['low','high','dark','bright','typical'] as const){await page.getByLabel('유전 배경',{exact:true}).selectOption(p);await expect.poll(()=>pixels(page.getByTestId('family-native-selected'))).toBe(hash(renderFamily(input('sable',p)).pixels));}
+ for(const f of FAMILIES){await page.getByLabel('패턴군',{exact:true}).selectOption(f.id);await expect(page.getByTestId('family-selection')).toContainText('아트 비교용 고정 선택');await expect.poll(()=>pixels(page.getByTestId('family-native-selected'))).toBe(hash(renderFamily(input('sable'),{family:f.id,cadence:'a'}).pixels));}
+ await page.getByLabel('패턴군',{exact:true}).selectOption('auto');await page.getByLabel('배치 시드').fill('family-browser-seed');await expect.poll(()=>pixels(page.getByTestId('family-native-selected'))).toBe(hash(renderFamily(input('sable','typical','family-browser-seed')).pixels));
+ await page.getByText('2. 저·일반·고발현 유전 배경으로 자동 선택',{exact:true}).click();for(const m of MORPH_FAMILIES)for(const p of ['low','typical','high'] as const)await expect.poll(()=>pixels(page.getByTestId('family-native-auto-'+m.id+'-'+p))).toBe(hash(renderFamily(input(m.id,p,'family-browser-seed')).pixels));
+});
+test('real siblings, diversity and selected generations use existing actual genomes without manual family override',async({page})=>{
+ await page.goto(path);await page.getByLabel('패턴군',{exact:true}).selectOption('narrow');
+ for(const cross of ['lilly','axanthic','complex'] as const){await page.getByLabel('부모 조합',{exact:true}).selectOption(cross);const f=family(cross,seed),examples=[f.father,f.mother,...f.children];await expect(page.getByTestId('family-examples').locator('article')).toHaveCount(6);for(const[e,n]of examples.map((e,n)=>[e,n] as const))await expect.poll(()=>pixels(page.getByTestId('family-native-example-'+n))).toBe(hash(renderFamily(e).pixels));}
+ await page.getByLabel('비교 방식',{exact:true}).selectOption('diversity');for(const[e,n]of conditionExamples('normal','diverse',seed).map((e,n)=>[e,n] as const))await expect.poll(()=>pixels(page.getByTestId('family-native-example-'+n))).toBe(hash(renderFamily(e).pixels));
+ await page.getByLabel('비교 방식',{exact:true}).selectOption('selection');for(const[g,n]of selectionStudy().filter(g=>[0,1,3,5].includes(g.generation)).map((g,n)=>[g,n] as const))await expect.poll(()=>pixels(page.getByTestId('family-native-example-'+n))).toBe(hash(renderFamily(g.selected[0]).pixels));
+});
+test('360–430px cards fit, whole-family panes swipe inside the viewport, and mobile visual captures are generated',async({page},info)=>{
+ await mkdir('docs/b-pattern-families',{recursive:true});await page.goto(path);
+ for(const width of [360,390,430]){await page.setViewportSize({width,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);const cards=page.getByTestId('family-card-preview');await expect(cards.locator('article')).toHaveCount(6);const clipped=await cards.locator('canvas').evaluateAll(items=>items.some(el=>{const r=el.getBoundingClientRect(),a=el.closest('article')!.getBoundingClientRect();return r.left<a.left+1||r.right>a.right-1;}));expect(clipped).toBe(false);if(width===390&&info.project.name==='desktop-chromium')await cards.screenshot({path:'docs/b-pattern-families/cards-390.png',scale:'css'});}
+ await page.setViewportSize({width:360,height:800});const pane=page.getByTestId('family-art-table');await pane.evaluate(el=>el.scrollIntoView({block:'start'}));expect(await pane.evaluate(el=>el.scrollWidth>el.clientWidth)).toBe(true);
+ if(info.project.name==='mobile-chromium'){const cdp=await page.context().newCDPSession(page);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:300,y:220}]});for(let n=1;n<=12;n++)await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:300-n*18,y:220}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await expect.poll(()=>pane.evaluate(el=>el.scrollLeft)).toBeGreaterThan(30);await cdp.detach();}
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ if(info.project.name==='desktop-chromium'){await page.setViewportSize({width:1420,height:1000});await page.screenshot({path:'docs/b-pattern-families/browser-desktop.png',fullPage:true,scale:'css'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'docs/b-pattern-families/browser-390.png',fullPage:true,scale:'css'});await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:'docs/b-pattern-families/first-screen-390.png',scale:'css'});}
+});
+test('nearest-neighbor enlargement preserves every original color and toggles retain native samples',async({page})=>{
+ await page.goto(path);const source=Array.from(renderBase('B').pixels);await expect.poll(()=>pixels(page.getByTestId('family-native-original'))).toBe(hash(renderBase('B').pixels));const result=await page.getByTestId('family-zoom-original').evaluate((c:HTMLCanvasElement,p)=>{const colors=new Set<string>();for(let i=0;i<p.length;i+=4)colors.add(p.slice(i,i+4).join());const ctx=c.getContext('2d')!,data=ctx.getImageData(0,0,c.width,c.height).data;let invalid=0;for(let i=0;i<data.length;i+=4)invalid+=Number(!colors.has(Array.from(data.subarray(i,i+4)).join()));return {invalid,width:c.width,smoothing:ctx.imageSmoothingEnabled,css:getComputedStyle(c).imageRendering};},source);expect(result).toEqual({invalid:0,width:288,smoothing:false,css:'pixelated'});await page.getByRole('button',{name:'3배 확대 켜짐',exact:true}).click();await expect(page.locator('[data-testid^="family-zoom-"]')).toHaveCount(0);await expect(page.getByTestId('family-native-original')).toBeVisible();
+});

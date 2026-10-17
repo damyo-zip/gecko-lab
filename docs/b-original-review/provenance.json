@@ -1,0 +1,86 @@
+{
+  "originalVersion": "base-study-1",
+  "originalCommit": "c9cb231db4afacaffc52b6e9655d57bc9f5a6f26",
+  "provenance": [
+    {
+      "path": "docs/base-study/source-sheet.png",
+      "sha256": "6d3d1e4845dd6bac97a7c3a2ac9bdc8d548581dfb66f04bfedebb6e8da124c65",
+      "initialCommitBytesIdentical": true
+    },
+    {
+      "path": "public/lab/base-study/B-normal.png",
+      "sha256": "487aa44664d047f20a6875c48715f3a083ee876ddc524d5c01150ac9f03959de",
+      "initialCommitBytesIdentical": true
+    },
+    {
+      "path": "src/lab/appearance/base-study/art-data.ts",
+      "sha256": "54136326e0f4a16ca8ef17e406e9ca9e904c727a75c1defc7a85491412007704",
+      "initialCommitBytesIdentical": true
+    },
+    {
+      "path": "src/lab/appearance/base-study/designs.ts",
+      "sha256": "d57e03bf93b692f45fe41be9ec7c6c14c565f6bed8a7afab4965d57a44d0d644",
+      "initialCommitBytesIdentical": true
+    },
+    {
+      "path": "src/lab/appearance/base-study/render.ts",
+      "sha256": "3c3f120153dd344041f7cf11a9c8a9dec6dcdd8d1325358a6a46a2e3c72ea152",
+      "initialCommitBytesIdentical": true
+    },
+    {
+      "path": "scripts/compile-base-study.mjs",
+      "sha256": "9563647c96c3e90b632e2cdc4a35de0b30250629f78a6ff3bb217de1a7f6fa23",
+      "initialCommitBytesIdentical": true
+    }
+  ],
+  "original": {
+    "id": "B",
+    "width": 96,
+    "height": 96,
+    "colors": 21,
+    "alpha": "binary",
+    "sourceBounds": {
+      "left": 642,
+      "top": 95,
+      "width": 810,
+      "height": 596
+    },
+    "sha256": "487aa44664d047f20a6875c48715f3a083ee876ddc524d5c01150ac9f03959de"
+  },
+  "runtimeRGBAHash": "8ebf9695758b0f95e93e0c2c4d0426917283a7d61949f507534ad2c83cdc51ad",
+  "nativePNGMatchesRuntime": true,
+  "originalPixelCount": 2797,
+  "currentNeutralComparison": {
+    "input": {
+      "profile": "typical",
+      "morph": "normal",
+      "seed": "b-fragments-01"
+    },
+    "rgbaHash": "9330bcec3d463d37ae054239dde748d2d19d06520f304c395c7aa706961f54c0",
+    "alphaDifferences": 0,
+    "changedRGBA": 2311,
+    "statistics": {
+      "head": {
+        "annotatedSkinPixels": 451,
+        "changedRGBA": 420
+      },
+      "body": {
+        "annotatedSkinPixels": 714,
+        "changedRGBA": 714
+      },
+      "limbs": {
+        "annotatedSkinPixels": 746,
+        "changedRGBA": 746
+      },
+      "tail": {
+        "annotatedSkinPixels": 431,
+        "changedRGBA": 431
+      }
+    }
+  },
+  "notes": [
+    "The original is fixed authored artwork, not a genotype-generated Normal.",
+    "The current neutral is the actual paused fragment-study body, not a new replacement proposal.",
+    "Changed pixel counts describe repainting, not aesthetic or structural quality."
+  ]
+}
