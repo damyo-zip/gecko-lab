@@ -1,0 +1,134 @@
+[
+  {
+    "id": "normal",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 50,
+      "top": 208,
+      "width": 1185,
+      "height": 870
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      90,
+      66
+    ],
+    "opaqueColours": 30
+  },
+  {
+    "id": "lilly",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 50,
+      "top": 203,
+      "width": 1188,
+      "height": 907
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      89,
+      68
+    ],
+    "opaqueColours": 31
+  },
+  {
+    "id": "axanthic",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 43,
+      "top": 204,
+      "width": 1187,
+      "height": 888
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      90,
+      67
+    ],
+    "opaqueColours": 19
+  },
+  {
+    "id": "cappuccino",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 42,
+      "top": 203,
+      "width": 1186,
+      "height": 874
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      90,
+      66
+    ],
+    "opaqueColours": 26
+  },
+  {
+    "id": "highway",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 52,
+      "top": 197,
+      "width": 1187,
+      "height": 900
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      90,
+      68
+    ],
+    "opaqueColours": 30
+  },
+  {
+    "id": "sable",
+    "source": [
+      1254,
+      1254
+    ],
+    "crop": {
+      "left": 50,
+      "top": 205,
+      "width": 1192,
+      "height": 898
+    },
+    "output": [
+      96,
+      96
+    ],
+    "occupied": [
+      90,
+      68
+    ],
+    "opaqueColours": 22
+  }
+]

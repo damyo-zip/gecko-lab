@@ -1,0 +1,12 @@
+.page{min-height:100dvh;max-width:1400px;margin:auto;padding:24px;color:#e8e7d0;background:#08151e;font-family:var(--font-pixel),monospace}
+.page a{color:#b6ea71;text-underline-offset:4px}.header{max-width:860px;margin-bottom:24px}.header h1{font-size:clamp(22px,4vw,32px);margin:16px 0 10px}.header p{color:#a9b7bd;font-size:13px;line-height:1.7}.header nav,.downloads{display:flex;flex-wrap:wrap;gap:10px}.header nav a,.downloads a{padding:10px 14px;border:1px solid #345042;border-radius:5px;background:#152821;font-size:13px}
+.page section{scroll-margin-top:16px;margin:24px 0 32px}.page h2{font-size:16px;color:#b7ca99;margin:16px 0 12px}
+.gallery{display:grid;gap:12px}.gallery figure{min-width:0;margin:0;background:#0c1d25;border:1px solid #31434b;border-radius:6px;overflow:hidden;text-align:center}.gallery a{display:grid;place-items:center;width:100%;text-decoration:none;outline-offset:-3px}.gallery img{display:block;image-rendering:pixelated;flex:none;max-width:none;object-fit:contain}.gallery figcaption{padding:6px 4px 10px;font-size:13px;line-height:1.4;color:#e4e8d8}
+.native{grid-template-columns:repeat(6,minmax(0,1fr))}.native a{min-height:112px}.native img{width:96px;height:96px}
+.zoom{grid-template-columns:repeat(3,minmax(0,1fr))}.zoom a{min-height:288px}.zoom img{width:288px;height:288px}
+.collection{max-width:410px;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px;border:1px solid #334c5b;background:#101b24}.collection a{height:112px}.collection img{width:100%;max-width:132px;height:auto}.collection figcaption{font-size:12px;position:relative;background:#0c1d25;padding:5px 2px 9px}
+.shop{max-width:410px;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px;border:1px solid #334c5b;background:#101b24}.shop a{height:176px}.shop img{width:100%;max-width:192px;height:auto}
+.collection figure,.shop figure{background:#0c1d25 url('/ui/home-terrarium.png') center/cover}.collection figcaption,.shop figcaption{background:#0c1d25}
+@media(max-width:1000px){.native{grid-template-columns:repeat(3,minmax(0,1fr))}.zoom{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.page{padding:12px}.gallery{gap:8px}.zoom{grid-template-columns:1fr}.zoom a{height:288px}.collection{gap:6px}.header nav a{padding:10px;font-size:12px}}
+@media(max-width:335px){.native{grid-template-columns:repeat(2,minmax(0,1fr))}.collection{padding:4px}.collection img{max-width:120px}.shop img{max-width:160px}.shop a{height:150px}}
