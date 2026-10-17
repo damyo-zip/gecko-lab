@@ -1,0 +1,140 @@
+{
+  "note": "Visual exploration, not inherited phenotype measurements or calibrated game evaluation",
+  "examples": [
+    {
+      "candidate": "A",
+      "variant": "normal",
+      "sha256": "45e9f6dca65706d45714659a5b08c1ceeca004be5b4dfb912307d9a6f429bc30",
+      "colors": 21,
+      "torso": 643,
+      "meanTorsoLuminance": 147.33161741835127,
+      "creamPixels": 91
+    },
+    {
+      "candidate": "A",
+      "variant": "bright",
+      "sha256": "ed766f18ab17fe4a7c90c938db875711815a70b5b5a37ba6f2a27ee82858d74f",
+      "colors": 32,
+      "torso": 643,
+      "meanTorsoLuminance": 176.50194401244133,
+      "creamPixels": 172
+    },
+    {
+      "candidate": "A",
+      "variant": "dark",
+      "sha256": "fd8405a48cbdb34df95ffc6c2a4c4106e0015f41504dc84511b803a14b5877da",
+      "colors": 32,
+      "torso": 643,
+      "meanTorsoLuminance": 100.07769828926847,
+      "creamPixels": 91
+    },
+    {
+      "candidate": "A",
+      "variant": "sparse",
+      "sha256": "0a553db517eacd43da29ef5fd9a431b78d9b07f4208db68bbf7523c9efbd517b",
+      "colors": 21,
+      "torso": 643,
+      "meanTorsoLuminance": 137.93475894245725,
+      "creamPixels": 0
+    },
+    {
+      "candidate": "A",
+      "variant": "rich",
+      "sha256": "8e839b7415229da24ad137dd1edaa41b5377753977b5932b6f084b25856acac2",
+      "colors": 21,
+      "torso": 643,
+      "meanTorsoLuminance": 163.16360808709211,
+      "creamPixels": 223
+    },
+    {
+      "candidate": "B",
+      "variant": "normal",
+      "sha256": "8ebf9695758b0f95e93e0c2c4d0426917283a7d61949f507534ad2c83cdc51ad",
+      "colors": 21,
+      "torso": 739,
+      "meanTorsoLuminance": 140.87698240866126,
+      "creamPixels": 140
+    },
+    {
+      "candidate": "B",
+      "variant": "bright",
+      "sha256": "9d274accdee2c3d4e125e12d5201b7a1f2820b38076fc4b0169a2dac495a39a5",
+      "colors": 33,
+      "torso": 739,
+      "meanTorsoLuminance": 172.41882273342497,
+      "creamPixels": 268
+    },
+    {
+      "candidate": "B",
+      "variant": "dark",
+      "sha256": "7e2177be4f035edcc15ae4739fb49917a8c15d0dff65abec6c1cc22d276fb812",
+      "colors": 33,
+      "torso": 739,
+      "meanTorsoLuminance": 99.89510148849803,
+      "creamPixels": 140
+    },
+    {
+      "candidate": "B",
+      "variant": "sparse",
+      "sha256": "a04cd22d904ba4e7923cf95464ce4773675f9746569943325eeac71fa064f2b3",
+      "colors": 21,
+      "torso": 739,
+      "meanTorsoLuminance": 129.30496617050187,
+      "creamPixels": 0
+    },
+    {
+      "candidate": "B",
+      "variant": "rich",
+      "sha256": "7060e0aae61e2fc8bfd5247b1fdfb01896cc09800a19efdfb51a7250e5a9dc70",
+      "colors": 21,
+      "torso": 739,
+      "meanTorsoLuminance": 154.7479161028423,
+      "creamPixels": 255
+    },
+    {
+      "candidate": "C",
+      "variant": "normal",
+      "sha256": "12127db77185c9073c96d567e30af6f4a346a536b01f10fcc8cc1e1019c3cd67",
+      "colors": 21,
+      "torso": 617,
+      "meanTorsoLuminance": 124.8949756888163,
+      "creamPixels": 22
+    },
+    {
+      "candidate": "C",
+      "variant": "bright",
+      "sha256": "7b23e647267a092649e1d485efed825e34a1b87df8092d311226ebc101caccc6",
+      "colors": 33,
+      "torso": 617,
+      "meanTorsoLuminance": 163.13693679092418,
+      "creamPixels": 38
+    },
+    {
+      "candidate": "C",
+      "variant": "dark",
+      "sha256": "4c27f3e79edf86776010a2c2bb428032fefd296a251dc289e0b5c28b72ce58c6",
+      "colors": 33,
+      "torso": 617,
+      "meanTorsoLuminance": 82.84137763371179,
+      "creamPixels": 22
+    },
+    {
+      "candidate": "C",
+      "variant": "sparse",
+      "sha256": "d208138b739ea98d003e72245b251fecf3244bd3d02c588f1915c5f1348a6ef0",
+      "colors": 21,
+      "torso": 617,
+      "meanTorsoLuminance": 122.25423014586656,
+      "creamPixels": 0
+    },
+    {
+      "candidate": "C",
+      "variant": "rich",
+      "sha256": "4bc1523b9c7b916f72fadda69feafbe2c5cfe8228d64e327762fb6fa0701a598",
+      "colors": 21,
+      "torso": 617,
+      "meanTorsoLuminance": 163.1650405186378,
+      "creamPixels": 263
+    }
+  ]
+}
