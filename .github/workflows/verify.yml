@@ -8,7 +8,24 @@ permissions:
   contents: read
 
 jobs:
+  scope:
+    runs-on: ubuntu-latest
+    outputs:
+      game: ${{ steps.changes.outputs.game }}
+      forge: ${{ steps.changes.outputs.forge }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Select game or independent lab validation
+        id: changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: node .github/verification-scope.mjs
   verify:
+    needs: scope
+    if: needs.scope.outputs.game == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -29,3 +46,29 @@ jobs:
         with:
           name: browser-results
           path: test-results/
+  forge:
+    needs: scope
+    if: needs.scope.outputs.forge == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: labs/gecko-forge
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: labs/gecko-forge/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npm run build:engine
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: forge-browser-results
+          path: labs/gecko-forge/test-results/
