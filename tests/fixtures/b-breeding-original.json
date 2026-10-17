@@ -1,0 +1,110 @@
+[
+  {
+    "morph": "normal",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "b6fbad644f620d7c57529b3664f2a6816ae2f6a711a616baed7cb3ebf9122362"
+  },
+  {
+    "morph": "normal",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "beff9d16ea829447011f3a87e76896acb6dd4d4ce9c5eb3ebc97c32730a49a8c"
+  },
+  {
+    "morph": "normal",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "afb89cb22e11223f640ce4c5349fe991580c824e634c835db3f9cebcd50d990f"
+  },
+  {
+    "morph": "lilly",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "d817197c87e30f1cedca9bc1c31bd6653c9342addabeff18f3444776078e4806"
+  },
+  {
+    "morph": "lilly",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "f56c5b944a7c7e69a263e8fd8ea32315684b33c7ed610a273c57233d0f46e0b6"
+  },
+  {
+    "morph": "lilly",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "df0dad65cf79290668689f4029ec0ce899ca264f29700b9d5263e8ef9c52a1fd"
+  },
+  {
+    "morph": "axanthic",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "f783a6d17f0469c9a9273f4fe9e51372d41fca369aec1aa977f2be23c6c5a5ac"
+  },
+  {
+    "morph": "axanthic",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "1b5287dce5b5fec7f931db1c9ec03b8dd993b4fdbbf6867d1701ae8a914fafc9"
+  },
+  {
+    "morph": "axanthic",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "7f637b5763c927448fe4a36e3f3ad168c9bf74f6c0df62fc93907a226de4b6ee"
+  },
+  {
+    "morph": "cappuccino",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "539b2d0826b7cd50c5e3553adf24abf0e8b2d1d897d2fa89260113afd2fd1618"
+  },
+  {
+    "morph": "cappuccino",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "267642181491ce6c02b7c46f7f93590617a96efd2e7f009656d859af2ab6e923"
+  },
+  {
+    "morph": "cappuccino",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "c7ae1bc053a94d6ed9e704cb31a0a33206219767b9b5a2c617e6d36063309484"
+  },
+  {
+    "morph": "highway",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "89efa00a15c74af041c6b36ea1b95b338748a13189546a0b4b6eb4fe045fdd9f"
+  },
+  {
+    "morph": "highway",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "077d5b1f547982bcfb4d4f15fd953cc9fc8150d5152a80f47732e25a81a6526d"
+  },
+  {
+    "morph": "highway",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "ef9362105c4ea6da678670852cd850fef02352c34d56141998fbee391ffee476"
+  },
+  {
+    "morph": "sable",
+    "profile": "low",
+    "seed": "b-breeding-01",
+    "hash": "0384a97457bb07df8833aa22fe59be1e13ed163b41b1106810169ba3cf2bd018"
+  },
+  {
+    "morph": "sable",
+    "profile": "typical",
+    "seed": "b-breeding-01",
+    "hash": "9cf363af5c799d283ee2c6b8ec1cf1309a0bd13e4b15e2342579386765acb616"
+  },
+  {
+    "morph": "sable",
+    "profile": "high",
+    "seed": "b-breeding-01",
+    "hash": "26a8dbca8cd243fb432767129f873b1b40e18e12135d53b78628fe70a45f54df"
+  }
+]
