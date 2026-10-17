@@ -95,6 +95,8 @@ node scripts/compile-gecko-art.mjs --check
 - `scripts/b-normal-art-report.mjs`: 원본 크기·확대·마스크·관찰값 내보내기.
 - `tests/b-normal-art.test.ts`, `e2e/b-normal-art.spec.ts`: 원본 보존·구조 차이·화면 격리·모바일·보간 및 저장 불변성 검증.
 
-`npm run typecheck`, `npm run build`, 단위 검사 **42파일·432개**, 신규 모바일/PC 브라우저 검사 **8개**가 통과했다. 원본 베이스·기존 패턴군·정식 아트의 컴파일러 `--check`도 통과했다. 전체 브라우저 회귀 검사 328개는 실행 중이며 종료 후 결과를 갱신한다.
+`npm run typecheck`, `npm run build`, 단위 검사 **42파일·432개**, 전체 모바일/PC 브라우저 검사 **328개(13.1분)**가 통과했다. 신규 검증은 단위 6개·브라우저 8개다. 마스크 안내 문구 보강 후 최종 빌드와 신규 브라우저 8개도 재통과했다. 원본 베이스·기존 패턴군·정식 아트의 컴파일러 `--check`도 통과했다.
 
 브라우저 검증은 로컬 프로덕션 빌드의 Chromium 모바일 에뮬레이션이다. Android 실기기 검증은 아니다.
+
+검토용 [드래프트 PR #37](https://github.com/damyo-zip/gecko-lab/pull/37)과 [비교 화면 프리뷰](https://gecko-lab-git-feat-b-normal-pattern-art-damyo2.vercel.app/lab/appearance/b-breeding/normal-art)를 제공한다. 프리뷰는 Vercel 로그인으로 보호되며 원격 앱 시각 검증은 하지 않았다. 위 캡처와 검증은 로컬 프로덕션 빌드 기준이다. 정식 적용이나 병합은 하지 않았다.
