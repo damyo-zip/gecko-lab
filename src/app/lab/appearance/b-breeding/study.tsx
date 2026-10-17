@@ -25,6 +25,7 @@ export default function BBreedingStudy(){
   <p><a href="/lab/appearance/b-breeding/bases">현재·약한 패턴·패턴리스 바디 비교 →</a></p>
   <p><a href="/lab/appearance/b-breeding/families">모프별 전체 패턴군 비교 →</a></p>
   <p><a href="/lab/appearance/b-breeding/normal-art">노멀 독립 패턴 아트 8종 →</a></p>
+  <p><a href="/lab/appearance/b-breeding/ideal">최초 B 이상형 역산 실험 →</a></p>
   <div className={styles.controls}><label>무늬·자손 시드<input value={seed} maxLength={80} onChange={e=>setSeed(e.target.value)}/></label><button aria-pressed={zoom} onClick={()=>setZoom(!zoom)}>3배 확대 {zoom?'켜짐':'꺼짐'}</button></div>
   <h2>모프별 발현 비교</h2><p>각 단계의 같은 유전 배경을 여섯 모프에 공통 적용합니다. 원본은 96px, 큰 그림은 보간 없는 3배입니다. 모바일에서는 표를 옆으로 밀어 비교하세요.</p>
   <div className={styles.scroll} tabIndex={0} aria-label="B 모프별 세 단계 비교" data-testid="b-morph-table"><div className={styles.table} style={{'--column':zoom?'310px':'150px'} as CSSProperties}>
