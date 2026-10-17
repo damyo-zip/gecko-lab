@@ -6,7 +6,7 @@ import { appendFileSync } from 'node:fs';
 export function validationScope(files) {
   return {
     game: files.some(path => !path.startsWith('labs/gecko-forge/')),
-    forge: files.some(path => /^(labs\/gecko-forge\/|src\/(genetics|engine|phenotype)\/|\.github\/)/.test(path)),
+    forge: files.some(path => /^(labs\/gecko-forge\/|\.github\/)/.test(path)),
   };
 }
 if (process.env.GITHUB_OUTPUT) {

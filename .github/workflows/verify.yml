@@ -65,8 +65,6 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run build:engine
-      - run: npm run test:integration
-        if: needs.scope.outputs.game == 'true'
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v4

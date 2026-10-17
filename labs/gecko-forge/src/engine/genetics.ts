@@ -1,4 +1,4 @@
-/** Shared implementations, not copies. Do not change inheritance to test new art. */
+/** Local preserved implementations. Do not change inheritance to test new art. */
 export { inherit, cross, risks } from '@/genetics/advanced/inheritance';
 export { LOCI, pairKey, wildGenome, validateMendelian } from '@/genetics/advanced/loci';
 export { founderPoly, inheritPoly, polyScores, validatePoly, POLY_IDS, POLY_CONFIG, FEATURE_LABELS } from '@/genetics/advanced/polygenic';

@@ -9,7 +9,7 @@ import { inheritPoly as originalInheritPoly } from '@/genetics/advanced/polygeni
 
 const father = () => createFounder({ id: 'father', sex: 'male', seed: 'father' });
 const mother = () => createFounder({ id: 'mother', sex: 'female', seed: 'mother' });
-test('shared inheritance functions are the original implementations, not a fork', () => {
+test('adapter forwards the local preserved inheritance implementations', () => {
   expect(inherit).toBe(originalInherit); expect(inheritPoly).toBe(originalInheritPoly);
   expect(father().genome.polygenic).toEqual(founderPoly('father'));
   expect(POLY_IDS).toHaveLength(60);

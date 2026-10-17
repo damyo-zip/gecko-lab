@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "captured": "2026-10-17",
+  "sourceRepository": "https://github.com/damyo-zip/gecko-lab",
+  "coreCommit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+  "forgeCommit": "bfd9504cb5a086318b894513e41aa34b70c08e81",
+  "capture": "Captured before extraction using original founderRecord, offspringRecord, cross, phenotype, patternTraits, specimen and renderSprite. No copied implementation produced these expectations.",
+  "founderCount": 6,
+  "offspringCount": 96,
+  "forecastCount": 3,
+  "renderCaseCount": 120,
+  "pngCount": 6,
+  "files": [
+    {
+      "file": "genetics.json",
+      "sha256": "c7a3f67ac1874ebe63f8a0cf7f34c15090907b887f7f3f52117fadaa512c68c0"
+    },
+    {
+      "file": "rendering.json",
+      "sha256": "1c0e70761c1386a279f033e99c6108f408e9826cf87593d444079ff015ee9732"
+    },
+    {
+      "file": "png/axanthic.png",
+      "sha256": "11868525d45500515e4c1f1e3316868d399c067a7a10a11dab72f5f484df2aea"
+    },
+    {
+      "file": "png/cappuccino.png",
+      "sha256": "5c622f330dda34dd19e9074b98c48a7b1c2a0efa4a2adf4e546c03e32a9c11c3"
+    },
+    {
+      "file": "png/highway.png",
+      "sha256": "5c622f330dda34dd19e9074b98c48a7b1c2a0efa4a2adf4e546c03e32a9c11c3"
+    },
+    {
+      "file": "png/lilly-white.png",
+      "sha256": "8cb4ce150071b9ea3ac689beb6596bfb71ac344e938213deb15860bd78ddd881"
+    },
+    {
+      "file": "png/normal.png",
+      "sha256": "5c622f330dda34dd19e9074b98c48a7b1c2a0efa4a2adf4e546c03e32a9c11c3"
+    },
+    {
+      "file": "png/sable.png",
+      "sha256": "5c622f330dda34dd19e9074b98c48a7b1c2a0efa4a2adf4e546c03e32a9c11c3"
+    }
+  ]
+}

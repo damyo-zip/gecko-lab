@@ -1,0 +1,256 @@
+{
+  "format": "gecko-forge-source-manifest",
+  "version": 1,
+  "repository": "https://github.com/damyo-zip/gecko-lab",
+  "coreCommit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+  "forgeCommit": "bfd9504cb5a086318b894513e41aa34b70c08e81",
+  "renderVersion": "patterns-1 / 2.1.0",
+  "entries": [
+    {
+      "file": "src/core/engine/art-data.ts",
+      "sourcePath": "src/engine/art-data.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "c4265dd42408469f624dc82a5857f522afe29503b3f04109693da6a798ca2232"
+    },
+    {
+      "file": "src/core/engine/art.ts",
+      "sourcePath": "src/engine/art.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "82fac9a2f8a0647c5208c9adea3695e2feff10f7f6f8aca30116193d48a1baa6"
+    },
+    {
+      "file": "src/core/engine/legacy/base.ts",
+      "sourcePath": "src/engine/legacy/base.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "b34aa799589e5265181c258c1ad60e28c06eba4d8a5cf65c2addc67fe0dda8ef"
+    },
+    {
+      "file": "src/core/engine/legacy/render.ts",
+      "sourcePath": "src/engine/legacy/render.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "6cecdc3a8ed89638b6b994c3530d351f36e0a9a4b20532555a8597a08146bceb"
+    },
+    {
+      "file": "src/core/engine/model.ts",
+      "sourcePath": "src/engine/model.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "38ddec82f2977ce60aaf44161de1b8a7c25c9163ff367c2a000bd0512bd69f6a"
+    },
+    {
+      "file": "src/core/engine/pattern-plan.ts",
+      "sourcePath": "src/engine/pattern-plan.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "73b6329e1a60cc699e0b275ceb900b95a66d45cdf610da68a0c22fde37a3cf86"
+    },
+    {
+      "file": "src/core/engine/patterns.ts",
+      "sourcePath": "src/engine/patterns.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "5c1fb190d10c5e2820a2518f4791caca4abf66d62171bc81bd90bf00af91071a"
+    },
+    {
+      "file": "src/core/engine/random.ts",
+      "sourcePath": "src/engine/random.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "24036f7b1689d08028004131416e63383dc7ebcadf9457c1b36c5e112b935534"
+    },
+    {
+      "file": "src/core/engine/raster.ts",
+      "sourcePath": "src/engine/raster.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "abd7a68b0bfeddaaaad7644ed195615a5356b1436f475e5ea59df2ce15c8e179"
+    },
+    {
+      "file": "src/core/engine/render.ts",
+      "sourcePath": "src/engine/render.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "3aeafaa5b45772a1fb2a37bd694816d2f56cfe40c49777c76143ce2eba696d0e"
+    },
+    {
+      "file": "src/core/genetics/advanced/inheritance.ts",
+      "sourcePath": "src/genetics/advanced/inheritance.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "4b8ccd10477b4c83fb9903cef114cce30cce73ccfefe09bee599cca0b6ca6dcb"
+    },
+    {
+      "file": "src/core/genetics/advanced/loci.ts",
+      "sourcePath": "src/genetics/advanced/loci.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "c00f555c006143975fbcd9cf8303db8fa0e3f62687182ba391f037e468f5b95b"
+    },
+    {
+      "file": "src/core/genetics/advanced/model.ts",
+      "sourcePath": "src/genetics/advanced/model.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "c764c16758fdd21fcc96493623e440b4f334d5e77bae4a8915d6126ce2f87f4d"
+    },
+    {
+      "file": "src/core/genetics/advanced/morphs.ts",
+      "sourcePath": "src/genetics/advanced/morphs.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "2d61246dd9f2e10de62eecebad7fb07c6be78a43fc164d8893f83cf26d4584ee"
+    },
+    {
+      "file": "src/core/genetics/advanced/pattern-traits.ts",
+      "sourcePath": "src/genetics/advanced/pattern-traits.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "3b7f0709d765ddec401cd601170ced7b13c8c9b1752cf4f28b2342ee03b36ada"
+    },
+    {
+      "file": "src/core/genetics/advanced/phenotype.ts",
+      "sourcePath": "src/genetics/advanced/phenotype.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "4e9326b9949f365659132e572bb359625cab002f45eb5d96abf27a8bfdfc07f1"
+    },
+    {
+      "file": "src/core/genetics/advanced/polygenic.ts",
+      "sourcePath": "src/genetics/advanced/polygenic.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "d22491330b4cbb1a5599fdded689e9caf748f409340f069230c097d395ef8010"
+    },
+    {
+      "file": "src/core/genetics/mendel.ts",
+      "sourcePath": "src/genetics/mendel.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "18b409ea5a8c3cec927f074b112c5bf01ef646576c27dc7acd16024bfe664fe1"
+    },
+    {
+      "file": "src/core/genetics/random.ts",
+      "sourcePath": "src/genetics/random.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "7deea1bc6d68c06831e3692ba853bae88ea49dbce2b1ff5b59781e80b39d5d16"
+    },
+    {
+      "file": "src/core/genetics/traits.ts",
+      "sourcePath": "src/genetics/traits.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "a450cb36020e5299d0e8036929d55fc4130e2ed859c9c69821d5f0d588a02edb"
+    },
+    {
+      "file": "src/core/phenotype/display-name.ts",
+      "sourcePath": "src/phenotype/display-name.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "3d29e37e1de8b850bf3741f7b0edf0df9df12a842dd91cfa0b7598a5ac7ebfd3"
+    },
+    {
+      "file": "src/core/phenotype/display-rules.ts",
+      "sourcePath": "src/phenotype/display-rules.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "ed4e7b8e31629f39edf17908eb6e18f383b697b6d4b65dadb10d4f0d1d75883c"
+    },
+    {
+      "file": "src/core/phenotype/model.ts",
+      "sourcePath": "src/phenotype/model.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "c2c3051cb96494d23970c42e28922965ee5acf162d6da37a42351f3a184bdaf2"
+    },
+    {
+      "file": "src/core/phenotype/names.ts",
+      "sourcePath": "src/phenotype/names.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "f7996a29e117ee275dd77552c9f0057c3a3c362ccf17d2d88420c5acc3dd63e8"
+    },
+    {
+      "file": "src/core/phenotype/rules.ts",
+      "sourcePath": "src/phenotype/rules.ts",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "36deb50a6f72a07313bc02dc4652824930bc7fa9c3ebe7f27f57d57031e19ad3"
+    },
+    {
+      "file": "art/source/normal-base.png",
+      "sourcePath": "public/art/gecko-v2/normal-base.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "6ca15664f34def852020eb4e11b2eb7cc39423be79a863a7307390804d623040"
+    },
+    {
+      "file": "art/source/parts.png",
+      "sourcePath": "public/art/gecko-v2/parts.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "0ae7028ffabc8eac6ee0736bd49da11d829928ea7cac29c8065cbdd36cbe3115"
+    },
+    {
+      "file": "art/source/outline.png",
+      "sourcePath": "public/art/gecko-v2/outline.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "2dd58c9a2edc4c347c1b37121a6c71ea13ece2edb3c577d9f712e86f375b75dd"
+    },
+    {
+      "file": "art/source/shadow.png",
+      "sourcePath": "public/art/gecko-v2/shadow.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "424bec97aa2d767bb726a3163c3a84edbfce5ab56c4b0dc280bdcebb8a8527ea"
+    },
+    {
+      "file": "art/source/highlight.png",
+      "sourcePath": "public/art/gecko-v2/highlight.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "d2353eaaaa71e95f410a106d2926d8ef5e1e1d4665e66a3dd1f61924a198ef81"
+    },
+    {
+      "file": "art/source/crest.png",
+      "sourcePath": "public/art/gecko-v2/crest.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "91f0d0410d05df51bb9623a8bf78fe1db463626aeea7c788154b64ad3a054048"
+    },
+    {
+      "file": "art/source/face.png",
+      "sourcePath": "public/art/gecko-v2/face.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "6b755eee47a07c24d75586fac201cfe330a989a12600ccf562f5caed157b4ecb"
+    },
+    {
+      "file": "art/source/eye.png",
+      "sourcePath": "public/art/gecko-v2/eye.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "9e96cf35e5a3a3fd96ad9458a8fdd140ad9e32dd5d7e9bbe6b6cb4b802de18fe"
+    },
+    {
+      "file": "art/source/eye-surround.png",
+      "sourcePath": "public/art/gecko-v2/eye-surround.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "534681e84edf00b4f97f9ebc7d890edf86e9fa721188eceec01f57cc1f1c13a8"
+    },
+    {
+      "file": "art/source/dorsal.png",
+      "sourcePath": "public/art/gecko-v2/dorsal.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "e203c6a96d6b655d5d20f90e4deff24d750661862308f2439621cb748c887c68"
+    },
+    {
+      "file": "art/source/flank.png",
+      "sourcePath": "public/art/gecko-v2/flank.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "994af0ff3239ca5acc2487f676eff86c90d082f7a73469c8203f5e1f83debbdb"
+    },
+    {
+      "file": "art/source/spots.png",
+      "sourcePath": "public/art/gecko-v2/spots.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "0095c977ab1fd77befea09d39feebe5497a2a905562b52538e203b69b5014865"
+    },
+    {
+      "file": "art/source/source-art.png",
+      "sourcePath": "public/art/gecko-v2/source-art.png",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "3f3f440ddb33f8b92244ac82c2a2fc36fb7074fb5e98287bd938f8f792c617c9"
+    },
+    {
+      "file": "art/source/manifest.json",
+      "sourcePath": "public/art/gecko-v2/manifest.json",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "b547208f493a7d7491dcd437044bf2c39811649d0d3702a1e87e676d8247efbe"
+    },
+    {
+      "file": "scripts/png.mjs",
+      "sourcePath": "scripts/png.mjs",
+      "commit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+      "sha256": "d3d95063b4a4b5771cae6eb7234dd93a0e67346efa59767e0ff2e63f89340e82"
+    },
+    {
+      "file": "public/reference/B-original.png",
+      "sourcePath": "public/lab/base-study/B-normal.png",
+      "commit": "c9cb231db4afacaffc52b6e9655d57bc9f5a6f26",
+      "sha256": "487aa44664d047f20a6875c48715f3a083ee876ddc524d5c01150ac9f03959de"
+    }
+  ]
+}

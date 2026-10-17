@@ -1,9 +1,8 @@
-import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
-import { labRoot, repoRoot } from './boundary.ts';
+import { projectRoot, coreRoot } from './boundary.ts';
 
 export default defineConfig({
-  root: labRoot,
-  resolve: { alias: { '@': resolve(repoRoot, 'src') } },
+  root: projectRoot,
+  resolve: { alias: { '@': coreRoot } },
   test: { include: ['tests/**/*.test.ts'], environment: 'node', maxWorkers: 2 },
 });
