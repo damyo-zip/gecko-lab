@@ -1,0 +1,48 @@
+{
+  "version": "base-study-1",
+  "source": "Original AI-assisted art exploration; pixel-constrained export, not a production genetics asset",
+  "sprites": [
+    {
+      "id": "A",
+      "width": 96,
+      "height": 96,
+      "colors": 21,
+      "alpha": "binary",
+      "sourceBounds": {
+        "left": 53,
+        "top": 68,
+        "width": 641,
+        "height": 607
+      },
+      "sha256": "eb672102773a1373a8abdbc2eeb1517626e5a1fc3f0d6badd82803ff10049c1b"
+    },
+    {
+      "id": "B",
+      "width": 96,
+      "height": 96,
+      "colors": 21,
+      "alpha": "binary",
+      "sourceBounds": {
+        "left": 642,
+        "top": 95,
+        "width": 810,
+        "height": 596
+      },
+      "sha256": "487aa44664d047f20a6875c48715f3a083ee876ddc524d5c01150ac9f03959de"
+    },
+    {
+      "id": "C",
+      "width": 96,
+      "height": 96,
+      "colors": 21,
+      "alpha": "binary",
+      "sourceBounds": {
+        "left": 1479,
+        "top": 21,
+        "width": 648,
+        "height": 686
+      },
+      "sha256": "6c02e999b4ada644a3e942dc102431cd0d3224a1050fef35d23bb71b2aecae12"
+    }
+  ]
+}
