@@ -69,3 +69,31 @@ test("unsupported fullscreen API still lets players launch the game", async ({ p
   await page.getByTestId("normal-start").click();
   await expect(page.getByTestId("game-day")).toBeVisible();
 });
+
+
+test("dark fullscreen tint is applied on enter and restored on exit", async ({ page }) => {
+  await page.addInitScript(() => {
+    let entered = false;
+    Object.defineProperty(Document.prototype, "fullscreenElement", {
+      configurable: true,
+      get() { return entered ? document.documentElement : null; },
+    });
+    Object.defineProperty(Element.prototype, "requestFullscreen", {
+      configurable: true,
+      value: () => { entered = true; document.dispatchEvent(new Event("fullscreenchange")); return Promise.resolve(); },
+    });
+    Object.defineProperty(Document.prototype, "exitFullscreen", {
+      configurable: true,
+      value: () => { entered = false; document.dispatchEvent(new Event("fullscreenchange")); return Promise.resolve(); },
+    });
+  });
+  await page.goto("/fullscreen-play");
+  const initialTheme = await page.locator('meta[name="theme-color"]').getAttribute("content");
+  await page.getByTestId("fullscreen-start").click();
+  await expect(page.getByRole("heading", { name: /^보유 개체/ })).toBeVisible();
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0b141d");
+  expect(await page.evaluate(() => document.documentElement.style.backgroundColor)).toBe("rgb(11, 20, 29)");
+  await page.evaluate(() => document.exitFullscreen());
+  await expect(page.getByTestId("fullscreen-reenter")).toBeVisible();
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", initialTheme ?? "#0c1420");
+});

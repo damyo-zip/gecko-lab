@@ -17,10 +17,27 @@ export default function FullscreenGameTrial() {
   const pending = useRef(false);
 
   useEffect(() => {
-    const sync = () => setFullscreen(document.fullscreenElement === document.documentElement);
+    const root = document.documentElement;
+    const themeMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    const previousTheme = themeMeta?.getAttribute("content") ?? null;
+    const previousRootBackground = root.style.backgroundColor;
+    const sync = () => {
+      const active = document.fullscreenElement === root;
+      setFullscreen(active);
+      // A best-effort WebView/system inset tint, not a way to paint native UI.
+      root.style.backgroundColor = active ? "#0b141d" : previousRootBackground;
+      if (themeMeta) themeMeta.setAttribute("content", active ? "#0b141d" : (previousTheme ?? "#0c1420"));
+    };
     sync();
     document.addEventListener("fullscreenchange", sync);
-    return () => document.removeEventListener("fullscreenchange", sync);
+    return () => {
+      document.removeEventListener("fullscreenchange", sync);
+      root.style.backgroundColor = previousRootBackground;
+      if (themeMeta) {
+        if (previousTheme === null) themeMeta.removeAttribute("content");
+        else themeMeta.setAttribute("content", previousTheme);
+      }
+    };
   }, []);
 
   function enterFullscreen() {
