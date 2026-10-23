@@ -75,6 +75,8 @@ export interface Mating {
     father: GeneticsRecord; mother: GeneticsRecord;
     observedIds: string[];
     updates: { id: string; before: Knowledge; after: Knowledge }[];
+    /** Material mapping fixed at conception; absence preserves old embryos. */
+    paletteVersion?: 2;
   } | null;
 }
 export interface TimedEgg {

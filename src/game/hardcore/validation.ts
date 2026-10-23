@@ -100,8 +100,10 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   base.saveVersion=4;if(game.saveVersion>=6){validateLifecycle(game);validateLifecycleBase(base,advancedIds,catalog,game.saveVersion>=9);}else validateV4(base,advancedIds);
   for(const m of Object.values(game.matings)){
     if(game.saveVersion>=9){if(!Object.hasOwn(m,'riskModel')||m.riskModel===undefined)fail();if(m.riskModel!==null){keys(m.riskModel,'version father mother');validateHealth(m.riskModel.father);validateHealth(m.riskModel.mother);if(m.riskModel.version!==1||!m.lifecycle||!equal(game.individuals[m.parents.fatherId]?.healthGenome,m.riskModel.father)||!equal(game.individuals[m.parents.motherId]?.healthGenome,m.riskModel.mother))fail();}}
-    if(!Object.hasOwn(m,"genetics"))fail();if(m.genetics===null)continue;
-    keys(m.genetics,"father mother observedIds updates");validateGenetics(m.genetics!.father,game.saveVersion>=9);validateGenetics(m.genetics!.mother,game.saveVersion>=9);
+    if(!Object.hasOwn(m,"genetics")||m.genetics===undefined)fail();if(m.genetics===null)continue;
+    keys(m.genetics,"father mother observedIds updates"+(Object.hasOwn(m.genetics,'paletteVersion')?' paletteVersion':''));
+    if(Object.hasOwn(m.genetics,'paletteVersion')&&m.genetics.paletteVersion!==2)fail();
+    validateGenetics(m.genetics!.father,game.saveVersion>=9);validateGenetics(m.genetics!.mother,game.saveVersion>=9);
     const f=game.individuals[m.parents.fatherId],mo=game.individuals[m.parents.motherId];
     if(!equal(f.genetics?.forge,m.genetics!.father.forge)||!equal(mo.genetics?.forge,m.genetics!.mother.forge))fail();
     if(!equal(f.genetics?.genome,m.genetics!.father.genome)||!equal(mo.genetics?.genome,m.genetics!.mother.genome)||game.saveVersion<9&&advancedSafety(f,mo).length)fail();
@@ -111,7 +113,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     for(const u of m.genetics!.updates){keys(u,"id before after");if(u.id!==f.id&&u.id!==mo.id)fail();validateKnowledge(u.before);validateKnowledge(u.after);}
     const fg=m.genetics!.father.genome,mg=m.genetics!.mother.genome;
     for(const e of eggs){const child=e.embryo.genetics!.genome;
-      if(!equal(e.embryo.genetics?.forge,inheritForge(m.genetics!.father.forge,m.genetics!.mother.forge,e.seed)))fail();
+      if(!equal(e.embryo.genetics?.forge,inheritForge(m.genetics!.father.forge,m.genetics!.mother.forge,e.seed,m.genetics!.paletteVersion??null)))fail();
       if(fg&&mg){if(!child||!equal(child.mendelian,inherit(fg.mendelian,mg.mendelian,e.seed))||!equal(child.polygenic,inheritPoly(fg.polygenic,mg.polygenic,e.seed)))fail();}
       else if(child!==null)fail();
     }

@@ -51,7 +51,8 @@ export function challengePreview(id:ChallengeId):GeckoSpecimen {
 /** Current goal portraits use the approved material engine; historical portraits
  * above remain byte-reproducible and no specimen enters gameplay state. */
 export function forgeReferenceGecko(id:ChallengeId):Gecko {
- const g=referenceGecko(id);g.genetics!.forge={version:1,extensions:withVeilTraits(undefined,createVeilTraits('challenge-veil:'+id,id==='white'||id==='monochrome'?1:.5))};return g;
+ const g=referenceGecko(id);
+ g.genetics!.forge={version:1,paletteVersion:2,extensions:withVeilTraits(undefined,createVeilTraits('challenge-veil:'+id,id==='white'||id==='monochrome'?1:.5))};return g;
 }
 const forgePreviews=new Map<ChallengeId,GeckoSpecimen>();
 export function forgeChallengePreview(id:ChallengeId):GeckoSpecimen {

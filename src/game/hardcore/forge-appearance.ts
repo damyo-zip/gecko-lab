@@ -7,6 +7,7 @@ import type {Scores} from '@/genetics/advanced/model';
 import type {PatternTraits,PatternName,PatternObservation,LineObservation} from '@/phenotype/model';
 import type {Gecko} from './model';
 import {forgeRepresentativeMorphName} from './forge-display-name';
+import {describeNaturalColours} from './natural-colours';
 
 const clamp=(v:number)=>Math.max(0,Math.min(1,v));
 /** A render-only projection of old visible values. This creates no Genome,
@@ -25,9 +26,12 @@ export function forgeInput(g:Gecko,fire:'up'|'down'='up'):RenderInput {
 }
 const luma=(c:readonly number[])=>c.reduce((s,v,n)=>s+v*[.2126,.7152,.0722][n],0);
 const colour=(pixels:Uint8ClampedArray,i:number)=>[pixels[i*4],pixels[i*4+1],pixels[i*4+2]];
-function colourName(c:readonly number[]):PatternTraits['color']{
+function colourName(c:readonly number[],natural=false):PatternTraits['color']{
  const max=Math.max(...c),min=Math.min(...c),h=max===min?0:max===c[0]?60*((c[1]-c[2])/(max-min)) :max===c[1]?60*(2+(c[2]-c[0])/(max-min)):60*(4+(c[0]-c[1])/(max-min));
- return max-min<12?'회색':luma(c)<70?'다크':h<18?'레드':h<43?'오렌지':h<75?'옐로':'크림';
+ if(natural&&luma(c)<70)return '다크';
+ if(max-min<12)return '회색';
+ if(natural&&luma(c)>165&&max-min<=75)return '크림';
+ return luma(c)<70?'다크':h<18?'레드':h<43?'오렌지':h<75?'옐로':'크림';
 }
 function projectedLine(coverage:number,ratio:number,length=54,gaps=0):LineObservation{return{coverage,longestRun:Math.round(ratio*length),gapCount:gaps,length};}
 const views=new WeakMap<Gecko,{key:string;up?:ForgeView;down?:ForgeView}>();
@@ -45,7 +49,9 @@ export function forgeView(g:Gecko,fire:'up'|'down'='up'):ForgeView|null {
  if(!cached||cached.key!==key){cached={key};views.set(g,cached);}
  const visualKey=fire+'|'+key,previous=recentViews.get(visualKey);
  if(previous){recentViews.delete(visualKey);recentViews.set(visualKey,previous);cached[fire]=previous;return previous;}
- const input=forgeInput(g,fire),d=describeCompanionLineage(input),r=d,p=d.parameters;
+ const input=forgeInput(g,fire);
+ const d:Description=g.genetics.forge.paletteVersion===2?describeNaturalColours(input,g.genetics.forge.patternColour):describeCompanionLineage(input);
+ const r=d,p=d.parameters;
  // Gameplay paints the flattened approved pixels. Debug layers are large and
  // remain available through the pure renderer, outside this presentation cache.
  d.sprite={...d.sprite,layers:[]};
@@ -63,7 +69,7 @@ export function forgeView(g:Gecko,fire:'up'|'down'='up'):ForgeView|null {
  const observation:PatternObservation={dorsal:fraction(dorsal,i=>contrast(i)>=26),flank:r.patternMetrics.lateralCoverage,limbs:r.patternMetrics.legCoverage,
   baseArea,creamArea:p.lilly?whiteCoverage:r.tricolorMetrics.ratios.cream,secondaryArea:r.tricolorMetrics.ratios.orange,pin:rails,side:[lateral,{...lateral}],
   drips:r.lateralMetrics.visiblePortholes,wall:r.whitewallMetrics.coverage,bars:r.patternMetrics.tracks.filter(t=>t.rows>=5).length,brokenBars:r.patternMetrics.stripeClass==='brindle',spots:r.spotMetrics.count};
- const color=p.axanthic?'회색':colourName(skin);
+ const color=p.axanthic?'회색':colourName(skin,g.genetics.forge.paletteVersion===2);
  const traits:PatternTraits={...input.phenotype.traits,color,dorsal:observation.dorsal,flank:observation.flank,limbs:observation.limbs,cream:p.lilly?Math.max(whiteCoverage,p.veilStrength):r.tricolorMetrics.ratios.cream,
   pin:rails.map(a=>a.coverage) as[number,number],side:[lateral.coverage,lateral.coverage],spots:{count:r.spotMetrics.count,size:p.spotSize},palette:{base:skin,secondary:d.tricolorMetrics.meanColours.orange,cream:r.pigment.pattern.resolved}};
  const features=[r.dorsalMetrics.superstripe.qualified?'슈퍼스트라이프':'',r.dorsalMetrics.reverse.qualified?'리버스 핀스트라이프':'',r.lateralMetrics.quad?'쿼드스트라이프':r.pinMetrics.classification==='full'?'풀 핀스트라이프':r.pinMetrics.classification==='none'?'':'파셜 핀스트라이프',

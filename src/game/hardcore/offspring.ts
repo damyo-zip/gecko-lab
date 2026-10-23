@@ -18,7 +18,7 @@ export function createEmbryo(game:HardcoreGame,mating:Mating,seed:string,id:stri
   // Fully recorded parents inherit once through the advanced engine; the legacy
   // sampler is used only when virtual appearance genomes genuinely do not exist.
   const basic=father.genome&&mother.genome?null:inheritGenotype(expandedGenotype(mating.fatherGenotype),expandedGenotype(mating.motherGenotype),seed,HARDCORE_LOCI).genotype;
-  const genetics=offspringRecord(father,mother,basic,seed,id,newPatterns,!!mating.riskModel);
+  const genetics=offspringRecord(father,mother,basic,seed,id,newPatterns,!!mating.riskModel,mating.genetics?.paletteVersion??null);
   const genotype=genetics.genome?{modelVersion:1 as const,loci:{'lilly-white':genetics.genome.mendelian.loci['lilly-white'],axanthic:genetics.genome.mendelian.loci.axanthic}}:basic!;
   // Advanced inheritance is the single source of truth when both genomes exist.
   const causes=genetics.genome?LOCI.filter(l=>l.nonViable.includes(pairKey(genetics.genome!.mendelian.loci[l.id],l))).map(l=>l.id):
