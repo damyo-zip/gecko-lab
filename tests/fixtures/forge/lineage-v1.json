@@ -1,0 +1,5717 @@
+{
+  "renderer": "b-origin-01-companion-lineage-1",
+  "model": {
+    "version": 1,
+    "stage": "adult",
+    "complex": "Existing provisional C/S/H allelic locus, unchanged inheritance and viability. Sable and Highway are not extra independent genes.",
+    "veil": "Six game-only inherited modifier pairs; active on heterozygous Lilly, carried silently by non-Lilly animals. Cosmetic overrides are not inherited.",
+    "references": [
+      "https://omnigeckos.com/highway/",
+      "https://lmreptiles.com/fg-supersable/",
+      "https://www.ibexotic.com/post/what-is-the-sable-morph-and-how-does-it-affect-crested-geckos"
+    ],
+    "limits": "Adult material expression on the same native silhouette. No raised scales, ageing, medical prediction or invented survival probabilities."
+  },
+  "samples": [
+    {
+      "id": "sable-0",
+      "name": "sable 0",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0,
+        "pixels": 246,
+        "dorsalPixels": 0,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "a85cc8600806533fa425ba274ad91a01ad2013198d7620cd69c65892e9525921"
+    },
+    {
+      "id": "sable-0.25",
+      "name": "sable 0.25",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.25,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.25,
+        "pixels": 246,
+        "dorsalPixels": 2,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.015503875968992248,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "d901a3d10450dae2c6eb9b2613cd037a2fa3ddae0239ba832b5ec7c8d1f56701"
+    },
+    {
+      "id": "sable-0.5",
+      "name": "sable 0.5",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.5,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.5,
+        "pixels": 246,
+        "dorsalPixels": 18,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.13953488372093023,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "64e89825bacf9477d70eeac4cb7f7ec7e9a5bf6e70ca48e97f05db43f2b9d8db"
+    },
+    {
+      "id": "sable-0.75",
+      "name": "sable 0.75",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.75,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.75,
+        "pixels": 246,
+        "dorsalPixels": 44,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.34108527131782945,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "023f884a153ed2ee9d96f09463ec3abd950604f6ca3015186c04d7c59a1c9e15"
+    },
+    {
+      "id": "sable-1",
+      "name": "sable 1",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 1,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 1,
+        "pixels": 246,
+        "dorsalPixels": 80,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.6201550387596899,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "b684bd09cd21dd7bb0f8d3bd9ce8db574d6fe0714b4c611a77d1d8c8baf7e19e"
+    },
+    {
+      "id": "highway-0",
+      "name": "highway 0",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0,
+        "pixels": 471,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "938a58da2f66da05afb360492480ec43031d46debee41e3aa276d13b4dc1ab1f"
+    },
+    {
+      "id": "highway-0.25",
+      "name": "highway 0.25",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.25,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.25,
+        "pixels": 471,
+        "dorsalPixels": 16,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.12403100775193798,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "55adfded56da206b8cbba8190a47f6ec7d8601ed946bf5b2a146e9d8a5d62709"
+    },
+    {
+      "id": "highway-0.5",
+      "name": "highway 0.5",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.5,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.5,
+        "pixels": 471,
+        "dorsalPixels": 40,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.31007751937984496,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "b700ca8ccf78e9667dd009428850ed2a792abdcf0ff84dcda84c7b9033c771f7"
+    },
+    {
+      "id": "highway-0.75",
+      "name": "highway 0.75",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.75,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.75,
+        "pixels": 471,
+        "dorsalPixels": 89,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.689922480620155,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "ffa95d82405b83a73307f1f071e20e3c4d3b333ad68611200deaa2b7fbcb0104"
+    },
+    {
+      "id": "highway-1",
+      "name": "highway 1",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 1,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 1,
+        "pixels": 471,
+        "dorsalPixels": 114,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.8837209302325582,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "6d0da62ad68eff9a6cfa6d86e1350b03824eaa2968c8303ccf16053319ae57a3"
+    },
+    {
+      "id": "veil-0",
+      "name": "유전 베일 42%",
+      "parameters": {
+        "bodyColor": [
+          81,
+          59,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 942377045,
+        "lilly": true,
+        "veilStrength": 0.42,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 4124154545,
+        "pinStrength": 1,
+        "pinSeed": 148558078,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1077866103,
+        "stripeBodyColor": [
+          204,
+          140,
+          66
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2691535808,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 4073817354,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2018950720,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1678378024,
+        "complexPair": "n/n",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3505463876,
+        "inheritedVeilDensity": 0,
+        "inheritedVeilStrength": 0.42,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/n",
+        "label": "Normal",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0,
+        "strength": 0.42,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 14,
+          "totalColumns": 33,
+          "coverage": 0.42424242424242425,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3696763202725724,
+        "upperCoverage": 0.26732673267326734,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.481260369644934,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "c42adeb5598242892231888658ca254078d8b87f4cec5b49fc03374515cc8748"
+    },
+    {
+      "id": "veil-0.25",
+      "name": "유전 베일 55%",
+      "parameters": {
+        "bodyColor": [
+          81,
+          59,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 942377045,
+        "lilly": true,
+        "veilStrength": 0.55,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 4124154545,
+        "pinStrength": 1,
+        "pinSeed": 148558078,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1077866103,
+        "stripeBodyColor": [
+          204,
+          140,
+          66
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2691535808,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 4073817354,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2018950720,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1678378024,
+        "complexPair": "n/n",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3505463876,
+        "inheritedVeilDensity": 0.25,
+        "inheritedVeilStrength": 0.55,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/n",
+        "label": "Normal",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.25,
+        "strength": 0.55,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 14,
+          "totalColumns": 33,
+          "coverage": 0.42424242424242425,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3696763202725724,
+        "upperCoverage": 0.26732673267326734,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.481260369644934,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "7e1fa8918ca39720388e3000bb9232eb745f9060805d4989be7900e2dee19a64"
+    },
+    {
+      "id": "veil-0.5",
+      "name": "유전 베일 68%",
+      "parameters": {
+        "bodyColor": [
+          81,
+          59,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 942377045,
+        "lilly": true,
+        "veilStrength": 0.6799999999999999,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 4124154545,
+        "pinStrength": 1,
+        "pinSeed": 148558078,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1077866103,
+        "stripeBodyColor": [
+          204,
+          140,
+          66
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2691535808,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 4073817354,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2018950720,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1678378024,
+        "complexPair": "n/n",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3505463876,
+        "inheritedVeilDensity": 0.5,
+        "inheritedVeilStrength": 0.6799999999999999,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/n",
+        "label": "Normal",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.5,
+        "strength": 0.6799999999999999,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 9,
+          "totalColumns": 33,
+          "coverage": 0.2727272727272727,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3696763202725724,
+        "upperCoverage": 0.26732673267326734,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.481260369644934,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "ef236c17b206aab3cf1803eab3effb527e81e577337873cb2544c20b9884543e"
+    },
+    {
+      "id": "veil-0.75",
+      "name": "유전 베일 81%",
+      "parameters": {
+        "bodyColor": [
+          81,
+          59,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 942377045,
+        "lilly": true,
+        "veilStrength": 0.81,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 4124154545,
+        "pinStrength": 1,
+        "pinSeed": 148558078,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1077866103,
+        "stripeBodyColor": [
+          204,
+          140,
+          66
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2691535808,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 4073817354,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2018950720,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1678378024,
+        "complexPair": "n/n",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3505463876,
+        "inheritedVeilDensity": 0.75,
+        "inheritedVeilStrength": 0.81,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/n",
+        "label": "Normal",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.75,
+        "strength": 0.81,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 1,
+          "totalColumns": 33,
+          "coverage": 0.030303030303030304,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3696763202725724,
+        "upperCoverage": 0.26732673267326734,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.481260369644934,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "a4ef83fc18bc6ced193e33baf6eb32d1a361a5d967839d2e134e20e7df502907"
+    },
+    {
+      "id": "veil-1",
+      "name": "유전 베일 94%",
+      "parameters": {
+        "bodyColor": [
+          81,
+          59,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 942377045,
+        "lilly": true,
+        "veilStrength": 0.94,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 4124154545,
+        "pinStrength": 1,
+        "pinSeed": 148558078,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1077866103,
+        "stripeBodyColor": [
+          204,
+          140,
+          66
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2691535808,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 4073817354,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2018950720,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1678378024,
+        "complexPair": "n/n",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3505463876,
+        "inheritedVeilDensity": 1,
+        "inheritedVeilStrength": 0.94,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/n",
+        "label": "Normal",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 1,
+        "strength": 0.94,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 0,
+          "totalColumns": 33,
+          "coverage": 0,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "ff0a6b40f39045c1ddad10150ddb8f7d05fc7bb653035780a71ed5d13cfc1b25"
+    },
+    {
+      "id": "sable-lilly",
+      "name": "흰밤",
+      "parameters": {
+        "bodyColor": [
+          81,
+          53,
+          35
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 970616185,
+        "lilly": true,
+        "veilStrength": 0.8641666666666666,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 3906578854,
+        "pinStrength": 1,
+        "pinSeed": 796835141,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          118,
+          50
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 2652586820,
+        "stripeBodyColor": [
+          192,
+          127,
+          61
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 521718322,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 1806248782,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1996805714,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 936153389,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 831522783,
+        "inheritedVeilDensity": 0.8541666666666666,
+        "inheritedVeilStrength": 0.8641666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 242,
+        "dorsalPixels": 44,
+        "crownPixels": 113,
+        "tailPixels": 0,
+        "dorsalFill": 0.34108527131782945,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.8541666666666666,
+        "strength": 0.8641666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 15,
+          "visibleColumns": 1,
+          "totalColumns": 33,
+          "coverage": 0.030303030303030304,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3901192504258944,
+        "upperCoverage": 0.29108910891089107,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.5214765624484775,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "3d2a13707c224c648d4980b8846fab5be1c832e02ee2049c7c4aa72842b37cc3"
+    },
+    {
+      "id": "highway-lilly",
+      "name": "우윳길",
+      "parameters": {
+        "bodyColor": [
+          81,
+          57,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 3944456941,
+        "lilly": true,
+        "veilStrength": 0.8641666666666666,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 2109567387,
+        "pinStrength": 1,
+        "pinSeed": 2459198156,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1417915815,
+        "stripeBodyColor": [
+          201,
+          137,
+          65
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 1486365687,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 2558006911,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 899367470,
+        "reversePinStrength": 0.9349716562984778,
+        "superStripeStrength": 0,
+        "dorsalSeed": 246320184,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.8219118312168132,
+        "complexSeed": 4068509063,
+        "inheritedVeilDensity": 0.8541666666666666,
+        "inheritedVeilStrength": 0.8641666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.8219118312168132,
+        "pixels": 471,
+        "dorsalPixels": 93,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.7209302325581395,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.8541666666666666,
+        "strength": 0.8641666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.9349716562984778,
+          "paintedPixels": 25,
+          "visibleColumns": 1,
+          "totalColumns": 33,
+          "coverage": 0.030303030303030304,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.3730834752981261,
+        "upperCoverage": 0.2712871287128713,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.875,
+        "meanRise": 0.4727706458970144,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "f79513dc0fcd8e1a1f94ea510145bbc7ce4e3bfc284d6014e6306cf498bbf301"
+    },
+    {
+      "id": "sable-axanthic",
+      "name": "은서리",
+      "parameters": {
+        "bodyColor": [
+          80,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 945436804,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": true,
+        "pigmentSuppression": 1,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 989715844,
+        "pinStrength": 1,
+        "pinSeed": 3850408167,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          230,
+          123,
+          52
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1354246686,
+        "stripeBodyColor": [
+          213,
+          149,
+          70
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 702451102,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 791105643,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 607271667,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 3784276306,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 20997769,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 246,
+        "dorsalPixels": 42,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.32558139534883723,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 12,
+          "visibleColumns": 12,
+          "totalColumns": 33,
+          "coverage": 0.36363636363636365,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 13,
+        "stripeContrast": 18.92416569056515,
+        "tracks": [
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 1,
+            "span": 1,
+            "longest": 1,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "8a99c76300b7c30ceb658343206fc1b74dc26948065dcf83fbe5117c2eb884f5"
+    },
+    {
+      "id": "highway-axanthic",
+      "name": "은빛길",
+      "parameters": {
+        "bodyColor": [
+          80,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 3180899835,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": true,
+        "pigmentSuppression": 1,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 3961010006,
+        "pinStrength": 1,
+        "pinSeed": 823148997,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          230,
+          122,
+          52
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 514195534,
+        "stripeBodyColor": [
+          212,
+          148,
+          69
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 1157224911,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 438326237,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 4014899746,
+        "reversePinStrength": 0.9349716562984778,
+        "superStripeStrength": 0,
+        "dorsalSeed": 3999942432,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.8219118312168132,
+        "complexSeed": 3301277383,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.8219118312168132,
+        "pixels": 471,
+        "dorsalPixels": 93,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.7209302325581395,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.9349716562984778,
+          "paintedPixels": 27,
+          "visibleColumns": 27,
+          "totalColumns": 33,
+          "coverage": 0.8181818181818182,
+          "qualified": true
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 2,
+        "stripeContrast": 115.50757550914139,
+        "tracks": [
+          {
+            "rows": 2,
+            "span": 4,
+            "longest": 1,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "d06ab23f059515a02777b97d3e83ad6c58b4754bcc5a635cc5e88f4e8360d7dd"
+    },
+    {
+      "id": "cappuccino",
+      "name": "커피",
+      "parameters": {
+        "bodyColor": [
+          85,
+          60,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1700853901,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 85039809,
+        "pinStrength": 1,
+        "pinSeed": 2850855402,
+        "cappuccinoCopies": 1,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 593527604,
+        "stripeBodyColor": [
+          199,
+          135,
+          64
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 3917281228,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 2064680629,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1796009855,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2392502079,
+        "complexPair": "n/C",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 3981520485,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/C",
+        "label": "Cappuccino",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 10,
+          "totalColumns": 33,
+          "coverage": 0.30303030303030304,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 42,
+        "stripeContrast": 70.85690968872318,
+        "tracks": [
+          {
+            "rows": 5,
+            "span": 5,
+            "longest": 5,
+            "gaps": 0
+          },
+          {
+            "rows": 3,
+            "span": 3,
+            "longest": 3,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          },
+          {
+            "rows": 4,
+            "span": 4,
+            "longest": 4,
+            "gaps": 0
+          },
+          {
+            "rows": 5,
+            "span": 6,
+            "longest": 4,
+            "gaps": 1
+          },
+          {
+            "rows": 3,
+            "span": 6,
+            "longest": 2,
+            "gaps": 3
+          }
+        ],
+        "fragmentation": 0.09090909090909091,
+        "stripeQuality": 19
+      },
+      "rgbaSha256": "12dab8f35773b867a00acf429caf75677e0a62787aa805136c72d9b8e5b37fea"
+    },
+    {
+      "id": "frappuccino",
+      "name": "우유커피",
+      "parameters": {
+        "bodyColor": [
+          81,
+          53,
+          35
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1764456522,
+        "lilly": true,
+        "veilStrength": 0.8316666666666667,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 3111774509,
+        "pinStrength": 1,
+        "pinSeed": 1844360146,
+        "cappuccinoCopies": 1,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          118,
+          50
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1498852078,
+        "stripeBodyColor": [
+          192,
+          127,
+          61
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 738533688,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 700747323,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1921382253,
+        "reversePinStrength": 0.48399472294906015,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1378897930,
+        "complexPair": "n/C",
+        "sableCopies": 0,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 204071485,
+        "inheritedVeilDensity": 0.7916666666666666,
+        "inheritedVeilStrength": 0.8316666666666667,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/C",
+        "label": "Cappuccino",
+        "sable": false,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 0,
+        "dorsalPixels": 0,
+        "crownPixels": 0,
+        "tailPixels": 0,
+        "dorsalFill": 0,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.7916666666666666,
+        "strength": 0.8316666666666667,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.48399472294906015,
+          "paintedPixels": 13,
+          "visibleColumns": 0,
+          "totalColumns": 33,
+          "coverage": 0,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.37137989778534924,
+        "upperCoverage": 0.2693069306930693,
+        "legCoverage": 0.2037037037037037,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "high-flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 1,
+        "meanRise": 0.468999529422346,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "e0206569b2be4d83f0871cca1840cf55660b035b067f369b737d993fe9ce41c5"
+    },
+    {
+      "id": "pair-S-S",
+      "name": "S/S 잠정 기록",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "S/S",
+        "sableCopies": 2,
+        "highwayCopies": 0,
+        "complexRestricted": true,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "S/S",
+        "label": "Super Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": true,
+        "expression": 0.7619318990813407,
+        "pixels": 246,
+        "dorsalPixels": 44,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.34108527131782945,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "023f884a153ed2ee9d96f09463ec3abd950604f6ca3015186c04d7c59a1c9e15"
+    },
+    {
+      "id": "pair-H-H",
+      "name": "H/H 잠정 기록",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "H/H",
+        "sableCopies": 0,
+        "highwayCopies": 2,
+        "complexRestricted": true,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "H/H",
+        "label": "Super Highway · 미검증",
+        "sable": false,
+        "highway": true,
+        "restricted": true,
+        "expression": 0.7619318990813407,
+        "pixels": 471,
+        "dorsalPixels": 90,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.6976744186046512,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "b0466232e19a57709c18ac26d5aa60c6eba29522d915476a59ce65c8f5e34ff1"
+    },
+    {
+      "id": "pair-C-S",
+      "name": "C/S 잠정 기록",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "C/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": true,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "C/S",
+        "label": "Luwak",
+        "sable": true,
+        "highway": false,
+        "restricted": true,
+        "expression": 0.7619318990813407,
+        "pixels": 246,
+        "dorsalPixels": 44,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.34108527131782945,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "023f884a153ed2ee9d96f09463ec3abd950604f6ca3015186c04d7c59a1c9e15"
+    },
+    {
+      "id": "pair-C-H",
+      "name": "C/H 잠정 기록",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "C/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": true,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "C/H",
+        "label": "Cappuccino/Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": true,
+        "expression": 0.7619318990813407,
+        "pixels": 471,
+        "dorsalPixels": 90,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.6976744186046512,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "b0466232e19a57709c18ac26d5aa60c6eba29522d915476a59ce65c8f5e34ff1"
+    },
+    {
+      "id": "pair-S-H",
+      "name": "S/H 잠정 기록",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "S/H",
+        "sableCopies": 1,
+        "highwayCopies": 1,
+        "complexRestricted": true,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "S/H",
+        "label": "Sable/Highway · 미검증",
+        "sable": true,
+        "highway": true,
+        "restricted": true,
+        "expression": 0.7619318990813407,
+        "pixels": 588,
+        "dorsalPixels": 90,
+        "crownPixels": 117,
+        "tailPixels": 342,
+        "dorsalFill": 0.6976744186046512,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "1b84ffa827ca13adf28f08f942761545d667f2ed248e307975884bba5065a0ac"
+    },
+    {
+      "id": "sable-phantom",
+      "name": "팬텀 세이블",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 2,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 246,
+        "dorsalPixels": 44,
+        "crownPixels": 117,
+        "tailPixels": 0,
+        "dorsalFill": 0.34108527131782945,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 11,
+          "visibleColumns": 11,
+          "totalColumns": 33,
+          "coverage": 0.3333333333333333,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.01192504258943782,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.07692307692307693,
+        "meanRise": 0.06643118785975928,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "4356b6ac68a34aa503807133de13e34d7fef06c51a56d6e99014ef2e3d2919ae"
+    },
+    {
+      "id": "highway-emptyback",
+      "name": "엠티백 하이웨이",
+      "parameters": {
+        "bodyColor": [
+          86,
+          59,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 1510104309,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2674607128,
+        "pinStrength": 1,
+        "pinSeed": 1712962082,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          232,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 666507535,
+        "stripeBodyColor": [
+          198,
+          133,
+          63
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 2,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 2312193662,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 3475762388,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 1939476637,
+        "reversePinStrength": 0.7762762147901774,
+        "superStripeStrength": 0,
+        "dorsalSeed": 1876239457,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.8219118312168132,
+        "complexSeed": 1065156978,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.8219118312168132,
+        "pixels": 471,
+        "dorsalPixels": 93,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.7209302325581395,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.7762762147901774,
+          "paintedPixels": 22,
+          "visibleColumns": 22,
+          "totalColumns": 33,
+          "coverage": 0.6666666666666666,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 3,
+        "stripeContrast": 122.62952336203546,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "9915d741f284d9f6cad35c76babe7bf6376fd2e1df5bcb46e9a15d4b4dbb401b"
+    },
+    {
+      "id": "sable-spots",
+      "name": "작은 점 세이블",
+      "parameters": {
+        "bodyColor": [
+          85,
+          63,
+          37
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 2706307412,
+        "lilly": false,
+        "veilStrength": 0,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0.7,
+        "spotSize": 0.6887240627247184,
+        "spotSeed": 2314904925,
+        "pinStrength": 1,
+        "pinSeed": 1198075999,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8344480797582863,
+        "dorsalRetention": 0.25597949868016073,
+        "pinSpread": 0.6223507968323857,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          121,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.48399472294906015,
+        "brindleStrength": 0.09266147683054046,
+        "stripeWidth": 0.6296516725857729,
+        "stripeSeed": 95008899,
+        "stripeBodyColor": [
+          205,
+          141,
+          66
+        ],
+        "stripeColor": [
+          86,
+          44,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 4272257528,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 667845361,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 2702452053,
+        "reversePinStrength": 0.4018448997660045,
+        "superStripeStrength": 0,
+        "dorsalSeed": 2619146825,
+        "complexPair": "n/S",
+        "sableCopies": 1,
+        "highwayCopies": 0,
+        "complexRestricted": false,
+        "complexExpression": 0.7619318990813407,
+        "complexSeed": 1528859364,
+        "inheritedVeilDensity": 0.6041666666666666,
+        "inheritedVeilStrength": 0.7341666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/S",
+        "label": "Sable",
+        "sable": true,
+        "highway": false,
+        "restricted": false,
+        "expression": 0.7619318990813407,
+        "pixels": 233,
+        "dorsalPixels": 43,
+        "crownPixels": 112,
+        "tailPixels": 0,
+        "dorsalFill": 0.35537190082644626,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.6041666666666666,
+        "strength": 0.7341666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.4018448997660045,
+          "paintedPixels": 10,
+          "visibleColumns": 10,
+          "totalColumns": 33,
+          "coverage": 0.30303030303030304,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0.017035775127768313,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "flame",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0.1,
+        "meanRise": 0.06732054495212389,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 14,
+        "stripeContrast": 28.28944641812948,
+        "tracks": [
+          {
+            "rows": 3,
+            "span": 5,
+            "longest": 2,
+            "gaps": 2
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 2,
+            "span": 2,
+            "longest": 2,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "b2896c3d772eff09999dc8a35cb8d6bf30a1fbfebf38464abbd74013ad6179cd"
+    },
+    {
+      "id": "highway-veiled",
+      "name": "강한 베일 하이웨이",
+      "parameters": {
+        "bodyColor": [
+          81,
+          57,
+          36
+        ],
+        "detailColor": [
+          255,
+          236,
+          200
+        ],
+        "flameStrength": 0.044429291560898816,
+        "legPatternStrength": 0.01037379584039862,
+        "patternSeed": 3944456941,
+        "lilly": true,
+        "veilStrength": 0.94,
+        "axanthic": false,
+        "pigmentSuppression": 0,
+        "skinBrightness": 0.3678931560926971,
+        "spotDensity": 0,
+        "spotSize": 1,
+        "spotSeed": 2109567387,
+        "pinStrength": 1,
+        "pinSeed": 2459198156,
+        "cappuccinoCopies": 0,
+        "cappuccinoExpression": 0.8599007912099761,
+        "dorsalRetention": 0.2988223073483554,
+        "pinSpread": 0.7251735376360529,
+        "tailRootLength": 0.19402041174023837,
+        "orangeColor": [
+          231,
+          120,
+          51
+        ],
+        "tricolorStrength": 1,
+        "creamCoverage": 0.7989654816013605,
+        "extremeStrength": 0,
+        "stripeStrength": 0.9349716562984778,
+        "brindleStrength": 0.9872721880956492,
+        "stripeWidth": 0.9159271001906079,
+        "stripeSeed": 1417915815,
+        "stripeBodyColor": [
+          201,
+          137,
+          65
+        ],
+        "stripeColor": [
+          84,
+          43,
+          26
+        ],
+        "phantomCopies": 0,
+        "phantomSuppression": 1,
+        "emptyBackCopies": 0,
+        "emptyBackExpression": 1,
+        "emptyBackSeed": 1486365687,
+        "whiteoutCopies": 0,
+        "whitewallExpression": 1,
+        "wallContinuity": 0,
+        "whitewallColor": [
+          254,
+          249,
+          230
+        ],
+        "whitewallSeed": 2558006911,
+        "lateralShape": 0,
+        "lateralContinuity": 0.90625,
+        "lateralExpression": 1,
+        "lateralSeed": 899367470,
+        "reversePinStrength": 0.9349716562984778,
+        "superStripeStrength": 0,
+        "dorsalSeed": 246320184,
+        "complexPair": "n/H",
+        "sableCopies": 0,
+        "highwayCopies": 1,
+        "complexRestricted": false,
+        "complexExpression": 0.8219118312168132,
+        "complexSeed": 4068509063,
+        "inheritedVeilDensity": 0.8541666666666666,
+        "inheritedVeilStrength": 0.8641666666666666,
+        "veilOverridden": false
+      },
+      "complexMetrics": {
+        "pair": "n/H",
+        "label": "Highway",
+        "sable": false,
+        "highway": true,
+        "restricted": false,
+        "expression": 0.8219118312168132,
+        "pixels": 471,
+        "dorsalPixels": 93,
+        "crownPixels": 0,
+        "tailPixels": 342,
+        "dorsalFill": 0.7209302325581395,
+        "provisional": true
+      },
+      "veilInheritance": {
+        "known": true,
+        "density": 0.8541666666666666,
+        "strength": 0.8641666666666666,
+        "overridden": false,
+        "source": "inherited"
+      },
+      "dorsalMetrics": {
+        "reverse": {
+          "strength": 0.9349716562984778,
+          "paintedPixels": 25,
+          "visibleColumns": 0,
+          "totalColumns": 33,
+          "coverage": 0,
+          "qualified": false
+        },
+        "superstripe": {
+          "strength": 0,
+          "bandPixels": 0,
+          "centrePixels": 0,
+          "visibleColumns": 0,
+          "totalColumns": 51,
+          "coverage": 0,
+          "longestRun": 0,
+          "meanContrast": 0,
+          "qualified": false
+        },
+        "goal": false,
+        "reverseGoal": false
+      },
+      "patternMetrics": {
+        "lateralCoverage": 0,
+        "upperCoverage": 0,
+        "legCoverage": 0,
+        "stripeClass": "none",
+        "clearTricolor": false,
+        "superForm": false,
+        "classification": "patternless",
+        "extreme": false,
+        "tricolor": false,
+        "tricolorExtreme": false,
+        "maximumRise": 0,
+        "meanRise": 0,
+        "lateralPixels": 587,
+        "upperPixels": 505,
+        "legPixels": 324,
+        "stripePixels": 0,
+        "stripeContrast": 0,
+        "tracks": [
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          },
+          {
+            "rows": 0,
+            "span": 0,
+            "longest": 0,
+            "gaps": 0
+          }
+        ],
+        "fragmentation": 0,
+        "stripeQuality": 0
+      },
+      "rgbaSha256": "34ea50aa2c85dcc73cc3c2961687f3f83fc59ced5d49bcb8583ee82af1351170"
+    }
+  ]
+}

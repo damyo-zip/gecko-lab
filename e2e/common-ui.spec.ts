@@ -1,6 +1,6 @@
 import {test,expect,type Page} from "@playwright/test";
 import {mkdir,writeFile} from "node:fs/promises";
-import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
+import {referenceHomeGame,REFERENCE_DATE} from './helpers/forge-fixtures';
 import {touch} from "./helpers/hardcore-navigation";
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";

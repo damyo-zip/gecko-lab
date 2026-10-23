@@ -51,7 +51,7 @@ export function valueGecko(g: Gecko, table: PriceTable = MARKET) {
   const {bucket,marketBase,appearance,carrier,sex,age,pedigree,patternModel}=valuationFactors(g,table);
   const valuation = round(marketBase * appearance * carrier * sex * age * pedigree);
   return { bucket, marketBase, valuation, ask: round(valuation * table.buyMultiplier),
-    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(patternModel?"/patterns-1":""),
+    sell: round(valuation * table.sellMultiplier), marketVersion: table.version+(g.genetics?.forge?"/forge-1":patternModel?"/patterns-1":""),
     provisional: table.status === "provisional-game-prices" };
 }
 export function updateMarket(game: HardcoreGame, table: PriceTable = MARKET): void {

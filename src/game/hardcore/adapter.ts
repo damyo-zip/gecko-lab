@@ -6,6 +6,8 @@ import { publicKnowledge } from "./genetics";
 import { phenotype } from "@/genetics/advanced/phenotype";
 import { appearanceProfile } from "./appearance";
 import {koreanMorphText,representativeMorphName} from "@/phenotype/display-name";
+import {forgeView} from './forge-appearance';
+import {tagForgeSurface} from '@/forge/surface';
 
 function legacyView(g: Gecko) {
   return { ...g, genotype: { modelVersion: 1 as const, loci: { "lilly-white": g.genotype.loci["lilly-white"] } } };
@@ -21,7 +23,7 @@ export function morph(g: Gecko): string {
   const p=carrierProbability(publicKnowledge(g));
   return [label,...complex].join(" · ") + (p===null?" · 유전 정보 미확인":p>1-1e-9?" · 100% het Ax":p>0?" · "+(p*100).toFixed(1)+"% possible het Ax":"");
 }
-/** Preserve the renderer; only the adapter knows the added locus. */
+/** Shared gameplay presentation boundary; runtime Forge tags never enter a save. */
 export function specimen(g: Gecko,fire:"up"|"down"="up") {
   const result = toSpecimen(legacyView(g));
   if(g.genetics?.genome){const s=phenotype(g.genetics.genome,{stage:g.stage,fire:"up"}).scores,lilly=g.genotype.loci["lilly-white"].includes("Lw");
@@ -42,10 +44,12 @@ export function specimen(g: Gecko,fire:"up"|"down"="up") {
     result.appearance.dorsalCoverage=t.dorsal;result.appearance.flankCoverage=t.flank;result.appearance.spotCount=Math.min(70,t.spots.count);
   }
   result.state.fire=fire;
+  const current=forgeView(g,fire);
+  if(current)tagForgeSurface(result,current.input,!g.genotype.loci['lilly-white'].every(a=>a==='Lw'),current.description.sprite.pixels);
   return result;
 }
-/** Frozen descriptive path also used to generate saved shop individual names.
- * Keep this separate from the changeable player-facing naming policy. */
+/** Catalog naming follows the record's engine. Saved individual names are never
+ * recomputed by a load or by the player-facing naming policy. */
 export function descriptiveVisualName(g:Gecko):string {
   return appearanceProfile(g)?.names.primary??morph(g).replace(/^일반형(?: · (?:반점|할리퀸|트라이컬러) 외형)?|^릴리화이트 이형접합체/,
     {normal:"Normal",lilly:"Lilly White",axanthic:"Axanthic",dalmatian:"Dalmatian",harlequin:"Harlequin",tricolor:"Tricolor Harlequin"}[specimen(g).appearance.patternStyle]).split(" · ").filter(s=>!s.includes("het")&&!s.includes("유전 정보")).join(" · ");
@@ -58,6 +62,7 @@ export function visibleGeneticMorphs(g:Gecko):string[] {
 const displayNames=new WeakMap<Gecko,string>();
 /** One computed representative for every gameplay screen; no save writes. */
 export function visualName(g:Gecko):string {
+  const current=forgeView(g);if(current)return current.displayName;
   let name=displayNames.get(g);if(name!==undefined)return name;
   const profile=appearanceProfile(g),geneticMorphs=visibleGeneticMorphs(g);
   // Older sprites have no measured color/pattern profile. Do not invent those traits.

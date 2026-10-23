@@ -1,8 +1,8 @@
 import {tendIncubator} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
-import {incubatorFixture} from './fixtures/incubator-reference';
-import {newGame,act} from './fixtures/legacy-catalog';
+import {incubatorFixture} from './helpers/forge-fixtures';
+import {legacyCatalogGame as newGame,act} from './helpers/forge-fixtures';
 import {exportBackup} from '../src/game/hardcore/save';
 import {freeSlots} from '../src/game/hardcore/survival';
 import {seededRandom} from '../src/genetics/random';

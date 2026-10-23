@@ -1,7 +1,8 @@
+import {collectionEntries} from '../src/components/hardcore/collection-query';
 import {test,expect,type Page} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
 import {createHash} from "node:crypto";
-import {referenceHomeGame,REFERENCE_DATE} from "./fixtures/reference-home";
+import {referenceHomeGame,REFERENCE_DATE} from './helpers/forge-fixtures';
 import {touch,openCollectionCatalog} from "./helpers/hardcore-navigation";
 import {exportBackup} from "../src/game/hardcore/save";
 import {legacyRecord} from "../src/game/hardcore/genetics";
@@ -89,7 +90,8 @@ test("reference home binds six real specimens, preserves read-only state and adv
   // The enlarged card intentionally lets the tail enter only the top of the name
   // row. Bound the real opaque pixels, not the canvas's transparent padding.
   const nameBox=(await first.locator(".home-card-name > span").boundingBox())!,paintBottom=thumbBox!.y+thumbBox!.height*fraction;
-  expect(fraction).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeLessThanOrEqual(4);
+  // The native B-ORIGIN-01 tail ends one source pixel below the previous art.
+  expect(fraction).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeGreaterThan(0);expect(paintBottom-nameBox.y).toBeLessThanOrEqual(5);
   expect(paintBottom).toBeLessThan(nameBox.y+nameBox.height*.25);
   expect(paintBottom).toBeLessThan((await first.locator(".home-status").first().boundingBox())!.y);
   if(mobile)await page.screenshot({path:info.outputPath("home-three-columns.png"),fullPage:true,animations:"disabled",scale:"css"});
@@ -131,7 +133,7 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog")).toContainText("보유 개체가 없습니다.");await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"먹이 구입하기",exact:true}),mobile);await expect(page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const fixture=referenceHomeGame(),first=Object.values(fixture.individuals)[0];first.stage="hatchling";first.birthTurn=0;first.birthDate=REFERENCE_DATE;first.nextBreedTurn=fixture.rules.adultAfter;
-  const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics=legacyRecord(carrier);
+  const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics={...legacyRecord(carrier),forge:{version:1}};
   await restore(page,fixture,mobile);await expect(page.locator(".home-name .home-sex")).toHaveText("?");
   await expect(page.getByTestId("hc-card-"+carrier.id).locator(".home-morph")).not.toContainText("het");
   await expect(page.locator(".home-card").first().locator(".home-sex")).toHaveText("?");await expect(page.locator(".home-info")).toContainText("해칭");
@@ -148,7 +150,7 @@ test("long names, six main cards, full management and empty filters do not damag
   await expect(page.locator(".home-card-grid .home-card")).toHaveCount(6);await expect(page.getByRole("button",{name:"개체 더 보기",exact:true})).toHaveCount(0);
   await noOverflow(page);await expect(page.locator(".home-card-grid")).toHaveClass(/columns-3/);
   await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog",{name:"전체 개체",exact:true}).getByRole("status")).toHaveText("15 / 15마리");await page.keyboard.press("Escape");
-  await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("normal");await expect(page.locator(".home-card")).toHaveCount(1);
+  await page.getByRole("combobox",{name:"모프 필터",exact:true}).selectOption("normal");await expect(page.locator(".home-card")).toHaveCount(collectionEntries(Object.values(fixture.individuals),{morph:"normal",stage:"all",sort:"default"}).length);
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("hatchling");await page.keyboard.press("Escape");await expect(page.locator(".home-card")).toHaveCount(0);
   await expect(page.locator(".home-empty")).toContainText("필터에 맞는");expect(await saved(page)).toEqual(fixture);await noOverflow(page);
 });

@@ -1,11 +1,13 @@
 import { expandedGenotype } from "@/genetics/hardcore";
 import type { Genotype } from "@/genetics/mendel";
-import { cross, inherit } from "@/genetics/advanced/inheritance";
+import { cross } from "@/genetics/advanced/inheritance";
+import {inherit,inheritPoly,founderPoly} from '@/forge';
+import {founderForge,inheritForge} from './forge-genetics';
 import { belief, childKnowledge, condition, inferFamily, priorCross, unknownKnowledge } from "@/genetics/advanced/inference";
 import { LOCI, pairKey, wildGenome } from "@/genetics/advanced/loci";
 import type { GeneticsRecord, Knowledge, Scores } from "@/genetics/advanced/model";
 import { observedLoci } from "@/genetics/advanced/phenotype";
-import { founderPoly, inheritPoly, polyScores } from "@/genetics/advanced/polygenic";
+import { polyScores } from "@/genetics/advanced/polygenic";
 import type { Gecko, HardcoreGame, Mating } from "./model";
 import { seededRandom } from '@/genetics/random';
 
@@ -16,16 +18,17 @@ export function legacyRecord(g:Pick<Gecko,"genotype">):GeneticsRecord {
   }return {version:1,genome:null,knowledge,appearanceVersion:"legacy-1"};
 }
 export const publicKnowledge=(g:Gecko):Knowledge=>g.genetics?.knowledge??legacyRecord(g).knowledge;
-export function founderRecord(genotype:Genotype,seed:string,subdued=false,appearanceVersion:"5.0"|"patterns-1"="patterns-1"):GeneticsRecord {
+export function founderRecord(genotype:Genotype,seed:string,subdued=false,appearanceVersion:"5.0"|"patterns-1"="patterns-1",forgeProfile?:number):GeneticsRecord {
   const mendelian=wildGenome();Object.assign(mendelian.loci,expandedGenotype(genotype).loci);
   const genome={version:1 as const,mendelian,polygenic:founderPoly(seed,subdued)},knowledge=unknownKnowledge();
   for(const l of LOCI)knowledge.loci[l.id]=belief({[pairKey(mendelian.loci[l.id],l)]:1},"seller","판매자 제공 게임 유전 기록");
-  return {version:1,genome,knowledge,appearanceVersion};
+  return {version:1,genome,knowledge,appearanceVersion,...(forgeProfile===undefined?{}:{forge:founderForge(seed,forgeProfile,subdued)})};
 }
 export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype|null,seed:string,id:string,newPatterns=false,allowPartial=false):GeneticsRecord {
+  const forge=inheritForge(father.forge,mother.forge,seed);
   if(!father.genome||!mother.genome){
     if(!genotype)throw new Error('이전 부모의 기본 유전 상속 기록이 필요합니다.');
-    const result=legacyRecord({genotype});
+    const result=legacyRecord({genotype});if(forge)result.forge=forge;
     const seen:Record<string,string>={};for(const l of LOCI){const pair=genotype.loci[l.id];if(pair)seen[l.id]=l.phenotypes[pairKey(pair,l)];}
     if(allowPartial){
       const rng=seededRandom(seed,'advanced-locus:cappuccino-complex');
@@ -38,7 +41,7 @@ export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,geno
   }
   const genome={version:1 as const,mendelian:inherit(father.genome.mendelian,mother.genome.mendelian,seed),polygenic:inheritPoly(father.genome.polygenic,mother.genome.polygenic,seed)};
   const nonViable=LOCI.some(l=>l.nonViable.includes(pairKey(genome.mendelian.loci[l.id],l)));
-  return {version:1,genome,knowledge:nonViable?unknownKnowledge():childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),
+  return {version:1,genome,...(forge?{forge}:{}),knowledge:nonViable?unknownKnowledge():childKnowledge(father.knowledge,mother.knowledge,observedLoci(genome),id),
     appearanceVersion:newPatterns||father.appearanceVersion==="patterns-1"||mother.appearanceVersion==="patterns-1"?"patterns-1":"5.0"};
 }
 export function cachedGenotype(record:GeneticsRecord,fallback:Genotype):Genotype {

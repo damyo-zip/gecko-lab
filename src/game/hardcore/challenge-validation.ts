@@ -16,7 +16,7 @@ export function validateChallenges(game:HardcoreGame):void {
  for(const c of s!.completed){
   keys(c,'challengeId eggId achievedTurn evaluatorVersion specimen morph phenotype reward announced');keys(c.reward,'feedExemptionSlots titleId');
   const egg=game.eggs[c.eggId];
-  if(!isChallengeId(c.challengeId)||!integer(c.achievedTurn)||c.evaluatorVersion!==1||typeof c.announced!=='boolean'||
+  if(!isChallengeId(c.challengeId)||!integer(c.achievedTurn)||![1,2].includes(c.evaluatorVersion)||c.evaluatorVersion===2&&!c.specimen.genetics?.forge||typeof c.announced!=='boolean'||
    typeof c.morph!=='string'||!c.morph||c.morph.length>512||typeof c.phenotype!=='string'||c.phenotype.length>2048||
    c.reward.feedExemptionSlots!==1||c.reward.titleId!==c.challengeId||!egg||egg.status!=='hatched'||egg.embryo.birthTurn!==c.achievedTurn||
    egg.lifecycle?.failure||canonicalJSON(c.specimen)!==canonicalJSON(bornIndividual(egg.embryo)))fail();

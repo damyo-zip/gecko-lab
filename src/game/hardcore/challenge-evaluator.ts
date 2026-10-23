@@ -5,6 +5,7 @@ import { buildPatternPlan } from '@/engine/pattern-plan';
 import { createBaseSprite,PART } from '@/engine/art';
 import { CHALLENGE_THRESHOLDS as T,type ChallengeId } from './challenge-rules';
 import type { Gecko } from './model';
+import {evaluateForgeChallenge} from './forge-challenges';
 
 /** Replace this adapter when genetics changes. No genotype mutation, name parsing,
  * extra random draws, or guessed phantom allele. Older art has no measured mask:
@@ -12,6 +13,7 @@ import type { Gecko } from './model';
  * Thresholds measure the existing side-view plan (not literal whole-body coverage).
  * Dark/orange are visual proxies; spots use actual separated marks in three regions. */
 export function evaluateBreedingChallenge(g:Gecko,id:ChallengeId):boolean {
+ if(g.genetics?.forge)return evaluateForgeChallenge(g,id);
  const p=appearanceProfile(g),genome=g.genetics?.genome;
  if(!p||!genome)return false;
  const {traits:t,observation:o}=p,s=phenotype(genome).scores;

@@ -1,0 +1,256 @@
+{
+  "source": "GECKO FORGE approved B-ORIGIN-01 lineage v1",
+  "renderer": "b-origin-01-companion-lineage-1",
+  "baseCommit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+  "sharedCore": "All original Forge core files matched this game base byte-for-byte before integration. @/ imports intentionally use the shared game core.",
+  "files": [
+    {
+      "file": "engine/companion-lineage.ts",
+      "sha256": "31a5e3025907cb5525400c340ecac7547b4b5333b5c582613d830368eeed41b2"
+    },
+    {
+      "file": "engine/companion-lineage-breeding.ts",
+      "sha256": "12a070c39601955c899c1e777e3b18148eade8671bbdc739b0318f7090099fc7"
+    },
+    {
+      "file": "engine/renderer.ts",
+      "sha256": "317fbffb4817c8262c88b3b1ce19115b785d5f4a49c77504f4527adf9b42af48"
+    },
+    {
+      "file": "engine/individual.ts",
+      "sha256": "32f475b867e5ecdd9f6471fec67a4b7fa5851ab5d72dfb950f9d7e26843cb190"
+    },
+    {
+      "file": "engine/morph-extensions.ts",
+      "sha256": "d8fc48fbb8e3ded999a89fd693dbc6e0c38d5af056fd1efb701251e5e1a7a498"
+    },
+    {
+      "file": "engine/veil-genetics.ts",
+      "sha256": "fcc574434ed52d2b7d9e87dd9b642533794eccc7019a6f4bb49e4ba08da7fa36"
+    },
+    {
+      "file": "engine/art/b-origin-01.ts",
+      "sha256": "4b8d61fbcf6bcd2f12307774bc9b4a539d2baf18558cf67da74c5780d2b6ae08"
+    },
+    {
+      "file": "engine/art/pinstripe-rails.ts",
+      "sha256": "3540159dabfefc12c3157d962a7750bf327eeb811351896d5906a235e53d6c91"
+    },
+    {
+      "file": "engine/art/cappuccino-tail.ts",
+      "sha256": "5a2ebb1be813a1a36e06935a92d527c2b8466cb22a10544b62fb92137860f796"
+    },
+    {
+      "file": "engine/companion-base.ts",
+      "sha256": "3b13018ce89ed8d65ca63057197c48aeb5ee7dbe6c1bcea5a0f5d31529f6c5c0"
+    },
+    {
+      "file": "engine/companion-dorsal.ts",
+      "sha256": "25d630efeafd9e6ec31e68847b53c5c1fc82ea69fa0921085e5612d20c944f46"
+    },
+    {
+      "file": "engine/companion-emptyback.ts",
+      "sha256": "f6bb4f370ec1d109a7fb3db5f1454437d33336aedcde1619523ba20f32bad4ae"
+    },
+    {
+      "file": "engine/companion-patterns.ts",
+      "sha256": "a9601ed32f40cbd9e7489767cbd7aaaab5841fdb7c7a752c64d94af4958cdbfd"
+    },
+    {
+      "file": "engine/companion-lilly-veil.ts",
+      "sha256": "bebfb1a834a8f3a4eef46b10fffeb7bf89926340eaed9fd13b4e3dc5cf68fd25"
+    },
+    {
+      "file": "engine/patternless.ts",
+      "sha256": "7a3266acc6f88b778c236aa6b9b9b06aee1844af9fbc6f74ecce0d01f4767dad"
+    },
+    {
+      "file": "engine/genetics.ts",
+      "sha256": "14b64312b7ffab6afe2b3dcb7d44ab6c6c4bb35084d34afd6596fa27cdd4edd8"
+    },
+    {
+      "file": "engine/model.ts",
+      "sha256": "3c270dd19d0f532710e77f8fa01d7c8d2e73ee86649d487565da776e4d794a8b"
+    },
+    {
+      "file": "engine/companion-lateral-breeding.ts",
+      "sha256": "c2cd0e878af8fd109f91155a5d177395ff171e3e27eed98d85979c5d77df3e2d"
+    },
+    {
+      "file": "engine/workspace.ts",
+      "sha256": "79aa139c1fa44f20120f7d7810e430d37869588de62d60dfc095047ae319754b"
+    },
+    {
+      "file": "engine/editing.ts",
+      "sha256": "1248aec3939d835e53f608e9445d5c110ba5c1d9c771a36a098fe094d483f0e9"
+    },
+    {
+      "file": "engine/patternless-breeding.ts",
+      "sha256": "fd55764eb514e9abe7a0ae225fe5a92a79232522946632026b5f8a762e7c64a0"
+    },
+    {
+      "file": "engine/appearance.ts",
+      "sha256": "c3452234666f2db6ecdc4a17c2cd2f1c17b8aec9ede7e247eb9f097aaa42e53f"
+    },
+    {
+      "file": "engine/lateral-genetics.ts",
+      "sha256": "f8cf476cc8fc0bc06a67f04f8b57748c8d39e6e4cc3d112e332f76414658dc6b"
+    },
+    {
+      "file": "engine/art/companion-materials.ts",
+      "sha256": "20b996a8411e23890060a83418dbc93851b7be55d8819cf9f4941282f1c5b0fe"
+    },
+    {
+      "file": "mask-editor/model.ts",
+      "sha256": "fee78596924771ce28c43ee08478dd2d7badeec0b6b35ca0687f62a0be8e4dac"
+    },
+    {
+      "file": "engine/companion-laterals.ts",
+      "sha256": "c6b71572338777d7570f3de6e023cd0940d6254a69d2fdc83af8c29f54a9b935"
+    },
+    {
+      "file": "engine/companion-phantom.ts",
+      "sha256": "bd2d94c939a456be4d5ed4255678122a5b9f00b59d8413fb84adefa5aaf57927"
+    },
+    {
+      "file": "engine/companion-tricolor.ts",
+      "sha256": "b11920b26540d1ffa5dad558b2705ba35981eff661f9506a9a06dc5b3b9146ca"
+    },
+    {
+      "file": "engine/companion-dalmatian-v3.ts",
+      "sha256": "3bbaf6ad09a676457d4e65de1bc2b49f095606f43082a300343fdeef86721b3e"
+    },
+    {
+      "file": "engine/companion-lilly.ts",
+      "sha256": "f8f0eba2b0fce9d840ee358e4017a520355705170f40b8a70dd14849ea5aafee"
+    },
+    {
+      "file": "engine/companion-whitewall-breeding.ts",
+      "sha256": "d9c9cb4f244c5e83d327719549de79195bb982c17a0f880c634319a4b7885de4"
+    },
+    {
+      "file": "mask-editor/lighting.ts",
+      "sha256": "b49622f237d050c2b874e4d460c1afee4165cb15af9b97f6684be6f9f0b158e5"
+    },
+    {
+      "file": "engine/companion-whitewall-v2.ts",
+      "sha256": "cc206761372a3cebaa773c1a0f3c039b40a5f88f53b0540554aed68c54c55fb4"
+    },
+    {
+      "file": "engine/companion-patterns-v5.ts",
+      "sha256": "a7f304793a0f8e3586f617af282b738de5ad3de9fbb16966bb9f7722461e65fd"
+    },
+    {
+      "file": "engine/companion-flame.ts",
+      "sha256": "958a94684da1562626d6920ef99e89d511aa31d8f937368fc567fdfcd5e82314"
+    },
+    {
+      "file": "engine/companion-cappuccino.ts",
+      "sha256": "14376b515a9c7d3f67711e16d5b0a03d1f7c60b252e4f469c759f605fe21e77b"
+    },
+    {
+      "file": "engine/companion-dalmatian-v2.ts",
+      "sha256": "056af2440da67e398ccd0437969922d5faf13033e18cbddef479fac1f75b61ee"
+    },
+    {
+      "file": "engine/companion-emptyback-breeding.ts",
+      "sha256": "1c97c2c227016f23f7991bd87c7ff3913ae87babee04ee059c0f181c62e25d24"
+    },
+    {
+      "file": "engine/companion-whitewall.ts",
+      "sha256": "af2f1b16330f39c8c86cf82e9ebeef344ba7ee5b2957fd89fe12efdd891b24db"
+    },
+    {
+      "file": "engine/companion-patterns-v4.ts",
+      "sha256": "bd132476f04483bcf41d6dcce77a5d87b4246ab96661032ca621060372a0d53f"
+    },
+    {
+      "file": "engine/companion-stripes-v5.ts",
+      "sha256": "25ab8329c4a292a9ad1faefc04ad197955fa8c8955d73a33a04d7d9132b38df1"
+    },
+    {
+      "file": "engine/origin-flame.ts",
+      "sha256": "7a62c839025412acf59f79a8d222937033e55a507a57722c0f92cec0ccf540e9"
+    },
+    {
+      "file": "engine/art/pigment-materials.ts",
+      "sha256": "81aa8acb2a74caefc253dfb509e783fb9aa56a2f36ca99ec9b3f465ada0f90df"
+    },
+    {
+      "file": "engine/companion-pinstripe.ts",
+      "sha256": "7cc736e83b0df13c522edb0ec47e91f2dd5e409dc8210b4f0e889c272d8552de"
+    },
+    {
+      "file": "engine/companion-pigment.ts",
+      "sha256": "1b919b9cdc4cfd7698f214a91d0b533eb9b5979f64f0422fd18615d12021b9be"
+    },
+    {
+      "file": "engine/companion-dalmatian.ts",
+      "sha256": "855d1d0e5f6035ebe81aa1f34407feab3e609298d5d9fa499e5f4246ea092358"
+    },
+    {
+      "file": "engine/companion-patterns-breeding.ts",
+      "sha256": "44649df5cd2085852f353d41ad41747e43b7ac60540862e646f7fdbb2df8cc0f"
+    },
+    {
+      "file": "engine/companion-patterns-v3.ts",
+      "sha256": "6f8e23ab38dbbe07120366bef4c6188c3821e4737182a0c034222526d799570a"
+    },
+    {
+      "file": "engine/companion-stripes-v4.ts",
+      "sha256": "4a733cf8a5022b3605cc7a938e352301990504da0694c78625df872132d59284"
+    },
+    {
+      "file": "engine/art/flame-reference.ts",
+      "sha256": "02820c718cccf097392cd9cfe2358b72700b90752940df286f11c746f14ba3ca"
+    },
+    {
+      "file": "engine/flame-variants.ts",
+      "sha256": "50f2ac916ca0718f6e6ce3d3070fcf54a88af487ee414f2ba42c3d79bfab595e"
+    },
+    {
+      "file": "engine/companion-tricolor-breeding.ts",
+      "sha256": "f629af534da8d49237b90a5f3d27d93c5ab724125c961ab7949ec668bc0a2387"
+    },
+    {
+      "file": "engine/companion-stripes-v3.ts",
+      "sha256": "960f154c5f168197d253355fc84cb573fa7ebdf31d1e46e100e5fd62bc9d029f"
+    },
+    {
+      "file": "engine/companion-cappuccino-breeding.ts",
+      "sha256": "189fb1ababf5f934dd94c25ed9d35a3ffa2047e62b05074203eeb1ec57bfb5b0"
+    },
+    {
+      "file": "engine/companion-pinstripe-breeding.ts",
+      "sha256": "09407cf7e2dce440467ea666801b9dd579e0b534d83e54c33ac6bd22393698d8"
+    },
+    {
+      "file": "engine/companion-dalmatian-v3-breeding.ts",
+      "sha256": "f3af2b096897e2c7568f3ee1bc4fb017a5967ecaa5717042dc3510a0b7260589"
+    },
+    {
+      "file": "engine/companion-dalmatian-v2-breeding.ts",
+      "sha256": "ae7af27e7d4f34a1f43a7dd4be3713943fc2672ed6dc72c96dfcb3366f47473b"
+    },
+    {
+      "file": "engine/companion-dalmatian-breeding.ts",
+      "sha256": "b71b79d8a173182a06e780ed76e73823a2e19141220febbe289f5fcbbc4b6d7e"
+    },
+    {
+      "file": "engine/companion-pigment-breeding.ts",
+      "sha256": "a70ee0e1d238088b059c5da588c5329e9987cf8cf818c54111d9ad42229da0f9"
+    },
+    {
+      "file": "engine/companion-lilly-breeding.ts",
+      "sha256": "dd652ec3624f0a35421a2e1ca80873fcde894ec938472eaa962578689bb6d37c"
+    },
+    {
+      "file": "engine/companion-lilly-veil-breeding.ts",
+      "sha256": "d05ffa122d4052ebf08f0b9d3304c344b84b1f984e7827828c23fea782ceb3cc"
+    },
+    {
+      "file": "engine/companion-breeding.ts",
+      "sha256": "a30f8da9d85d09c8d7b8db45100cc81879698c7be595b6c0122b8c42b1025df9"
+    }
+  ]
+}

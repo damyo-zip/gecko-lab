@@ -6,6 +6,7 @@ import { LAYER_ORDER, type GeckoSpecimen, type LayerName } from "@/engine/model"
 import { renderSprite, renderLegacySprite } from "@/engine/render";
 import type { GrowthStage } from "@/game/model";
 import styles from "./sprite-canvas.module.css";
+import {forgeSurface} from '@/forge/surface';
 
 const GROWTH_SCALE: Record<GrowthStage,number> = {hatchling:.5,juvenile:.75,adult:1};
 
@@ -13,7 +14,7 @@ export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testI
   specimen: GeckoSpecimen; scale?: 1 | 3 | 4; enabled?: readonly LayerName[]; testId?: string;renderer?:"current"|"legacy";growthStage?:GrowthStage;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const sprite = useMemo(() => (renderer==="legacy"?renderLegacySprite:renderSprite)(specimen, enabled), [specimen, enabled,renderer]);
+  const sprite = useMemo(() => renderer==='current'?(forgeSurface(specimen)??renderSprite(specimen,enabled)):renderLegacySprite(specimen,enabled), [specimen, enabled,renderer]);
   const [error, setError] = useState("");
   useEffect(() => {
     try {

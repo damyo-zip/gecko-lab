@@ -3,7 +3,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {startRush,stepRush,rushPlan,rushFinishAt} from '../src/game/rush';
-import {rushShiftGame} from './fixtures/rush-shifts';
+import {rushShiftGame} from './helpers/forge-fixtures';
 import {touch,finishTurn} from './helpers/hardcore-navigation';
 
 test.setTimeout(120_000);

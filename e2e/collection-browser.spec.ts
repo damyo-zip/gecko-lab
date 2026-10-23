@@ -1,7 +1,7 @@
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {referenceHomeGame,REFERENCE_DATE} from './fixtures/reference-home';
-import {collectionStatusGame} from './fixtures/collection-status';
+import {referenceHomeGame,REFERENCE_DATE} from './helpers/forge-fixtures';
+import {collectionStatusGame} from './helpers/forge-fixtures';
 import {touch,navigateGame,openCollectionCatalog,expandCollectionFilters,chooseBreedingParent} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {valueGecko} from '../src/game/hardcore/market';
@@ -11,7 +11,8 @@ import {validateGame} from '../src/game/hardcore/validation';
 import {owned,reserved} from '../src/game/hardcore/survival';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {act} from '../src/game/hardcore/play';
-import {challengeClutch,challengeTurn} from '../tests/helpers/challenge-game';
+import {forgeChallengeClutch as challengeClutch} from '../tests/helpers/forge-challenge-game';
+import {challengeTurn} from '../tests/helpers/challenge-game';
 
 test.setTimeout(90_000);
 function manyGame(count=37){

@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,7 +23,12 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e -- --workers=2
+      # Three browser partitions cover every case once, in separate artifact dirs.
+      # Check cross-font layout first so a regression fails before the long suite.
+      - run: npm run test:e2e -- e2e/gen-family-popup.spec.ts --workers=2 --grep "full lineage tab retains" --output=test-results/lineage-layout
+      # Real-time Rush frame/tap measurements need an uncontended browser.
+      - run: npm run test:e2e -- --workers=2 --grep-invert "rush|full lineage tab retains" --output=test-results/functional
+      - run: npm run test:e2e -- --workers=1 --grep rush --output=test-results/rush
       - uses: actions/upload-artifact@v4
         if: always()
         with:

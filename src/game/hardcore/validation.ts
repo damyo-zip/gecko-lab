@@ -18,6 +18,7 @@ import { validateHealth, HEALTH_LOCI, inheritHealth } from '@/genetics/health';
 import type { Embryo } from './model';
 import { projectBroodCare, validateBroodCare } from './brood-care-validation';
 import {validateRush} from '@/game/rush';
+import {validateForge,inheritForge,validateForgeChild} from './forge-genetics';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
 function fail():never {throw new Error("저장 유전체·공개 지식·유전 상속 기록이 손상되었습니다.");}
@@ -26,7 +27,8 @@ function keys(value:unknown,expected:string):void {
 }
 const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false):asserts record is GeneticsRecord {
-  keys(record,"version genome knowledge appearanceVersion"+(allowRisk&&Object.hasOwn(record??{},'unresolvedComplex')?' unresolvedComplex':''));if(record!.version!==1)fail();
+  keys(record,"version genome knowledge appearanceVersion"+(allowRisk&&Object.hasOwn(record??{},'unresolvedComplex')?' unresolvedComplex':'')+(Object.hasOwn(record??{},'forge')?' forge':''));if(record!.version!==1)fail();
+  if(Object.hasOwn(record!,'forge'))validateForge(record!.forge);
   validateKnowledge(record!.knowledge);
   if(record!.genome===null){if(record!.appearanceVersion!=="legacy-1")fail();
     if(Object.hasOwn(record!,'unresolvedComplex')&&(!Array.isArray(record!.unresolvedComplex)||record!.unresolvedComplex.length!==2||record!.unresolvedComplex.some(a=>a!==null&&!LOCI[2].alleles.includes(a))))fail();return;}
@@ -40,6 +42,7 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
 export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(!value||typeof value!=="object"||![5,6,7,8,9,10].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
+  if(Object.hasOwn(game,'forge')){keys(game.forge,'version');if(game.forge?.version!==1)fail();delete base.forge;}
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
   }
@@ -60,6 +63,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   const all=[...relatives,...Object.values(game.individuals??{}),...Object.values(game.eggs??{}).map(e=>e.embryo),...Object.values(game.shop?.offers??{}).map(o=>o.individual),...Object.values(game.matings??{}).flatMap(m=>m.lifecycle?.offspring.map(o=>o.embryo)??[])];
   for(const g of all){
     if(!Object.hasOwn(g,"genetics"))fail();validateGenetics(g.genetics,game.saveVersion>=9);
+    if(game.forge&&!g.genetics.forge)fail();
     if(game.saveVersion>=9){
       validateHealth(g.healthGenome!);
       if(g.parents){const f=individuals[g.parents.fatherId],m=individuals[g.parents.motherId];
@@ -69,6 +73,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     if(g.genetics.genome){advancedIds.add(g.id);const expected=legacyTraits(polyScores(g.genetics.genome.polygenic));
       if(!equal(cachedGenotype(g.genetics,g.genotype),g.genotype)||TRAIT_KEYS.some(k=>!Number.isFinite(g.potential[k])||Math.abs(expected[k]-g.potential[k])>1e-12))fail();}
     if(g.parents){const f=individuals[g.parents.fatherId],m=individuals[g.parents.motherId];if(!f||!m)fail();
+      validateForgeChild(g.genetics.forge,f.genetics?.forge,m.genetics?.forge);
       if(g.genetics.genome){const fp=f.genetics?.genome?.polygenic,mp=m.genetics?.genome?.polygenic;if(!fp||!mp)fail();
         if((f.genetics!.appearanceVersion==="patterns-1"||m.genetics!.appearanceVersion==="patterns-1")&&g.genetics.appearanceVersion!=="patterns-1")fail();
         for(const id of POLY_IDS){const [a,b]=g.genetics.genome.polygenic.loci[id];if(!fp.loci[id].includes(a)||!mp.loci[id].includes(b))fail();}}
@@ -98,6 +103,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     if(!Object.hasOwn(m,"genetics"))fail();if(m.genetics===null)continue;
     keys(m.genetics,"father mother observedIds updates");validateGenetics(m.genetics!.father,game.saveVersion>=9);validateGenetics(m.genetics!.mother,game.saveVersion>=9);
     const f=game.individuals[m.parents.fatherId],mo=game.individuals[m.parents.motherId];
+    if(!equal(f.genetics?.forge,m.genetics!.father.forge)||!equal(mo.genetics?.forge,m.genetics!.mother.forge))fail();
     if(!equal(f.genetics?.genome,m.genetics!.father.genome)||!equal(mo.genetics?.genome,m.genetics!.mother.genome)||game.saveVersion<9&&advancedSafety(f,mo).length)fail();
     const observed=m.genetics!.observedIds,eggs=Object.values(game.eggs).filter(e=>e.matingId===m.id),maxObserved=m.lifecycle?.offspring.length??2;
     if(!Array.isArray(observed)||new Set(observed).size!==observed.length||observed.length>maxObserved||observed.some(id=>!eggs.some(e=>e.embryo.id===id&&e.status==="hatched")))fail();
@@ -105,11 +111,12 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     for(const u of m.genetics!.updates){keys(u,"id before after");if(u.id!==f.id&&u.id!==mo.id)fail();validateKnowledge(u.before);validateKnowledge(u.after);}
     const fg=m.genetics!.father.genome,mg=m.genetics!.mother.genome;
     for(const e of eggs){const child=e.embryo.genetics!.genome;
+      if(!equal(e.embryo.genetics?.forge,inheritForge(m.genetics!.father.forge,m.genetics!.mother.forge,e.seed)))fail();
       if(fg&&mg){if(!child||!equal(child.mendelian,inherit(fg.mendelian,mg.mendelian,e.seed))||!equal(child.polygenic,inheritPoly(fg.polygenic,mg.polygenic,e.seed)))fail();}
       else if(child!==null)fail();
     }
   }
-  for(const e of Object.values(game.eggs)){const child=game.individuals[e.embryo.id];if(child&&!equal(child.genetics?.genome,e.embryo.genetics?.genome))fail();}
+  for(const e of Object.values(game.eggs)){const child=game.individuals[e.embryo.id];if(child&&(!equal(child.genetics?.genome,e.embryo.genetics?.genome)||!equal(child.genetics?.forge,e.embryo.genetics?.forge)))fail();}
   if(game.saveVersion>=9){
     for(const g of [...Object.values(game.individuals),...Object.values(game.shop.offers).map(o=>o.individual)]){
       if(Object.hasOwn(g,'development')||g.genotype.loci['lilly-white'].every(a=>a==='Lw'))fail();
@@ -137,6 +144,7 @@ function validateShop(game:HardcoreGame):void {
     }
     const child=game.individuals[id];
     if(o.purchased){
+      if(child&&!equal(child.genetics?.forge,o.individual.genetics?.forge))fail();
       if(!child||!equal(child.genetics?.genome,o.individual.genetics?.genome)||!equal(child.genotype,o.individual.genotype)||
         (!equal(child.parents,o.individual.parents)||game.saveVersion>=9&&!equal(child.healthGenome,o.individual.healthGenome))||child.visualSeed!==o.individual.visualSeed||child.birthTurn!==o.individual.birthTurn||child.birthDate!==o.individual.birthDate||child.generation!==o.individual.generation||child.sex!==o.individual.sex)fail();
     }else if(child)fail();
@@ -149,10 +157,12 @@ function validateShop(game:HardcoreGame):void {
     for(const p of [f.father,f.mother]){
       if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<12||f.matingTurn-p.birthTurn>=60)fail();
       const archived=game.individuals[p.id];if(archived&&(!equal(archived.genetics?.genome,p.genetics?.genome)||game.saveVersion>=9&&!equal(archived.healthGenome,p.healthGenome)||archived.visualSeed!==p.visualSeed||archived.sex!==p.sex||archived.birthTurn!==p.birthTurn))fail();
+      if(archived&&!equal(archived.genetics?.forge,p.genetics?.forge))fail();
       if(o.purchased&&!archived)fail();
     }
     if(f.father.sex!=="male"||f.mother.sex!=="female"||!equal(o.individual.parents,{fatherId:f.father.id,motherId:f.mother.id})||advancedSafety(f.father,f.mother).length)fail();
     const fg=f.father.genetics?.genome,mg=f.mother.genetics?.genome,cg=o.individual.genetics?.genome;
+    if(!equal(o.individual.genetics?.forge,inheritForge(f.father.genetics?.forge,f.mother.genetics?.forge,f.seed)))fail();
     if(!fg||!mg||!cg||!equal(cg.mendelian,inherit(fg.mendelian,mg.mendelian,f.seed))||!equal(cg.polygenic,inheritPoly(fg.polygenic,mg.polygenic,f.seed)))fail();
   }
 }

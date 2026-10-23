@@ -1,6 +1,7 @@
+import {productionSprite,productionName,productionDescription,productionAppearance} from './helpers/forge';
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {incubatorFixture} from './fixtures/incubator-reference';
+import {incubatorFixture} from './helpers/forge-fixtures';
 import {act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
 import {exportBackup} from '../src/game/hardcore/save';
@@ -24,7 +25,7 @@ function hash(pixels:ArrayLike<number>){let h=2166136261;for(let i=0;i<pixels.le
 async function sameSprite(root:Locator,g:Gecko){
  const canvas=root.locator('canvas');await expect(canvas).toHaveCount(1);
  const actual=await canvas.evaluate(node=>{const c=node as HTMLCanvasElement,ctx=c.getContext('2d')!,p=ctx.getImageData(0,0,c.width,c.height).data,f=c.width/96;let h=2166136261;for(let y=0;y<96;y++)for(let x=0;x<96;x++)for(let n=0;n<4;n++)h=Math.imul(h^p[((y*f)*c.width+x*f)*4+n],16777619);return {hash:h>>>0,smoothing:ctx.imageSmoothingEnabled};});
- expect(actual).toEqual({hash:hash(renderSprite(specimen(g)).pixels),smoothing:false});
+ expect(actual).toEqual({hash:hash(productionSprite(g).pixels),smoothing:false});
 }
 test('egg selection shows actual mother on left and father on right, changes immediately and never settles an egg',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),g=incubatorFixture(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await boot(page,g,mobile);
@@ -37,7 +38,7 @@ test('egg selection shows actual mother on left and father on right, changes imm
   const ids=egg.embryo.parents!,mother=g.individuals[ids.motherId],father=g.individuals[ids.fatherId];
   for(const [sex,parent] of [['female',mother],['male',father]] as const){
    const root=page.getByTestId('incubator-parent-'+sex);await expect(root).toHaveAttribute('data-parent-id',parent.id);await expect(root).toContainText(parent.name);await sameSprite(root,parent);
-   await expect(page.getByTestId('incubator-parent-info')).toContainText(visualName(parent));
+   await expect(page.getByTestId('incubator-parent-info')).toContainText(productionName(parent));
   }
   const a=(await page.getByTestId('incubator-parent-female').boundingBox())!,b=(await page.getByTestId('incubator-parent-male').boundingBox())!;expect(a.x+a.width).toBeLessThan(b.x);
   expect(await saved(page)).toEqual(g);

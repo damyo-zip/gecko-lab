@@ -1,11 +1,12 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newGame,act} from '../src/game/hardcore/play';
+import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
 import {BREEDING_CHALLENGES} from '../src/game/hardcore/challenge-rules';
-import {challengePreview} from '../src/game/hardcore/challenge-previews';
-import {renderSprite} from '../src/engine/render';
+import {forgeChallengePreview as challengePreview} from '../src/game/hardcore/challenge-previews';
+import {forgeSurface as renderSprite} from '../src/forge/surface';
 import {exportBackup} from '../src/game/hardcore/save';
-import {challengeClutch,challengeTurn} from '../tests/helpers/challenge-game';
+import {forgeChallengeClutch as challengeClutch} from '../tests/helpers/forge-challenge-game';
+import {challengeTurn} from '../tests/helpers/challenge-game';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {navigateGame,touch} from './helpers/hardcore-navigation';
 const DATE='2026-10-16';
@@ -48,7 +49,7 @@ test('five reference sprites match real renderer pixels, fit beside the copy and
   const game=act(newGame('challenge-preview-browser',DATE),{type:'selectChallenge',challengeId:c.id},DATE);
   await restore(page,game,mobile);const before=await saved(page),canvas=page.getByTestId('challenge-preview');
   await expect(canvas).toBeVisible();
-  const expected=Array.from(renderSprite(challengePreview(c.id)).pixels);
+  const expected=Array.from(renderSprite(challengePreview(c.id))!.pixels);
   // Read one pixel from each nearest-neighbour 3×3 block; no substitute image.
   await expect.poll(()=>canvas.evaluate((el)=>{
    const c=el as HTMLCanvasElement,ctx=c.getContext('2d')!,rgba=ctx.getImageData(0,0,c.width,c.height).data,result:number[]=[];
@@ -130,7 +131,7 @@ test('goal picker shows all five matching live previews with readable mobile cop
    const canvas=el as HTMLCanvasElement,rgba=canvas.getContext('2d')!.getImageData(0,0,canvas.width,canvas.height).data,result:number[]=[];
    for(let y=0;y<96;y++)for(let x=0;x<96;x++){const i=((y*3+1)*canvas.width+x*3+1)*4;result.push(...rgba.slice(i,i+4));}
    return result;
-  })).toEqual(Array.from(renderSprite(challengePreview(c.id)).pixels));
+  })).toEqual(Array.from(renderSprite(challengePreview(c.id))!.pixels));
  }
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:800});expect(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);

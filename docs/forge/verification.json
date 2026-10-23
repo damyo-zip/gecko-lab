@@ -1,0 +1,141 @@
+{
+  "schema": "gecko-forge-migration-verification",
+  "version": 1,
+  "date": "2026-10-23",
+  "baseCommit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+  "renderer": "b-origin-01-companion-lineage-1",
+  "baseline": {
+    "unitCases": 371,
+    "note": "370 passed in the initial sandbox run; all 7 art tests passed on retry with child-process permissions."
+  },
+  "checks": {
+    "typecheck": "passed",
+    "build": "passed",
+    "authoredPngRuntimeHashes": "matched",
+    "vendorSourceHashes": 62,
+    "approvedNativeRgbaSamples": 30
+  },
+  "unit": {
+    "files": 37,
+    "passed": 419,
+    "failed": 0
+  },
+  "browser": {
+    "uniqueMatrixCases": 274,
+    "projects": [
+      "mobile-chromium 360x800",
+      "desktop-chromium 1280x900"
+    ],
+    "fullRun": {
+      "workers": 2,
+      "passed": 260,
+      "failed": 14
+    },
+    "resolvedMatrixCases": {
+      "workers": 1,
+      "passed": 14,
+      "failed": 0,
+      "note": "Updated intentional renderer/metadata expectations, scoped duplicate-name locators, fixed refresh cooldown, and isolated real-time frame/tap checks."
+    },
+    "affectedUiRun": {
+      "cases": 22,
+      "passed": 20,
+      "staleCopyAssertions": 2
+    },
+    "resolvedCopyAssertions": {
+      "passed": 2,
+      "failed": 0
+    },
+    "nativeGameplay": {
+      "seedSamples": 16,
+      "morphFamilies": 8,
+      "bodyRgba": "exact",
+      "background": "presentation-only transparency"
+    },
+    "note": "Counts are unique coverage plus explicit scoped rechecks, not a claim that all 274 passed in one final invocation. CI runs the full functional and serial Rush partitions."
+  },
+  "migrationEvidence": [
+    "v10 exact raw archive and one-time load",
+    "legacy v4/v5/v6/v7/v9 archives",
+    "pending conception and collected/uncollected eggs",
+    "historical sale and challenge evidence",
+    "Rush receipt ledger",
+    "unknown DNA stays unknown",
+    "128-character game seed and unchanged original RNG",
+    "actual inherited five-goal hatches"
+  ],
+  "visualReview": {
+    "beforeCommit": "c934363f854b47c154d8d8127d6d23abbe692e9e",
+    "sameLegacySpecimens": 6,
+    "viewport": 390,
+    "originalBuildBrowserCase": "passed",
+    "screenshots": "local-only; excluded from Git"
+  },
+  "limits": [
+    "Extended modifier inheritance is connected; public-probability UI still uses the existing three disclosed loci.",
+    "C/S/H allelism and modifier loci retain their declared provisional/game-only assumptions."
+  ],
+  "presentationFollowup": {
+    "representativeMorphs": "One priority-selected label; full observations remain searchable and available in details.",
+    "shopNicknames": "Deterministic independent naming stream for new catalogs; existing saved names remain unchanged.",
+    "typecheck": "passed",
+    "build": "passed",
+    "authoredPngRuntimeHashes": "matched",
+    "unit": {
+      "files": 39,
+      "uniqueCases": 434,
+      "fullRun": {
+        "passed": 433,
+        "failed": 1,
+        "reason": "Existing 5-second family test exceeded its timeout while the build ran concurrently."
+      },
+      "scopedRerun": {
+        "passed": 26,
+        "failed": 0,
+        "files": [
+          "shop-family",
+          "forge-display",
+          "shop-nicknames"
+        ]
+      },
+      "ciRun": {
+        "run": 39894598326,
+        "passed": 434,
+        "failed": 0
+      }
+    },
+    "browser": {
+      "passed": 12,
+      "failed": 0,
+      "projects": [
+        "mobile-chromium",
+        "desktop-chromium"
+      ],
+      "specs": [
+        "gen-family-popup",
+        "morph-display",
+        "forge-integration"
+      ],
+      "ciFunctional": {
+        "run": 39894598326,
+        "passed": 238,
+        "failed": 2,
+        "reason": "Text wrapping at 430px changed family-section intrinsic height by one line."
+      },
+      "fontStressRecheck": {
+        "passed": 2,
+        "failed": 0,
+        "viewports": [
+          360,
+          390,
+          430
+        ],
+        "fonts": [
+          "default",
+          "monospace with extra letter spacing"
+        ]
+      }
+    },
+    "layoutRegression": "Exact original markup, widths, top position and section gaps; all text-driven heights are checked through live content containment and non-overlap, including alternate-font passes at 360/390/430px."
+  }
+}

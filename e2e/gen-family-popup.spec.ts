@@ -1,11 +1,12 @@
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {mkdir} from 'node:fs/promises';
-import {lineageFixture} from './fixtures/lineage-reference';
+import {lineageFixture} from './helpers/forge-fixtures';
 import {exportBackup} from '../src/game/hardcore/save';
 import {act} from '../src/game/hardcore/play';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 import {touch,navigateGame} from './helpers/hardcore-navigation';
+import {visualName} from '../src/game/hardcore/adapter';
 
 const family=(p:Page)=>p.getByRole('dialog',{name:'가족 혈통도',exact:true});
 const current=(p:Page)=>family(p).locator('.album-tree-cell.is-current .album-tree-card');
@@ -52,9 +53,65 @@ test('existing descendants, archived parents and other-individual picker navigat
 test('full lineage tab retains the original selected info, family, comparison markup and geometry',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=lineageFixture();await restore(page,f.game,mobile);await navigateGame(page,'혈통도',mobile);await page.getByLabel('혈통을 볼 개체',{exact:true}).selectOption(f.selectedId);
  const baseline=JSON.parse(readFileSync('docs/gen-family-popup/full-before-'+info.project.name+'.json','utf8'));
+ for(const fontStress of [false,true]){
+ const fontStyle=fontStress?await page.addStyleTag({content:'.album-selected-facts dd,.album-scroll-note{font-family:monospace!important;letter-spacing:.7px!important}'}):null;
+ try{
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});await page.locator('.reference-content').evaluate(n=>n.scrollTop=0);
-  const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,html:n.outerHTML,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));expect(actual).toEqual(baseline[width]);
+  for(const node of await page.locator('.album-tree-card,.album-compare-card').all()){
+   const id=(await node.getAttribute('data-id'))!;await expect(node).toContainText(visualName(f.game.individuals[id]));
+   await expect(node.locator('canvas')).toHaveAttribute('data-renderer-version','b-origin-01-companion-lineage-1');
+  }
+  await expect(page.locator('.album-selected-facts dl>div:first-child>dd')).toHaveText(visualName(f.game.individuals[f.selectedId]));
+  expect(await page.locator('.album-selected-facts dd,.album-compare-caption p').evaluateAll(nodes=>nodes.every(n=>n.scrollWidth<=n.clientWidth+1))).toBe(true);
+  const selected=(await page.locator('.album-selected').boundingBox())!;
+  const factRows=await page.locator('.album-selected-facts dl>div,.album-selected-facts>button').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
+  for(const [i,row] of factRows.entries()){
+   expect(row.x).toBeGreaterThanOrEqual(selected.x);expect(row.x+row.width).toBeLessThanOrEqual(selected.x+selected.width);
+   expect(row.y+row.height).toBeLessThanOrEqual(selected.y+selected.height);
+   if(i>0)expect(row.y).toBeGreaterThanOrEqual(factRows[i-1].y+factRows[i-1].height);
+  }
+  for(const section of await page.locator('.album-selected,.album-family,.album-comparison').all()){
+   const bounds=(await section.boundingBox())!;
+   expect(await section.evaluate(n=>n.scrollWidth<=n.clientWidth+1)).toBe(true);
+   let previousBottom=bounds.y;
+   for(const child of await section.locator(':scope > *').all()){
+    const box=(await child.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(bounds.x);expect(box.x+box.width).toBeLessThanOrEqual(bounds.x+bounds.width+1);
+    expect(box.y).toBeGreaterThanOrEqual(previousBottom-1);expect(box.y+box.height).toBeLessThanOrEqual(bounds.y+bounds.height+1);
+    previousBottom=box.y+box.height;
+   }
+  }
+  // New morph names can wrap onto extra lines, depending on the browser font.
+  // Verify live labels above, then measure with the original labels so the
+  // unchanged layout is compared using identical text on every runner.
+  const labels='.album-tree-morph,.album-selected-facts dl>div:first-child>dd,.album-compare-caption>p';
+  const liveLabels=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll((nodes,{rows,selector})=>nodes.map((node,i)=>{
+   const reference=new DOMParser().parseFromString(rows[i].html,'text/html');
+   const originals=Array.from(reference.querySelectorAll(selector));
+   return Array.from(node.querySelectorAll(selector)).map((label,j)=>{const live=label.textContent;label.textContent=originals[j].textContent;return live;});
+  }),{rows:baseline[width] as {html:string}[],selector:labels});
+  try{
+  const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,html:n.outerHTML,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));
+  // Keep the original markup, widths, top position and section spacing.
+  // All three sections contain wrapping text; their natural heights vary with
+  // fallback fonts. Verify live content containment instead of frozen heights,
+  // including an explicit alternate-font pass on every viewport.
+  const layout=(rows:typeof actual)=>rows.map((r,i)=>({...r,rect:{...r.rect,
+   height:undefined,
+   y:i===0?r.rect.y:r.rect.y-rows[i-1].rect.y-rows[i-1].rect.height},html:r.html
+   .replace(/data-renderer-version="[^"]+"/g,'data-renderer-version="appearance"')
+   .replace(/(<span class="album-tree-morph">)[^<]*(<\/span>)/g,'$1appearance$2')
+   .replace(/(<dt>모프<\/dt><dd>)[^<]*(<\/dd>)/g,'$1appearance$2')
+   .replace(/(<div class="album-compare-caption">[\s\S]*?<p>)[^<]*(<\/p>)/g,'$1appearance$2')}));
+  expect(layout(actual)).toEqual(layout(baseline[width]));
+  }finally{
+   await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll((nodes,{rows,selector})=>nodes.forEach((node,i)=>{
+    node.querySelectorAll(selector).forEach((label,j)=>{label.textContent=rows[i][j];});
+   }),{rows:liveLabels,selector:labels});
+  }
+ }
+ }finally{await fontStyle?.evaluate(n=>n.parentNode?.removeChild(n));}
  }
  await expect(page.locator('.breeding-challenge-panel')).toBeVisible();await expect(page.locator('.album-save-note')).toHaveCount(1);expect(await saved(page)).toEqual(f.game);
 });

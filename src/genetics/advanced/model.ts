@@ -39,6 +39,8 @@ export interface Belief {
 export interface Knowledge { version: 1; loci: Record<string, Belief> }
 export interface GeneticsRecord {
   version: 1;
+  /** Approved replacement engine; old saves may omit it and retain unknown copies. */
+  forge?: import('@/game/hardcore/forge-model').ForgeGenetics;
   /** Old numeric traits cannot reconstruct virtual alleles. null preserves the old model. */
   genome: Genome | null;
   knowledge: Knowledge;

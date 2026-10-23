@@ -1,6 +1,6 @@
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
-import {referenceHomeGame,REFERENCE_DATE} from './fixtures/reference-home';
+import {referenceHomeGame,REFERENCE_DATE} from './helpers/forge-fixtures';
 import {touch,openCollectionCatalog,expandCollectionFilters} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {valueGecko} from '../src/game/hardcore/market';

@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
-import {newGame,act} from '../src/game/hardcore/play';
+import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
 import {exportBackup} from '../src/game/hardcore/save';
 import {breedingRisk} from '../src/game/hardcore/breeding-risk';

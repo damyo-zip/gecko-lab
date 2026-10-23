@@ -9,7 +9,7 @@ import {SpriteCanvas} from "../sprite-canvas";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
 import {isV12,lifeStage,foodDemand} from "@/game/hardcore/lifecycle";
-import {PATTERN_FILTERS} from "@/phenotype/rules";
+import {collectionPatternFilters} from "./collection-query";
 import {collectionAge,collectionEntries,collectionMorph,COLLECTION_MORPHS,COLLECTION_SORTS,type CollectionSort} from "./collection-query";
 import {CardActionDialog,type CardAction} from "./card-actions";
 import {CollectionCatalog} from "./collection-catalog";
@@ -45,7 +45,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
     </div>
     <div className="home-inventory home-frame">
       <div className="home-inventory-heading"><h1><HomeIcon name="leaf" size={21}/>보유 개체 <small>{animals.length} / {game.capacity}</small></h1>
-        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{PATTERN_FILTERS.map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select>
+        <div className="home-filters"><select aria-label="모프 필터" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{collectionPatternFilters(!!game.forge).map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select>
           <select aria-label="개체 정렬" value={sort} onChange={e=>setSort(e.target.value as CollectionSort)}>{Object.entries(COLLECTION_SORTS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select>
           <button className="home-frame" aria-label="전체 개체 열기" aria-haspopup="dialog" onClick={()=>onCatalog(true)}><HomeIcon name="grid" size={18}/></button></div>
       </div>
