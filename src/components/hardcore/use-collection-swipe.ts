@@ -17,14 +17,22 @@ export function useCollectionSwipe(move:(direction:number)=>void){
    const g=gesture.current;if(!g||g.id!==e.pointerId)return;
    const dx=Math.abs(e.clientX-g.x),dy=Math.abs(e.clientY-g.y);
    if(!g.axis&&Math.max(dx,dy)>12)g.axis=dx>dy*1.4?'x':'y';
-   if(g.axis==='x'){e.preventDefault();if(!e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.setPointerCapture(e.pointerId);}
+   if(g.axis==='x'){
+    e.preventDefault();
+    // Touch already keeps the initial control captured until the finger lifts.
+    if(e.pointerType!=='touch'&&!e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.setPointerCapture(e.pointerId);
+   }
   },
   onPointerUpCapture:(e:PointerEvent<HTMLDivElement>)=>{
    const g=gesture.current;clear();if(!g||g.id!==e.pointerId)return;
+   if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
    const dx=e.clientX-g.x,dy=e.clientY-g.y;
    if(g.axis==='x'){
+    e.preventDefault();
     suppress.current=performance.now()+400;
-    if(Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.4)move(dx<0?1:-1);
+    // Leave the original touch target mounted until native touchend finishes.
+    // Removing it during pointerup can swallow the next control's native click.
+    if(Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.4)requestAnimationFrame(()=>move(dx<0?1:-1));
    }
   },
   onPointerCancelCapture:clear,
