@@ -95,3 +95,16 @@
 .installAddress button { padding:5px 9px; min-height:42px; color:#dcf0d0; background:#2c463d; border:1px solid #6c9779; border-radius:5px; font-size:11px; font-weight:700; }
 .installGuide .copyMessage { color:#b9e2a8; }
 .installGuide .installCaution { margin:13px 0 0; color:#92a8b1; font-size:10px; }
+
+/* Minimal entry UI; detailed help appears only on demand. */
+.hero { padding: 27px 16px 24px; }
+.hero > img { margin-top: 0; }
+.hero .subtitle { margin-bottom: 16px; }
+.panel { padding: 23px 22px 18px; }
+.panel h1 { margin: 0 0 7px; }
+.panel > .intro { margin: 0 0 17px !important; font-size: 12px; color: #b4c2c2; line-height: 1.6; }
+.panel > .save { margin: 15px 0 0; font-size: 10px; color: #92a7aa; line-height: 1.6; }
+.installGuide .installGuideTitle strong { color: #e1f0d6; }
+.installGuide p { margin: 7px 0; }
+.copyButton { display:block; min-height:40px; width:100%; margin-top:12px; border-radius:5px; background:#263e37; border:1px solid #658874; color:#d9e9d1; font-size:11px; font-weight:700; }
+.installMessage { color:#b2df9c; font-size:11px; line-height:1.6; margin:10px 0 0; }
