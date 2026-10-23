@@ -45,7 +45,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
     const next=Math.max(0,Math.min(pages-1,current+direction));
     if(next===current)return;
     setPage(next);setSelected(visible[next*6].id);
-  });
+  },JSON.stringify([filter,sort,stage]));
   const move=(direction:number)=>{const index=animals.findIndex(g=>g.id===selected?.id);select(animals[(index+direction+animals.length)%animals.length].id);};
   return <section className="home-collection" aria-label="홈 컬렉션">
     <div className="home-hero home-frame" data-testid="home-hero">
