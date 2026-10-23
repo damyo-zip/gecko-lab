@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import HardcoreHub from "@/components/hardcore/hub";
+import { OfflineShell } from "@/components/hardcore/offline";
 import styles from "./fullscreen-game-trial.module.css";
 
 type Stage = "ready" | "starting" | "playing";
@@ -155,6 +156,7 @@ export default function FullscreenGameTrial() {
   }
 
   return <main className={styles.shell} data-testid="fullscreen-play-entry">
+    <OfflineShell />
     <div className={styles.frame}>
       <div className={styles.hero}>
         <img src="/ui/home-wordmark.svg" width={290} height={48} alt="GECKO LAB" />
