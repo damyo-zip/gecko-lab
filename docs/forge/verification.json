@@ -97,6 +97,11 @@
           "forge-display",
           "shop-nicknames"
         ]
+      },
+      "ciRun": {
+        "run": 39894598326,
+        "passed": 434,
+        "failed": 0
       }
     },
     "browser": {
@@ -110,8 +115,27 @@
         "gen-family-popup",
         "morph-display",
         "forge-integration"
-      ]
+      ],
+      "ciFunctional": {
+        "run": 39894598326,
+        "passed": 238,
+        "failed": 2,
+        "reason": "Text wrapping at 430px changed family-section intrinsic height by one line."
+      },
+      "fontStressRecheck": {
+        "passed": 2,
+        "failed": 0,
+        "viewports": [
+          360,
+          390,
+          430
+        ],
+        "fonts": [
+          "default",
+          "monospace with extra letter spacing"
+        ]
+      }
     },
-    "layoutRegression": "Exact original markup, widths, family/comparison heights and spacing; selected text-panel height is checked by content containment instead of cross-platform font-dependent pixels."
+    "layoutRegression": "Exact original markup, widths, top position and section gaps; all text-driven heights are checked through live content containment and non-overlap, including alternate-font passes at 360/390/430px."
   }
 }
