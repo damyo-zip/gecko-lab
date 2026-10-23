@@ -52,7 +52,7 @@ test("failed fullscreen request shows a fallback without changing the URL", asyn
   await page.goto("/fullscreen-play");
   const before = page.url();
   await page.getByTestId("fullscreen-start").click();
-  await expect(page.getByRole("alert")).toContainText("Not allowed by host");
+  await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText("Not allowed by host");
   await expect(page.getByTestId("fullscreen-play-entry")).toBeVisible();
   await page.getByTestId("normal-start").click();
   await expect(page.getByRole("heading", { name: /^보유 개체/ })).toBeVisible();
@@ -65,7 +65,7 @@ test("unsupported fullscreen API still lets players launch the game", async ({ p
   });
   await page.goto("/fullscreen-play");
   await page.getByTestId("fullscreen-start").click();
-  await expect(page.getByRole("alert")).toContainText("지원하지 않아");
+  await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText("지원하지 않아");
   await page.getByTestId("normal-start").click();
   await expect(page.getByTestId("game-day")).toBeVisible();
 });
