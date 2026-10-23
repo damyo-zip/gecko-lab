@@ -12,7 +12,9 @@ function fixture(){
  for(const offerId of Object.keys(game.shop.offers))game=act(game,{type:'buyGecko',offerId},DATE);
  game.food=1;return game;
 }
-const original=fixture();
+// Build the real challenge history once as fixture setup, as the feeding
+// regressions do. Each assertion still runs against its own immutable clone.
+const original=fixture(),rewarded=breederRankGames()[3];
 test.each([false,true])('automatic purchase %s does not buy with sufficient stock',autoBuyFood=>{
  const game=structuredClone(original);game.food=20;
  const next=actWithTime(game,{type:'endTurn',autoBuyFood},DATE);
@@ -44,7 +46,7 @@ test('exact funds buy in full; later turns recompute demand; stale turn requests
  expect(second.money).toBe(next.money-demand.missing*next.rules.foodUnitPrice);expect(second.turn).toBe(next.turn+1);
 });
 test('completed challenge exemptions and external parents use the existing food demand unchanged',()=>{
- const game=structuredClone(breederRankGames()[3]);game.food=2;
+ const game=structuredClone(rewarded);game.food=2;
  const demand=foodDemand(game);expect(demand.exempt).toBe(3);
  const next=actWithTime(game,{type:'endTurn',autoBuyFood:true},game.lastDate);
  expect(next.money).toBe(game.money-demand.missing*game.rules.foodUnitPrice);expect(next.food).toBe(0);
