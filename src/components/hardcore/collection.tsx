@@ -34,8 +34,10 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
   const pages=Math.max(1,Math.ceil(visible.length/6)),current=Math.min(page,pages-1);
   const selected=animals.find(g=>g.id===selectedId)??visible[current*6]??animals[0];
   const art=useMemo(()=>selected?specimen(selected):null,[selected]);
-  useEffect(()=>{setPage(0);setSelected(visible[0]?.id??'');},[filter,sort,stage]);
-  useEffect(()=>{if(page>=pages){setPage(pages-1);setSelected(visible[(pages-1)*6]?.id??'');}},[page,pages,visible]);
+  // Filters reset paging while retaining the manager's existing global selection.
+  // Functional clamping must respect a queued reset when a filter reduces pages.
+  useEffect(()=>{setPage(0);},[filter,sort,stage]);
+  useEffect(()=>{setPage(previous=>Math.min(previous,pages-1));},[pages]);
   const select=useCallback((id:string)=>{setSelected(id);const index=visible.findIndex(g=>g.id===id);if(index>=0)setPage(Math.floor(index/6));},[visible]);
   const swipe=useCollectionSwipe(direction=>{
     if(busy)return;

@@ -42,14 +42,16 @@ export function ObservationDialog({gecko,onClose}:{gecko:Gecko;onClose:()=>void}
   <p className="observation-morph">{visualName(gecko)}</p>
  </Dialog>;
 }
-/** Per-image tap history: other animals, controls and drags cannot form a double tap. */
+/** Capture clicks without adding a nested clickable div: Chromium touch
+ * adjustment must keep the existing card/name button targets unchanged.
+ * Per-image tap history: other animals, controls and drags cannot form a double tap. */
 export function ObservationImage({gecko,children,className,single=false,inline=false}:{gecko:Gecko;children:ReactNode;className?:string;single?:boolean;inline?:boolean}){
  const {observe,lastTap:last}=useConvenience(),start=useRef({x:0,y:0,moved:false});
  const Tag=inline?'span':'div';
  return <Tag className={(className??'')+' observation-target'+(inline?' observation-inline':'')} onPointerDown={e=>{
   if(!e.isPrimary||e.button!==0){last.current.time=-Infinity;start.current.moved=true;return;}
   start.current={x:e.clientX,y:e.clientY,moved:false};
- }} onPointerMove={e=>{if(Math.hypot(e.clientX-start.current.x,e.clientY-start.current.y)>10){start.current.moved=true;last.current.time=-Infinity;}}} onPointerCancel={()=>{start.current.moved=true;last.current.time=-Infinity;}} onClick={e=>{
+ }} onPointerMove={e=>{if(Math.hypot(e.clientX-start.current.x,e.clientY-start.current.y)>10){start.current.moved=true;last.current.time=-Infinity;}}} onPointerCancel={()=>{start.current.moved=true;last.current.time=-Infinity;}} onClickCapture={e=>{
   if(start.current.moved)return;
   const now=performance.now(),previous=last.current;
   if(single||(previous.id===gecko.id&&now-previous.time<350&&Math.hypot(e.clientX-previous.x,e.clientY-previous.y)<24)){
