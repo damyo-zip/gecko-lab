@@ -24,8 +24,8 @@ export function founderRecord(genotype:Genotype,seed:string,subdued=false,appear
   for(const l of LOCI)knowledge.loci[l.id]=belief({[pairKey(mendelian.loci[l.id],l)]:1},"seller","판매자 제공 게임 유전 기록");
   return {version:1,genome,knowledge,appearanceVersion,...(forgeProfile===undefined?{}:{forge:founderForge(seed,forgeProfile,subdued)})};
 }
-export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype|null,seed:string,id:string,newPatterns=false,allowPartial=false):GeneticsRecord {
-  const forge=inheritForge(father.forge,mother.forge,seed);
+export function offspringRecord(father:GeneticsRecord,mother:GeneticsRecord,genotype:Genotype|null,seed:string,id:string,newPatterns=false,allowPartial=false,paletteVersion?:2|null):GeneticsRecord {
+  const forge=inheritForge(father.forge,mother.forge,seed,paletteVersion);
   if(!father.genome||!mother.genome){
     if(!genotype)throw new Error('이전 부모의 기본 유전 상속 기록이 필요합니다.');
     const result=legacyRecord({genotype});if(forge)result.forge=forge;

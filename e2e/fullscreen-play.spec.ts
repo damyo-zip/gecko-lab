@@ -55,7 +55,7 @@ test("failed fullscreen request offers install instructions without navigating",
   await page.goto("/fullscreen-play");
   const before = page.url();
   await page.getByTestId("fullscreen-start").click();
-  await expect(page.getByRole("alert")).toContainText("Not allowed by host");
+  await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText("Not allowed by host");
   await expect(page.getByTestId("fullscreen-play-entry")).toBeVisible();
   await page.getByTestId("install-help-toggle").click();
   await expect(page.getByTestId("install-help-guide")).toBeVisible();
@@ -69,7 +69,7 @@ test("unsupported fullscreen API offers app installation guidance", async ({ pag
   });
   await page.goto("/fullscreen-play");
   await page.getByTestId("fullscreen-start").click();
-  await expect(page.getByRole("alert")).toContainText("지원하지 않아");
+  await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText(/전체화면을 지원하지 않(?:아|습니다)/);
   await page.getByTestId("install-help-toggle").click();
   await expect(page.getByTestId("install-help-guide")).toBeVisible();
   await expect(page.locator(".game-tab-content")).toHaveCount(0);

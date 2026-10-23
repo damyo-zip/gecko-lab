@@ -1,0 +1,1374 @@
+{
+  "sourceRgbaSha256": "744f90bfb770baff72c2e900e1d50ef4ebd0d087d3a37f1f5d1a4407989b4a1f",
+  "comparison": "before / after",
+  "samples": [
+    {
+      "morph": "base",
+      "seed": "natural-review-base-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "ba3b3e2dc8ba89f327a44e87b8dfe3e304822a525fd8306ae68ddcbee04fd678",
+      "after": "2501b3995a36381af0c60fe2f9890dbc279709bf053d8d5df3f55642f26fa253",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "e9e23e3284136c4c40cfa0286df574cef9b036a698dec0145e76aaf926a3af19",
+      "after": "af99d782f33bbbc26be79081d579df98e8840f8cc0181288fa5992fcfde62d39",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "8c6d423922845e9a9a0ab04659dbc02ba8b16653683e92eae23c929957ec898a",
+      "after": "4dfcefcefa9c397ce727a56cea4d57d1b9f6fe45c3c2477fbc4928480e08b9ed",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "17e46dbb3eb867c7b6676db1a18363e14d4c1eb3f410e5105d05e6fc84498f65",
+      "after": "3f77acd58fa1a805cb405b2c295bbd23945ea35cc392ae2676ba5054219b0bf7",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "9e468acee70de74e99bf8792f0422ad44030a4981830a9ee4bdb9357cb0b5f3f",
+      "after": "84eeb1e2c1f4f9fa821fe1aa0a9cc0c448f35f79dffd2ffa5863eb3025b1e45d",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "e1c2629c83c727bd3fb37e7a0e577d70d4e5f4766ef3e811f7d02e199785e790",
+      "after": "17b5ef0cef7d1ce61f2b1c776fb13c8af52c640d4d0078585fe5066c724877fe",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "35a9f22ab0bc7a234349e3a141ce413ad4c06afc07b96cbb5ad2110a1a9351aa",
+      "after": "dfec512fed9c1b810b6758f2d65013cd897adbd71c23ccf64d6436f52e2d8eb9",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "04279142688bb834232fdf077b98a3c84a88c47e08b12e2e854b3f710dc3de55",
+      "after": "0bf182fcd7dec1939508e81c3d7e58d145861a3465e335dcc65fea42120f1cc8",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "3e49fb989a82bc815145a4c27832ac5802aff940ac99086ff932cd8ee8e5b680",
+      "after": "6866cdbe8858165cae3d9f642422c1bfc286778edfa65549f5a8792bb43cdebf",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "95fb1dd2bc5cf24f53deefd0be52dd4918ba233d702e9a363d54f1a71810e2a4",
+      "after": "3a1049ef3bca97b5d760963bb740dc549358f03c5e7e6c5794162924c5deab35",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "5d36b19d022b265600d7d475e13e0bdfca87ab021a4e9e8497924d0ccc81d6fa",
+      "after": "c8a5ea9e9a08b6e10a13cd4cdbab6e617b50b765154c75898a1465d39c44f5ba",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "base",
+      "seed": "natural-review-base-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "0164753ce6b003dfc47fa0da6a416edc5f26b3b54485f1aa90889b5e1cbbf655",
+      "after": "dccead88e6e41eb36fb091f375934c698329227cc722b246b5e347c876a3146f",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "92139437464188051328dad56ace4c3904962b4f2b94188571a644d27dcdbf13",
+      "after": "fe84ac2a0ce5063b9ac89901e02c44aed560aa84c1df6baec92633530b01903b",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "bca16f24fc3bf0d0e1a95e36e0a32b7398631e29847730836effa266f47b5a48",
+      "after": "bb1f6f614f39bef3a19d53eb6565b0612f8ea3ceb0deb37b9684b441b6d6c53f",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "9c7d7f45f5b346fa7af706ed81e65c7301efc7127cd34080afa758c405562934",
+      "after": "a79edd732a2cf27758477749f3ec6608ef82c4b4b5f1e71c48a6ff0a51d5a8db",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "ffbbc4aac5ddc43bce49b1adce269449c3032387d09a5280c0083a86bb8b4233",
+      "after": "47e868c02c2e0cc3f832513ab107255a975e0d2d19e172e6d3274066e34cf086",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "48404d22c47e2612e57ccf81ed48b84c77842deb8dc9c09d38a9f135b7e9abce",
+      "after": "142ec4aeaeabe8d3487eaf31e698b6375f8337403aed56bdc73183406c6eb3cf",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "5c1d55a9fb66a072cc5d1e6a50fab534dd3b6cff533bcbeb44717e4389ff494f",
+      "after": "8e994ea36907317db89104fa131c95163a7870c00665eea690cd64500b40ebb9",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "348c1f2514295d9ac992c54b5da206d81d1f16a2f8f13ab270ca2f3db91a5711",
+      "after": "c8c0aa24d31875d22029fa78d460a9eb2ab649b3b1738505d95bb5ab9db182dd",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "3b878d73c516e11b1406de6335daf81e6da1145287cdf1d54a94a3f569142f1b",
+      "after": "7a290e3fe4c8414549c7de842d1aac5bbddbc49fb95ef248c3c0fc9a2471efc9",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "3f4474649d3eed344d42c70ca2e8917b3b3cd6a6a309164320f09ebc79ebeb4e",
+      "after": "e73e9a162d77a859e77db4a5e072f78f4d714b7c7eb3bf3968dc749803bff7f3",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "d3d1df79848e3583d1734aa7e9e5bcaf713bed1dce505444a36dde033ab8a0c4",
+      "after": "ab4dc535a90b02019524dc83d1af947c95906c92d894a425ea68d47ca302fa41",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "41586f21b08150c9a12aaf5f6b69bbbb9ffbf651037488fa13383452551351f7",
+      "after": "686882c9598393701e82862965edf46efdacb55423c15f51f47268a650904d06",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "lilly",
+      "seed": "natural-review-lilly-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "6516ec91cdcf9f269be41e4a723d39b9cf520d745c268077ebf84a4d1bedf5b6",
+      "after": "f281a4b3f12355e2eadb7b3b2127c86b3a8afa02fdea68621871e6014cdaf570",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "adb7d3a83f7673e8d85713761e354557ce1859fcf49becedb458d6357a4f51a9",
+      "after": "adb7d3a83f7673e8d85713761e354557ce1859fcf49becedb458d6357a4f51a9",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "cda0f1afef615fdf0a45efad72e391bc1d7e1394f1e83e532f46fa29a23a7051",
+      "after": "cda0f1afef615fdf0a45efad72e391bc1d7e1394f1e83e532f46fa29a23a7051",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "34fbcd8985d882c9e9216a804abb93f3e452593efaddc7a3adc684c659da1b5f",
+      "after": "34fbcd8985d882c9e9216a804abb93f3e452593efaddc7a3adc684c659da1b5f",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "42779da90a3b6a75fac2c0ca27a053cd4ae982d5b3f89685d995d09fd13c68dd",
+      "after": "42779da90a3b6a75fac2c0ca27a053cd4ae982d5b3f89685d995d09fd13c68dd",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "f215b252b305a4ced1d7c7e0280175bd5ea507cef1ca18440ae4f8dca412c243",
+      "after": "f215b252b305a4ced1d7c7e0280175bd5ea507cef1ca18440ae4f8dca412c243",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "5b24e0e796b65d6449364a27f0a178f2dfd95551ff5895fbc010c2a9fe3c07cf",
+      "after": "5b24e0e796b65d6449364a27f0a178f2dfd95551ff5895fbc010c2a9fe3c07cf",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "edbf8e3186dbeabc5c0d6b353797b269033a2677ce5e31087f1f90541d5cbdcd",
+      "after": "edbf8e3186dbeabc5c0d6b353797b269033a2677ce5e31087f1f90541d5cbdcd",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "72101cb094ef067f7b9a726a61280d34e2fa4d3639e00ace590194ffbb3b8e00",
+      "after": "72101cb094ef067f7b9a726a61280d34e2fa4d3639e00ace590194ffbb3b8e00",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "e4b5e377fa87bef1f9935b317fa70b148e80ce4d973a9de7845c6424c5142042",
+      "after": "e4b5e377fa87bef1f9935b317fa70b148e80ce4d973a9de7845c6424c5142042",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "86af6c262d80110722440be8f9bf982cc3d030745ccbbb688ba9bb38c5a20ca2",
+      "after": "86af6c262d80110722440be8f9bf982cc3d030745ccbbb688ba9bb38c5a20ca2",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "3a1626c5464ba9ce8e7ad21ab66d59d26d39b9461c9979be871093fafd6f0777",
+      "after": "3a1626c5464ba9ce8e7ad21ab66d59d26d39b9461c9979be871093fafd6f0777",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "axanthic",
+      "seed": "natural-review-axanthic-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "e7a4d509200edcad23cdf83cb30f81b3dea5a958c38ec9f400369d4a73846180",
+      "after": "e7a4d509200edcad23cdf83cb30f81b3dea5a958c38ec9f400369d4a73846180",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "f5e2d738ce72dde8715ec246055a6b8281eb5a3e8cbc3ec5ce7bf379a06b9edc",
+      "after": "398354f8b66ec2103a4253a855ad7257161712c39f24cdb8410bd2250f3d6c28",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 83
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "5f239642bddaa849d13900f4febacaa76390b669cfc9e958343f921055a4552b",
+      "after": "a8e53f377f5be906d53ef3267e885a1dfbd4ca344b3db936700d49f1e8f08401",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 63
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "32bde0e7165f0b3d681a110844189672470a456e368e173460e7b429d45fc308",
+      "after": "4a7fdd0427fa6f5fd4433c90614a529fda312e842a7c58c67f8431c77a3198fa",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 104
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "ee5150700a15037dd726556c08ba1f5736c813133a5a8e8809ebc4d3699d0c15",
+      "after": "549f4933ad29f9602686b353826d9e1ceedfde95964234d038ac825bef31ca09",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 76
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "ed0151884a36a40e0bc0def8f96e1819202900e8101acede76d31b380bb72086",
+      "after": "904b9bda628a49ec579b7d9836a9edfc5f8f80f8a2e6359ae806be5e371e5707",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 97
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "723c38c56c44c78e0f0978916ba3fd33a157f43f823c2eb3c63d267937fb6968",
+      "after": "7fab4e6d8c4fbb9b16dcfc95cbc2b7e7e4b50748a6c38282a20dd3afc9528851",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 68
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "44fa630d8d73a93b35f5ed11ade6a64ffc4f5b1016085e2ddd31c5a5bb57eacc",
+      "after": "573031e1282fc59facdb465db05dd4e1a61a3fa8c4ae0dd521a16c43f9c9262b",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 54
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "c12f0b844a307c5add2eed219e54cfbd5b65f8ea1cd2747c2364e3526072a6c1",
+      "after": "650063724aa7a8375775470b799ebdf1c6ff8ce0d11ea52deff227b58d1b93ac",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 77
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "a0b0564758d77f0da6a0fb1c94f85e3c46955f88e73b84e3e39a636fae6dd2bf",
+      "after": "1f94b6b733496eec44ccfbc435c594e89a6992e7d26f6a96e63655378d539008",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 85
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "c11c738f6a6d25926f9deed1d81289f529d518e1bd1541031831504379769a74",
+      "after": "62dd21c63ec72ffce1eb2b0ce969f1b766b06fb968c53254426c0d165cc35748",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 75
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "f1ef4acdbe51efd5dd1bc84dfb8192cf60f26d8a0e0f50f347a2d97957571350",
+      "after": "a7476cebfc28e09fd974dfcdc9435d9645f5864fa816dd505b8099acebb0d9f7",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 54
+    },
+    {
+      "morph": "dalmatian",
+      "seed": "natural-review-dalmatian-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "05c5a82161e6195f4d2205c85533b6786d696460bb9d88299d3e99e7e6110bd8",
+      "after": "f27436761ba5b403f5101d8c3291a1baa75f36878d8f6850a1b3cff3ed030a59",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 67
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "21e93fec8a5afa2a2427a7deecf2d298c8b44949211e836308b51de755376c6d",
+      "after": "77b6fc3ee605e3d1a466f1d9f9631bfa3b2f55d63fcef84953af4b94f653145d",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "20513632fd16f589f7c9735c8d18c657217eb340d2f4c35e9cb4dfae1e1298f5",
+      "after": "24f2f7389263fe5b9c56aa3ba139ce5904ebb71d02b172b1f95d2c1d23198a79",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "9cf93035795dc5dfb0b09a6ffb29ef10f1a493465185eb9469ff76d6fb8a84ca",
+      "after": "f33a5a72a79084a175d56c40767de70a578911b1a804609834a3dfbe0673128f",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "ef33ae109e665fa9f86bd5151f59da266fe8b49d0f1575e69bad3c29842651de",
+      "after": "0e2165f04568dd0b63d4ceb0bfd42cb3e1925e134b4862f7edb897fe0303db3d",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "177b6e7b3111ef33eba739e887ebed6099826425df1bc3752162837aeea35f51",
+      "after": "9e74b874e62b8d4b5a823db3b1361cd261bfc942ac90e759d627903e75dd2a41",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "b6199df6d8ff5e02123da23af8dc84a4178af4f5777e10cd75add335625c5e43",
+      "after": "ae5ce5a88049b3d4180260fadba828f98277d769f725fcf212ba0c3f5857cb79",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "a1c4bdd2b23b5d85cab708a59de050201314df458471be58e7012721bec2055d",
+      "after": "c7d65254dce6c34b14dc9f33be8b33ce799fb589cebdff9fe291e35c374c3e7a",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "6b407d7215d7b8d8fb0931ea1c1d3f4c610c91e532d73b0c884fd4032cf47d9d",
+      "after": "2927bcb562d2db904e0018ac47d83fe1b482b9ba0a9eacc949f875682ed60bf2",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "24f19945d59c7c72033b16f5a87532cd207667b6a4f4f2afd3871e2763ceedde",
+      "after": "9333553ed1f1c5895101e90dd5659c458abcf875ceb009bfd5e9b93c7bcfeba3",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "6c2c61cc443174a6820756dfc1c9e52613708f833525a128dcb6abdc15e52a14",
+      "after": "c1fbdda3c894d363be0ea3e2d3bc208a496de0a8029cfff44cb52fb56772459e",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "f2f1b5ad98d87464edfba371cdcd2de9dc79ab2f80bcf34fe5928f6d81e49f2f",
+      "after": "73f1dbe18a3310c0269db77f365b9e55c320ceb73760748d725acd11666e8937",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "select-harlequin",
+      "seed": "natural-review-select-harlequin-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "e3fb71699c62f772fee1358610854c99e909913590016b03f5d3b3621eb09fb1",
+      "after": "a33fb9a3605a6e00b44764ec1c1d77c69e05ce0151ba3d740ead0dbaef6763c4",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-0",
+      "colourParent": "h-044d896e-store-1-2-father",
+      "before": "040c4f532dc4a4466f9e0f9f828ff66966ac7a3fe8908eca4deb3a63a1e89e01",
+      "after": "a1b534b4acdf66cbae23629d48b993f95e12db8c372badefe958fae6edb30b79",
+      "body": [
+        74,
+        61,
+        41
+      ],
+      "pattern": [
+        226,
+        190,
+        117
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-1",
+      "colourParent": "h-044d896e-store-1-0-father",
+      "before": "340970391e3d93b34571e29f5f5581e48dbdd8e338052bcd5111c0752b8ec3bb",
+      "after": "9fd541ca5434d396993bbfa081377e4bf025224638cc8328dbbf24d4f2ec01f6",
+      "body": [
+        128,
+        88,
+        48
+      ],
+      "pattern": [
+        214,
+        154,
+        93
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-2",
+      "colourParent": "h-0de52f31-store-1-1-father",
+      "before": "9b9c7b34162480bc29bc393701ee5050e42182b8f255b3b2fabefd647e238077",
+      "after": "0ac98f5a119d3b81c7401e080469f82e2a4dbfc24ba2771508876023efa4583d",
+      "body": [
+        137,
+        119,
+        86
+      ],
+      "pattern": [
+        241,
+        234,
+        216
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-3",
+      "colourParent": "h-d3e71e09-store-1-0-father",
+      "before": "f729b3e5085a8f4cb105bf1f3734f97bb7e983e089c60a8e069a47722f1f5bbe",
+      "after": "7dd21247d93a709456087e4baf88499d694eb40fcbb6b4e68fed712ec706b227",
+      "body": [
+        145,
+        124,
+        78
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-4",
+      "colourParent": "h-34f703fd-store-1-2-mother",
+      "before": "bf18c5b033fae948312a3f02e3e29ed33337b7fd9a59378df87468d420c4092b",
+      "after": "49990b65369cc83835590c978f026e582596842e72949f83e65bbd05f00b12f9",
+      "body": [
+        167,
+        144,
+        99
+      ],
+      "pattern": [
+        233,
+        211,
+        169
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-5",
+      "colourParent": "h-044d896e-store-1-1-father",
+      "before": "ff15a76714e7d168146bd1857c4cb97c5a01e836d3acd0b357a3ba54ca71f47f",
+      "after": "7eedb61759bd7da8dd4e9195d89245c13f92cd4a1cfb9f56b4775311f73d69c4",
+      "body": [
+        183,
+        156,
+        82
+      ],
+      "pattern": [
+        235,
+        215,
+        176
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-6",
+      "colourParent": "h-34f703fd-store-1-0-father",
+      "before": "f8c54be691b9e81b3316a048f82ddce47daf2f8433bb98c933e0143e39b446fd",
+      "after": "508eb3de6346f6a8db20a6faa27d14a3550168e7a96d6a6f684600e431a5ef46",
+      "body": [
+        195,
+        167,
+        86
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-7",
+      "colourParent": "h-d3e71e09-store-1-1-mother",
+      "before": "cf3d537b1264ddbaafa9c21a37b1579eb7fd6a556bb3bd97502e6b6c4c2952a0",
+      "after": "035a90c3e4647ebe86645d3989c2627f8f35ad5afc12f392f0d8fc247dbe6bb1",
+      "body": [
+        188,
+        162,
+        95
+      ],
+      "pattern": [
+        220,
+        171,
+        109
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-8",
+      "colourParent": "h-0de52f31-store-1-1-mother",
+      "before": "c3a9f0f2259bc331c6522c03ca43667b8cb7a886b06cfa8dda1476e808b43151",
+      "after": "0fc50e5341fecb6a8f56798758ba097e46f5de8ae70dd94712c8ceec99e661bb",
+      "body": [
+        190,
+        165,
+        102
+      ],
+      "pattern": [
+        232,
+        208,
+        160
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-9",
+      "colourParent": "h-044d896e-store-1-2-mother",
+      "before": "95bc6d4f98c369dd0e3adf3bf5e84da84f1e36b05557c8dd9b78cdee0f632828",
+      "after": "b041bf1f4b62e9c1fa55f081369a2ff7a7aacf9eff533217560fdb24697b62d4",
+      "body": [
+        167,
+        151,
+        114
+      ],
+      "pattern": [
+        229,
+        197,
+        120
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-10",
+      "colourParent": "h-d3e71e09-store-1-2-father",
+      "before": "5090fc9bbe29f770c16ba85cce81f0141954d8190b36e20ed4b3c97437e5ca83",
+      "after": "1c4feac3078f90e1f698dd6610e40e778189633adc5fdbea8487a6446427779a",
+      "body": [
+        161,
+        152,
+        113
+      ],
+      "pattern": [
+        221,
+        175,
+        110
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    },
+    {
+      "morph": "tiger",
+      "seed": "natural-review-tiger-11",
+      "colourParent": "h-0de52f31-store-1-0-mother",
+      "before": "c5834176b6b88b1eeeea8f1b7ea841ecb4e7e7f1bdadd59d0374bae45187a1d8",
+      "after": "17ca6b829a9fd04578d18c69d2258882324386834ebc3ad219f3dcf7c51d6eab",
+      "body": [
+        188,
+        167,
+        125
+      ],
+      "pattern": [
+        215,
+        157,
+        97
+      ],
+      "protectedPixels": 655,
+      "spotPixels": 0
+    }
+  ]
+}

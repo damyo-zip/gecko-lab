@@ -52,7 +52,7 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
     parents:{fatherId:father.id,motherId:mother.id},fatherGenotype:father.genotype,motherGenotype:mother.genotype,
     fatherTraits:father.potential,motherTraits:mother.potential,generation:2,lineageIds:[],seed,
     fertilizationChance:.95,hatchChance:.95,status:'laid',resolvedDate:game.lastDate,
-    genetics:{father:father.genetics!,mother:mother.genetics!,observedIds:[],updates:[]}};
+    genetics:{father:father.genetics!,mother:mother.genetics!,observedIds:[],updates:[],...(game.forge?{paletteVersion:2 as const}:{})}};
   if(game.saveVersion>=9)mating.riskModel={version:1,father:father.healthGenome!,mother:mother.healthGenome!};
   let child:Gecko|undefined,childSeed='';
   // Curate two affordable unrelated adults on a new game; inherit sex normally.
