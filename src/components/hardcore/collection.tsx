@@ -66,7 +66,7 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
           <select aria-label="개체 정렬" value={sort} onChange={e=>setSort(e.target.value as CollectionSort)}>{Object.entries(COLLECTION_SORTS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select>
           <button className="home-frame" aria-label="전체 개체 열기" aria-haspopup="dialog" onClick={()=>onCatalog(true)}><HomeIcon name="grid" size={18}/></button></div>
       </div>
-      <div className="home-card-grid hc-grid columns-3" {...swipe}>{visible.slice(current*6,current*6+6).map(g=><CollectionCard key={g.id} game={game} gecko={g} busy={busy} play={play} selected={g.id===selected?.id} onSelect={select} onDetail={onDetail} onResources={onResources} onBreed={onBreed} onRename={onRename} onSell={onSell} onLineage={onLineage}/>)}</div>
+      <div className="home-card-grid hc-grid columns-3" data-paged={pages>1||undefined} {...swipe}>{visible.slice(current*6,current*6+6).map(g=><CollectionCard key={g.id} game={game} gecko={g} busy={busy} play={play} selected={g.id===selected?.id} onSelect={select} onDetail={onDetail} onResources={onResources} onBreed={onBreed} onRename={onRename} onSell={onSell} onLineage={onLineage}/>)}</div>
       {!animals.length?<section className="home-breeder-guide home-frame" aria-labelledby="home-breeder-title">
         <h2 id="home-breeder-title"><HomeIcon name="leaf" size={20}/>첫 게코를 기다리는 시간</h2>
         <p>아직 게코가 없어도 괜찮아요. 파충류 카페에서 아르바이트하며 자금을 모으고, 상점에서 마음에 드는 게코를 찾아보세요.</p>

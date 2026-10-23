@@ -35,7 +35,9 @@ async function restore(page:Page,game:HardcoreGame,mobile:boolean){
 async function close(page:Page,mobile:boolean){await touch(page.getByRole('dialog').last().getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);}
 async function enableAuto(page:Page,mobile:boolean){await manageResources(page,mobile);await page.getByRole('checkbox',{name:'먹이 자동 구매',exact:true}).check();await closeResources(page,mobile);}
 async function gesture(page:Page,mobile:boolean,direction:number,vertical=false){
- const grid=page.locator('.home-card-grid'),r=(await grid.boundingBox())!;
+ const grid=page.locator('.home-card-grid');
+ if(!mobile)await grid.scrollIntoViewIfNeeded();
+ const r=(await grid.boundingBox())!;
  const x=r.x+r.width*(direction>0?.84:.16),y=r.y+r.height*.25;
  const dx=vertical?8:-direction*r.width*.65,dy=vertical?r.height*.5:3;
  if(mobile){
@@ -103,6 +105,7 @@ for(const count of [0,1,2,3,4,5,6,7,12,13,37])test(`${count} collection animals 
  const cards=page.locator('.home-card-grid .home-card'),animals=owned(game);await expect(cards).toHaveCount(Math.min(6,count));if(!count)return;
  for(const width of mobile&&count===13?[360,390,430]:[mobile?360:1280]){
  await page.setViewportSize({width,height:mobile?844:900});
+ if(!mobile)await page.locator('.home-card-grid').scrollIntoViewIfNeeded();
  const frame=await cards.first().boundingBox(),hero=await page.locator('.home-hero').boundingBox(),footer=await page.locator('.home-footer').boundingBox();
  const initial=await cards.first().getAttribute('data-testid');await gesture(page,mobile,1,true);await expect(cards.first()).toHaveAttribute('data-testid',initial!);
  const pages=Math.ceil(count/6);

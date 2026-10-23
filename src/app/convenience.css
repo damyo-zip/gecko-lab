@@ -1,4 +1,6 @@
 .home-card-grid,.observation-target,.observation-target canvas{touch-action:pan-y}
+/* Keep the original two 218-unit desktop rows on a partial final page too. */
+@media(min-width:600px){.home-shell .home-card-grid[data-paged="true"]{grid-template-rows:repeat(2,calc(218 * var(--home-y)))}}
 .observation-inline{display:contents}
 .hc-shell .game-dialog.observation-dialog{max-width:480px;overflow:auto}
 .observation-art{display:grid;place-items:center;aspect-ratio:1;max-height:calc(100dvh - 180px);border:1px solid var(--tl-line);border-radius:8px;background:linear-gradient(135deg,#182932,#121e27)}

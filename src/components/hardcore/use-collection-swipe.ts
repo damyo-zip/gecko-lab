@@ -8,8 +8,9 @@ export function useCollectionSwipe(move:(direction:number)=>void){
  return {
   onPointerDownCapture:(e:PointerEvent<HTMLDivElement>)=>{
    if(!e.isPrimary||e.button!==0){clear();return;}
-   const button=(e.target as Element).closest('button');
-   if(button&&!button.classList.contains('home-card-select'))return;
+   // Native touch adjustment may target the name/status button even when a
+   // drag starts in the art. Only a horizontal drag suppresses these clicks.
+   suppress.current=0;
    gesture.current={id:e.pointerId,x:e.clientX,y:e.clientY,axis:''};
   },
   onPointerMoveCapture:(e:PointerEvent<HTMLDivElement>)=>{
