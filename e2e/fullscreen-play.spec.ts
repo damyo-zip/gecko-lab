@@ -4,7 +4,8 @@ test("trial screen appears before starting without creating the game", async ({ 
   await page.goto("/fullscreen-play");
   await expect(page.getByTestId("fullscreen-play-entry")).toBeVisible();
   await expect(page.getByTestId("fullscreen-start")).toBeVisible();
-  await expect(page.getByTestId("normal-start")).toBeVisible();
+  await expect(page.getByTestId("install-help-toggle")).toBeVisible();
+  await expect(page.getByTestId("normal-start")).toHaveCount(0);
   await expect(page.locator(".game-tab-content")).toHaveCount(0);
 });
 
@@ -42,7 +43,7 @@ test("fullscreen starts the game without a navigation and reuses the same local 
   expect(page.url()).toBe(before);
 });
 
-test("failed fullscreen request shows a fallback without changing the URL", async ({ page }) => {
+test("failed fullscreen request offers install instructions without navigating", async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(Element.prototype, "requestFullscreen", {
       configurable: true,
@@ -54,20 +55,22 @@ test("failed fullscreen request shows a fallback without changing the URL", asyn
   await page.getByTestId("fullscreen-start").click();
   await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText("Not allowed by host");
   await expect(page.getByTestId("fullscreen-play-entry")).toBeVisible();
-  await page.getByTestId("normal-start").click();
-  await expect(page.getByRole("heading", { name: /^보유 개체/ })).toBeVisible();
+  await page.getByTestId("install-help-toggle").click();
+  await expect(page.getByTestId("install-help-guide")).toBeVisible();
+  await expect(page.locator(".game-tab-content")).toHaveCount(0);
   expect(page.url()).toBe(before);
 });
 
-test("unsupported fullscreen API still lets players launch the game", async ({ page }) => {
+test("unsupported fullscreen API offers app installation guidance", async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(Element.prototype, "requestFullscreen", { configurable: true, value: undefined });
   });
   await page.goto("/fullscreen-play");
   await page.getByTestId("fullscreen-start").click();
   await expect(page.getByTestId("fullscreen-play-entry").getByRole("alert")).toContainText("지원하지 않아");
-  await page.getByTestId("normal-start").click();
-  await expect(page.getByTestId("game-day")).toBeVisible();
+  await page.getByTestId("install-help-toggle").click();
+  await expect(page.getByTestId("install-help-guide")).toBeVisible();
+  await expect(page.locator(".game-tab-content")).toHaveCount(0);
 });
 
 
@@ -98,4 +101,39 @@ test("dark fullscreen tint is applied on enter and restored on exit", async ({ p
   await expect(page.getByTestId("fullscreen-reenter")).toBeVisible();
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", initialTheme ?? "#0c1420");
   expect(await page.evaluate(() => document.documentElement.classList.contains("kakao-fullscreen-inset"))).toBe(false);
+});
+
+test("KakaoTalk Android instructions and install link stay on the current page", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "userAgent", {
+      configurable: true,
+      value: "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 KAKAOTALK 11.0",
+    });
+  });
+  await page.goto("/fullscreen-play");
+  const originalUrl = page.url();
+  const button = page.getByTestId("install-help-toggle");
+  await button.click();
+  await expect(button).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByTestId("install-help-guide")).toContainText("다른 브라우저로 열기");
+  await expect(page.getByTestId("install-help-guide")).toContainText("Chrome");
+  await expect(page.getByLabel("앱 설치 주소")).toHaveText("http://127.0.0.1:3100/");
+  await expect(page.locator(".game-tab-content")).toHaveCount(0);
+  await page.getByRole("button", { name: "설치 안내 닫기" }).click();
+  await expect(button).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByTestId("install-help-guide")).toHaveCount(0);
+  expect(page.url()).toBe(originalUrl);
+});
+
+test("KakaoTalk iOS shows Safari home screen installation instructions", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "userAgent", {
+      configurable: true,
+      value: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 KAKAOTALK 11.0",
+    });
+  });
+  await page.goto("/fullscreen-play");
+  await page.getByTestId("install-help-toggle").click();
+  await expect(page.getByTestId("install-help-guide")).toContainText("Safari");
+  await expect(page.getByTestId("install-help-guide")).toContainText("홈 화면에 추가");
 });

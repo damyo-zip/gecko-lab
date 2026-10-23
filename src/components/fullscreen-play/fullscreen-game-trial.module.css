@@ -82,3 +82,16 @@
   .panel > p:not(.error) { margin-bottom: 10px; }
 }
 
+
+/* Contextual mobile install instructions appear only when the second entry button is opened. */
+.installGuide { margin-top:12px; padding:14px; border:1px solid #536b70; border-radius:7px; background:#172935; color:#c5d5d2; font-size:11px; line-height:1.75; }
+.installGuideTitle { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#e1f0d6; font-size:13px; }
+.installGuideTitle button { min-width:32px; min-height:32px; color:#c2d2cc; border:0; background:transparent; font-size:24px; }
+.installGuide p { margin:10px 0; }
+.installGuide b { color:#a2d68a; }
+.installGuide strong { color:#d5ebbf; }
+.installAddress { display:flex; align-items:stretch; gap:7px; margin:12px 0; }
+.installAddress span { flex:1; min-width:0; overflow-wrap:anywhere; user-select:text; padding:10px 8px; border:1px solid #3d545b; background:#0a1822; color:#bdced3; font-size:10px; }
+.installAddress button { padding:5px 9px; min-height:42px; color:#dcf0d0; background:#2c463d; border:1px solid #6c9779; border-radius:5px; font-size:11px; font-weight:700; }
+.installGuide .copyMessage { color:#b9e2a8; }
+.installGuide .installCaution { margin:13px 0 0; color:#92a8b1; font-size:10px; }
