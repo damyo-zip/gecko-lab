@@ -165,5 +165,5 @@ export type GameplayAction =
   | { type: "stepRush"; elapsedMs:number; taps?:RushTap[] }
   | { type: "claimRush" };
 export type Action = GameplayAction
-  | { type: "endTurn" }
+  | { type: "endTurn"; autoBuyFood?: boolean; expectedTurn?: number }
   | { type: "setTimeMode"; mode: TimeMode };

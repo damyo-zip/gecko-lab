@@ -30,8 +30,8 @@ function Parent({g,sex,game,busy,onDetail,onSearch}:Pick<ViewProps,'game'|'busy'
     </article>;
   }
 
-export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted,onClose}:ViewProps & {
-  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;onClose:()=>void;
+export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onMother,onStarted,onClose,onResources}:ViewProps & {
+  fatherId:string;motherId:string;onFather:(id:string)=>void;onMother:(id:string)=>void;onStarted:()=>void;onClose:()=>void;onResources:()=>void;
 }) {
   const [information,setInformation]=useState<'genetics'|'family'|null>(null),[confirmation,setConfirmation]=useState<string|null>(null);
   const [searchSex,setSearchSex]=useState<'male'|'female'|null>(null);
@@ -45,9 +45,9 @@ export function Breeding({game,busy,play,onDetail,fatherId,motherId,onFather,onM
     <div className="breed-status-grid">
       <div className={check.reasons.length?'breed-unavailable':'breed-ready'}><span className="breed-status-icon">{check.reasons.length?'!':'✓'}</span><strong>{check.reasons.length?'조건 확인':'교배 가능'}</strong><small>{check.reasons.length?'일반 교배 조건을 확인하세요.':risk?.warnings.length?'주의 사항 확인 후 진행합니다.':'두 개체 모두 교배 조건을 충족합니다.'}</small></div>
       <div><HomeIcon name="heart"/><strong>혈연 관계</strong><small data-testid="breeding-relationship">{risk?.relationship??'부모 선택 대기'}{risk&&<span>기록 기준 F {(risk.pedigree.coefficient*100).toFixed(2)}%</span>}</small></div>
-      <div><HomeIcon name="egg"/><strong>인큐베이터</strong><small data-testid="breeding-slots">빈 슬롯 {freeSlots(game)}개<span> · 필요 2개</span></small></div>
+      <div><HomeIcon name="egg"/><strong>인큐베이터</strong><small data-testid="breeding-slots">{freeSlots(game)<2?<button type="button" className="housing-shortage" disabled={busy} onClick={onResources}>빈 슬롯 {freeSlots(game)}개 · 필요 2개 · 공간 확보</button>:<>빈 슬롯 {freeSlots(game)}개<span> · 필요 2개</span></>}</small></div>
     </div>
-    {check.reasons.length>0&&<div className="game-warning" role="status">{check.reasons.map(r=><p key={r}>{r}</p>)}</div>}
+    {check.reasons.length>0&&<div className="game-warning" role="status">{check.reasons.map(r=><p key={r}>{r.includes("공간")?<button type="button" className="housing-shortage" disabled={busy} onClick={onResources}>{r}</button>:r}</p>)}</div>}
     {risk?.warnings.length?<p className="breed-caution" data-testid="breeding-caution">{risk.warnings.map(w=>w.title).join(' · ')} · 실행 전 확인</p>:null}
     <div className="breed-info-actions"><button aria-label="혈통 비교" disabled={!father||!mother||busy} onClick={()=>setInformation('family')}><HomeIcon name="tree"/><span><strong>혈통 비교</strong><small>부모와 조상 확인</small></span><HomeIcon name="chevron"/></button>
       <button aria-label="유전 정보" disabled={busy} onClick={()=>setInformation('genetics')}><HomeIcon name="dna"/><span><strong>유전 정보</strong><small>형질과 유전 가능성</small></span><HomeIcon name="chevron"/></button></div>

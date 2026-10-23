@@ -15,7 +15,7 @@ export async function navigateGame(page:Page,name:string,mobile:boolean) {
   for(const title of ['부화 확률과 슬롯 규칙','수컷 개체 선택','암컷 개체 선택','유전 정보','혈통 비교','교배 전 위험 확인','교배']){
     const d=page.getByRole('dialog',{name:title,exact:true});if(await d.count())await touch(d.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);
   }
-  const resources=page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true});
+  const resources=page.getByRole("dialog",{name:/^(사료|사육장) 구매$/});
   if(await resources.count())await touch(resources.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
   const catalog=page.getByRole("dialog",{name:"전체 개체",exact:true});
   if(await catalog.count())await touch(catalog.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
@@ -53,12 +53,12 @@ export async function feedCollection(page:Page,mobile:boolean) {
 }
 
 export async function manageResources(page:Page,mobile:boolean){
- if(await page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true}).count())return;
+ if(await page.getByRole("dialog",{name:"사료 구매",exact:true}).count())return;
  if(!await page.getByRole("button",{name:"먹이 구입하기",exact:true}).count())await navigateGame(page,"인큐베이터",mobile);
  await touch(page.getByRole("button",{name:"먹이 구입하기",exact:true}),mobile);
 }
 export async function closeResources(page:Page,mobile:boolean){
- await touch(page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true}).getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
+ await touch(page.getByRole("dialog",{name:/^(사료|사육장) 구매$/}).getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
 }
 export async function buyFood(page:Page,mobile:boolean,amount:number){
  await manageResources(page,mobile);await page.getByLabel("먹이 구매 수량",{exact:true}).fill(String(amount));
@@ -125,4 +125,11 @@ export async function openIncubatorRecords(page:Page,mobile:boolean){
 export async function expandCollectionFilters(page:Page,mobile:boolean){
  const dialog=page.getByRole('dialog',{name:'전체 개체',exact:true}),toggle=dialog.getByRole('button',{name:'검색·필터 펼치기',exact:true});
  if(await toggle.count())await touch(toggle,mobile);
+}
+
+/** Housing is a separate purchase dialog, reachable from resource management. */
+export async function manageHousing(page:Page,mobile:boolean){
+ await manageResources(page,mobile);
+ await touch(page.getByRole('dialog',{name:'사료 구매',exact:true}).getByRole('button',{name:'사육장 구매',exact:true}),mobile);
+ await expect(page.getByRole('dialog',{name:'사육장 구매',exact:true})).toBeVisible();
 }

@@ -80,7 +80,7 @@ test("one shared turn action retains shortage confirmation, duplicate-click guar
     await expect(page.getByTestId('game-food')).toHaveText(String(next.food));
     await expect(page.locator('.game-tab-content')).toHaveAttribute('data-view',view);
   }
-  await touch(page.getByRole('button',{name:'먹이 구입하기',exact:true}),mobile);await expect(page.getByRole('dialog',{name:'사료 및 사육장 관리',exact:true})).toBeVisible();await page.keyboard.press('Escape');
+  await touch(page.getByRole('button',{name:'먹이 구입하기',exact:true}),mobile);await expect(page.getByRole('dialog',{name:'사료 구매',exact:true})).toBeVisible();await page.keyboard.press('Escape');
   // Six turns exhaust the fixture's 38 food; the shared button must still open the real warning.
   for(let n=0;n<2;n++){await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(page.getByTestId('game-day')).toHaveText(String(5+n));await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');}
   const unchanged=await saved(page);await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);

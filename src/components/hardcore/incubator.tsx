@@ -1,4 +1,5 @@
 "use client";
+import {ObservationImage} from './convenience';
 import {useState} from 'react';
 import {BreedingRecord} from './genetics-panel';
 import {Dialog,Sprite,type ViewProps} from './common';
@@ -11,7 +12,7 @@ import {awaitingPickup,awaitingRemoval} from '@/game/hardcore/brood-care';
 import {bornIndividual} from '@/game/hardcore/egg-outcome';
 const MATING_LABEL={pending:'수정 결과 대기',fertilized:'수정 성공',failed:'수정 실패',laid:'산란 완료',cancelled:'산란 전 취소'};
 
-export function Incubator({game,busy,play,onDetail,onTab}:ViewProps&{onTab:(tab:string)=>void}){
+export function Incubator({game,busy,play,onDetail,onTab,onResources}:ViewProps&{onTab:(tab:string)=>void;onResources:()=>void}){
  const [page,setPage]=useState(0),[selectedId,setSelected]=useState(''),[help,setHelp]=useState(false),[limit,setLimit]=useState(12);
  const state=incubatorState(game),pages=Math.max(1,Math.ceil(state.slots.length/6)),current=Math.min(page,pages-1);
  const slots=state.slots.slice(current*6,current*6+6),selected=[...state.occupied,...state.waiting].find(e=>e.id===selectedId)??null;
@@ -29,7 +30,7 @@ export function Incubator({game,busy,play,onDetail,onTab}:ViewProps&{onTab:(tab:
     const chosen=selected?.id===egg.id;
     return <article className={'inc-slot egg-card inc-metal '+egg.status+(chosen?' selected':'')} key={slot.id} data-testid={'hc-egg-'+egg.id}>
      <button type="button" className={'inc-egg-picture inc-select-egg'+(pickup?' inc-newborn':'')} aria-label={eggNumber(game,egg)+' 알 선택 · 부모 보기'} aria-pressed={chosen} data-testid={'select-egg-'+egg.id} onClick={()=>setSelected(egg.id)}>
-      <span className="inc-egg-number">{eggNumber(game,egg)}</span><IncubatorEgg seed={egg.seed} variant={pickup?'broken':removal?'failed':'normal'}/>{pickup&&<Sprite gecko={bornIndividual(egg.embryo)}/>}
+      <span className="inc-egg-number">{eggNumber(game,egg)}</span><IncubatorEgg seed={egg.seed} variant={pickup?'broken':removal?'failed':'normal'}/>{pickup&&<ObservationImage gecko={bornIndividual(egg.embryo)} inline><Sprite gecko={bornIndividual(egg.embryo)}/></ObservationImage>}
      </button>
      {pickup||removal?<button type="button" className={'inc-settle '+(pickup?'pickup':'remove')} disabled={busy} aria-label={eggNumber(game,egg)+(pickup?' 새끼 수령':' '+failure+' 제거')} data-testid={(pickup?'receive-hatchling-':'remove-egg-')+egg.id} onClick={()=>void play({type:pickup?'receiveHatchling':'removeFailedEgg',eggId:egg.id})}><strong>{pickup?'새끼 수령':failure+' 제거'}</strong></button>:<>
       <div className="inc-progress" role="progressbar" aria-label={eggNumber(game,egg)+' 부화 진행'} aria-valuenow={progress.percent} aria-valuemin={0} aria-valuemax={100}><i style={{width:progress.percent+'%'}}/></div>
@@ -39,7 +40,7 @@ export function Incubator({game,busy,play,onDetail,onTab}:ViewProps&{onTab:(tab:
    })():slot.kind==='reserved'?<article className="inc-slot inc-reserved inc-metal" key={slot.id} data-testid="incubator-reserved-slot">
     {slot.awaitingCollection?<><button type="button" className={'inc-reserved-select'+(selected?.id===slot.id?' selected':'')} aria-label={eggNumber(game,game.eggs[slot.id])+' 알 선택 · 부모 보기'} aria-pressed={selected?.id===slot.id} onClick={()=>setSelected(slot.id)}><HomeIcon name="clock"/><strong>알 수거 대기</strong><small>{game.individuals[slot.motherId]?.name??'어미 정보 없음'}</small></button><button className="inc-settle pickup" disabled={busy} onClick={()=>void play({type:'collectEggs',matingId:slot.matingId})}>알 2개 수거</button></>:<div className="inc-slot-outline"><HomeIcon name="clock"/><strong>교배 예약</strong><span>{Math.max(0,slot.layTurn-game.turn)}턴 후 산란</span><small title={game.individuals[slot.motherId]?.name}>{game.individuals[slot.motherId]?.name??'정보 없음'}</small></div>}
    </article>:<button className="inc-slot inc-empty inc-metal" key={slot.id} data-testid="incubator-empty-slot" aria-label={`빈 슬롯 ${current*6+index+1} · 부모 선택`} disabled={busy} onClick={()=>onTab('breeding')}><span className="inc-slot-outline"><span className="inc-plus"><HomeIcon name="plus"/></span><strong>빈 슬롯</strong><span>교배로 알 배치</span></span></button>)}</div>
-   {!slots.length&&<p className="inc-no-space">사용 가능한 슬롯이 없습니다.<br/>보유 공간을 확보해주세요.</p>}
+   {!slots.length&&<button type="button" className="inc-no-space" disabled={busy} onClick={onResources}>사용 가능한 슬롯이 없습니다.<br/>보유 공간을 확보해주세요.</button>}
    {pages>1&&<nav className="inc-pagination" aria-label="인큐베이터 슬롯 페이지"><button disabled={busy||current===0} onClick={()=>changePage(current-1)}>이전 슬롯</button><span>{current+1} / {pages}</span><button disabled={busy||current===pages-1} onClick={()=>changePage(current+1)}>다음 슬롯</button></nav>}
    <p className="sr-only" data-testid="incubator-slots">빈 슬롯 {state.available}개 · 교배당 2개 예약 · 알 수거 시 2개 배치 · 교배 예약 {state.booked}개</p>
   </section>
