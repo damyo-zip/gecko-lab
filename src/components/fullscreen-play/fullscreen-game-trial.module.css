@@ -1,0 +1,83 @@
+.shell {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  background: radial-gradient(ellipse at 50% 18%, #213b33, #0b1621 70%);
+  color: #ebf0e4;
+}
+.frame {
+  width: min(100%, 440px);
+  background: #0b1520;
+  border: 2px solid #435952;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 3px #15232b, 0 18px 48px #0009;
+  overflow: hidden;
+}
+.top, .footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 15px;
+  font: 10px/1.4 "Courier New", monospace;
+  letter-spacing: .7px;
+  color: #97a9a7;
+}
+.top { border-bottom: 1px solid #45565c; }
+.top span:first-child { color: #a4d994; }
+.footer { border-top: 1px solid #45565c; font-size: 9px; }
+.hero {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 23px 16px 19px;
+  background: radial-gradient(ellipse at 50% 72%, #34563c99, transparent 65%), linear-gradient(#10202a9e,#10202aee), url("/ui/home-terrarium.png") center/cover;
+  border-bottom: 2px solid #435742;
+}
+.hero > img { width: min(100%, 290px); height: auto; margin: 11px 0 0; filter: drop-shadow(0 3px #0008); }
+.eyebrow, .section { color: #a4ce8f; font: 10px/1.5 "Courier New",monospace; letter-spacing: 1.4px; text-align: center; }
+.subtitle { margin: 10px 0 19px; text-align: center; font-size: 11px; color: #c6d0c9; }
+.icon { padding: 7px; background: #0d1e29; border: 2px solid #65836b; border-radius: 9px; box-shadow: 0 8px 20px #0007, inset 0 0 0 2px #29432f; }
+.icon img { width: 104px; height: 104px; object-fit: contain; image-rendering: pixelated; }
+.hero .eyebrow:last-child { margin: 15px 0 0; }
+.panel { padding: 19px 22px 17px; background: linear-gradient(#12212c,#0a1721); }
+.section { text-align: left; }
+.panel h1 { font-size: 23px; line-height: 1.25; letter-spacing: -.7px; margin: 9px 0; color: #e9f1e1; }
+.panel > p:not(.error) { font-size: 12px; line-height: 1.7; color: #b4c2c2; margin: 8px 0 17px; }
+.primary,.secondary { width: 100%; min-height: 48px; padding: 10px; border-radius: 6px; text-align: center; }
+.primary { background: linear-gradient(#b5df99,#86be72); color: #132516; border: 2px solid #d2eeab; font-size: 15px; font-weight: 850; box-shadow: inset 0 -3px #5b8a55; }
+.primary:disabled { opacity: .7; cursor: wait; }
+.secondary { margin-top: 12px; background: #1b2d38; border: 1px solid #506c70; color: #c3d8d3; font-size: 12px; font-weight: 700; min-height: 44px; }
+.panel > .note,.panel > .save { color: #95a6a4; font-size: 10px; line-height: 1.7; margin-top: 16px; }
+.panel > .save { color: #8599a5; }
+.error { color: #eeb29f; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.resume {
+  position: fixed;
+  z-index: 70;
+  top: max(8px, env(safe-area-inset-top));
+  right: max(8px, env(safe-area-inset-right));
+  width: min(90vw, 245px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  padding: 7px 9px;
+  background: #15262df0;
+  border: 1px solid #5a7968;
+  border-radius: 7px;
+  box-shadow: 0 3px 12px #0008;
+  color: #bed6c2;
+  font-size: 10px;
+}
+.resume button { color: #19351c; background: #a5d289; border: 1px solid #caebae; border-radius: 4px; padding: 7px 8px; font-weight: 700; }
+.resume small { color: #f6bd9c; line-height: 1.4; }
+@media (max-width:370px),(max-height:700px) {
+  .hero { padding: 12px 12px 10px; }
+  .hero .subtitle { margin-bottom: 8px; }
+  .hero .icon img { height: 80px; width: 80px; }
+  .hero .eyebrow:last-child { margin: 8px 0 0; }
+  .panel { padding: 13px 16px; }
+  .panel h1 { font-size: 21px; }
+  .panel > p:not(.error) { margin-bottom: 10px; }
+}
