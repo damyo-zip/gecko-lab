@@ -74,5 +74,44 @@
   "limits": [
     "Extended modifier inheritance is connected; public-probability UI still uses the existing three disclosed loci.",
     "C/S/H allelism and modifier loci retain their declared provisional/game-only assumptions."
-  ]
+  ],
+  "presentationFollowup": {
+    "representativeMorphs": "One priority-selected label; full observations remain searchable and available in details.",
+    "shopNicknames": "Deterministic independent naming stream for new catalogs; existing saved names remain unchanged.",
+    "typecheck": "passed",
+    "build": "passed",
+    "authoredPngRuntimeHashes": "matched",
+    "unit": {
+      "files": 39,
+      "uniqueCases": 434,
+      "fullRun": {
+        "passed": 433,
+        "failed": 1,
+        "reason": "Existing 5-second family test exceeded its timeout while the build ran concurrently."
+      },
+      "scopedRerun": {
+        "passed": 26,
+        "failed": 0,
+        "files": [
+          "shop-family",
+          "forge-display",
+          "shop-nicknames"
+        ]
+      }
+    },
+    "browser": {
+      "passed": 12,
+      "failed": 0,
+      "projects": [
+        "mobile-chromium",
+        "desktop-chromium"
+      ],
+      "specs": [
+        "gen-family-popup",
+        "morph-display",
+        "forge-integration"
+      ]
+    },
+    "layoutRegression": "Exact original markup, widths, family/comparison heights and spacing; selected text-panel height is checked by content containment instead of cross-platform font-dependent pixels."
+  }
 }

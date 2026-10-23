@@ -6,6 +6,7 @@ import {LOCI,pairKey} from '@/genetics/advanced/loci';
 import type {Scores} from '@/genetics/advanced/model';
 import type {PatternTraits,PatternName,PatternObservation,LineObservation} from '@/phenotype/model';
 import type {Gecko} from './model';
+import {forgeRepresentativeMorphName} from './forge-display-name';
 
 const clamp=(v:number)=>Math.max(0,Math.min(1,v));
 /** A render-only projection of old visible values. This creates no Genome,
@@ -35,7 +36,7 @@ const views=new WeakMap<Gecko,{key:string;up?:ForgeView;down?:ForgeView}>();
 const recentViews=new Map<string,ForgeView>();
 const MAX_RECENT_VIEWS=64;
 type Description=ReturnType<typeof describeCompanionLineage>;
-export interface ForgeView {input:RenderInput;description:Description;traits:PatternTraits;observation:PatternObservation;names:PatternName;whiteCoverage:number;legacyProjection:boolean}
+export interface ForgeView {input:RenderInput;description:Description;traits:PatternTraits;observation:PatternObservation;names:PatternName;displayName:string;whiteCoverage:number;legacyProjection:boolean}
 /** Measures the same native result that is painted by every gameplay surface. */
 export function forgeView(g:Gecko,fire:'up'|'down'='up'):ForgeView|null {
  if(!g.genetics?.forge)return null;
@@ -69,7 +70,7 @@ export function forgeView(g:Gecko,fire:'up'|'down'='up'):ForgeView|null {
   r.lateralMetrics.classification==='porthole'?'포트홀':'',r.whitewallMetrics.qualified?'화이트월':r.whitewallMetrics.classification==='whiteout'?'화이트아웃':'',r.emptyBackMetrics.clearedPixels?'엠티백':'',r.spotMetrics.count>=32?'고밀도 달마시안':r.spotMetrics.count?'달마시안':'',r.complexMetrics.restricted?'슈퍼·복합폼 잠정':'' ].filter(Boolean);
  const observedExtras=features.filter(f=>['화이트월','화이트아웃','엠티백','포트홀','리버스 핀스트라이프'].includes(f)&&!d.name.includes(f));
  const names:PatternName={primary:[d.name,...observedExtras].join(' · '),base:PATTERN_LABELS[r.patternMetrics.classification],color,features,rulesVersion:1};
- const value={input,description:d,traits,observation,names,whiteCoverage,legacyProjection:!g.genetics.genome};cached[fire]=value;recentViews.set(visualKey,value);
+ const value={input,description:d,traits,observation,names,displayName:forgeRepresentativeMorphName(d,features),whiteCoverage,legacyProjection:!g.genetics.genome};cached[fire]=value;recentViews.set(visualKey,value);
  if(recentViews.size>MAX_RECENT_VIEWS)recentViews.delete(recentViews.keys().next().value!);
  return value;
 }

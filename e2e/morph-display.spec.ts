@@ -7,6 +7,7 @@ import {visualName,morphDescription,specimen} from '../src/game/hardcore/adapter
 import {renderSprite} from '../src/engine/render';
 import {navigateGame,touch,chooseBreedingParent,finishTurnAndTend} from './helpers/hardcore-navigation';
 import type {HardcoreGame,Gecko} from '../src/game/hardcore/model';
+import {SHOP_NICKNAMES} from '../src/game/hardcore/shop-nicknames';
 const DATE='2026-10-16';
 function fixture(){
  let game=newGame('representative-browser',DATE,{initialMoney:10_000_000,initialCapacity:20});
@@ -31,10 +32,11 @@ async function sameSprite(root:Locator,g:Gecko){
 }
 test('Korean representative stays identical across live shop, collection, details, picker, breeding, incubator, pedigree and reload',async({page},info)=>{
  test.setTimeout(120_000);const mobile=info.project.name.startsWith('mobile'),f=fixture(),g=f.offer.individual,errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ expect(SHOP_NICKNAMES).toContain(g.name);expect(productionName(g)).not.toMatch(/ · | \+ /);
  await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await touch(page.getByRole('button',{name:'저장 및 게임 설정',exact:true}),mobile);
  await page.getByLabel('JSON 백업 파일',{exact:true}).setInputFiles({name:'before-display-change.json',mimeType:'application/json',buffer:Buffer.from(exportBackup(f.game))});
  await touch(page.getByRole('button',{name:'복원 실행',exact:true}),mobile);await expect(page.getByRole('dialog')).toHaveCount(0);
- await navigateGame(page,'상점',mobile);const offer=page.getByTestId('shop-offer-'+g.id);await expect(offer.locator('.shop-morph')).toHaveText(productionName(g));await sameSprite(offer,g);
+ await navigateGame(page,'상점',mobile);const offer=page.getByTestId('shop-offer-'+g.id);await expect(offer.locator('h3')).toHaveText(g.name);await expect(offer.locator('.shop-morph')).toHaveText(productionName(g));await sameSprite(offer,g);
  await touch(offer.getByRole('button',{name:g.name+' 부모',exact:true}),mobile);
  for(const parent of [f.offer.family!.father,f.offer.family!.mother]){await expect(page.locator('.shop-family-grid')).toContainText(productionName(parent));await sameSprite(page.locator('.shop-family-grid article').filter({has:page.getByTestId('hardcore-sprite-'+parent.id)}),parent);}
  await page.keyboard.press('Escape');expect(await saved(page)).toEqual(f.game);

@@ -62,7 +62,7 @@ export function visibleGeneticMorphs(g:Gecko):string[] {
 const displayNames=new WeakMap<Gecko,string>();
 /** One computed representative for every gameplay screen; no save writes. */
 export function visualName(g:Gecko):string {
-  const current=forgeView(g);if(current)return current.names.primary;
+  const current=forgeView(g);if(current)return current.displayName;
   let name=displayNames.get(g);if(name!==undefined)return name;
   const profile=appearanceProfile(g),geneticMorphs=visibleGeneticMorphs(g);
   // Older sprites have no measured color/pattern profile. Do not invent those traits.

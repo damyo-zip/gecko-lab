@@ -61,6 +61,13 @@ test('full lineage tab retains the original selected info, family, comparison ma
   }
   await expect(page.locator('.album-selected-facts dl>div:first-child>dd')).toHaveText(visualName(f.game.individuals[f.selectedId]));
   expect(await page.locator('.album-selected-facts dd,.album-compare-caption p').evaluateAll(nodes=>nodes.every(n=>n.scrollWidth<=n.clientWidth+1))).toBe(true);
+  const selected=(await page.locator('.album-selected').boundingBox())!;
+  const factRows=await page.locator('.album-selected-facts dl>div,.album-selected-facts>button').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
+  for(const [i,row] of factRows.entries()){
+   expect(row.x).toBeGreaterThanOrEqual(selected.x);expect(row.x+row.width).toBeLessThanOrEqual(selected.x+selected.width);
+   expect(row.y+row.height).toBeLessThanOrEqual(selected.y+selected.height);
+   if(i>0)expect(row.y).toBeGreaterThanOrEqual(factRows[i-1].y+factRows[i-1].height);
+  }
   // New morph names can wrap onto extra lines, depending on the browser font.
   // Verify live labels above, then measure with the original labels so the
   // unchanged layout is compared using identical text on every runner.
@@ -72,9 +79,13 @@ test('full lineage tab retains the original selected info, family, comparison ma
   }),{rows:baseline[width] as {html:string}[],selector:labels});
   try{
   const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,html:n.outerHTML,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));
-  // Keep the original structural/geometry snapshot. Only the intentionally
-  // replaced appearance fields are compared separately against the live model.
-  const layout=(rows:typeof actual)=>rows.map(r=>({...r,html:r.html
+  // Keep the original markup, widths, family/comparison heights and section
+  // spacing. The selected facts panel has intrinsic height: even the original
+  // labels wrap differently with CI's Korean fallback fonts. Check its live
+  // content containment above instead of freezing that one text-driven height.
+  const layout=(rows:typeof actual)=>rows.map((r,i)=>({...r,rect:{...r.rect,
+   height:i===0?undefined:r.rect.height,
+   y:i===0?r.rect.y:r.rect.y-rows[i-1].rect.y-rows[i-1].rect.height},html:r.html
    .replace(/data-renderer-version="[^"]+"/g,'data-renderer-version="appearance"')
    .replace(/(<span class="album-tree-morph">)[^<]*(<\/span>)/g,'$1appearance$2')
    .replace(/(<dt>모프<\/dt><dd>)[^<]*(<\/dd>)/g,'$1appearance$2')

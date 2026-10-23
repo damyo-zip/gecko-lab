@@ -13,6 +13,7 @@ import { descriptiveVisualName as visualName } from './adapter';
 import { MARKET, valueGecko, type PriceTable } from './market';
 import type { Gecko, HardcoreGame, Mating, ShopOffer } from './model';
 import {editFeature} from '@/forge';
+import {shopNickname} from './shop-nicknames';
 
 export const SHOP_REFRESH_PRICE=2_000;
 export const SHOP_SIZE=4;
@@ -37,7 +38,7 @@ function parent(game:HardcoreGame,id:string,seed:string,sex:'male'|'female',mati
 }
 
 /** The same embryo factory and allele transmission as player breeding; no copied appearance. */
-export function familyOffer(game:HardcoreGame,batch:number,index:number,table:PriceTable=MARKET):ShopOffer {
+export function familyOffer(game:HardcoreGame,batch:number,index:number,table:PriceTable=MARKET,usedNames:ReadonlySet<string>=new Set(Object.values(game.individuals).map(g=>g.name))):ShopOffer {
   const seed=game.seed+'|family-shop:'+game.lastDate+'|'+batch+'|'+index;
   const random=seededRandom(seed,'catalog'),starter=batch===1&&index<2;
   const age=starter?12:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-6;
@@ -65,8 +66,11 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   if(!child)throw new Error('매물 생성 실패');
   child.stage=age>=12?'adult':age>=6?'juvenile':'hatchling';
   child.nextBreedTurn=Math.max(0,birthTurn+12);child.lastProcessedTurn=game.turn;
-  const label=visualName(child);
-  child.name=(label==='Normal'?'노멀':label==='Lilly White'?'릴리':label==='Axanthic'?'Ax':label).slice(0,16)+' '+(child.stage==='adult'?child.sex==='male'?'수컷':'암컷':child.stage==='hatchling'?'해칭':'아성체');
+  if(game.forge)child.name=shopNickname(seed,usedNames);
+  else{
+    const label=visualName(child);
+    child.name=(label==='Normal'?'노멀':label==='Lilly White'?'릴리':label==='Axanthic'?'Ax':label).slice(0,16)+' '+(child.stage==='adult'?child.sex==='male'?'수컷':'암컷':child.stage==='hatchling'?'해칭':'아성체');
+  }
   const quote=valueGecko(child,table);
   return {id,individual:child,askPrice:quote.ask,marketBase:quote.marketBase,marketVersion:quote.marketVersion,
     purchased:false,family:{version:1,seed:childSeed,matingTurn,father,mother}};
@@ -74,7 +78,8 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
 
 export function refreshFamilyShop(game:HardcoreGame,table:PriceTable=MARKET):void {
   const batch=(game.shop.batch??0)+1;
-  const offers=Array.from({length:SHOP_SIZE},(_,n)=>familyOffer(game,batch,n,table));
+  const usedNames=new Set(Object.values(game.individuals).map(g=>g.name));
+  const offers=Array.from({length:SHOP_SIZE},(_,n)=>{const offer=familyOffer(game,batch,n,table,usedNames);usedNames.add(offer.individual.name);return offer;});
   game.shop={date:game.lastDate,batch,offers:Object.fromEntries(offers.map(o=>[o.id,o]))};game.marketVersion=table.version;
 }
 
