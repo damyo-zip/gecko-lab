@@ -1,0 +1,71 @@
+.shell {
+  min-height: 100dvh; display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  background: radial-gradient(ellipse at 50% 18%, #244134 0%, #12211f 45%, #090f15 100%);
+}
+.screen {
+  width: min(100%, 430px); overflow: hidden; color: #e6eadf;
+  border: 2px solid #465b54; border-radius: 10px;
+  background: #0c1620;
+  box-shadow: 0 24px 65px #020708bd, inset 0 0 0 3px #17232a;
+}
+.topLine, .footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font: 10px "Courier New", monospace; letter-spacing: .6px; color: #8b9ca3;
+  padding: 13px 17px; background: #0c1720;
+}
+.topLine { border-bottom: 1px solid #394c52; }
+.topLight { color: #91ce80; white-space: nowrap; }
+.hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 26px 18px 21px;
+  background: radial-gradient(ellipse at 50% 75%, #33504282, transparent 67%), linear-gradient(#152630da,#111e29e8), url("/ui/home-terrarium.png") center / cover;
+  border-bottom: 2px solid #3f5445;
+}
+.eyebrow, .sectionLabel, .artCaption {
+  font: 10px "Courier New", monospace; letter-spacing: 1.8px; color: #a0c98c; text-align: center;
+}
+.wordmark { width: min(94%, 290px); height: auto; margin-top: 15px; filter: drop-shadow(0 3px 1px #010407); }
+.subtitle { font-size: 12px; font-weight: 600; color: #bdc9c8; margin: 10px 0 20px; text-align: center; }
+.artFrame { display: grid; place-items: center; width: 130px; height: 130px; background: #0c1d25; border: 2px solid #617c63; border-radius: 9px; box-shadow: inset 0 0 0 3px #223a2e, 0 9px 22px #0007; }
+.artFrame img { display: block; width: 110px; height: 110px; object-fit: contain; image-rendering: pixelated; }
+.artCaption { margin-top: 17px; letter-spacing: 2.1px; color: #c3d1a6; }
+.panel { padding: 21px 23px 16px; background: linear-gradient(#111e2b,#0b1520); }
+.sectionLabel { text-align: left; color: #99b28b; font-size: 9px; }
+.panel h1 { margin: 9px 0; color: #ecf2e4; font-size: 23px; letter-spacing: -.7px; line-height: 1.35; }
+.description { color: #aebdc1; font-size: 12px; line-height: 1.75; margin: 0 0 19px; }
+.kakaoNotice { background: #233426; border: 1px solid #577455; border-radius: 6px; color: #cde3bf; font-size: 11px; line-height: 1.7; margin: 0 0 12px; padding: 10px 11px; }
+.primary, .secondary {
+  width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 9px; border-radius: 7px; font-weight: 800; font-size: 15px;
+}
+.primary {
+  color: #112413; background: linear-gradient(#b0da91,#85c46b); border: 2px solid #c5ebaf;
+  box-shadow: inset 0 -3px #63944f, 0 4px 0 #1c3826; padding: 11px 13px;
+}
+.primary:disabled { opacity: .65; cursor: default; }
+.primary > span:last-child { margin-left: auto; font-size: 21px; line-height: 1; }
+.primary > span:first-child { font-size: 19px; line-height: 1; }
+.secondary { margin-top: 13px; border: 1px solid #4e6272; color: #bec9d2; font-size: 12px; min-height: 43px; background: #182634; }
+.secondary > span { font-size: 17px; }
+.message { font-size: 11px; line-height: 1.6; color: #bfe1aa; margin: 12px 0 0; }
+.guide { background: #182836; border: 1px solid #516879; border-radius: 7px; margin-top: 18px; padding: 14px; color: #c8d4d5; font-size: 12px; line-height: 1.75; }
+.guideTitle { display: flex; align-items: center; justify-content: space-between; color: #e6eedc; font-weight: 800; font-size: 14px; margin-bottom: 9px; }
+.guideTitle button { color: #aabbc8; border: 0; background: transparent; font-size: 23px; line-height: 1; padding: 0 4px; min-width: 30px; min-height: 30px; }
+.guide p { margin: 9px 0; }
+.guide b { color: #99d385; }
+.guide strong { color: #d9ebc6; }
+.copyRow { display: flex; align-items: stretch; gap: 7px; padding-top: 7px; }
+.copyUrl { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: 10px; padding: 9px; background: #0b1720; border: 1px solid #324d54; color: #b3ccd2; }
+.copyRow button { min-width: 69px; background: #2d453d; border: 1px solid #64836a; color: #d5e9d0; border-radius: 5px; font-size: 11px; padding: 6px; }
+.saveNote { color: #899ba5; font-size: 10px; line-height: 1.7; margin: 17px 0 0; }
+.footer { border-top: 1px solid #374c4f; font-size: 9px; color: #748f8e; }
+@media (max-width: 370px) {
+  .hero { padding-top: 19px; padding-bottom: 16px; }
+  .panel { padding: 18px 16px 13px; }
+  .panel h1 { font-size: 21px; }
+  .topLine, .footer { padding-left: 12px; padding-right: 12px; font-size: 9px; }
+  .artFrame { width: 112px; height: 112px; }
+  .artFrame img { width: 94px; height: 94px; }
+  .subtitle { margin-bottom: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .primary, .secondary { transition: none; } }
