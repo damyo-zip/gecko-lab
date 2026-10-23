@@ -93,7 +93,9 @@ test("dark fullscreen tint is applied on enter and restored on exit", async ({ p
   await expect(page.getByRole("heading", { name: /^보유 개체/ })).toBeVisible();
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0b141d");
   expect(await page.evaluate(() => document.documentElement.style.backgroundColor)).toBe("rgb(11, 20, 29)");
+  expect(await page.evaluate(() => document.documentElement.classList.contains("kakao-fullscreen-inset"))).toBe(true);
   await page.evaluate(() => document.exitFullscreen());
   await expect(page.getByTestId("fullscreen-reenter")).toBeVisible();
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", initialTheme ?? "#0c1420");
+  expect(await page.evaluate(() => document.documentElement.classList.contains("kakao-fullscreen-inset"))).toBe(false);
 });

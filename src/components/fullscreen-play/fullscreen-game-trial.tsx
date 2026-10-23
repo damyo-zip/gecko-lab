@@ -24,6 +24,7 @@ export default function FullscreenGameTrial() {
     const sync = () => {
       const active = document.fullscreenElement === root;
       setFullscreen(active);
+      root.classList.toggle("kakao-fullscreen-inset", active);
       // A best-effort WebView/system inset tint, not a way to paint native UI.
       root.style.backgroundColor = active ? "#0b141d" : previousRootBackground;
       if (themeMeta) themeMeta.setAttribute("content", active ? "#0b141d" : (previousTheme ?? "#0c1420"));
@@ -32,6 +33,7 @@ export default function FullscreenGameTrial() {
     document.addEventListener("fullscreenchange", sync);
     return () => {
       document.removeEventListener("fullscreenchange", sync);
+      root.classList.remove("kakao-fullscreen-inset");
       root.style.backgroundColor = previousRootBackground;
       if (themeMeta) {
         if (previousTheme === null) themeMeta.removeAttribute("content");
