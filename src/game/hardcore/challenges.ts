@@ -6,7 +6,7 @@ import {visualName,morphDescription} from './adapter';
 import {breederRank} from './breeder-rank';
 
 export interface ChallengeCompletion {
- challengeId:ChallengeId;eggId:string;achievedTurn:number;evaluatorVersion:1;
+ challengeId:ChallengeId;eggId:string;achievedTurn:number;evaluatorVersion:1|2;
  /** Immutable birth portrait includes seed, appearance version, genome and parents.
   * It never counts as another owned animal; the existing egg remains pedigree evidence. */
  specimen:Gecko;morph:string;phenotype:string;
@@ -38,7 +38,7 @@ export function recordChallengeHatch(game:HardcoreGame,egg:TimedEgg):void {
  const s=game.breedingChallenges,id=s?.activeId;
  if(!s||!id||egg.status!=='hatched'||egg.embryo.birthTurn!==game.turn||egg.resolvedDate!==game.lastDate||egg.lifecycle?.failure||egg.embryo.development?.viable===false||
   s.completed.some(c=>c.challengeId===id)||!evaluateBreedingChallenge(egg.embryo,id))return;
- s.completed.push({challengeId:id,eggId:egg.id,achievedTurn:game.turn,evaluatorVersion:1,
+ s.completed.push({challengeId:id,eggId:egg.id,achievedTurn:game.turn,evaluatorVersion:egg.embryo.genetics?.forge?2:1,
   specimen:bornIndividual(egg.embryo),morph:visualName(egg.embryo),phenotype:morphDescription(egg.embryo),
   reward:{feedExemptionSlots:1,titleId:id},announced:false});
  s.unlockTurn=game.turn;

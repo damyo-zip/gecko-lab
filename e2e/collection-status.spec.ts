@@ -1,8 +1,8 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {collectionStatusGame} from './fixtures/collection-status';
-import {REFERENCE_DATE} from './fixtures/reference-home';
+import {collectionStatusGame} from './helpers/forge-fixtures';
+import {REFERENCE_DATE} from './helpers/forge-fixtures';
 import {touch,finishTurn} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {expansionPrice} from '../src/game/hardcore/economy';

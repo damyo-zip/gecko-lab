@@ -11,6 +11,7 @@ import { migrateSingleClutch } from "./migrate-single-clutch";
 import {migrateAlbum} from './migrate-album';
 import { migrateBroodCare } from "./brood-care";
 import {migrateRisk} from './migrate-risk';
+import {migrateForge} from './migrate-forge';
 
 export function checksum(value: unknown): string {
   const input = canonicalJSON(value); let hash = 2166136261;
@@ -69,10 +70,19 @@ export function readSave(value:unknown,date:GameDate):HardcoreGame {
   }
   const game=migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date)))));validateGame(game);return game;
 }
+/** Production load/import boundary. The historical reader remains replayable. */
+export function readForgeSave(value:unknown,date:GameDate):HardcoreGame {
+  const game=migrateForge(readSave(value,date));validateGame(game);return game;
+}
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");
   let value: unknown;
   try { value = JSON.parse(input); } catch { throw new Error("JSON 형식이 올바르지 않습니다."); }
   return readSave(value, date);
+}
+export function parseForgeBackup(input:string,date:GameDate):HardcoreGame {
+  if(new TextEncoder().encode(input).length>MAX_BACKUP_BYTES)throw new Error('백업 파일은 16MB 이하여야 합니다.');
+  let value:unknown;try{value=JSON.parse(input);}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}
+  return readForgeSave(value,date);
 }
 export function exportBackup(game: HardcoreGame): string { return JSON.stringify(makeSave(game), null, 2); }

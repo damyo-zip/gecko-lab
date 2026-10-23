@@ -3,8 +3,8 @@ import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-na
 import {navigateGame,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {writeFile} from "node:fs/promises";
-import {turns} from "./fixtures/lifecycle";
-import {newGame,act,synchronize} from "./fixtures/legacy-catalog";
+import {turns} from './helpers/forge-fixtures';
+import {legacyCatalogGame as newGame,act,synchronize} from './helpers/forge-fixtures';
 import {addDays} from "../src/game/hardcore/time";
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";

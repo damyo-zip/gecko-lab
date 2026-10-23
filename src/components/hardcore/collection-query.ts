@@ -3,8 +3,12 @@ import type {HardcoreGame,Gecko} from "@/game/hardcore/model";
 import {specimen,visualName} from "@/game/hardcore/adapter";
 import {appearanceProfile} from "@/game/hardcore/appearance";
 import {valueGecko} from "@/game/hardcore/market";
+import {PATTERN_FILTERS} from '@/phenotype/rules';
 
 export const COLLECTION_MORPHS={normal:"노멀",lilly:"릴리화이트",axanthic:"아잔틱",dalmatian:"달마시안",harlequin:"할리퀸",tricolor:"트라이컬러 할리퀸"};
+export const FORGE_MORPH_FILTERS=['카푸치노','세이블','하이웨이','팬텀','엠티백','화이트아웃','화이트월','포트홀','쿼드스트라이프','슈퍼스트라이프','리버스 핀스트라이프'];
+const CURRENT_PATTERN_FILTERS=[...new Set<string>([...PATTERN_FILTERS.filter(n=>!['드리피','슈퍼달마시안','쿼드 핀스트라이프'].includes(n)),'하이 플레임','고밀도 달마시안',...FORGE_MORPH_FILTERS])];
+export const collectionPatternFilters=(current:boolean)=>current?CURRENT_PATTERN_FILTERS:PATTERN_FILTERS;
 export const COLLECTION_SORTS={default:"기본순",name:"이름순",generation:"세대순",hearts:"하트순",priceDesc:"가격 높은순",priceAsc:"가격 낮은순"};
 export type CollectionSort=keyof typeof COLLECTION_SORTS;
 export interface CollectionQuery {morph:string;sort:CollectionSort;stage:string;sex?:string;search?:string}
@@ -24,7 +28,7 @@ export function collectionEntries(animals:readonly Gecko[],q:CollectionQuery) {
     if(search&&!`${g.name} ${g.id}`.toLocaleLowerCase("ko-KR").includes(search))return false;
     if(q.morph==="all")return true;
     if(q.morph.startsWith("pattern:")){
-      const p=appearanceProfile(g);return !!p&&[p.names.base,p.names.color,...p.names.features].some(n=>n.includes(q.morph.slice(8)));
+      const p=appearanceProfile(g);return !!p&&[p.names.primary,p.names.base,p.names.color,...p.names.features].some(n=>n.includes(q.morph.slice(8)));
     }
     return specimen(g).appearance.patternStyle===q.morph;
   });

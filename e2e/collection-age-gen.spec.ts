@@ -1,8 +1,8 @@
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {mkdir} from 'node:fs/promises';
-import {referenceHomeGame,REFERENCE_DATE} from './fixtures/reference-home';
-import {lineageFixture} from './fixtures/lineage-reference';
+import {referenceHomeGame,REFERENCE_DATE} from './helpers/forge-fixtures';
+import {lineageFixture} from './helpers/forge-fixtures';
 import {touch,openCollectionCatalog} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {act} from '../src/game/hardcore/play';

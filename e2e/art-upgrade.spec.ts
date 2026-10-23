@@ -7,8 +7,8 @@ import {readFile} from "node:fs/promises";
 import {decodePNG} from "../scripts/png.mjs";
 import {renderSprite,renderLegacySprite} from "../src/engine/render";
 import {MORPH_PRESETS,specimenFromPreset} from "../src/engine/presets";
-import {successfulPair} from "./fixtures/lifecycle";
-import {newGame} from "./fixtures/legacy-catalog";
+import {successfulPair} from './helpers/forge-fixtures';
+import {legacyCatalogGame as newGame} from './helpers/forge-fixtures';
 import {exportBackup} from "../src/game/hardcore/save";
 import type {HardcoreGame} from "../src/game/hardcore/model";
 const DATE="2026-10-14",errors=new WeakMap<Page,string[]>();
@@ -21,7 +21,7 @@ async function saved(page:Page):Promise<HardcoreGame>{return page.evaluate(async
 async function canvasVisible(page:Page){
  const canvases=page.locator("canvas");expect(await canvases.count()).toBeGreaterThan(0);
  for(const canvas of await canvases.all()){
-  await expect(canvas).toHaveAttribute("data-renderer-version",/^2\.(0\.1|1\.0)$/);
+  await expect(canvas).toHaveAttribute("data-renderer-version","b-origin-01-companion-lineage-1");
   const result=await canvas.evaluate(node=>{const c=node as HTMLCanvasElement,ctx=c.getContext("2d")!,p=ctx.getImageData(0,0,c.width,c.height).data,r=c.getBoundingClientRect();
    return {opaque:p.some((v,i)=>i%4===3&&v>0),smoothing:ctx.imageSmoothingEnabled,integerSize:c.width%96===0&&c.height%96===0,fits:r.width<=innerWidth};});
   expect(result).toEqual({opaque:true,smoothing:false,integerSize:true,fits:true});

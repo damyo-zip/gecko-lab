@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import type { HardcoreGame, TimeMode } from "@/game/hardcore/model";
-import { newGame } from "@/game/hardcore/play";
-import { exportBackup, parseBackup } from "@/game/hardcore/save";
+import { newForgeGame as newGame } from "@/game/hardcore/play";
+import { exportBackup, parseForgeBackup as parseBackup } from "@/game/hardcore/save";
 import { MAX_BACKUP_BYTES } from "@/game/save";
 import { seoulDate } from "@/game/hardcore/time";
 import { listArchives } from "@/storage/hardcore";

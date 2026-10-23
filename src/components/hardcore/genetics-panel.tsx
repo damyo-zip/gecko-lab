@@ -13,7 +13,7 @@ import { visualName } from "@/game/hardcore/adapter";
 
 export function KnowledgePanel({knowledge,legacy=false}:{knowledge:Knowledge;legacy?:boolean}) {
   return <div className="genetic-panel" data-testid="public-genetics"><p>{ko(knowledgeLabel(knowledge))}</p>
-    {legacy&&<p className="game-small-note">이전 외형 모델 유지 · 과거 가상 대립유전자는 복원할 수 없어 미확인입니다.</p>}
+    {legacy&&<p className="game-small-note">과거 유전 기록이 없어 일부 형질은 미확인입니다.</p>}
     {LOCI.map(l=>{const b=knowledge.loci[l.id];return <details key={l.id}><summary>{ko(l.name)} · {ko(beliefLabel(l.id,b))}</summary>
       <p>{SOURCE_LABELS[b.source]} · {b.note}</p>
       {b.probabilities&&<p>{Object.entries(b.probabilities).map(([k,p])=>k+" "+(p*100).toFixed(1)+"%").join(" · ")}</p>}
@@ -24,11 +24,12 @@ export function KnowledgePanel({knowledge,legacy=false}:{knowledge:Knowledge;leg
   </div>;
 }
 export function AdvancedTraits({gecko}:{gecko:Gecko}) {
-  if(!gecko.genetics?.genome)return <p className="game-small-note">이전 개체는 기존 잠재 외형을 유지합니다. 평균·변이 모델을 가상 대립유전자 상속 결과로 주장하지 않습니다.</p>;
+  if(!gecko.genetics?.genome)return <p className="game-small-note">이전 개체의 다유전자 기록은 미확인입니다. 보이는 외형만으로 유전형을 확정하지 않습니다.</p>;
   const scores=polyScores(gecko.genetics.genome.polygenic);
   return <details className="hc-traits"><summary>외형 형질 10종 · 게임용 다유전자 모델</summary>
     {FEATURES.map(k=><div key={k}><span>{FEATURE_LABELS[k]}</span><progress max={1} value={scores[k]}/><b>{Math.round(scores[k]*100)}</b></div>)}
     <p className="game-small-note">부모에게서 가상 대립유전자를 상속합니다. 점수는 실제 DNA 검사나 멘델 확률이 아닙니다. 파이어업·성장 상태가 유전형을 바꾸지는 않습니다.</p>
+    {gecko.genetics.forge&&<p className="game-small-note">흰 베일 농도와 옆무늬 성향도 부모에게서 이어집니다. 흰 베일은 릴리화이트에서 발현하며, 비릴리도 성향을 전달할 수 있습니다.</p>}
   </details>;
 }
 export function GeneticForecast({father,mother}:{father:Gecko;mother:Gecko}) {

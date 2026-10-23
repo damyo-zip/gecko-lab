@@ -10,7 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,7 +23,10 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e -- --workers=2
+      # Real-time Rush frame/tap measurements need an uncontended browser.
+      # Both commands together run every case; no performance test is omitted.
+      - run: npm run test:e2e -- --workers=2 --grep-invert rush --output=test-results/functional
+      - run: npm run test:e2e -- --workers=1 --grep rush --output=test-results/rush
       - uses: actions/upload-artifact@v4
         if: always()
         with:

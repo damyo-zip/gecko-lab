@@ -4,9 +4,9 @@ import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-na
 import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,finishTurnAndTend as finishTurn,feedCollection} from "./helpers/hardcore-navigation";
 import { test,expect,type Page,type Locator } from "@playwright/test";
-import {turns} from "./fixtures/lifecycle";
+import {turns} from './helpers/forge-fixtures';
 import {newGame as legacyGame} from "../tests/helpers/legacy-hardcore";
-import { axCatalog as newGame,act,synchronize } from "./fixtures/legacy-catalog";
+import { axCatalog as newGame,act,synchronize } from './helpers/forge-fixtures';
 import { exportBackup,checksum } from "../src/game/hardcore/save";
 import type { HardcoreGame } from "../src/game/hardcore/model";
 import { addDays } from "../src/game/hardcore/time";
@@ -85,7 +85,7 @@ test("actual v4 IndexedDB slot migrates and archives atomically without inventin
   await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction("games","readwrite");tx.objectStore("games").put(record,"active");tx.oncomplete=()=>{db.close();resolve();};});},
     {save:{format:"gecko-lab-save",version:4,checksum:checksum(old),game:old},writeRevision:7});
   await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");g=await saved(page);expect(g.saveVersion).toBe(10);expect(g.individuals[offer.id].genetics!.genome).toBeNull();
-  await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("과거 가상 대립유전자는 복원할 수 없어 미확인");
+  await tab(page,"컬렉션",mobile);await click(page.getByRole("button",{name:"노멀 수컷 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("과거 유전 기록이 없어 일부 형질은 미확인");
   const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open("gecko-lab",1);r.onsuccess=()=>resolve(r.result);});return new Promise<string[]>(resolve=>{const tx=db.transaction("games","readonly"),r=tx.objectStore("games").getAllKeys();r.onsuccess=()=>resolve(r.result.map(String));tx.oncomplete=()=>db.close();});});expect(archive).toContain("archive-v4-8");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });

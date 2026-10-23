@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {collectionStatusGame} from './fixtures/collection-status';
-import {breedingRiskFixture} from './fixtures/breeding-risk';
+import {collectionStatusGame} from './helpers/forge-fixtures';
+import {breedingRiskFixture} from './helpers/forge-fixtures';
 import {touch,navigateGame,chooseBreedingParent,closeBreeding,finishTurn} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';

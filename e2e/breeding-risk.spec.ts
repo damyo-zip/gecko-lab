@@ -1,6 +1,6 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page} from '@playwright/test';
-import {breedingRiskFixture} from './fixtures/breeding-risk';
+import {breedingRiskFixture} from './helpers/forge-fixtures';
 import {exportBackup} from '../src/game/hardcore/save';
 import {touch,navigateGame,openCollectionCatalog,expandCollectionFilters,inspectGenetics,closeGenetics,finishTurnAndTend as finishTurn,finishTurn as advanceOnly,tendIncubator} from './helpers/hardcore-navigation';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
@@ -51,7 +51,7 @@ test('lineal crosses warn and ordinary unrelated crosses execute without another
  expect((await saved(page)).nextClutch).toBe(f.game.nextClutch+1);
 });
 
-import {newGame,act} from '../src/game/hardcore/play';
+import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
 function shopComplexPair(){
  let game=newGame('actual-complex-ui',DATE,{initialMoney:5_000_000,initialCapacity:30}),fatherId='',motherId='';game.food=200;
  for(let batch=0;batch<40&&(!fatherId||!motherId);batch++){

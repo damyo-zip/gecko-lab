@@ -108,6 +108,8 @@ export interface NamedLineage {
   favorite?: boolean;
 }
 export interface HardcoreGame {
+  /** Versioned engine migration, independent of turn, economy and lifecycle rules. */
+  forge?: import('./forge-model').ForgeSystem;
   /** Optional v10 extension. Missing in old saves means no selected challenge/rewards. */
   breedingChallenges?: import("./challenges").BreedingChallenges;
   saveVersion: 5 | 6 | 7 | 8 | 9 | 10;

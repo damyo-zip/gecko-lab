@@ -12,16 +12,18 @@ import { addDays } from './time';
 import { descriptiveVisualName as visualName } from './adapter';
 import { MARKET, valueGecko, type PriceTable } from './market';
 import type { Gecko, HardcoreGame, Mating, ShopOffer } from './model';
+import {editFeature} from '@/forge';
 
 export const SHOP_REFRESH_PRICE=2_000;
 export const SHOP_SIZE=4;
 
 function parent(game:HardcoreGame,id:string,seed:string,sex:'male'|'female',matingTurn:number,profile:number,subdued:boolean):Gecko {
-  const genotype=expandedGenotype(profile===1?lillyGenotype():normalGenotype());
+  const genotype=expandedGenotype(profile===1||profile===12?lillyGenotype():normalGenotype());
   if(profile===2)genotype.loci.axanthic=['A','ax'];
   if(profile===3)genotype.loci.axanthic=['ax','ax'];
-  const genetics=founderRecord(genotype,seed,subdued);
-  if(game.saveVersion>=9&&profile>=4)genetics.genome!.mendelian.loci['cappuccino-complex']=['n',['C','S','H'][profile-4]];
+  const genetics=founderRecord(genotype,seed,subdued,'patterns-1',game.forge?profile:undefined);
+  if(game.saveVersion>=9&&profile>=4&&profile<=6)genetics.genome!.mendelian.loci['cappuccino-complex']=['n',['C','S','H'][profile-4]];
+  if(game.forge&&profile===11)genetics.genome=editFeature(genetics.genome!,'pinstripe',4);
   // Observe the phenotype, never turn secret carrier truth into seller evidence.
   genetics.knowledge=childKnowledge(unknownKnowledge(),unknownKnowledge(),observedLoci(genetics.genome!),id);
   if(game.saveVersion>=9){const pair=genetics.genome!.mendelian.loci['cappuccino-complex'];
@@ -40,7 +42,7 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   const random=seededRandom(seed,'catalog'),starter=batch===1&&index<2;
   const age=starter?12:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-6;
   const id=game.gameId+'-store-'+batch+'-'+index;
-  const profiles=game.saveVersion>=9?7:4;
+  const profiles=game.forge?13:game.saveVersion>=9?7:4;
   const father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   let mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   // All offspring must come from a safe pair, including Lilly homozygous risks.

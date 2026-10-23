@@ -7,5 +7,6 @@ test-results/
 playwright-report/
 *.tsbuildinfo
 next-env.d.ts
+docs/forge/*.png
 .env*
 !.env.example

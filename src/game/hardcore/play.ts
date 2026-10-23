@@ -19,6 +19,10 @@ import {startRush,stepRush,claimRush} from '@/game/rush';
 export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}, table: PriceTable = MARKET, timeMode: TimeMode = "turn"): HardcoreGame {
   const game = createGame(seed, date, rules, timeMode); refreshShop(game, table); validateGame(game); return game;
 }
+/** Current production factory. newGame above is retained for frozen v10 regression fixtures. */
+export function newForgeGame(seed:string,date:GameDate,rules:Partial<Rules>={},table:PriceTable=MARKET,timeMode:TimeMode='turn'):HardcoreGame {
+  const game=createGame(seed,date,rules,timeMode);game.forge={version:1};refreshShop(game,table);validateGame(game);return game;
+}
 export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   validateGame(source);
   let result = catchUp(source, date);

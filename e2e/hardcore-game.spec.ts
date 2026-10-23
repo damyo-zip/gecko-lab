@@ -5,8 +5,8 @@ import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigat
 import {navigateGame,feedCollection,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
-import {turns,successfulPair} from "./fixtures/lifecycle";
-import { newGame, act, synchronize } from "./fixtures/legacy-catalog";
+import {turns,successfulPair} from './helpers/forge-fixtures';
+import { legacyCatalogGame as newGame, act, synchronize } from './helpers/forge-fixtures';
 import { makeSave, exportBackup, parseBackup } from "../src/game/hardcore/save";
 import { createNewGame, applyAction } from "../src/game/play";
 import { makeSave as legacySave } from "../src/game/save";
@@ -88,7 +88,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  const beforeSale=(await saved(page)).money;await click(page.getByRole("button",{name:/^분양 준비/}),mobile);await click(page.getByRole("button",{name:"분양 확정",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("판매 완료");expect((await saved(page)).money).toBeGreaterThan(beforeSale);await page.keyboard.press("Escape");
  await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
  const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
- await click(page.getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
+ await click(page.getByTestId('shop-offer-'+partner.id).getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
  await chooseBreedingParent(page,'male',child.sex==='male'?child.id:partner.id);await chooseBreedingParent(page,'female',child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  await tab(page,"컬렉션",mobile);for(let t=0;t<6;t++)await finishTurn(page,mobile);g=await saved(page);const grandchild=Object.values(g.individuals).find(i=>i.generation===3)!;expect(grandchild).toBeDefined();
  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(grandchild.id);await expect(page.locator(".ancestor-list")).toContainText(father.name);await expect(page.locator(".lineage-root")).toContainText("등록된 가문 없음");await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");

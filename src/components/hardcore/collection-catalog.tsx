@@ -3,7 +3,7 @@ import {useEffect,useId,useLayoutEffect,useMemo,useRef,useState} from "react";
 import {owned,feedable} from "@/game/hardcore/survival";
 import {foodDemand,isV12} from "@/game/hardcore/lifecycle";
 import {STAGE_LABELS} from "@/game/model";
-import {PATTERN_FILTERS} from "@/phenotype/rules";
+import {collectionPatternFilters} from "./collection-query";
 import {Dialog,type ViewProps} from "./common";
 import {HomeIcon} from "./home-icons";
 import {CollectionCard,type CardActionHandlers} from "./collection-card";
@@ -35,7 +35,7 @@ export function CollectionCatalog({game,busy,play,initial,selectedId,onSelect,on
   <div className="collection-list-tools">
   <div className="collection-list-controls" id={filterId} hidden={!filtersOpen}>
    <label className="collection-list-search"><HomeIcon name="search" size={18}/><input type="search" aria-label="이름·ID 검색" placeholder="이름·ID 검색" value={query.search} onChange={e=>change({search:e.target.value})}/></label>
-   <div className="collection-list-primary-filters"><label>모프<select aria-label="목록 모프 필터" value={query.morph} onChange={e=>change({morph:e.target.value})}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{PATTERN_FILTERS.map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select></label>
+   <div className="collection-list-primary-filters"><label>모프<select aria-label="목록 모프 필터" value={query.morph} onChange={e=>change({morph:e.target.value})}><option value="all">모프 전체</option>{Object.entries(COLLECTION_MORPHS).map(([id,label])=><option key={id} value={id}>{label}</option>)}{collectionPatternFilters(!!game.forge).map(label=><option key={label} value={"pattern:"+label}>{label}</option>)}</select></label>
     <label>정렬<select aria-label="목록 정렬" value={query.sort} onChange={e=>change({sort:e.target.value as CollectionSort})}>{Object.entries(COLLECTION_SORTS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label></div>
    <details className="collection-list-extra"><summary>성장·성별 조건</summary><div><label>성장<select aria-label="목록 성장 단계" value={query.stage} onChange={e=>change({stage:e.target.value})}><option value="all">성장 전체</option>{Object.entries(STAGE_LABELS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>
     <label>성별<select aria-label="목록 성별" value={query.sex} onChange={e=>change({sex:e.target.value})}><option value="all">성별 전체</option><option value="male">수컷</option><option value="female">암컷</option><option value="unknown">미구분</option></select></label></div></details>

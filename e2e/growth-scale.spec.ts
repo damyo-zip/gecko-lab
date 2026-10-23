@@ -1,6 +1,7 @@
+import {productionSprite,productionName,productionDescription,productionAppearance} from './helpers/forge';
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {growthScaleGame} from './fixtures/growth-scale';
+import {growthScaleGame} from './helpers/forge-fixtures';
 import {touch,navigateGame,finishTurn,openCollectionCatalog,chooseBreedingParent} from './helpers/hardcore-navigation';
 import {exportBackup} from '../src/game/hardcore/save';
 import {actWithTime} from '../src/game/hardcore/time-source';
@@ -56,7 +57,7 @@ test('collection, catalog and detail scale the same bitmap while preserving fram
     await touch(card.locator('.home-card-select'),mobile);await expect(page.getByTestId('home-hero-sprite')).toHaveAttribute('data-growth-stage',g.stage);
     const after=await card.boundingBox();expect(after!.width).toBe(before!.width);expect(after!.height).toBe(before!.height);await checkSprites(page.locator('.home-hero-art'));
     const actual=await card.locator('canvas').evaluate(node=>{const c=node as HTMLCanvasElement,ctx=c.getContext('2d')!,data=ctx.getImageData(0,0,c.width,c.height).data,factor=c.width/96;let value=2166136261;for(let y=0;y<96;y++)for(let x=0;x<96;x++)for(let n=0;n<4;n++)value=Math.imul(value^data[((y*factor)*c.width+x*factor)*4+n],16777619);return {hash:value>>>0,width:c.width,height:c.height};});
-    expect(actual).toEqual({hash:hash(renderSprite(specimen(g)).pixels),width:288,height:288});
+    expect(actual).toEqual({hash:hash(productionSprite(g).pixels),width:288,height:288});
     await touch(card.locator('.home-card-more'),mobile);await checkSprites(page.getByRole('dialog'));await close(page,mobile);
   }
   await openCollectionCatalog(page,mobile);await checkSprites(page.getByRole('dialog'));await close(page,mobile);

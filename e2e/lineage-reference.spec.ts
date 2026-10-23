@@ -1,10 +1,11 @@
+import {productionSprite,productionName,productionDescription,productionAppearance} from './helpers/forge';
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {readFile,mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {lineageFixture} from './fixtures/lineage-reference';
-import {newGame,act} from '../src/game/hardcore/play';
+import {lineageFixture} from './helpers/forge-fixtures';
+import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
-import {exportBackup,readSave} from '../src/game/hardcore/save';
+import {exportBackup,readForgeSave as readSave} from '../src/game/hardcore/save';
 import {familyTree} from '../src/game/hardcore/family-album';
 import {renderSprite} from '../src/engine/render';
 import {specimen,visualName} from '../src/game/hardcore/adapter';
@@ -33,7 +34,7 @@ async function restore(page:Page,game:HardcoreGame,mobile:boolean){
 async function sameSprite(canvas:Locator,g:Gecko){
  await expect.poll(async()=>hash(await canvas.evaluate(el=>{const c=el as HTMLCanvasElement,ctx=c.getContext('2d')!,scale=c.width/96,raw=ctx.getImageData(0,0,c.width,c.height).data,out:number[]=[];
   for(let y=0;y<96;y++)for(let x=0;x<96;x++)out.push(...raw.slice((y*scale*c.width+x*scale)*4,(y*scale*c.width+x*scale)*4+4));return out;
- }))).toBe(hash(renderSprite(specimen(g)).pixels));
+ }))).toBe(hash(productionSprite(g).pixels));
  expect(await canvas.evaluate(el=>!(el as HTMLCanvasElement).getContext('2d')!.imageSmoothingEnabled)).toBe(true);
 }
 test.beforeEach(async({page})=>{const e:string[]=[];errors.set(page,e);page.on('pageerror',err=>e.push(err.message));page.on('console',m=>{if(m.type()==='error')e.push(m.text());});await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByRole('heading',{name:/보유 개체/})).toBeVisible();});
@@ -44,7 +45,7 @@ test('live family album matches actual seven nodes, recenters across generations
  await page.getByRole('combobox',{name:'혈통을 볼 개체',exact:true}).selectOption(f.selectedId);
  const tree=familyTree(f.game,f.selectedId),canvas=page.locator('.album-tree');
  await expect(canvas.locator('.album-tree-card')).toHaveCount(7);
- for(const g of Object.values(tree)){expect(g).toBeDefined();const node=canvas.locator('[data-id="'+g!.id+'"]');await expect(node).toContainText(g!.name);await expect(node).toContainText(visualName(g!));await sameSprite(node.locator('canvas'),g!);}
+ for(const g of Object.values(tree)){expect(g).toBeDefined();const node=canvas.locator('[data-id="'+g!.id+'"]');await expect(node).toContainText(g!.name);await expect(node).toContainText(productionName(g!));await sameSprite(node.locator('canvas'),g!);}
  await sameSprite(page.locator('.lineage-root canvas'),f.game.individuals[f.selectedId]);
  await expect(page.getByRole('navigation',{name:'게임 탭'}).getByRole('button',{name:'혈통도',exact:true})).toHaveAttribute('aria-pressed','true');
  await expect(page.locator('.lineage-trends,.genetic-panel')).toHaveCount(0);

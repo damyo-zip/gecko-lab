@@ -1,14 +1,15 @@
+import {withoutForge} from './helpers/forge-fixtures';
 import {openIncubatorRecords} from './helpers/hardcore-navigation';
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {preRiskRecord} from '../tests/helpers/risk-projection';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {test,expect,type Page} from '@playwright/test';
 import {readFileSync} from 'node:fs';
-import {newGame,act} from './fixtures/legacy-catalog';
+import {legacyCatalogGame as newGame,act} from './helpers/forge-fixtures';
 import {exportBackup,type makeSave} from '../src/game/hardcore/save';
 import {freeSlots,reserved} from '../src/game/hardcore/survival';
 import {touch,navigateGame,finishTurnAndTend as finishTurn} from './helpers/hardcore-navigation';
-import {successfulPair} from './fixtures/lifecycle';
+import {successfulPair} from './helpers/forge-fixtures';
 import type {HardcoreGame} from '../src/game/hardcore/model';
 const DATE='2026-10-14';
 const oldSaves=JSON.parse(readFileSync('tests/fixtures/three-clutch-v6.json','utf8')) as Record<'beforeLaying'|'laid1',ReturnType<typeof makeSave>>;
@@ -49,8 +50,8 @@ for(const key of ['beforeLaying','laid1'] as const)test(`real v6 ${key}: atomic 
  const mobile=info.project.name.startsWith('mobile'),record={save:oldSaves[key],writeRevision:17},errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(record.save.game.turn));let g=await saved(page);const m=Object.values(g.matings)[0],old=Object.values(record.save.game.matings)[0];
- expect(g.rulesVersion).toBe(4);expect(preRiskRecord(g.eggs)).toEqual(record.save.game.eggs);expect(preRiskRecord(m.lifecycle!.offspring)).toEqual(old.lifecycle!.offspring.slice(0,2));expect(g.individuals[m.parents.motherId].nextBreedTurn).toBe(6);expect(reserved(g)).toBe(2);
- for(const id of Object.keys(record.save.game.individuals)){expect(g.individuals[id].genetics).toEqual(record.save.game.individuals[id].genetics);}
+ expect(g.rulesVersion).toBe(4);expect(preRiskRecord(withoutForge(g.eggs))).toEqual(record.save.game.eggs);expect(preRiskRecord(withoutForge(m.lifecycle!.offspring))).toEqual(old.lifecycle!.offspring.slice(0,2));expect(g.individuals[m.parents.motherId].nextBreedTurn).toBe(6);expect(reserved(g)).toBe(2);
+ for(const id of Object.keys(record.save.game.individuals)){expect(withoutForge(g.individuals[id].genetics)).toEqual(record.save.game.individuals[id].genetics);}
  const archives=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise<unknown[]>(resolve=>{const tx=db.transaction('games','readonly'),items:unknown[]=[],r=tx.objectStore('games').openCursor();r.onsuccess=()=>{const c=r.result;if(!c)return;if(String(c.key).startsWith('archive-'))items.push({key:c.key,value:c.value});c.continue();};tx.oncomplete=()=>{db.close();resolve(items);};});});
  expect(archives).toEqual([{key:'archive-v6-18',value:record}]);await page.reload();await expect(page.getByTestId('game-day')).toHaveText(String(g.turn));expect(await saved(page)).toEqual(g);
  const revision=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise<number>(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('active');r.onsuccess=()=>resolve(r.result.writeRevision);tx.oncomplete=()=>db.close();});});expect(revision).toBe(18);

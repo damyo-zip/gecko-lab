@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
-import {breederRankGames} from '../tests/helpers/breeder-rank-game';
-import {challengeClutch} from '../tests/helpers/challenge-game';
+import {breederRankGames} from './helpers/forge-fixtures';
+import {forgeChallengeClutch as challengeClutch} from '../tests/helpers/forge-challenge-game';
 import {act} from '../src/game/hardcore/play';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';

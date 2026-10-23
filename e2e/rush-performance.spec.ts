@@ -2,7 +2,7 @@ import {test,expect,type Page} from '@playwright/test';
 import {startRush} from '../src/game/rush';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';
-import {rushPerformanceGame} from './fixtures/rush-performance';
+import {rushPerformanceGame} from './helpers/forge-fixtures';
 import {touch} from './helpers/hardcore-navigation';
 import {mkdir,writeFile} from 'node:fs/promises';
 

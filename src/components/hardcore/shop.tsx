@@ -21,8 +21,11 @@ export function Shop({game,busy,play,onResources}:ViewProps&{onResources:()=>voi
   // The shared save lock rejects concurrent actions; also ignore the second tap
   // of a double-tap when a fast IndexedDB commit already released that lock.
   if(busy||game.money<SHOP_REFRESH_PRICE||performance.now()<refreshAfter.current)return;
-  refreshAfter.current=performance.now()+400;
-  if(await play({type:'refreshShop'}))setInspect('');
+  // Native generation can take longer than the tap interval. Keep the guard
+  // locked through the durable commit, then start the existing cooldown.
+  refreshAfter.current=Infinity;
+  try{if(await play({type:'refreshShop'}))setInspect('');}
+  finally{refreshAfter.current=performance.now()+400;}
  };
  return <section className="shop-reference" aria-label="상점 화면">
   <h1 className="sr-only">상점</h1>

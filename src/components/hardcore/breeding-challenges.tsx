@@ -6,7 +6,7 @@ import type {ChallengeCompletion} from '@/game/hardcore/challenges';
 import {Dialog,Sprite,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
 import {breederRank} from '@/game/hardcore/breeder-rank';
-import {challengePreview} from '@/game/hardcore/challenge-previews';
+import {forgeChallengePreview as challengePreview} from '@/game/hardcore/challenge-previews';
 import {SpriteCanvas} from '@/components/sprite-canvas';
 import {foodDemand} from '@/game/hardcore/lifecycle';
 
