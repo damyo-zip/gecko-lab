@@ -55,6 +55,22 @@ test('full lineage tab retains the original selected info, family, comparison ma
  const baseline=JSON.parse(readFileSync('docs/gen-family-popup/full-before-'+info.project.name+'.json','utf8'));
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});await page.locator('.reference-content').evaluate(n=>n.scrollTop=0);
+  for(const node of await page.locator('.album-tree-card,.album-compare-card').all()){
+   const id=(await node.getAttribute('data-id'))!;await expect(node).toContainText(visualName(f.game.individuals[id]));
+   await expect(node.locator('canvas')).toHaveAttribute('data-renderer-version','b-origin-01-companion-lineage-1');
+  }
+  await expect(page.locator('.album-selected-facts dl>div:first-child>dd')).toHaveText(visualName(f.game.individuals[f.selectedId]));
+  expect(await page.locator('.album-selected-facts dd,.album-compare-caption p').evaluateAll(nodes=>nodes.every(n=>n.scrollWidth<=n.clientWidth+1))).toBe(true);
+  // New morph names can wrap onto extra lines, depending on the browser font.
+  // Verify live labels above, then measure with the original labels so the
+  // unchanged layout is compared using identical text on every runner.
+  const labels='.album-tree-morph,.album-selected-facts dl>div:first-child>dd,.album-compare-caption>p';
+  const liveLabels=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll((nodes,{rows,selector})=>nodes.map((node,i)=>{
+   const reference=new DOMParser().parseFromString(rows[i].html,'text/html');
+   const originals=Array.from(reference.querySelectorAll(selector));
+   return Array.from(node.querySelectorAll(selector)).map((label,j)=>{const live=label.textContent;label.textContent=originals[j].textContent;return live;});
+  }),{rows:baseline[width] as {html:string}[],selector:labels});
+  try{
   const actual=await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {className:n.className,html:n.outerHTML,rect:{x:r.x,y:r.y,width:r.width,height:r.height}};}));
   // Keep the original structural/geometry snapshot. Only the intentionally
   // replaced appearance fields are compared separately against the live model.
@@ -64,9 +80,10 @@ test('full lineage tab retains the original selected info, family, comparison ma
    .replace(/(<dt>모프<\/dt><dd>)[^<]*(<\/dd>)/g,'$1appearance$2')
    .replace(/(<div class="album-compare-caption">[\s\S]*?<p>)[^<]*(<\/p>)/g,'$1appearance$2')}));
   expect(layout(actual)).toEqual(layout(baseline[width]));
-  for(const node of await page.locator('.album-tree-card,.album-compare-card').all()){
-   const id=(await node.getAttribute('data-id'))!;await expect(node).toContainText(visualName(f.game.individuals[id]));
-   await expect(node.locator('canvas')).toHaveAttribute('data-renderer-version','b-origin-01-companion-lineage-1');
+  }finally{
+   await page.locator('.album-selected,.album-family,.album-comparison').evaluateAll((nodes,{rows,selector})=>nodes.forEach((node,i)=>{
+    node.querySelectorAll(selector).forEach((label,j)=>{label.textContent=rows[i][j];});
+   }),{rows:liveLabels,selector:labels});
   }
  }
  await expect(page.locator('.breeding-challenge-panel')).toBeVisible();await expect(page.locator('.album-save-note')).toHaveCount(1);expect(await saved(page)).toEqual(f.game);
