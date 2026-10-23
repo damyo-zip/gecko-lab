@@ -46,3 +46,37 @@ test("KakaoTalk detection remains readable on Android UA", async ({ page }) => {
   await page.goto("/fullscreen-test");
   await expect(page.getByText("카카오톡 내장 브라우저 · Android")).toBeVisible();
 });
+
+test("new primary button sends the navigationUI show hint on a direct click", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(Element.prototype, "requestFullscreen", {
+      configurable: true,
+      value: (options?: FullscreenOptions) => {
+        (window as Window & { __fullscreenOption?: FullscreenOptions | null }).__fullscreenOption = options ?? null;
+        return Promise.reject(new DOMException("WebView declined", "NotAllowedError"));
+      },
+    });
+  });
+  await page.goto("/fullscreen-test");
+  await page.getByTestId("request-fullscreen").click();
+  await expect(page.getByTestId("requested-mode")).toContainText('navigationUI: "show"');
+  expect(await page.evaluate(() => (window as Window & { __fullscreenOption?: FullscreenOptions | null }).__fullscreenOption)).toEqual({ navigationUI: "show" });
+  await expect(page.getByTestId("fullscreen-result")).toContainText("전체화면 요청 차단");
+});
+
+test("comparison button retains the original fullscreen request without options", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(Element.prototype, "requestFullscreen", {
+      configurable: true,
+      value: (options?: FullscreenOptions) => {
+        (window as Window & { __fullscreenOption?: FullscreenOptions | null }).__fullscreenOption = options ?? null;
+        return Promise.reject(new DOMException("WebView declined", "NotAllowedError"));
+      },
+    });
+  });
+  await page.goto("/fullscreen-test");
+  await page.getByTestId("request-fullscreen-default").click();
+  await expect(page.getByTestId("requested-mode")).toContainText("기본값 (옵션 없음)");
+  expect(await page.evaluate(() => (window as Window & { __fullscreenOption?: FullscreenOptions | null }).__fullscreenOption)).toBeNull();
+  await expect(page.getByTestId("fullscreen-result")).toContainText("전체화면 요청 차단");
+});

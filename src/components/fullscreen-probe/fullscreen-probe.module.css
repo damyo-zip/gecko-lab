@@ -38,3 +38,8 @@
 .note { font-size: 11px; line-height: 1.6; color: #94a8aa; margin: 0; }
 .back { display: inline-block; padding: 8px 0; color: #b1dc9f; font-size: 12px; font-weight: 700; }
 @media (max-height: 700px) { .content { padding-top: 13px; gap: 10px; } .intro img { margin-bottom: 6px; max-width: 65%; } .intro h1 { font-size: 22px; } .panel { padding: 11px; } }
+
+/* Compare advisory navigationUI:show against the original no-options request. */
+.actions { display: grid; gap: 10px; }
+.secondary { display:block; width:100%; min-height:44px; color:#c3d5cd; background:#1c303b; border:1px solid #506c70; border-radius:7px; font-size:12px; font-weight:700; }
+.mode { font: 11px/1.55 "Courier New",monospace; color:#9ec796; margin:12px 0 0; }

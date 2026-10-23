@@ -13,6 +13,7 @@ type Measurement = {
   enabled: boolean;
 };
 type ProbeState = "ready" | "requesting" | "success" | "blocked" | "unsupported" | "exited";
+type FullscreenMode = "show" | "default";
 
 function measure(): Measurement {
   return {
@@ -39,6 +40,7 @@ export default function FullscreenProbe() {
   const [result, setResult] = useState<ProbeState>("ready");
   const [detail, setDetail] = useState("");
   const [copied, setCopied] = useState(false);
+  const [requestedMode, setRequestedMode] = useState<FullscreenMode | null>(null);
   const refresh = useCallback(() => setCurrent(measure()), []);
 
   useEffect(() => {
@@ -69,8 +71,9 @@ export default function FullscreenProbe() {
     };
   }, [refresh]);
 
-  function requestFullscreen() {
+  function requestFullscreen(mode: FullscreenMode) {
     setCopied(false);
+    setRequestedMode(mode);
     const method = document.documentElement.requestFullscreen;
     if (typeof method !== "function") {
       setResult("unsupported");
@@ -81,14 +84,16 @@ export default function FullscreenProbe() {
 
     // Call synchronously from the button event. No await/navigation before user activation.
     setResult("requesting");
-    setDetail("브라우저에 전체화면을 요청했습니다.");
+    setDetail(mode === "show" ? "navigationUI: show 옵션으로 전체화면을 요청했습니다." : "기존 방식으로 전체화면을 요청했습니다.");
     try {
-      const request = document.documentElement.requestFullscreen();
+      const request = mode === "show"
+        ? document.documentElement.requestFullscreen({ navigationUI: "show" })
+        : document.documentElement.requestFullscreen();
       Promise.resolve(request).then(() => {
         refresh();
         if (document.fullscreenElement) {
           setResult("success");
-          setDetail("전체화면 모드가 확인되었습니다. 위아래 카카오톡 UI가 실제로 사라졌는지도 확인해 주세요.");
+          setDetail("전체화면 진입 성공. 안드로이드 상단 시계·배터리와 하단 홈·뒤로가기 버튼이 남아 있는지 확인해 주세요. navigationUI 옵션은 브라우저가 무시할 수 있습니다.");
         } else {
           setResult("blocked");
           setDetail("요청은 끝났지만 전체화면 상태가 확인되지 않았습니다.");
@@ -116,6 +121,7 @@ export default function FullscreenProbe() {
     const output = [
       "[GECKO LAB 전체화면 실험]",
       `환경: ${environment}`,
+      `요청 방식: ${requestedMode === "show" ? 'navigationUI: show' : requestedMode === "default" ? "기존 요청(옵션 없음)" : "미요청"}`,
       `결과: ${result}`,
       `오류/안내: ${detail || "없음"}`,
       `API 지원: ${current?.api ? "예" : "아니오"} / fullscreenEnabled: ${current?.enabled ? "예" : "아니오"}`,
@@ -148,7 +154,7 @@ export default function FullscreenProbe() {
             <img src="/ui/home-wordmark.svg" width={250} height={40} alt="GECKO LAB" />
             <div className={styles.eyebrow}>KAKAOTALK FULLSCREEN PROBE</div>
             <h1>카톡 전체화면 시험</h1>
-            <p>카카오톡에서 이 페이지를 열었다면 아래 버튼을 한 번 눌러 봐. 위쪽 주소창과 아래쪽 메뉴가 사라지는지 실제로 확인할 수 있어.</p>
+            <p>카카오톡에서 시스템 바 유지 옵션을 시험해 봐. 목표는 카톡의 주소창·하단 메뉴만 없애고, 휴대폰 상단 시계와 하단 홈·뒤로가기 버튼은 남기는 거야.</p>
           </div>
 
           <section className={styles.panel} aria-label="전체화면 제어">
@@ -159,8 +165,12 @@ export default function FullscreenProbe() {
             {current?.fullscreen ? (
               <button className={styles.primary} type="button" onClick={exitFullscreen} data-testid="exit-fullscreen">전체화면 종료</button>
             ) : (
-              <button className={styles.primary} type="button" onClick={requestFullscreen} data-testid="request-fullscreen">⛶ 전체화면 요청</button>
+              <div className={styles.actions}>
+                <button className={styles.primary} type="button" onClick={() => requestFullscreen("show")} data-testid="request-fullscreen">⛶ 시스템 바 유지 시도 (show)</button>
+                <button className={styles.secondary} type="button" onClick={() => requestFullscreen("default")} data-testid="request-fullscreen-default">기존 전체화면 방식과 비교</button>
+              </div>
             )}
+            {requestedMode && <p className={styles.mode} data-testid="requested-mode">요청 옵션: {requestedMode === "show" ? 'navigationUI: "show"' : "기본값 (옵션 없음)"}</p>}
             {detail && <p className={styles.details} data-testid="fullscreen-detail">{detail}</p>}
           </section>
 
@@ -180,7 +190,7 @@ export default function FullscreenProbe() {
             <button className={styles.copy} type="button" onClick={() => void copyResult()} data-testid="copy-results">{copied ? "✓ 결과 복사 완료" : "결과 텍스트 복사"}</button>
           </section>
 
-          <p className={styles.note}>API 성공으로 나와도 카카오톡의 주소창·하단 바가 실제로 없어졌는지 육안으로 확인해 줘. 지원 여부와 앱 UI 제거는 별개일 수 있어.</p>
+          <p className={styles.note}>중요: <code>navigationUI: "show"</code>는 요청 사항일 뿐이고, 안드로이드 상태 표시줄·내비게이션 바 유지를 보장하지 않아. API 성공 여부와 실제 시스템 바 표시 여부를 각각 확인해 줘.</p>
           <a className={styles.back} href="/start">← 설치 안내로 돌아가기</a>
         </div>
         <footer className={styles.footer}><span>TEST ONLY · GAME DATA UNTOUCHED</span><span>GECKO LAB</span></footer>
