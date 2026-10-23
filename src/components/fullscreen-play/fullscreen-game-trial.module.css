@@ -82,6 +82,3 @@
   .panel > p:not(.error) { margin-bottom: 10px; }
 }
 
-/* Best-effort dark native inset experiment; a host-owned strip is outside CSS control. */
-:global(html:fullscreen), :global(html:fullscreen body) { background-color: #0b141d !important; }
-:global(:fullscreen::backdrop) { background: #0b141d !important; }
