@@ -29,3 +29,13 @@
 `npm run typecheck`, `npm run build`, `npx playwright test e2e/fullscreen-play.spec.ts`
 
 브라우저 자동화에서는 실제 카카오톡 UI·Android 탐색 표시를 검증할 수 없습니다. 실기기에서 전체화면 진입 후 게임 탭·턴·팝업 터치, Android 종료 제스처를 확인하세요.
+
+
+## 상단 흰색 띠 보정 실험
+
+사용자 Galaxy/KakaoTalk 스크린샷에는 약 57 이미지 픽셀의 흰 띠가 남아 있으며, 브라우저가 보고한 화면 높이(836 CSS px)가 기기 높이(869 CSS px)보다 33 CSS px 낮았습니다. Android 네이티브 WebView 창 인셋/디스플레이 컷아웃일 가능성이 높습니다.
+
+- 전체화면인 동안 HTML 루트 배경, Fullscreen API 백드롭, theme-color 메타 값을 게코랩의 어두운 배경색 `#0b141d`로 맞추고 종료 시 복원합니다.
+- **웹페이지 바깥의 OS/카카오톡 앱 소유 영역은 CSS로 색을 바꿀 수 없습니다.** 카카오톡이 웹 테마 색을 반영하지 않으면 흰 띠는 유지될 수 있습니다.
+- 카카오톡 앱 자체의 Android 상태 표시줄 배경색을 변경하려면 앱 개발사의 네이티브 코드가 필요할 수 있습니다.
+- 실험 효과는 Android KakaoTalk에서 PR 병합·배포 후 실제 화면으로만 판정합니다. 게임 로직과 저장 시스템은 수정하지 않았습니다.
