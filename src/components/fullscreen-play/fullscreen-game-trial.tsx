@@ -5,6 +5,7 @@ import HardcoreHub from "@/components/hardcore/hub";
 import styles from "./fullscreen-game-trial.module.css";
 
 type Stage = "ready" | "starting" | "playing";
+interface InstallPrompt extends Event { prompt(): Promise<void>; userChoice: Promise<{ outcome: "accepted" | "dismissed" }> }
 
 /**
  * Keep the document and its root element in place when the game starts.
@@ -19,8 +20,21 @@ export default function FullscreenGameTrial() {
   const [installUrl, setInstallUrl] = useState("");
   const [copyMessage, setCopyMessage] = useState("");
   const pending = useRef(false);
+  const [promptEvent, setPromptEvent] = useState<InstallPrompt | null>(null);
+  const [installBusy, setInstallBusy] = useState(false);
+  const [installed, setInstalled] = useState(false);
+  const [installMessage, setInstallMessage] = useState("");
 
   useEffect(() => {
+    const standalone = navigator as Navigator & { standalone?: boolean };
+    if (window.matchMedia("(display-mode: standalone)").matches || standalone.standalone === true) {
+      window.location.replace("/");
+      return;
+    }
+    const onInstallReady = (event: Event) => { event.preventDefault(); setPromptEvent(event as InstallPrompt); };
+    const onInstalled = () => { setInstalled(true); setPromptEvent(null); setInstallMessage("설치 완료. 홈 화면에서 실행하세요."); };
+    window.addEventListener("beforeinstallprompt", onInstallReady);
+    window.addEventListener("appinstalled", onInstalled);
     const ua = navigator.userAgent;
     const kakao = /kakaotalk/i.test(ua);
     const ios = /iphone|ipad|ipod/i.test(ua);
@@ -42,6 +56,8 @@ export default function FullscreenGameTrial() {
     document.addEventListener("fullscreenchange", sync);
     return () => {
       document.removeEventListener("fullscreenchange", sync);
+      window.removeEventListener("beforeinstallprompt", onInstallReady);
+      window.removeEventListener("appinstalled", onInstalled);
       root.classList.remove("kakao-fullscreen-inset");
       root.style.backgroundColor = previousRootBackground;
       if (themeMeta) {
@@ -54,16 +70,45 @@ export default function FullscreenGameTrial() {
   async function copyInstallUrl() {
     try {
       await navigator.clipboard.writeText(installUrl);
-      setCopyMessage("설치 주소를 복사했어. 외부 브라우저에 붙여넣어 줘.");
+      setCopyMessage("주소를 복사했습니다.");
     } catch {
-      setCopyMessage("자동 복사가 제한됐어. 아래 주소를 길게 눌러 복사해 줘.");
+      setCopyMessage("주소 복사를 지원하지 않는 브라우저입니다.");
+    }
+  }
+
+  function installOrExplain() {
+    setInstallMessage("");
+    setCopyMessage("");
+    const direct = installContext.startsWith("kakao") || installContext === "ios" ? null : promptEvent;
+    if (!direct) { setInstallHelpOpen(value => !value); return; }
+    // The browser's install prompt must be invoked by this user click, not after navigation.
+    setPromptEvent(null);
+    setInstallHelpOpen(false);
+    setInstallBusy(true);
+    try {
+      void direct.prompt()
+        .then(() => direct.userChoice)
+        .then(({ outcome }) => {
+          if (outcome === "accepted") {
+            setInstallMessage("설치를 진행합니다. 홈 화면에서 실행하세요.");
+          } else {
+            setInstallMessage("설치가 취소되었습니다.");
+            setInstallHelpOpen(true);
+          }
+        })
+        .catch(() => { setInstallMessage("브라우저 메뉴에서 설치해 주세요."); setInstallHelpOpen(true); })
+        .finally(() => setInstallBusy(false));
+    } catch {
+      setInstallBusy(false);
+      setInstallMessage("브라우저 메뉴에서 설치해 주세요.");
+      setInstallHelpOpen(true);
     }
   }
 
   function enterFullscreen() {
     if (pending.current) return;
     if (typeof document.documentElement.requestFullscreen !== "function") {
-      setError("이 브라우저는 전체화면을 지원하지 않아. 아래 앱 다운로드 방법을 확인해 줘.");
+      setError("전체화면을 지원하지 않습니다. 앱 설치 방법을 확인해 주세요.");
       return;
     }
 
@@ -78,7 +123,7 @@ export default function FullscreenGameTrial() {
       Promise.resolve(request)
         .then(() => {
           if (document.fullscreenElement !== document.documentElement) {
-            setError("전체화면 상태가 확인되지 않았어. 다시 시도하거나 앱 다운로드 방법을 확인해 줘.");
+            setError("전체화면을 시작하지 못했습니다. 다시 시도하거나 앱 설치 방법을 확인해 주세요.");
             if (firstStart) setStage("ready");
             return;
           }
@@ -111,48 +156,37 @@ export default function FullscreenGameTrial() {
 
   return <main className={styles.shell} data-testid="fullscreen-play-entry">
     <div className={styles.frame}>
-      <div className={styles.top}><span>GECKO LAB</span><span>FULLSCREEN / TRIAL</span></div>
       <div className={styles.hero}>
-        <p className={styles.eyebrow}>A NEW BREEDING WORLD</p>
         <img src="/ui/home-wordmark.svg" width={290} height={48} alt="GECKO LAB" />
-        <p className={styles.subtitle}>나만의 크레스티드 게코 브리딩 연구소</p>
+        <p className={styles.subtitle}>크레스티드 게코 브리딩 연구소</p>
         <div className={styles.icon}><img src="/icons/icon-192.png" alt="" width={112} height={112}/></div>
-        <p className={styles.eyebrow}>COLLECT · BREED · DISCOVER</p>
       </div>
       <section className={styles.panel}>
-        <div className={styles.section}>01 / KAKAOTALK GAME MODE</div>
-        <h1>전체화면으로 게임 시작</h1>
-        <p>카카오톡 주소창과 하단 메뉴를 숨기고, 페이지를 이동하지 않은 상태에서 바로 게코랩을 실행해 봐.</p>
+        <h1>게임 시작</h1>
+        <p className={styles.intro}>전체화면으로 플레이하거나 앱으로 설치하세요.</p>
         <button type="button" className={styles.primary} onClick={enterFullscreen} disabled={stage === "starting"} data-testid="fullscreen-start">
-          {stage === "starting" ? "전체화면으로 전환 중…" : "⛶ 전체화면으로 시작"}
+          {stage === "starting" ? "전체화면 전환 중…" : "⛶ 전체화면으로 시작"}
         </button>
         {error && <p className={styles.error} role="alert">{error}</p>}
-        <button type="button" className={styles.secondary} onClick={() => { setInstallHelpOpen(x => !x); setCopyMessage(""); }} data-testid="install-help-toggle" aria-expanded={installHelpOpen} aria-controls="fullscreen-install-guide">
-          ↓ 앱 다운로드 방법
-        </button>
-        {installHelpOpen && <section id="fullscreen-install-guide" className={styles.installGuide} aria-label="앱 설치 안내" data-testid="install-help-guide">
-          <div className={styles.installGuideTitle}><strong>GECKO LAB 앱 설치하기</strong><button type="button" aria-label="설치 안내 닫기" onClick={() => setInstallHelpOpen(false)}>×</button></div>
+        {!installed && <button type="button" className={styles.secondary} onClick={installOrExplain} disabled={installBusy} data-testid="install-help-toggle" aria-expanded={installHelpOpen} aria-controls="fullscreen-install-guide">
+          {installBusy ? "설치 확인 중…" : installContext.startsWith("kakao") || installContext === "ios" ? "앱 설치 방법" : "앱 설치하기"}
+        </button>}
+        {installHelpOpen && !installed && <section id="fullscreen-install-guide" className={styles.installGuide} aria-label="앱 설치 안내" data-testid="install-help-guide">
+          <div className={styles.installGuideTitle}><strong>앱 설치 안내</strong><button type="button" aria-label="설치 안내 닫기" onClick={() => setInstallHelpOpen(false)}>×</button></div>
           {installContext.startsWith("kakao") ? <>
-            <p><b>1.</b> 카톡 브라우저 <strong>오른쪽 위 ▾ 또는 메뉴(⋮)</strong>에서 <strong>다른 브라우저로 열기</strong>를 선택해 줘. 메뉴 위치는 버전마다 달라.</p>
-            <p><b>2.</b> {installContext === "kakao-ios"
-              ? <>Safari의 <strong>공유 → 홈 화면에 추가</strong>를 선택해 줘.</>
-              : <>Chrome의 <strong>메뉴(⋮) → 앱 설치 또는 홈 화면에 추가</strong>를 선택해 줘.</>}</p>
-          </> : installContext === "ios" ? <>
-            <p><b>1.</b> Safari에서 아래 주소를 열어 줘.</p><p><b>2.</b> <strong>공유 → 홈 화면에 추가 → 추가</strong>를 선택해 줘.</p>
-          </> : installContext === "android" ? <>
-            <p><b>1.</b> Chrome에서 아래 주소를 열어 줘.</p><p><b>2.</b> <strong>메뉴(⋮) → 앱 설치 또는 홈 화면에 추가</strong>를 선택해 줘.</p>
-          </> : <p>Chrome 또는 Edge의 브라우저 메뉴에서 <strong>앱 설치</strong>를 선택해 줘. iPhone은 Safari에서 홈 화면에 추가할 수 있어.</p>}
-          {installUrl && <div className={styles.installAddress}>
-            <span aria-label="앱 설치 주소">{installUrl}</span>
-            <button type="button" onClick={() => void copyInstallUrl()} data-testid="copy-install-url">주소 복사</button>
-          </div>}
+            <p>카카오톡 메뉴에서 <strong>다른 브라우저로 열기</strong>를 선택하세요.</p>
+            <p>{installContext === "kakao-ios" ? <>Safari: 공유 → <strong>홈 화면에 추가</strong></> : <>Chrome: 메뉴(⋮) → <strong>앱 설치</strong></>}</p>
+          </> : installContext === "ios" ? (
+            <p>Safari: 공유 → <strong>홈 화면에 추가</strong></p>
+          ) : (
+            <p>Chrome 또는 Edge: 메뉴(⋮) → <strong>앱 설치</strong> 또는 홈 화면에 추가</p>
+          )}
+          {installUrl && <button type="button" className={styles.copyButton} onClick={() => void copyInstallUrl()} data-testid="copy-install-url">설치 주소 복사</button>}
           {copyMessage && <p className={styles.copyMessage} role="status">{copyMessage}</p>}
-          <p className={styles.installCaution}>설치는 무료야. 카톡에서 진행한 세이브가 설치한 앱으로 자동 이동하지 않을 수 있어. 오래 플레이한다면 처음부터 설치 후 시작하는 걸 추천해.</p>
         </section>}
-        <p className={styles.note}>전체화면에서는 휴대폰의 시계와 홈·뒤로가기 버튼까지 숨겨질 수 있어. 종료하려면 화면 위에서 아래로 쓸어내려 시스템 탐색을 이용해 줘.</p>
-        <p className={styles.save}>기존 게임 저장을 그대로 사용해. 설치나 별도의 계정은 필요 없어. 카톡과 다른 브라우저 사이의 저장은 공유되지 않을 수 있어.</p>
+        {installMessage && <p className={styles.installMessage} role="status">{installMessage}</p>}
+        <p className={styles.save}>카카오톡과 설치 앱의 저장 데이터는 공유되지 않을 수 있습니다.</p>
       </section>
-      <footer className={styles.footer}><span>EXPERIMENT ONLY</span><span>NO GAME RULE CHANGES</span></footer>
     </div>
   </main>;
 }
