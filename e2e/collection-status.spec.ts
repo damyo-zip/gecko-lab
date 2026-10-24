@@ -43,8 +43,11 @@ test('real post-laying rest counts 2 → 1 → ready and remains correct after r
 test('space text reuses housing purchase, spends the actual price, refreshes status, and blocks insufficient funds',async({page},info)=>{
   const mobile=info.project.name.startsWith('mobile'),f=collectionStatusGame();f.game.capacity=owned(f.game).length+reserved(f.game)+1;f.game.rules.initialCapacity=f.game.capacity;
   await restore(page,f.game,mobile);await expect(status(page,f.father)).toHaveText('공간 확보 필요');await expect(status(page,f.growing)).toHaveText('성장 중 · 2턴');await expect(status(page,f.mother)).toHaveText('휴식기 · 2턴');
+  await touch(page.getByTestId('hc-card-'+f.father).locator('.home-card-select>.home-morph'),mobile);
+  await touch(page.locator('.home-hero').getByRole('button',{name:'공간 확보 필요 · 사육장 구매',exact:true}),mobile);
+  await expect(page.getByRole('dialog',{name:'사육장 구매',exact:true})).toBeVisible();expect(await saved(page)).toEqual(f.game);await close(page,mobile);
   const selected=await page.locator('.home-name').textContent(),price=expansionPrice(f.game);await tapStatusText(page,f.father,mobile);
-  const popup=page.getByRole('dialog',{name:'사료 및 사육장 관리',exact:true});await expect(popup).toBeVisible();await expect(popup.getByTestId('resource-balance')).toContainText('₩'+f.game.money.toLocaleString('ko-KR'));expect(await saved(page)).toEqual(f.game);
+  const popup=page.getByRole('dialog',{name:'사육장 구매',exact:true});await expect(popup).toBeVisible();await expect(popup.getByTestId('resource-balance')).toContainText('₩'+f.game.money.toLocaleString('ko-KR'));expect(await saved(page)).toEqual(f.game);
   await touch(popup.getByRole('button',{name:`사육장 +${f.game.rules.expansionSlots}칸 · ₩${price.toLocaleString('ko-KR')}`,exact:true}),mobile);await expect(page.locator('.game-tab-content')).toHaveAttribute('aria-busy','false');
   const next=await saved(page);expect(next.money).toBe(f.game.money-price);expect(next.capacity).toBe(f.game.capacity+f.game.rules.expansionSlots);expect(next.expansions).toBe(f.game.expansions+1);await expect(status(page,f.father)).toHaveText('브리딩 가능');await expect(popup.getByTestId('resource-balance')).toContainText('₩'+next.money.toLocaleString('ko-KR'));
   await close(page,mobile);expect(await page.locator('.home-name').textContent()).toBe(selected);await page.reload();expect(await saved(page)).toEqual(next);await expect(status(page,f.father)).toHaveText('브리딩 가능');

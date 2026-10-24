@@ -1,4 +1,5 @@
 "use client";
+import {ObservationImage} from './convenience';
 import {useRef,useState} from 'react';
 import {Dialog,Sprite,won,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
@@ -34,7 +35,7 @@ export function Shop({game,busy,play,onResources}:ViewProps&{onResources:()=>voi
    const g=o.individual,sex=g.stage==='adult'?g.sex:'unknown',noMoney=game.money<o.askPrice,noSpace=freeSlots(game)<1,unavailable=busy||!!o.purchased||noMoney;
    const buyLabel=o.purchased?'구매 완료':noMoney?'자금 부족':noSpace?'공간 부족':'구매하기';
    return <article className={'shop-offer shop-metal'+(o.purchased?' purchased':'')} key={o.id} data-testid={'shop-offer-'+o.id}>
-    <div className="shop-offer-art"><Sprite gecko={g} large/><button className="shop-parents shop-metal" aria-label={g.name+' 부모'} disabled={busy} onClick={()=>setInspect(o.id)}>부모</button><span className={'shop-sex '+sex} aria-label={disclosedSex(g)}>{sex==='unknown'?'?':<HomeIcon name={sex}/>}</span>{o.purchased&&<span className="shop-sold">구매 완료</span>}</div>
+    <div className="shop-offer-art"><ObservationImage gecko={g} single inline><Sprite gecko={g} large/></ObservationImage><button className="shop-parents shop-metal" aria-label={g.name+' 부모'} disabled={busy} onClick={()=>setInspect(o.id)}>부모</button><span className={'shop-sex '+sex} aria-label={disclosedSex(g)}>{sex==='unknown'?'?':<HomeIcon name={sex}/>}</span>{o.purchased&&<span className="shop-sold">구매 완료</span>}</div>
     <h3 title={g.name}>{g.name}</h3><p className="shop-morph" title={shopMorph(g)}>{shopMorph(g)}</p><p className="shop-age">{STAGE_LABELS[g.stage]} · {ageTurns(game,g)}턴 ({ageTurns(game,g)*V12.daysPerTurn}일) · {sex==='unknown'?'성별 미구분':sex==='male'?'수컷':'암컷'}</p>
     <strong className="shop-price">{won(o.askPrice)}</strong>
     <button className={'shop-buy'+(noSpace?' needs-space':'')} aria-label={g.name+' 구매'} aria-description={noSpace&&!o.purchased&&!noMoney?'공간 부족 · 사육장 관리 열기':buyLabel} disabled={unavailable} onClick={()=>{if(noSpace)onResources();else void play({type:'buyGecko',offerId:o.id});}}><HomeIcon name="cart"/><span>{buyLabel}</span></button>

@@ -10,6 +10,6 @@ test.each(BREEDING_CHALLENGES)('current $id goal is attainable through real inhe
  game=act(game,{type:'selectChallenge',challengeId:c.id},game.lastDate);
  for(let n=0;n<4;n++)game=challengeTurn(readForgeSave(makeSave(game),game.lastDate));
  expect(game.eggs[eggId].status).toBe('hatched');
- expect(game.breedingChallenges!.completed[0]).toMatchObject({challengeId:c.id,evaluatorVersion:2});
+ expect(game.breedingChallenges!.completed[0]).toMatchObject({challengeId:c.id,evaluatorVersion:3});
  expect(readForgeSave(makeSave(game),game.lastDate)).toEqual(game);
 });

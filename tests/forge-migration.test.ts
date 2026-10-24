@@ -1,3 +1,4 @@
+import {emptyChallenges} from '@/game/hardcore/challenges';
 import {test,expect} from 'vitest';
 import {newGame,newForgeGame,act} from '@/game/hardcore/play';
 import {makeSave,readSave,readForgeSave} from '@/game/hardcore/save';
@@ -69,12 +70,12 @@ test('pending conceptions, eggs, historical sale and Rush state migrate without 
  // Every existing animal, recorded sale, embryo and lifecycle result stays exact.
  expect({...withoutForge(next) as object,shop:old.shop}).toEqual(old);expect(next.eggs).not.toEqual(before.eggs);
 });
-test('completed version-one challenges keep their immutable birth evidence, reward and completion history',()=>{
+test('completed version-one challenges reset at the production boundary while immutable egg evidence and the rest of the save survive',()=>{
  let old=challengeClutch('sun').game;old=act(old,{type:'selectChallenge',challengeId:'sun'},old.lastDate);
  for(let n=0;n<4;n++)old=challengeTurn(old);
  expect(old.breedingChallenges!.completed).toHaveLength(1);
- const next=readForgeSave(makeSave(old),old.lastDate);expect(withoutForge(next)).toEqual(old);
- expect(next.breedingChallenges!.completed[0].evaluatorVersion).toBe(1);validateGame(next);
+ const next=readForgeSave(makeSave(old),old.lastDate),expected=structuredClone(old);expected.breedingChallenges=emptyChallenges(2,old.turn);expected.revision++;expect(withoutForge(next)).toEqual(expected);
+ expect(next.breedingChallenges).toEqual(emptyChallenges(2,old.turn));expect(next.eggs).toMatchObject(old.eggs);validateGame(next);
 });
 test('new embryo copies, pixels and hatch results survive collection, growth and every backup roundtrip',()=>{
  let g=pair(true,'forge-growth'),mating=Object.values(g.matings)[0];

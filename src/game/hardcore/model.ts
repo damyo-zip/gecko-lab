@@ -75,6 +75,8 @@ export interface Mating {
     father: GeneticsRecord; mother: GeneticsRecord;
     observedIds: string[];
     updates: { id: string; before: Knowledge; after: Knowledge }[];
+    /** Material mapping fixed at conception; absence preserves old embryos. */
+    paletteVersion?: 2;
   } | null;
 }
 export interface TimedEgg {
@@ -144,6 +146,7 @@ export type LegacyHardcoreGame = Omit<HardcoreGame, "saveVersion" | "time"> & { 
 export type LegacyV4Game = Omit<HardcoreGame, "saveVersion"> & { saveVersion: 4 };
 export type GameplayAction =
   | { type: "selectChallenge"; challengeId: import("./challenge-rules").ChallengeId }
+  | { type: "setChallengeRepresentative"; challengeId: import("./challenge-rules").ChallengeId; eggId:string }
   | { type: "acknowledgeChallenge"; challengeId: import("./challenge-rules").ChallengeId }
   | { type: "equipChallengeTitle"; challengeId: import("./challenge-rules").ChallengeId | null }
   | { type: "collectEggs"; matingId: string }
@@ -165,5 +168,5 @@ export type GameplayAction =
   | { type: "stepRush"; elapsedMs:number; taps?:RushTap[] }
   | { type: "claimRush" };
 export type Action = GameplayAction
-  | { type: "endTurn" }
+  | { type: "endTurn"; autoBuyFood?: boolean; expectedTurn?: number }
   | { type: "setTimeMode"; mode: TimeMode };

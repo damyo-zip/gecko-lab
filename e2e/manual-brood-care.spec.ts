@@ -72,7 +72,7 @@ test('manual pair collection, newborn pickup and infertile removal persist with 
 
 test('v9 active migration archives exact original, preserves incubation and serializes duplicate pickup/removal',async({page},info)=>{
  test.setTimeout(90_000);const mobile=info.project.name.startsWith('mobile'),f=fixture(),old=structuredClone(f.game);
- old.saveVersion=9;for(const egg of Object.values(old.eggs))delete egg.care;
+ old.saveVersion=9;delete old.breedingChallenges;for(const egg of Object.values(old.eggs))delete egg.care;
  const {makeSave}=await import('../src/game/hardcore/save'),record={save:makeSave(old),writeRevision:17};
  await page.clock.setFixedTime(new Date(DATE+'T03:00:00Z'));await page.goto('/');await expect(page.getByTestId('game-day')).toHaveText('0');
  await page.evaluate(async record=>{

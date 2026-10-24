@@ -1,0 +1,13 @@
+.home-card-grid,.observation-target,.observation-target canvas{touch-action:pan-y}
+/* Keep the original two 218-unit desktop rows on a partial final page too. */
+@media(min-width:600px){.home-shell .home-card-grid[data-paged="true"]{grid-template-rows:repeat(2,calc(218 * var(--home-y)))}}
+.observation-inline{display:contents}
+.home-facts .home-space-action{display:inline-flex;align-items:center;border:0;padding:0;background:transparent;color:inherit;font:inherit;line-height:inherit;cursor:pointer}
+.hc-shell .game-dialog.observation-dialog{max-width:480px;overflow:auto}
+.observation-art{display:grid;place-items:center;aspect-ratio:1;max-height:calc(100dvh - 180px);border:1px solid var(--tl-line);border-radius:8px;background:linear-gradient(135deg,#182932,#121e27)}
+.observation-art canvas{display:block;width:min(384px,100%,calc(100dvh - 180px))!important;height:auto!important;max-width:100%;image-rendering:pixelated;filter:none;touch-action:pan-y}
+.observation-morph{margin:10px 0 2px;text-align:center;color:var(--tl-text);overflow-wrap:anywhere}
+.food-auto-purchase{display:flex;gap:8px;align-items:center;min-height:44px;font-size:14px}
+.hc-shell .game-dialog .food-auto-purchase input{width:18px;height:18px;min-height:18px;accent-color:#9cdd80}
+.housing-shortage{font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;border:0;padding:0;background:transparent;cursor:pointer}
+button.inc-no-space{display:block;width:100%;font:inherit;color:inherit;border:0;background:transparent;cursor:pointer;text-decoration:underline}

@@ -131,7 +131,7 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   await expect(page.getByTestId("game-money")).toHaveText("500,000");await expect(page.getByTestId("game-food")).toHaveText("0");await expect(page.locator(".home-card")).toHaveCount(0);
   await noOverflow(page);if(mobile)await page.screenshot({path:info.outputPath("home-empty-360.png"),scale:"css"});
   await openCollectionCatalog(page,mobile);await expect(page.getByRole("dialog")).toContainText("보유 개체가 없습니다.");await page.keyboard.press("Escape");
-  await touch(page.getByRole("button",{name:"먹이 구입하기",exact:true}),mobile);await expect(page.getByRole("dialog",{name:"사료 및 사육장 관리",exact:true})).toBeVisible();await page.keyboard.press("Escape");
+  await touch(page.getByRole("button",{name:"먹이 구입하기",exact:true}),mobile);await expect(page.getByRole("dialog",{name:"사료 구매",exact:true})).toBeVisible();await page.keyboard.press("Escape");
   const fixture=referenceHomeGame(),first=Object.values(fixture.individuals)[0];first.stage="hatchling";first.birthTurn=0;first.birthDate=REFERENCE_DATE;first.nextBreedTurn=fixture.rules.adultAfter;
   const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics={...legacyRecord(carrier),forge:{version:1}};
   await restore(page,fixture,mobile);await expect(page.locator(".home-name .home-sex")).toHaveText("?");

@@ -1,4 +1,5 @@
 "use client";
+import {ObservationImage} from './convenience';
 import {memo,useMemo} from "react";
 import type {Gecko,HardcoreGame} from "@/game/hardcore/model";
 import {specimen,disclosedSex,morphDescription} from "@/game/hardcore/adapter";
@@ -28,7 +29,7 @@ export const CollectionCard=memo(function CollectionCard({game,gecko:g,busy,play
  const art=useMemo(()=>specimen(g),[g]),status=useMemo(()=>collectionStatus(game,g),[game,g]);
  return <article className={"home-card hc-card home-frame "+(selected?"selected ":"")+(catalog?"collection-list-row":"")} data-testid={(catalog?"collection-list-":"hc-card-")+g.id}>
   <button className="home-card-select" aria-label={g.name+" 선택"} aria-pressed={selected} onClick={()=>onSelect(g.id)}>
-   <div className="home-card-art"><SpriteCanvas specimen={art} growthStage={g.stage} scale={3} testId={(catalog?"collection-list-sprite-":"hardcore-sprite-")+g.id}/></div>
+   <ObservationImage gecko={g} className="home-card-art"><SpriteCanvas specimen={art} growthStage={g.stage} scale={3} testId={(catalog?"collection-list-sprite-":"hardcore-sprite-")+g.id}/></ObservationImage>
    <CollectionSex gecko={g}/><strong className="home-card-name-placeholder" aria-hidden="true" title={g.name}>{g.name}</strong><span className="home-morph" title={morphDescription(g)}>{collectionMorph(g)}</span><CollectionStatusLabel status={status} placeholder={!!status.action} testId={status.action?undefined:"collection-status-"+g.id}/>
   </button>
   <button type="button" className="home-gen-badge" aria-label={g.name+" 가족 혈통도"} disabled={busy} onClick={event=>{event.stopPropagation();onLineage(g.id);}}>Gen {g.generation}</button>
