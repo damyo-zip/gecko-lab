@@ -8,6 +8,7 @@ import {writeFile,mkdir} from 'node:fs/promises';
 import {newGame as v6Game} from '../tests/helpers/v6-hardcore';
 import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 import {makeSave,exportBackup} from '../src/game/hardcore/save';
+import {formatAgeMonths} from '../src/game/hardcore/lifecycle';
 import {valueGecko} from '../src/game/hardcore/market';
 import {ancestors} from '../src/game/hardcore/lineage';
 import {owned} from '../src/game/hardcore/survival';
@@ -37,7 +38,7 @@ test('four actual family offers, private parent popup, immediate paid reroll, pu
  await page.setViewportSize({width:390,height:844});const first=Object.values(initial.shop.offers)[0],card=page.getByTestId('shop-offer-'+first.id);
  await expect(card).toContainText(first.individual.name);await expect(card).toContainText('₩'+first.askPrice.toLocaleString('ko-KR'));expect(first.askPrice).toBe(valueGecko(first.individual).ask);
  await touch(card.getByRole('button',{name:first.individual.name+' 부모',exact:true}),mobile);const dialog=page.getByRole('dialog');await expect(dialog).toContainText('아버지');await expect(dialog).toContainText('어머니');await expect(dialog.locator('canvas')).toHaveCount(3);
- await expect(dialog).toContainText(`교배 당시 ${first.family!.matingTurn-first.family!.father.birthTurn}턴`);await expect(dialog).not.toContainText('possible het');await expect(dialog).not.toContainText('A/ax');
+ await expect(dialog).toContainText(`교배 당시 ${formatAgeMonths(first.family!.matingTurn-first.family!.father.birthTurn)}`);await expect(dialog).not.toContainText('possible het');await expect(dialog).not.toContainText('A/ax');
  await dialog.screenshot({path:info.outputPath('shop-parents.png'),scale:'css'});await touch(dialog.getByRole('button',{name:'상세 창 닫기',exact:true}),mobile);expect(await saved(page)).toEqual(initial);
  await touch(card.getByRole('button',{name:first.individual.name+' 구매',exact:true}),mobile);await expect(card).toContainText('구매 완료');await expect(card.getByRole('button',{name:first.individual.name+' 구매',exact:true})).toBeDisabled();const purchased=await saved(page);expect(purchased.money).toBe(initial.money-first.askPrice);expect(purchased.individuals[first.id]).toEqual(first.individual);expect(ancestors(purchased,first.id).size).toBe(2);
  await navigateGame(page,'컬렉션',mobile);await expect(page.locator('.home-card')).toHaveCount(1);await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');expect(await saved(page)).toEqual(purchased);await shop(page,mobile);await expect(page.getByTestId('shop-offer-'+first.id)).toContainText('구매 완료');
