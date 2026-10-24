@@ -20,7 +20,7 @@ function manyGame(count=37){
  if(count<6)for(const g of sources.slice(count))delete game.individuals[g.id];
  for(let n=6;n<count;n++){
   const g=structuredClone(sources[n%sources.length]);g.id=game.gameId+'-browser-'+n;g.name='새싹 '+String(n).padStart(3,'0');g.visualSeed=g.id;
-  g.stage=n%3===0?'hatchling':n%3===1?'juvenile':'adult';g.birthTurn=g.stage==='hatchling'?-2:g.stage==='juvenile'?-8:-12;g.birthDate=addDays(REFERENCE_DATE,g.birthTurn*7);game.individuals[g.id]=g;
+  g.stage=n%3===0?'hatchling':n%3===1?'juvenile':'adult';g.birthTurn=g.stage==='hatchling'?-2:g.stage==='juvenile'?-8:-18;g.birthDate=addDays(REFERENCE_DATE,g.birthTurn*7);game.individuals[g.id]=g;
  }
  validateGame(game);return game;
 }

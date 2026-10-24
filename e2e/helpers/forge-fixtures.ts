@@ -11,6 +11,7 @@ import {breedingRiskFixture as risk} from '../fixtures/breeding-risk';
 import {rushPerformanceGame as rush} from '../fixtures/rush-performance';
 import {rushShiftGame as shift} from '../fixtures/rush-shifts';
 import {newGame as catalog,axCatalog as ax} from '../fixtures/legacy-catalog';
+import {turns as advanceFixture} from '../fixtures/lifecycle';
 import {successfulPair as pair} from '../fixtures/lifecycle';
 import {currentBreederRankGames as ranks} from '../../tests/helpers/current-challenge-game';
 import type {HardcoreGame} from '../../src/game/hardcore/model';
@@ -30,11 +31,11 @@ function adultShopReview(g:HardcoreGame){
  return current(g);
 }
 export const referenceHomeGame=()=>adultReview(home());
-export const collectionStatusGame=()=>{const f=status();return {...f,game:adultReview(f.game)};};
+export const collectionStatusGame=()=>{const f=status();f.game.individuals[f.growing].birthTurn=f.game.turn-16;return {...f,game:adultReview(f.game)};};
 export const lineageFixture=()=>{const f=lineage();return {...f,game:current(f.game)};};
 export const growthScaleGame=()=>{const f=growth();return {...f,game:current(f.game)};};
 export const incubatorFixture=()=>current(incubator());
-export const breedingRiskFixture=()=>{const f=risk();return {...f,game:current(f.game)};};
+export const breedingRiskFixture=()=>{const f=risk();return {...f,game:advanceFixture(current(f.game),6)};};
 export const rushPerformanceGame=(...a:Parameters<typeof rush>)=>current(rush(...a));
 export const rushShiftGame=(...a:Parameters<typeof shift>)=>current(shift(...a));
 export const legacyCatalogGame=(...a:Parameters<typeof catalog>)=>adultShopReview(catalog(...a));
