@@ -30,7 +30,7 @@ export function selectChallenge(game:HardcoreGame,id:ChallengeId):void {
  if(game.saveVersion!==10||!isChallengeId(id))throw new Error('지원하지 않는 브리딩 도전입니다.');
  const state=game.breedingChallenges??emptyChallenges(game.forge?2:1,game.turn);
  if(state.version===2?!isCurrentChallengeId(id):!isLegacyChallengeId(id))throw new Error('현재 도전 목록에서 목표를 선택하세요.');
- if(state.activeId===id)return;
+ if(state.activeId===id){game.breedingChallenges=state;return;}
  if(state.version===1&&state.completed.some(c=>c.challengeId===id))throw new Error('이미 완료한 도전입니다.');
  if(challengeLockRemaining(game)>0)throw new Error(`목표 변경까지 ${challengeLockRemaining(game)}턴 남았습니다.`);
  state.activeId=id;state.selectedTurn=game.turn;state.unlockTurn=game.turn+(state.completed.some(c=>c.challengeId===id)?0:state.version===2?CHALLENGE_LOCK_TURNS:LEGACY_CHALLENGE_LOCK_TURNS);if(state.version===2)state.initialSelection=false;game.breedingChallenges=state;

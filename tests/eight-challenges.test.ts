@@ -90,3 +90,11 @@ test('new games default to an immediately replaceable goal, manual replacement l
  g=challengeTurn(g);g=act(g,{type:'selectChallenge',challengeId:'gold-tiger'},g.lastDate);expect(g.breedingChallenges).toMatchObject({activeId:'gold-tiger',selectedTurn:5,unlockTurn:10,initialSelection:false});expect(parseForgeBackup(exportBackup(g),g.lastDate)).toEqual(g);
  const corrupt=structuredClone(g);corrupt.breedingChallenges!.initialSelection=true;expect(()=>validateGame(corrupt)).toThrow('도전');
 });
+
+test('an existing Forge game without challenge state can actually save the first default goal selection',()=>{
+ const old=newForgeGame('missing-challenge-state','2026-10-24');delete old.breedingChallenges;
+ const selected=act(old,{type:'selectChallenge',challengeId:'lilly-dalmatian'},old.lastDate);
+ expect(old.breedingChallenges).toBeUndefined();expect(selected.breedingChallenges).toMatchObject({version:2,activeId:'lilly-dalmatian',initialSelection:true,unlockTurn:0});
+ expect(parseForgeBackup(exportBackup(selected),selected.lastDate)).toEqual(selected);
+ const switched=act(selected,{type:'selectChallenge',challengeId:'halloween'},selected.lastDate);expect(switched.breedingChallenges).toMatchObject({activeId:'halloween',initialSelection:false,unlockTurn:5});
+});
