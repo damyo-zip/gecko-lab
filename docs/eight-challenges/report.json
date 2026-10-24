@@ -1,0 +1,1546 @@
+{
+  "sourceRgbaSha256": "744f90bfb770baff72c2e900e1d50ef4ebd0d087d3a37f1f5d1a4407989b4a1f",
+  "evaluatorVersion": 3,
+  "samples": [
+    {
+      "id": "lilly-dalmatian",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "a4060e2daeaa1ec528a6e904fcaa60f95f9a6bad0941890981ce6e00babc2357",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "베일 발현",
+          "value": 0.94,
+          "minimum": 0.9,
+          "passed": true
+        },
+        {
+          "label": "흰색 면적",
+          "value": 1,
+          "minimum": 0.6,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 22,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 9,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "lilly-dalmatian",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "a5d7d0255775c3af150725601c267f69f10b77c821ef7bc6309db0308f018753",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "베일 발현",
+          "value": 0.94,
+          "minimum": 0.9,
+          "passed": true
+        },
+        {
+          "label": "흰색 면적",
+          "value": 1,
+          "minimum": 0.6,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 22,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 11,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "lilly-dalmatian",
+      "sample": 2,
+      "accepted": false,
+      "reason": "선명한 검은 점 · 머리의 검은 점 · 몸의 검은 점 · 꼬리의 검은 점",
+      "nativeRgbaSha256": "3ed9b84aa341babfddb09b6631bb087f8f5e4e7b4f4cc864a8be96f003a3b55e",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "베일 발현",
+          "value": 0.94,
+          "minimum": 0.9,
+          "passed": true
+        },
+        {
+          "label": "흰색 면적",
+          "value": 1,
+          "minimum": 0.6,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 0,
+          "minimum": 40,
+          "passed": false
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "lilly-dalmatian",
+      "sample": 3,
+      "accepted": false,
+      "reason": "베일 발현",
+      "nativeRgbaSha256": "fd461bfa8c056c40dd7f0947fcc5c511c4ca2f1f8f8e0cf13f40fa1f24b50276",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "베일 발현",
+          "value": 0.6799999999999999,
+          "minimum": 0.9,
+          "passed": false
+        },
+        {
+          "label": "흰색 면적",
+          "value": 1,
+          "minimum": 0.6,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 22,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 9,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "halloween",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "a7b7514380cedd65ad83b078dd4b1fbc74a08af2f3cc3c46cb17ef06b38cd40c",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.23923444976076555,
+          "minimum": 0.18,
+          "passed": true
+        },
+        {
+          "label": "주황 옆무늬 면적",
+          "value": 0.7607655502392344,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "크림 옆무늬 면적",
+          "value": 0,
+          "minimum": 0,
+          "maximum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "바탕·주황 밝기 차이",
+          "value": 73.95518414628492,
+          "minimum": 40,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "halloween",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "0cf71073b2196aa3e229cbf4751156e050013308364dc3b8c3d49b134c06d260",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.23923444976076555,
+          "minimum": 0.18,
+          "passed": true
+        },
+        {
+          "label": "주황 옆무늬 면적",
+          "value": 0.7607655502392344,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "크림 옆무늬 면적",
+          "value": 0,
+          "minimum": 0,
+          "maximum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "바탕·주황 밝기 차이",
+          "value": 72.71894366177507,
+          "minimum": 40,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "halloween",
+      "sample": 2,
+      "accepted": false,
+      "reason": "어두운 바탕 면적 · 바탕·주황 밝기 차이",
+      "nativeRgbaSha256": "79a8fe70f8c4f9db545fdc23dd6e0e55e23139ef5c7e522dafa9f84d89571e08",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0,
+          "minimum": 0.18,
+          "passed": false
+        },
+        {
+          "label": "주황 옆무늬 면적",
+          "value": 1,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "크림 옆무늬 면적",
+          "value": 0,
+          "minimum": 0,
+          "maximum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "바탕·주황 밝기 차이",
+          "value": -29.707950748184402,
+          "minimum": 40,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "halloween",
+      "sample": 3,
+      "accepted": false,
+      "reason": "크림 옆무늬 면적",
+      "nativeRgbaSha256": "f04621f087b5598725e19d845306f2b8beacdc3655a191bb06843e8b0e938c87",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.23923444976076555,
+          "minimum": 0.18,
+          "passed": true
+        },
+        {
+          "label": "주황 옆무늬 면적",
+          "value": 0.5199362041467305,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "크림 옆무늬 면적",
+          "value": 0.24082934609250398,
+          "minimum": 0,
+          "maximum": 0.15,
+          "passed": false
+        },
+        {
+          "label": "바탕·주황 밝기 차이",
+          "value": 68.18014114519386,
+          "minimum": 40,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-tricolor",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "cf59c260029202cc7b5c190b8ccacfa222277e281f553920f488665bdf2b4371",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "할리퀸 옆무늬 면적",
+          "value": 0.7649063032367973,
+          "minimum": 0.45,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0.22009569377990432,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.3748006379585327,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.405103668261563,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 61.47977655380188,
+          "minimum": 35,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-tricolor",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "d19a2099462e838f386359cd10fef7801fe2addfeaf10747ef45bff33ab355e8",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "할리퀸 옆무늬 면적",
+          "value": 0.7734241908006815,
+          "minimum": 0.45,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0.21212121212121213,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.39872408293460926,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.38915470494417864,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 61.48273360217531,
+          "minimum": 35,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-tricolor",
+      "sample": 2,
+      "accepted": false,
+      "reason": "릴리·아잔틱·복합 발현 없음 · 붉은 바탕 면적 · 주황 면적 · 삼색 구별",
+      "nativeRgbaSha256": "b8fabef526499f77e89b5a9da10c4dd4c8aa59ceaa2a178106abdd0168996c46",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "할리퀸 옆무늬 면적",
+          "value": 0.7649063032367973,
+          "minimum": 0.45,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0,
+          "minimum": 0.12,
+          "passed": false
+        },
+        {
+          "label": "주황 면적",
+          "value": 0,
+          "minimum": 0.16,
+          "passed": false
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.3572567783094099,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 0,
+          "minimum": 35,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "red-tricolor",
+      "sample": 3,
+      "accepted": false,
+      "reason": "붉은 바탕 면적 · 주황 면적 · 삼색 구별",
+      "nativeRgbaSha256": "a5aae476cfb6ef16143d8dfdadf95ff13517cb363abfa39485a50af28d065dfb",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "할리퀸 옆무늬 면적",
+          "value": 0.7649063032367973,
+          "minimum": 0.45,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0,
+          "minimum": 0.12,
+          "passed": false
+        },
+        {
+          "label": "주황 면적",
+          "value": 0,
+          "minimum": 0.16,
+          "passed": false
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.7799043062200957,
+          "minimum": 0.16,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 0,
+          "minimum": 35,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "sable-lilly",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "5d8a5101eb563560a166baab9114c32df92dee2905e8bae6fb54c00b023d8bd1",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "세이블·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "짙은 옆구리 면적",
+          "value": 0.2966507177033493,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "화이트 옆구리 면적",
+          "value": 0.7033492822966507,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 101.18073358609979,
+          "minimum": 45,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "sable-lilly",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "a7497698e1fb36c89e34bdcecfbfccec1395129de0f2c85ef3a421b320ba3c3c",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "세이블·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "짙은 옆구리 면적",
+          "value": 0.2982456140350877,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "화이트 옆구리 면적",
+          "value": 0.7017543859649122,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 101.21694393939498,
+          "minimum": 45,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "sable-lilly",
+      "sample": 2,
+      "accepted": false,
+      "reason": "짙은 옆구리 면적 · 밝고 어두운 부분의 차이",
+      "nativeRgbaSha256": "be2dedf9abdbc0f788dad0be7a32fbb3a775cbea008c84f9fef42850b44be045",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "세이블·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "짙은 옆구리 면적",
+          "value": 0,
+          "minimum": 0.1,
+          "passed": false
+        },
+        {
+          "label": "화이트 옆구리 면적",
+          "value": 1,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 0,
+          "minimum": 45,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "sable-lilly",
+      "sample": 3,
+      "accepted": false,
+      "reason": "세이블·릴리화이트 발현",
+      "nativeRgbaSha256": "1a33a887599e4b91e586fcc067ec39982782b796ea2af24756233782ef3071bc",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "세이블·릴리화이트 발현",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "짙은 옆구리 면적",
+          "value": 0.20574162679425836,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "화이트 옆구리 면적",
+          "value": 0.7942583732057417,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 99.8757545624369,
+          "minimum": 45,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "gold-tiger",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "911cecebd293de9782b5524ae17655b356efa0ac1417e68b4b69673e33fbdc95",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "황금색 바탕 면적",
+          "value": 0.7368421052631579,
+          "minimum": 0.4,
+          "passed": true
+        },
+        {
+          "label": "타이거 줄무늬",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연속 5픽셀 이상 세로 무늬",
+          "value": 6,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "선명한 어두운 줄 면적",
+          "value": 0.11967545638945233,
+          "minimum": 0.04,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "gold-tiger",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "b367935c046f5d3971d2ec46f8dd8ca9e5d3ab041db5ff4d74487e835376c3b2",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "황금색 바탕 면적",
+          "value": 0.733652312599681,
+          "minimum": 0.4,
+          "passed": true
+        },
+        {
+          "label": "타이거 줄무늬",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연속 5픽셀 이상 세로 무늬",
+          "value": 6,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "선명한 어두운 줄 면적",
+          "value": 0.1242393509127789,
+          "minimum": 0.04,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "gold-tiger",
+      "sample": 2,
+      "accepted": false,
+      "reason": "타이거 줄무늬 · 연속 5픽셀 이상 세로 무늬 · 선명한 어두운 줄 면적",
+      "nativeRgbaSha256": "b2fbec8c7c5c44c505fb7bf9340cafd2eab90cd5aff39ef66a55bdec3d741ff0",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "황금색 바탕 면적",
+          "value": 0.8915470494417863,
+          "minimum": 0.4,
+          "passed": true
+        },
+        {
+          "label": "타이거 줄무늬",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "연속 5픽셀 이상 세로 무늬",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        },
+        {
+          "label": "선명한 어두운 줄 면적",
+          "value": 0,
+          "minimum": 0.04,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "gold-tiger",
+      "sample": 3,
+      "accepted": false,
+      "reason": "황금색 바탕 면적",
+      "nativeRgbaSha256": "d06df48f4b0528125e4963c352145be340a44eb600e337a6ef7692f751fa71de",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "황금색 바탕 면적",
+          "value": 0,
+          "minimum": 0.4,
+          "passed": false
+        },
+        {
+          "label": "타이거 줄무늬",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연속 5픽셀 이상 세로 무늬",
+          "value": 6,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "선명한 어두운 줄 면적",
+          "value": 0.11967545638945233,
+          "minimum": 0.04,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-superdalmatian",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "d49a848bcf25c423d62fa87f9f82c78182e2e97392868df49412cbed12c2c67e",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0.9324324324324325,
+          "minimum": 0.55,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 26,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-superdalmatian",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "66e9ab98f031cc09c525caef72738d8de4dd568b463e907b0ea7ef68cc34e62b",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0.9323181049069373,
+          "minimum": 0.55,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 9,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 17,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 11,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "red-superdalmatian",
+      "sample": 2,
+      "accepted": false,
+      "reason": "선명한 검은 점 · 머리의 검은 점 · 몸의 검은 점 · 꼬리의 검은 점",
+      "nativeRgbaSha256": "33d523bfa07c8ecff511723563a551e775a98dcec42b0e0680288a366377776f",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0.9362041467304625,
+          "minimum": 0.55,
+          "passed": true
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 0,
+          "minimum": 40,
+          "passed": false
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 0,
+          "minimum": 3,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "red-superdalmatian",
+      "sample": 3,
+      "accepted": false,
+      "reason": "릴리·아잔틱·복합 발현 없음 · 붉은 바탕 면적",
+      "nativeRgbaSha256": "07d44f2219b502cc0bf883e6d77102efeaedb85b66b99eb6387ce78e87c089b6",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "붉은 바탕 면적",
+          "value": 0,
+          "minimum": 0.55,
+          "passed": false
+        },
+        {
+          "label": "선명한 검은 점",
+          "value": 48,
+          "minimum": 40,
+          "passed": true
+        },
+        {
+          "label": "머리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "몸의 검은 점",
+          "value": 26,
+          "minimum": 3,
+          "passed": true
+        },
+        {
+          "label": "꼬리의 검은 점",
+          "value": 8,
+          "minimum": 3,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "frappuccino",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "50d69800b4750ad22f5d72733b100b53ff2d81d7569786737e95a0995f8741dd",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "카푸치노·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "커피빛 옆구리 면적",
+          "value": 0.24401913875598086,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "밀크빛 옆구리 면적",
+          "value": 0.7081339712918661,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 71.81207059846861,
+          "minimum": 30,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "frappuccino",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "45de029c5210d0c22d6dd56410c168299dcb61cb23f1396edc930aa9666ec7b3",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "카푸치노·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "커피빛 옆구리 면적",
+          "value": 0.2759170653907496,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "밀크빛 옆구리 면적",
+          "value": 0.6762360446570973,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 72.55060194023736,
+          "minimum": 30,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "frappuccino",
+      "sample": 2,
+      "accepted": false,
+      "reason": "커피빛 옆구리 면적 · 밝고 어두운 부분의 차이",
+      "nativeRgbaSha256": "6f86e2bddbeb88cc6e503f604603444f1d9e1b407f69c20370e692e8246ced63",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "카푸치노·릴리화이트 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "커피빛 옆구리 면적",
+          "value": 0,
+          "minimum": 0.1,
+          "passed": false
+        },
+        {
+          "label": "밀크빛 옆구리 면적",
+          "value": 1,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 0,
+          "minimum": 30,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "frappuccino",
+      "sample": 3,
+      "accepted": false,
+      "reason": "카푸치노·릴리화이트 발현",
+      "nativeRgbaSha256": "49047288668f2cbb57f784088ac8200c873df177fa8d914406d6eab1558ff29a",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "카푸치노·릴리화이트 발현",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "커피빛 옆구리 면적",
+          "value": 0.24401913875598086,
+          "minimum": 0.1,
+          "passed": true
+        },
+        {
+          "label": "밀크빛 옆구리 면적",
+          "value": 0.7559808612440191,
+          "minimum": 0.25,
+          "passed": true
+        },
+        {
+          "label": "밝고 어두운 부분의 차이",
+          "value": 50.65504643740519,
+          "minimum": 30,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "tricolor-superstripe",
+      "sample": 0,
+      "accepted": true,
+      "reason": "목표 외형",
+      "nativeRgbaSha256": "e401587bd0de456ce140a918c100010b916d078ed411f9eec6414a2e2cf01d4f",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연결·대비를 갖춘 슈퍼스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "풀 핀스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.19138755980861244,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.3652312599681021,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.4433811802232855,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 136.25285874809552,
+          "minimum": 35,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "tricolor-superstripe",
+      "sample": 1,
+      "accepted": true,
+      "reason": "다른 무늬 배치도 인정",
+      "nativeRgbaSha256": "80a72cd0449ad8ce4e9bbf3106a51efa86dcae85a494a2565f620d49e61bd5ff",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연결·대비를 갖춘 슈퍼스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "풀 핀스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.20733652312599682,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.35566188197767146,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.4370015948963317,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 136.23655939784715,
+          "minimum": 35,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "tricolor-superstripe",
+      "sample": 2,
+      "accepted": false,
+      "reason": "연결·대비를 갖춘 슈퍼스트라이프 · 풀 핀스트라이프",
+      "nativeRgbaSha256": "207af15c8af613b871fcecb6b302d21dd16e86c1672fcb53425898627caec3ee",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연결·대비를 갖춘 슈퍼스트라이프",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "풀 핀스트라이프",
+          "value": 0,
+          "minimum": 1,
+          "passed": false
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.19138755980861244,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.3652312599681021,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0.4433811802232855,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "삼색 구별",
+          "value": 136.25285874809552,
+          "minimum": 35,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "tricolor-superstripe",
+      "sample": 3,
+      "accepted": false,
+      "reason": "크림 면적 · 삼색 구별",
+      "nativeRgbaSha256": "10f70ffca6a88aca157127568351dfd24394b7986efa1ebf23c40949eab04897",
+      "checks": [
+        {
+          "label": "생존 가능한 발현",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "릴리·아잔틱·복합 발현 없음",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "연결·대비를 갖춘 슈퍼스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "풀 핀스트라이프",
+          "value": 1,
+          "minimum": 1,
+          "passed": true
+        },
+        {
+          "label": "어두운 바탕 면적",
+          "value": 0.19138755980861244,
+          "minimum": 0.12,
+          "passed": true
+        },
+        {
+          "label": "주황 면적",
+          "value": 0.8086124401913876,
+          "minimum": 0.15,
+          "passed": true
+        },
+        {
+          "label": "크림 면적",
+          "value": 0,
+          "minimum": 0.15,
+          "passed": false
+        },
+        {
+          "label": "삼색 구별",
+          "value": 0,
+          "minimum": 35,
+          "passed": false
+        }
+      ]
+    }
+  ]
+}

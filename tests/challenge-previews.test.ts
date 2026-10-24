@@ -1,7 +1,7 @@
 import {createHash} from 'node:crypto';
 import {test,expect} from 'vitest';
 import {CHALLENGE_PREVIEW_RECIPES,challengePreview} from '@/game/hardcore/challenge-previews';
-import {BREEDING_CHALLENGES,type ChallengeId} from '@/game/hardcore/challenge-rules';
+import {LEGACY_CHALLENGES as BREEDING_CHALLENGES,type LegacyChallengeId as ChallengeId} from '@/game/hardcore/challenge-rules';
 import {evaluateBreedingChallenge} from '@/game/hardcore/challenge-evaluator';
 import {cachedGenotype,offspringRecord} from '@/game/hardcore/genetics';
 import {specimen} from '@/game/hardcore/adapter';

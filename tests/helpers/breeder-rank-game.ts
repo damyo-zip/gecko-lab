@@ -1,5 +1,5 @@
 import {newGame,act} from '../../src/game/hardcore/play';
-import {BREEDING_CHALLENGES} from '../../src/game/hardcore/challenge-rules';
+import {LEGACY_CHALLENGES as BREEDING_CHALLENGES} from '../../src/game/hardcore/challenge-rules';
 import {challengeParents,challengeTurn} from './challenge-game';
 import type {HardcoreGame} from '../../src/game/hardcore/model';
 

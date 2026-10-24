@@ -1,12 +1,14 @@
+import {inspectChallenge} from './challenge-observation';
 import {forgeView} from './forge-appearance';
 import {polyScores} from '@/genetics/advanced/polygenic';
-import type {ChallengeId} from './challenge-rules';
+import {isCurrentChallengeId,type ChallengeId} from './challenge-rules';
 import type {Gecko} from './model';
 
 /** New native grid has at most 48 tiny spots. Version 1's 65-spot target stays
  * frozen for historical animals; current awards record evaluatorVersion 2. */
 export const FORGE_CHALLENGE_THRESHOLDS={superSpots:32,regionSpots:3,whiteCoverage:.60,veilStrength:.85,darkLuminance:58,darkBaseArea:.72,orangeStrength:.75,orangeBaseArea:.70,solidMaxSpots:5}as const;
 export function evaluateForgeChallenge(g:Gecko,id:ChallengeId):boolean {
+ if(isCurrentChallengeId(id))return inspectChallenge(g,id).passed;
  const v=forgeView(g),genome=g.genetics?.genome;if(!v||!genome||v.description.complexMetrics.restricted)return false;
  const d=v.description,p=d.parameters,o=v.observation,t=FORGE_CHALLENGE_THRESHOLDS;
  const white=p.lilly&&d.veilMetrics.strength>=t.veilStrength&&v.whiteCoverage>=t.whiteCoverage;

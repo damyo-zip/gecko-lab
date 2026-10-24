@@ -3,7 +3,7 @@ import { axanthicState } from '@/genetics/hardcore';
 import { phenotype } from '@/genetics/advanced/phenotype';
 import { buildPatternPlan } from '@/engine/pattern-plan';
 import { createBaseSprite,PART } from '@/engine/art';
-import { CHALLENGE_THRESHOLDS as T,type ChallengeId } from './challenge-rules';
+import { CHALLENGE_THRESHOLDS as T,type ChallengeId,isCurrentChallengeId } from './challenge-rules';
 import type { Gecko } from './model';
 import {evaluateForgeChallenge} from './forge-challenges';
 
@@ -14,6 +14,7 @@ import {evaluateForgeChallenge} from './forge-challenges';
  * Dark/orange are visual proxies; spots use actual separated marks in three regions. */
 export function evaluateBreedingChallenge(g:Gecko,id:ChallengeId):boolean {
  if(g.genetics?.forge)return evaluateForgeChallenge(g,id);
+ if(isCurrentChallengeId(id))return false;
  const p=appearanceProfile(g),genome=g.genetics?.genome;
  if(!p||!genome)return false;
  const {traits:t,observation:o}=p,s=phenotype(genome).scores;

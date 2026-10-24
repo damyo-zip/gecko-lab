@@ -1,7 +1,7 @@
 import {test,expect} from 'vitest';
 import {challengeParents,challengeClutch,challengeTurn} from './helpers/challenge-game';
 import {act,newGame} from '@/game/hardcore/play';
-import {BREEDING_CHALLENGES,type ChallengeId} from '@/game/hardcore/challenge-rules';
+import {LEGACY_CHALLENGES as BREEDING_CHALLENGES,type ChallengeId} from '@/game/hardcore/challenge-rules';
 import {evaluateBreedingChallenge} from '@/game/hardcore/challenge-evaluator';
 import {challengeLockRemaining,challengeFeedSlots} from '@/game/hardcore/challenges';
 import {exportBackup,parseBackup} from '@/game/hardcore/save';
