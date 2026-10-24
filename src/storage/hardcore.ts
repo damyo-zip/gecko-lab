@@ -54,7 +54,7 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
         const game = record ? readForgeSave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
         const synced = synchronizeTime(game, date);
         withRush(store,synced,true,next=>{
-        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==4||record.save.game?.forge?.version!==1);
+        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==4||record.save.game?.forge?.version!==1||record.save.game?.breedingChallenges?.version===1);
         const changed = !record || migrated || next !== game;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
         if (record && migrated)

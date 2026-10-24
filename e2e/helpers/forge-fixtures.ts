@@ -11,7 +11,7 @@ import {rushPerformanceGame as rush} from '../fixtures/rush-performance';
 import {rushShiftGame as shift} from '../fixtures/rush-shifts';
 import {newGame as catalog,axCatalog as ax} from '../fixtures/legacy-catalog';
 import {successfulPair as pair} from '../fixtures/lifecycle';
-import {breederRankGames as ranks} from '../../tests/helpers/breeder-rank-game';
+import {currentBreederRankGames as ranks} from '../../tests/helpers/current-challenge-game';
 import type {HardcoreGame} from '../../src/game/hardcore/model';
 export {REFERENCE_DATE} from '../fixtures/reference-home';
 export {turns} from '../fixtures/lifecycle';

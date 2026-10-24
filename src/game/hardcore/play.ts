@@ -1,4 +1,4 @@
-import {selectChallenge,acknowledgeChallenge,equipChallengeTitle} from "./challenges";
+import {selectChallenge,acknowledgeChallenge,equipChallengeTitle,setChallengeRepresentative,emptyChallenges} from "./challenges";
 import type { GameplayAction, HardcoreGame, Rules, TimeMode } from "./model";
 import { createGame } from "./create";
 import { catchUp } from "./calendar";
@@ -21,7 +21,7 @@ export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}
 }
 /** Current production factory. newGame above is retained for frozen v10 regression fixtures. */
 export function newForgeGame(seed:string,date:GameDate,rules:Partial<Rules>={},table:PriceTable=MARKET,timeMode:TimeMode='turn'):HardcoreGame {
-  const game=createGame(seed,date,rules,timeMode);game.forge={version:1};refreshShop(game,table);validateGame(game);return game;
+  const game=createGame(seed,date,rules,timeMode);game.forge={version:1};game.breedingChallenges=emptyChallenges(2,game.turn);refreshShop(game,table);validateGame(game);return game;
 }
 export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   validateGame(source);
@@ -37,8 +37,9 @@ export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTa
 /** Daily engine only receives logical dates; the time-source adapter chooses them. */
 export function act(source: HardcoreGame, action: GameplayAction, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   const game = structuredClone(synchronize(source, date, table)); game.notices = [];
-  if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 자동 급여합니다. 도전 완료 수만큼 먹이가 면제됩니다.");
+  if(isV12(game)&&(action.type==="feed"||action.type==="feedAll"))throw new Error("v1.2는 턴 종료 시 자동 급여합니다. 누적 도전 보상에 따라 먹이가 면제됩니다.");
   switch (action.type) {
+    case "setChallengeRepresentative": setChallengeRepresentative(game,action.challengeId,action.eggId); break;
     case "selectChallenge": selectChallenge(game,action.challengeId); break;
     case "acknowledgeChallenge": acknowledgeChallenge(game,action.challengeId); break;
     case "equipChallengeTitle": equipChallengeTitle(game,action.challengeId); break;

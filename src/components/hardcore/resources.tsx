@@ -13,7 +13,7 @@ export function FoodPurchase({game,busy,play,onClose,onHousing}:ViewProps&{onClo
   <p className="game-section-copy" data-testid="resource-balance">보유 금액 {won(game.money)}</p>
   <div className="hc-resource-box"><h2>먹이 재고 {game.food}개</h2><form onSubmit={e=>{e.preventDefault();void play({type:'buyFood',amount});}}><label>먹이 구매 수량<input type="number" min={1} max={1000} value={amount} onChange={e=>setAmount(Number(e.target.value))}/></label><button className="game-primary" disabled={busy||!Number.isInteger(amount)||amount<1||amount>1000||game.money<amount*game.rules.foodUnitPrice}>먹이 구입 · {won(amount*game.rules.foodUnitPrice)}</button></form></div>
   <label className="food-auto-purchase"><input type="checkbox" checked={autoBuyFood} onChange={e=>setAutoBuyFood(e.target.checked)}/>먹이 자동 구매</label>
-  <p className="game-small-note">기본 사료는 생존 보유 개체당 턴마다 1개입니다. 도전 완료 수만큼 자동 면제됩니다. 다음 턴: 보유 {demand.animals}마리 · 면제 {demand.exempt}마리 · 필요 사료 {demand.needed}개. 상점에서는 게코 개체만 분양합니다.</p>
+  <p className="game-small-note">기본 사료는 생존 보유 개체당 턴마다 1개입니다. 도전 2개 완료마다 1마리분씩, 최대 4마리분이 자동 면제됩니다. 다음 턴: 보유 {demand.animals}마리 · 면제 {demand.exempt}마리 · 필요 사료 {demand.needed}개. 상점에서는 게코 개체만 분양합니다.</p>
   <button type="button" className="game-secondary full-width" disabled={busy} onClick={onHousing}>사육장 구매</button>
  </Dialog>;
 }

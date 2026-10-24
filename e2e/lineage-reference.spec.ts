@@ -61,11 +61,11 @@ test('live family album matches actual seven nodes, recenters across generations
  await touch(page.getByRole('button',{name:'미깡 후손 혈통 보기',exact:true}),mobile);await expect(page.locator('.lineage-root')).toHaveAttribute('data-id',f.selectedId);
  expect(await saved(page)).toEqual(f.game);
  if(mobile){
-  await mkdir('docs/lineage-reference',{recursive:true});await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.scrollTo(0,0));
-  await page.screenshot({path:'docs/lineage-reference/after-390.png',scale:'css'});await page.screenshot({path:'docs/lineage-reference/after-390-full.png',fullPage:true,scale:'css'});
-  await page.locator('.album-comparison').scrollIntoViewIfNeeded();await page.screenshot({path:'docs/lineage-reference/comparison-390.png',scale:'css'});
-  await page.setViewportSize({width:720,height:1280});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'docs/lineage-reference/after-720.png',scale:'css'});await page.screenshot({path:'docs/lineage-reference/after-720-full.png',fullPage:true,scale:'css'});
-  const naturalHeight=await page.evaluate(()=>document.documentElement.scrollHeight);await page.setViewportSize({width:720,height:naturalHeight});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'docs/lineage-reference/overview-720.png',scale:'css'});
+  await mkdir('test-results/eight-goals/lineage-reference',{recursive:true});await page.setViewportSize({width:390,height:844});await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:'test-results/eight-goals/lineage-reference/after-390.png',scale:'css'});await page.screenshot({path:'test-results/eight-goals/lineage-reference/after-390-full.png',fullPage:true,scale:'css'});
+  await page.locator('.album-comparison').scrollIntoViewIfNeeded();await page.screenshot({path:'test-results/eight-goals/lineage-reference/comparison-390.png',scale:'css'});
+  await page.setViewportSize({width:720,height:1280});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'test-results/eight-goals/lineage-reference/after-720.png',scale:'css'});await page.screenshot({path:'test-results/eight-goals/lineage-reference/after-720-full.png',fullPage:true,scale:'css'});
+  const naturalHeight=await page.evaluate(()=>document.documentElement.scrollHeight);await page.setViewportSize({width:720,height:naturalHeight});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'test-results/eight-goals/lineage-reference/overview-720.png',scale:'css'});
  }
 });
 test('old favorite registrations, renames and removals remain intact while the two favorite UI boxes are replaced',async({page},info)=>{
@@ -106,7 +106,7 @@ test('empty album and missing family records stay honest; lineage end-turn is th
  await navigateGame(page,'인큐베이터',mobile);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();await navigateGame(page,'상점',mobile);await expect(page.locator('.shop-offer')).toHaveCount(4);
 });
 test('actual v7 active migration archives original record once, preserves genealogy and named families, and survives JSON restore',async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),envelope=JSON.parse(await readFile('docs/lineage-reference/baseline-game.json','utf8')),record={save:envelope,writeRevision:20};
+ const mobile=info.project.name.startsWith('mobile'),envelope=JSON.parse(await readFile('test-results/eight-goals/lineage-reference/baseline-game.json','utf8')),record={save:envelope,writeRevision:20};
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');const game=await saved(page);expect(game).toEqual(readSave(envelope,DATE));
  const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('archive-v7-21');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(archive).toEqual(record);
@@ -123,13 +123,13 @@ test('offline PWA reload keeps the album, live sprites and terrarium available w
  await expect(page.locator('.album-favorite')).toHaveCount(0);await expect(page.locator('.breeding-challenge-panel')).toBeVisible();expect(await saved(page)).toEqual(f.game);await context.setOffline(false);
 });
 
-test('compact challenge panel and all five goals replace the favorite slider at mobile sizes without altering records',async({page},info)=>{
+test('compact challenge panel and all eight goals replace the favorite slider at mobile sizes without altering records',async({page},info)=>{
  const mobile=info.project.name.startsWith('mobile'),f=lineageFixture();await restore(page,f.game,mobile);
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:800});await expect(page.locator('.album-banner,.album-toolbar,.album-favorites')).toHaveCount(0);
   const panel=page.locator('.breeding-challenge-panel');expect((await panel.boundingBox())!.height).toBeLessThan(210);
   await touch(page.getByRole('button',{name:'전체 도전 목표 보기',exact:true}),mobile);
-  const dialog=page.getByRole('dialog',{name:'전체 도전 목표',exact:true});await expect(dialog.locator('.challenge-goal')).toHaveCount(5);
+  const dialog=page.getByRole('dialog',{name:'전체 도전 목표',exact:true});await expect(dialog.locator('.challenge-goal')).toHaveCount(8);
   expect(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
   for(const button of await dialog.getByRole('button',{name:'이 목표 선택',exact:true}).all())expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   await page.keyboard.press('Escape');expect(await saved(page)).toEqual(f.game);
