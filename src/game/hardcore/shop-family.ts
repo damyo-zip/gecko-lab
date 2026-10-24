@@ -13,6 +13,8 @@ import { descriptiveVisualName as visualName } from './adapter';
 import { MARKET, valueGecko, type PriceTable } from './market';
 import type { Gecko, HardcoreGame, Mating, ShopOffer } from './model';
 import {editFeature} from '@/forge';
+import {lifecycleRules,isMonthly} from './lifecycle';
+import {turnDate} from './monthly-calendar';
 import {shopNickname} from './shop-nicknames';
 
 export const SHOP_REFRESH_PRICE=2_000;
@@ -29,11 +31,11 @@ function parent(game:HardcoreGame,id:string,seed:string,sex:'male'|'female',mati
   genetics.knowledge=childKnowledge(unknownKnowledge(),unknownKnowledge(),observedLoci(genetics.genome!),id);
   if(game.saveVersion>=9){const pair=genetics.genome!.mendelian.loci['cappuccino-complex'];
     genetics.knowledge.loci['cappuccino-complex']=belief({[pair.join('/')]:1},'appearance','게임의 관찰 가능한 복합 계통 표현형 · 실제 같은 좌위 규칙은 잠정 모델',[id]);}
-  const birthTurn=matingTurn-16-Math.floor(seededRandom(seed,'parent-age')()*25);
-  return {id,name:sex==='male'?'매물 부계':'매물 모계',sex,birthTurn,birthDate:addDays(game.lastDate,(birthTurn-game.turn)*7),
+  const birthTurn=matingTurn-(isMonthly(game)?18:16)-Math.floor(seededRandom(seed,'parent-age')()*25);
+  return {id,name:sex==='male'?'매물 부계':'매물 모계',sex,birthTurn,birthDate:turnDate(game,birthTurn),
     stage:'adult',parents:null,generation:1,genotype,potential:legacyTraits(polyScores(genetics.genome!.polygenic)),genetics,
     visualSeed:id+'-'+seedId(seed,'visual'),nextBreedTurn:0,status:'pedigree',hearts:5,lastFedDate:null,diedDate:null,
-    cycleAnchor:addDays(game.lastDate,(matingTurn-game.turn)*7),recoverUntil:addDays(game.lastDate,(matingTurn-game.turn)*7),
+    cycleAnchor:turnDate(game,matingTurn),recoverUntil:turnDate(game,matingTurn),
     lineageIds:[],provenance:'unverified',deathCause:null,lastProcessedTurn:game.turn,...(game.saveVersion>=9?{healthGenome:founderHealth(seed+'|health')}:{})};
 }
 
@@ -41,14 +43,15 @@ function parent(game:HardcoreGame,id:string,seed:string,sex:'male'|'female',mati
 export function familyOffer(game:HardcoreGame,batch:number,index:number,table:PriceTable=MARKET,usedNames:ReadonlySet<string>=new Set(Object.values(game.individuals).map(g=>g.name))):ShopOffer {
   const seed=game.seed+'|family-shop:'+game.lastDate+'|'+batch+'|'+index;
   const random=seededRandom(seed,'catalog'),starter=batch===1&&index<2;
-  const age=starter?12:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-6;
+  const timing=lifecycleRules(game);
+  const age=starter?timing.adultAfter:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-timing.firstLayAfter-timing.hatchAfter;
   const id=game.gameId+'-store-'+batch+'-'+index;
   const profiles=game.forge?13:game.saveVersion>=9?7:4;
   const father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   let mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   // All offspring must come from a safe pair, including Lilly homozygous risks.
   if(advancedSafety(father,mother).length)mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,0,starter);
-  const mating:Mating={id:id+'-origin',ordinal:1,date:addDays(game.lastDate,(matingTurn-game.turn)*7),
+  const mating:Mating={id:id+'-origin',ordinal:1,date:turnDate(game,matingTurn),
     parents:{fatherId:father.id,motherId:mother.id},fatherGenotype:father.genotype,motherGenotype:mother.genotype,
     fatherTraits:father.potential,motherTraits:mother.potential,generation:2,lineageIds:[],seed,
     fertilizationChance:.95,hatchChance:.95,status:'laid',resolvedDate:game.lastDate,
@@ -58,14 +61,14 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   // Curate two affordable unrelated adults on a new game; inherit sex normally.
   for(let attempt=0;attempt<100;attempt++){
     childSeed=seed+'|child:'+attempt;
-    const embryo=createEmbryo(game,mating,childSeed,id,'매물',birthTurn,addDays(game.lastDate,-age*7));
+    const embryo=createEmbryo(game,mating,childSeed,id,'매물',birthTurn,turnDate(game,birthTurn));
     if(embryo.development?.viable===false)continue;
     child=bornIndividual(embryo);
     if(!starter||child.sex===(index===0?'male':'female'))break;
   }
   if(!child)throw new Error('매물 생성 실패');
-  child.stage=age>=12?'adult':age>=6?'juvenile':'hatchling';
-  child.nextBreedTurn=Math.max(0,birthTurn+12);child.lastProcessedTurn=game.turn;
+  child.stage=age>=timing.adultAfter?'adult':age>=timing.juvenileAfter?'juvenile':'hatchling';
+  child.nextBreedTurn=Math.max(0,birthTurn+timing.adultAfter);child.lastProcessedTurn=game.turn;
   if(game.forge)child.name=shopNickname(seed,usedNames);
   else{
     const label=visualName(child);
@@ -73,7 +76,7 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   }
   const quote=valueGecko(child,table);
   return {id,individual:child,askPrice:quote.ask,marketBase:quote.marketBase,marketVersion:quote.marketVersion,
-    purchased:false,family:{version:1,seed:childSeed,matingTurn,father,mother}};
+    purchased:false,family:{version:isMonthly(game)?2:1,seed:childSeed,matingTurn,father,mother}};
 }
 
 export function refreshFamilyShop(game:HardcoreGame,table:PriceTable=MARKET):void {

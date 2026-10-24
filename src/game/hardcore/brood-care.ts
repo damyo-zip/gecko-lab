@@ -1,6 +1,6 @@
 import type { Embryo, HardcoreGame, TimedEgg } from './model';
 import { addDays } from './time';
-import { V12, ageTurns } from './lifecycle';
+import { V12, ageTurns, lifecycleRules } from './lifecycle';
 import { bornIndividual } from './egg-outcome';
 
 export const waitingForCollection=(egg:TimedEgg)=>!!egg.care&&egg.care.collectedTurn===null;
@@ -11,9 +11,9 @@ export function waitingClutches(game:HardcoreGame,motherId:string){
   return [...new Set(Object.values(game.eggs).filter(e=>waitingForCollection(e)&&e.embryo.parents?.motherId===motherId).map(e=>e.matingId!))];
 }
 /** Only birth/calendar metadata moves. Conception genomes, appearance and rolls remain immutable. */
-export function atBirth(embryo:Embryo,turn:number,date:string):Embryo {
-  const child=structuredClone(embryo),adultDate=addDays(date,V12.adultAfter*V12.daysPerTurn);
-  child.birthTurn=turn;child.birthDate=date;child.nextBreedTurn=turn+V12.adultAfter;
+export function atBirth(embryo:Embryo,turn:number,date:string,rules: {adultAfter:number;daysPerTurn:number}=V12):Embryo {
+  const child=structuredClone(embryo),adultDate=addDays(date,rules.adultAfter*rules.daysPerTurn);
+  child.birthTurn=turn;child.birthDate=date;child.nextBreedTurn=turn+rules.adultAfter;
   child.lastProcessedTurn=turn;child.cycleAnchor=adultDate;child.recoverUntil=adultDate;
   return child;
 }
@@ -23,10 +23,11 @@ export function collectEggs(game:HardcoreGame,matingId:string):void {
   if(!eggs.length)return;
   if(eggs.length!==2)throw new Error('수거할 알 두 개의 기록을 확인할 수 없습니다.');
   for(const egg of eggs){
+    const V12=egg.timing?{...lifecycleRules(game),hatchAfter:egg.timing.hatchAfter}:lifecycleRules({rulesVersion:4});
     egg.care!.collectedTurn=game.turn;
     egg.lifecycle!.dueTurn=game.turn+V12.hatchAfter;
     egg.dueDate=addDays(game.lastDate,V12.hatchAfter*V12.daysPerTurn);
-    egg.embryo=atBirth(egg.embryo,egg.lifecycle!.dueTurn,egg.dueDate);
+    egg.embryo=atBirth(egg.embryo,egg.lifecycle!.dueTurn,egg.dueDate,V12);
   }
 }
 export function receiveHatchling(game:HardcoreGame,eggId:string):void {

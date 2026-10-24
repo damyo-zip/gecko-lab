@@ -5,7 +5,7 @@ export const SAVE_VERSION = 2 as const;
 export const RULES_VERSION = 1 as const;
 export type Sex = "male" | "female";
 export type GrowthStage = "hatchling" | "juvenile" | "adult";
-export const STAGE_LABELS: Record<GrowthStage, string> = { hatchling: "해칭", juvenile: "아성체", adult: "성체" };
+export const STAGE_LABELS: Record<GrowthStage, string> = { hatchling: "유체", juvenile: "아성체", adult: "성체" };
 export const SEX_LABELS: Record<Sex, string> = { male: "수컷", female: "암컷" };
 
 export interface Parents { fatherId: string; motherId: string }

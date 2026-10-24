@@ -1,3 +1,4 @@
+import {turnDurationLabel,isMonthly} from '@/game/hardcore/lifecycle';
 import { owned, reserved } from "@/game/hardcore/survival";
 import {foodDemand} from "@/game/hardcore/lifecycle";
 import { addDays } from "@/game/hardcore/time";
@@ -9,7 +10,7 @@ export function Dashboard({game,onDetail,onTab}: ViewProps & {onTab:(tab:string)
   const matings = Object.values(game.matings).filter(m=>m.status === "pending" || m.status === "fertilized");
   const eggs = Object.values(game.eggs).filter(e=>e.status === "incubating");
   return <section><div className="game-section-heading"><div><span className="eyebrow">DAILY BREEDER</span><h1>오늘의 연구소</h1></div><span className="game-count-chip">{game.time.mode === "turn" ? "턴 방식" : "한국 시간"}</span></div>
-    <div className="hc-daily-note"><strong>1턴 7일 · 먹이 면제 {demand.exempt}마리 · 필요 사료 {demand.needed}개</strong><p>사료가 부족하면 미급여 개체의 하트가 1 감소합니다. 하트 0이면 영구 폐사하며 혈통은 보존됩니다. 50턴부터 노령, 60턴부터 은퇴, 65턴부터 자연사 확률을 적용합니다.</p></div>
+    <div className="hc-daily-note"><strong>{turnDurationLabel(game)} · 먹이 면제 {demand.exempt}마리 · 필요 사료 {demand.needed}개</strong><p>사료가 부족하면 미급여 개체의 하트가 1 감소합니다. 하트 0이면 영구 폐사하며 혈통은 보존됩니다. {isMonthly(game)?"12세부터 노령, 15세부터 번식 은퇴, 18세에 자연사합니다.":"50턴부터 노령, 60턴부터 은퇴, 65턴부터 자연사 확률을 적용합니다."}</p></div>
     {!animals.length && <div className="game-empty"><h2>작은 혈통의 시작</h2><p>상점에서 노멀 한 쌍을, 상단 먹이 +에서 사료를 준비하세요. 인큐베이터 슬롯 2개를 남겨 두면 첫 교배가 가능합니다.</p><button className="game-primary full-width" onClick={()=>onTab("shop")}>상점에서 시작하기</button></div>}
     <h2 className="lineage-subtitle">주의가 필요한 개체 <span>{danger.length}</span></h2>
     {danger.length ? danger.slice(0,12).map(g=><button className="hc-list-row" key={g.id} onClick={()=>onDetail(g.id)}><strong>{g.name}</strong><Hearts gecko={g}/><span>급여 필요</span></button>) : <p className="game-small-note">현재 하트 2 이하의 보유 개체가 없습니다.</p>}

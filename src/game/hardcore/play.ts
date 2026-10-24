@@ -11,7 +11,7 @@ import { refreshShop } from "./shop";
 import { MARKET, updateMarket, type PriceTable } from "./market";
 import { validateGame } from "./validation";
 import type { GameDate } from "./time";
-import { isV12 } from "./lifecycle";
+import { isV12,MONTHLY } from "./lifecycle";
 import { collectEggs, receiveHatchling, removeFailedEgg } from "./brood-care";
 import {validatedGeckoName} from "./names";
 import {startRush,stepRush,claimRush} from '@/game/rush';
@@ -22,6 +22,12 @@ export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}
 /** Current production factory. newGame above is retained for frozen v10 regression fixtures. */
 export function newForgeGame(seed:string,date:GameDate,rules:Partial<Rules>={},table:PriceTable=MARKET,timeMode:TimeMode='turn'):HardcoreGame {
   const game=createGame(seed,date,rules,timeMode);game.forge={version:1};game.breedingChallenges=emptyChallenges(2,game.turn);refreshShop(game,table);validateGame(game);return game;
+}
+export function newMonthlyGame(seed:string,date:GameDate,rules:Partial<Rules>={},table:PriceTable=MARKET,timeMode:TimeMode='turn'):HardcoreGame {
+ const game=createGame(seed,date,rules,timeMode);game.forge={version:1};game.breedingChallenges=emptyChallenges(2,0);
+ game.rulesVersion=5;game.monthlyCalendar={version:1,turn:0,date,legacy:false};
+ game.rules={...game.rules,juvenileAfter:6,adultAfter:MONTHLY.adultAfter,recoveryDays:MONTHLY.restAfter};
+ refreshShop(game,table);validateGame(game);return game;
 }
 export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   validateGame(source);

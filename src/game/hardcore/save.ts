@@ -11,6 +11,7 @@ import { migrateSingleClutch } from "./migrate-single-clutch";
 import {migrateAlbum} from './migrate-album';
 import { migrateBroodCare } from "./brood-care";
 import {migrateRisk} from './migrate-risk';
+import {migrateMonthly} from './migrate-monthly';
 import {migrateForge} from './migrate-forge';
 
 export function checksum(value: unknown): string {
@@ -73,6 +74,15 @@ export function readSave(value:unknown,date:GameDate):HardcoreGame {
 /** Production load/import boundary. The historical reader remains replayable. */
 export function readForgeSave(value:unknown,date:GameDate):HardcoreGame {
   const game=migrateForge(readSave(value,date));validateGame(game);return game;
+}
+/** Current monthly production boundary, after the frozen readers verify source data. */
+export function readMonthlySave(value:unknown,date:GameDate):HardcoreGame {
+ const game=migrateMonthly(readForgeSave(value,date));validateGame(game);return game;
+}
+export function parseMonthlyBackup(input:string,date:GameDate):HardcoreGame {
+ if(new TextEncoder().encode(input).length>MAX_BACKUP_BYTES)throw new Error('백업 파일은 16MB 이하여야 합니다.');
+ let value:unknown;try{value=JSON.parse(input);}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}
+ return readMonthlySave(value,date);
 }
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");

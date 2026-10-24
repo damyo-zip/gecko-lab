@@ -7,19 +7,19 @@ import type { Gecko, HardcoreGame, Mating } from "./model";
 import { addDays, daysBetween } from "./time";
 import { freeSlots } from "./survival";
 import { advancedSafety, legacyRecord, observeMating } from "./genetics";
-import { isV12, ageTurns } from "./lifecycle";
+import { isV12, ageTurns, lifecycleRules, isMonthly } from "./lifecycle";
 import { fertilizeSeason, seasonEvents } from "./season";
 import { createEmbryo } from "./offspring";
 import { breedingRisk } from './breeding-risk';
 
 export function ovulating(g: Gecko, game: HardcoreGame): boolean {
-  if(isV12(game))return g.sex==="female"&&g.status==="owned"&&g.stage==="adult"&&ageTurns(game,g)>=12&&ageTurns(game,g)<60&&game.turn>=g.nextBreedTurn&&!Object.values(game.matings).some(m=>m.parents.motherId===g.id&&m.status==="fertilized");
+  if(isV12(game))return g.sex==="female"&&g.status==="owned"&&g.stage==="adult"&&ageTurns(game,g)>=game.rules.adultAfter&&ageTurns(game,g)<lifecycleRules(game).retireAfter&&game.turn>=g.nextBreedTurn&&!Object.values(game.matings).some(m=>m.parents.motherId===g.id&&m.status==="fertilized");
   const offset = daysBetween(g.cycleAnchor, game.lastDate);
   return g.sex === "female" && g.status === "owned" && g.stage === "adult" &&
     game.lastDate >= g.recoverUntil && offset >= 0 && offset % game.rules.ovulationCycleDays < game.rules.ovulationWindowDays;
 }
 export function nextOvulation(g: Gecko, game: HardcoreGame): string {
-  if(isV12(game))return ageTurns(game,g)>=60?"번식 은퇴":addDays(game.lastDate,Math.max(0,g.nextBreedTurn-game.turn)*7);
+  if(isV12(game))return ageTurns(game,g)>=lifecycleRules(game).retireAfter?"번식 은퇴":addDays(game.lastDate,Math.max(0,g.nextBreedTurn-game.turn)*lifecycleRules(game).daysPerTurn);
   let date = [game.lastDate, g.recoverUntil, addDays(g.birthDate, game.rules.adultAfter), g.cycleAnchor].sort().at(-1)!;
   for (let i = 0; i < game.rules.ovulationCycleDays; i++) {
     if (daysBetween(g.cycleAnchor, date) % game.rules.ovulationCycleDays < game.rules.ovulationWindowDays) return date;
@@ -34,8 +34,8 @@ export function breedingCheck(game: HardcoreGame, fatherId: string, motherId: st
   if (father.sex !== "male" || mother.sex !== "female") reasons.push("성체 수컷과 암컷을 선택해야 합니다.");
   for (const parent of [father,mother]) {
     if (parent.status !== "owned" || parent.hearts < 1) reasons.push(parent.name + ": 보유 중인 생존 개체만 교배할 수 있습니다.");
-    if (parent.stage !== "adult" || (isV12(game)&&ageTurns(game,parent)<12)) reasons.push(parent.name + ": 12턴 성체가 되어야 합니다.");
-    if(isV12(game)&&ageTurns(game,parent)>=60)reasons.push(parent.name+": 60턴부터 신규 교배가 불가능합니다(번식 은퇴).");
+    if (parent.stage !== "adult" || (isV12(game)&&ageTurns(game,parent)<game.rules.adultAfter)) reasons.push(parent.name + `: ${game.rules.adultAfter}${isMonthly(game)?"개월":"턴"} 성체가 되어야 합니다.`);
+    if(isV12(game)&&ageTurns(game,parent)>=lifecycleRules(game).retireAfter)reasons.push(parent.name+`: ${isMonthly(game)?"15세":"60턴"}부터 신규 교배가 불가능합니다(번식 은퇴).`);
     if (parent.nextBreedTurn > game.turn) reasons.push(parent.name + ": 회복 기간입니다.");
   }
   if (!ovulating(mother, game)) reasons.push("암컷은 배란기여야 합니다. 다음 배란: " + nextOvulation(mother, game));
@@ -72,7 +72,7 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
       father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
       observedIds:[],updates:[],...(father.genetics?.forge||mother.genetics?.forge?{paletteVersion:2 as const}:{}) } };
   if(game.saveVersion>=9)game.matings[id].riskModel={version:1,father:structuredClone(father.healthGenome!),mother:structuredClone(mother.healthGenome!)};
-  if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 인큐베이터 2칸 예약 · 2턴 후 알 2개 산란 · 유전 결과 확정");return;}
+  if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push(`교배 성공 · 인큐베이터 2칸 예약 · ${lifecycleRules(game).firstLayAfter}턴 후 알 2개 산란 · 유전 결과 확정`);return;}
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);
   mother.nextBreedTurn = game.turn + game.rules.recoveryDays;
   game.notices.push("교배 일정 시작 · 새끼 공간 2칸 예약 · 내일 수정 결과 공개");

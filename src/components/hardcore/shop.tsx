@@ -1,11 +1,12 @@
 "use client";
+import {displayAge} from '@/game/hardcore/family-album';
 import {ObservationImage} from './convenience';
 import {useRef,useState} from 'react';
 import {Dialog,Sprite,won,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
 import {freeSlots} from '@/game/hardcore/survival';
 import {visualName,disclosedSex} from '@/game/hardcore/adapter';
-import {ageTurns,V12} from '@/game/hardcore/lifecycle';
+import {formatAgeMonths} from '@/game/hardcore/lifecycle';
 import {STAGE_LABELS} from '@/game/model';
 import {SHOP_REFRESH_PRICE} from '@/game/hardcore/shop-family';
 import type {Gecko} from '@/game/hardcore/model';
@@ -36,14 +37,14 @@ export function Shop({game,busy,play,onResources}:ViewProps&{onResources:()=>voi
    const buyLabel=o.purchased?'구매 완료':noMoney?'자금 부족':noSpace?'공간 부족':'구매하기';
    return <article className={'shop-offer shop-metal'+(o.purchased?' purchased':'')} key={o.id} data-testid={'shop-offer-'+o.id}>
     <div className="shop-offer-art"><ObservationImage gecko={g} single inline><Sprite gecko={g} large/></ObservationImage><button className="shop-parents shop-metal" aria-label={g.name+' 부모'} disabled={busy} onClick={()=>setInspect(o.id)}>부모</button><span className={'shop-sex '+sex} aria-label={disclosedSex(g)}>{sex==='unknown'?'?':<HomeIcon name={sex}/>}</span>{o.purchased&&<span className="shop-sold">구매 완료</span>}</div>
-    <h3 title={g.name}>{g.name}</h3><p className="shop-morph" title={shopMorph(g)}>{shopMorph(g)}</p><p className="shop-age">{STAGE_LABELS[g.stage]} · {ageTurns(game,g)}턴 ({ageTurns(game,g)*V12.daysPerTurn}일) · {sex==='unknown'?'성별 미구분':sex==='male'?'수컷':'암컷'}</p>
+    <h3 title={g.name}>{g.name}</h3><p className="shop-morph" title={shopMorph(g)}>{shopMorph(g)}</p><p className="shop-age">{STAGE_LABELS[g.stage]} · {displayAge(game,g)} · {sex==='unknown'?'성별 미구분':sex==='male'?'수컷':'암컷'}</p>
     <strong className="shop-price">{won(o.askPrice)}</strong>
     <button className={'shop-buy'+(noSpace?' needs-space':'')} aria-label={g.name+' 구매'} aria-description={noSpace&&!o.purchased&&!noMoney?'공간 부족 · 사육장 관리 열기':buyLabel} disabled={unavailable} onClick={()=>{if(noSpace)onResources();else void play({type:'buyGecko',offerId:o.id});}}><HomeIcon name="cart"/><span>{buyLabel}</span></button>
    </article>;
   })}</div>
   {selected&&<Dialog title={selected.individual.name+' 부모 정보'} onClose={()=>setInspect('')}>
-   <div className="shop-family-child"><Sprite gecko={selected.individual}/><div><strong>{selected.individual.name}</strong><p>{shopMorph(selected.individual)}</p><p>{STAGE_LABELS[selected.individual.stage]} · {ageTurns(game,selected.individual)}턴 ({ageTurns(game,selected.individual)*7}일) · {disclosedSex(selected.individual)}</p><small>ID {selected.id}</small></div></div>
-   {selected.family?<><div className="shop-family-grid">{[selected.family.father,selected.family.mother].map((p,n)=><article className="shop-metal" key={p.id}><h3>{n===0?'아버지':'어머니'}</h3><div className="shop-family-art"><Sprite gecko={p} large/></div><strong>{shopMorph(p)}</strong><p>{appearanceProfile(p)?.names.features.join(' · ')}</p><p>{p.sex==='male'?'수컷':'암컷'} · 교배 당시 {selected.family!.matingTurn-p.birthTurn}턴</p><p>교배 당시 {(selected.family!.matingTurn-p.birthTurn)*7}일</p></article>)}</div><p className="game-small-note">실제 부모 유전체에서 전달된 자손입니다. 부모의 외형만 공개합니다. 숨은 유전형과 조부모 정보는 표시하지 않습니다.</p></>:<p className="game-empty">기존 매물에 부모 기록이 없습니다. 확인되지 않은 부모 정보를 만들어 표시하지 않습니다.</p>}
+   <div className="shop-family-child"><Sprite gecko={selected.individual}/><div><strong>{selected.individual.name}</strong><p>{shopMorph(selected.individual)}</p><p>{STAGE_LABELS[selected.individual.stage]} · {displayAge(game,selected.individual)} · {disclosedSex(selected.individual)}</p><small>ID {selected.id}</small></div></div>
+   {selected.family?<><div className="shop-family-grid">{[selected.family.father,selected.family.mother].map((p,n)=><article className="shop-metal" key={p.id}><h3>{n===0?'아버지':'어머니'}</h3><div className="shop-family-art"><Sprite gecko={p} large/></div><strong>{shopMorph(p)}</strong><p>{appearanceProfile(p)?.names.features.join(' · ')}</p><p>{p.sex==='male'?'수컷':'암컷'} · 교배 당시 {formatAgeMonths(selected.family!.matingTurn-p.birthTurn)}</p></article>)}</div><p className="game-small-note">실제 부모 유전체에서 전달된 자손입니다. 부모의 외형만 공개합니다. 숨은 유전형과 조부모 정보는 표시하지 않습니다.</p></>:<p className="game-empty">기존 매물에 부모 기록이 없습니다. 확인되지 않은 부모 정보를 만들어 표시하지 않습니다.</p>}
   </Dialog>}
  </section>;
 }

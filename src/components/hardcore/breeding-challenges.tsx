@@ -16,9 +16,10 @@ import {bornIndividual} from '@/game/hardcore/egg-outcome';
 
 type Props=Pick<ViewProps,'game'|'busy'|'play'>;
 const ChallengePreview=memo(function ChallengePreview({id,testId='challenge-preview'}:{id:ChallengeId;testId?:string}){
- return <div className="challenge-preview" data-challenge-id={id}>
+ const {observe}=useConvenience();
+ return <button type="button" className="challenge-preview" data-challenge-id={id} aria-label={challengeById(id).target+' 목표 예시 확대 관찰'} onClick={()=>observe(forgeReferenceGecko(id))}>
   <SpriteCanvas specimen={challengePreview(id)} scale={3} testId={testId}/>
- </div>;
+ </button>;
 });
 export function BreedingChallengePanel({game,busy,play}:Props){
  const [open,setOpen]=useState(false),s=game.breedingChallenges,active=s?.activeId?challengeById(s.activeId):null;
@@ -91,10 +92,10 @@ export function ChallengeCelebration({game,completion,busy,play}:Props&{completi
 
 const criteriaCache=new Map<ChallengeId,ReturnType<typeof inspectChallenge>>();
 function GoalCriteria({id}:{id:ChallengeId}){
- const [showExamples,setShowExamples]=useState(false);
+ const [showExamples,setShowExamples]=useState(false),{observe}=useConvenience();
  if(!isCurrentChallengeId(id))return null;
  let result=criteriaCache.get(id);if(!result){result=inspectChallenge(forgeReferenceGecko(id),id);criteriaCache.set(id,result);}
- return <details className="challenge-criteria"><summary>달성 인정 기준</summary><ul>{result.checks.map(c=><li key={c.label}>{c.label} · {c.maximum!==undefined?`${Math.round(c.maximum*100)}% 이하`:c.minimum<1?`${Math.round(c.minimum*100)}% 이상`:c.minimum===1?'필수':`${c.minimum} 이상`}</li>)}</ul><small>색 면적은 옆구리의 실제 노출 색을 측정합니다. 흰색은 밝기·색 편차, 붉은색·주황·황금색은 색상·채도·밝기 범위를 함께 검사합니다.</small><button type="button" className="album-small-button" onClick={()=>setShowExamples(v=>!v)}>{showExamples?'예시 접기':'인정·불인정 예시 보기'}</button>{showExamples&&<div className="challenge-examples">{challengeExamples(id).map((example,n)=><div key={n} data-accepted={example.accepted}><Sprite gecko={example.gecko}/><strong>{example.accepted?'인정':'불인정'}</strong><small>{example.reason}{example.accepted?'':' 조건 미달'}</small></div>)}</div>}</details>;
+ return <details className="challenge-criteria"><summary>달성 인정 기준</summary><ul>{result.checks.map(c=><li key={c.label}>{c.label} · {c.maximum!==undefined?`${Math.round(c.maximum*100)}% 이하`:c.minimum<1?`${Math.round(c.minimum*100)}% 이상`:c.minimum===1?'필수':`${c.minimum} 이상`}</li>)}</ul><small>색 면적은 옆구리의 실제 노출 색을 측정합니다. 흰색은 밝기·색 편차, 붉은색·주황·황금색은 색상·채도·밝기 범위를 함께 검사합니다.</small><button type="button" className="album-small-button" onClick={()=>setShowExamples(v=>!v)}>{showExamples?'예시 접기':'인정·불인정 예시 보기'}</button>{showExamples&&<div className="challenge-examples">{challengeExamples(id).map((example,n)=><div key={n} data-accepted={example.accepted}><button type="button" className="challenge-example-art" aria-label={challengeById(id).target+' '+(example.accepted?'인정':'불인정')+' 예시 '+(n+1)+' 확대 관찰'} onClick={()=>observe(example.gecko)}><Sprite gecko={example.gecko}/></button><strong>{example.accepted?'인정':'불인정'}</strong><small>{example.reason}{example.accepted?'':' 조건 미달'}</small></div>)}</div>}</details>;
 }
 function Trophy({game,busy,play,record}:{game:Props['game'];busy:Props['busy'];play:Props['play'];record:ChallengeCompletion}){
  const {observe}=useConvenience(),g=trophySpecimen(game,record),name=game.individuals[g.id]?.name??g.name;

@@ -3,7 +3,7 @@ import { addDays, dateNumber, daysBetween, type GameDate } from "./time";
 import { act, synchronize } from "./play";
 import { MARKET, type PriceTable } from "./market";
 import { validateGame } from "./validation";
-import { foodDemand, isV12, V12 } from "./lifecycle";
+import { foodDemand, isV12, lifecycleRules } from "./lifecycle";
 import { buyFood } from "./economy";
 
 /** A time source only chooses a logical date. All daily rules stay in calendar.ts. */
@@ -45,7 +45,7 @@ export function actWithTime(source: HardcoreGame, action: Action, realDate: Game
         for(let remaining=missing;remaining>0;remaining-=1000)buyFood(prepared,Math.min(remaining,1000));
       }
     }
-    return synchronize(prepared, addDays(game.lastDate, isV12(game)?V12.daysPerTurn:1), table);
+    return synchronize(prepared, addDays(game.lastDate, isV12(game)?lifecycleRules(game).daysPerTurn:1), table);
   }
   if (action.type === "setTimeMode") {
     if(isV12(game)&&action.mode!=="turn")throw new Error("v1.2는 턴 마치기로만 진행합니다. 현실 시간 어댑터는 이전 규칙용으로 보존됩니다.");

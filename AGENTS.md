@@ -8,6 +8,8 @@
 
 ## 개발 원칙
 
+- 현재 정식 게임은 규칙 버전 5의 월 단위 시간·성장을 사용합니다. 1턴=1개월, 유체 0~5·아성체 6~17·성체 18개월, 노령144·은퇴180·자연사216개월, 신규 교배 산란+1·수거 부화+3·산란 휴식+2턴입니다. 아래 v1.2 규칙은 역사 reader/회귀용으로 동결합니다. 신규 정식 생성은 newMonthlyGame, 정식 복원은 readMonthlySave/parseMonthlyBackup을 사용하며 이전 개체와 진행 중인 일정의 이전 계약을 보존합니다. 자세한 정책은 docs/monthly-lifecycle.md에 둡니다.
+
 - Node.js 24 LTS와 `npm ci`를 사용합니다.
 - `src/engine/`은 React와 DOM에 의존하지 않는 결정적 렌더링 코드입니다. Canvas 출력은 `canvas.ts`에 둡니다.
 - Phase 6 기본 아트는 public/art/gecko-v2의 실제 PNG와 마스크입니다. compile-gecko-art.mjs로 런타임 데이터를 생성하고 --check로 해시/픽셀 일치를 검증합니다. 기존 v1 엔진과 결과는 engine/legacy에 보존하며 /lab의 버전 선택으로 비교합니다. 기본 렌더러 v2는 96×96·8레이어·고정 시드 계약을 유지합니다.

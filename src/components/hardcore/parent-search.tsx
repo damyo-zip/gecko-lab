@@ -1,4 +1,5 @@
 "use client";
+import {displayAge} from '@/game/hardcore/family-album';
 import {koreanMorphText} from "@/phenotype/display-name";
 import {memo,useMemo,useState} from 'react';
 import type {Gecko,HardcoreGame} from '@/game/hardcore/model';
@@ -48,7 +49,7 @@ export function ParentSearch({game,busy,sex,currentId,opponentId,onSelect,onClos
       {results.slice(0,limit).map(r=>{const g=r.gecko,relation=r.relationship,selected=currentId===g.id;return <article key={g.id} className={'parent-search-card '+(selected?'selected':'')} data-testid={'parent-candidate-'+g.id}>
         <div className="parent-search-art"><Preview gecko={g}/><span>{g.stage==='adult'?g.sex==='male'?'♂ 수컷':'♀ 암컷':'? 성별 미구분'}</span></div>
         <div className="parent-search-description"><div className="parent-search-name"><strong>{g.name}</strong>{selected&&<b>선택됨</b>}</div><small className="parent-search-id">#{g.id}</small><p className="parent-search-morph">{r.morph}</p>
-          <span>{g.generation}세대 · {STAGE_LABELS[g.stage]} · {r.age}턴 ({r.age*7}일)</span>
+          <span>{g.generation}세대 · {STAGE_LABELS[g.stage]} · {displayAge(game,g)}</span>
           <strong className={'parent-search-status '+(r.status.ready?'ready':'')}>{r.status.label}</strong>
           {g.hearts<=2&&g.hearts>0&&<small>컨디션 관리 권장 · 하트 {g.hearts}/5</small>}
           <span className={'parent-relation '+relation.tone} title={relation.note}><HomeIcon name="tree" size={16}/>{relation.label}</span>

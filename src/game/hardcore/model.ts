@@ -49,6 +49,7 @@ export interface Rules {
   maxCapacity: number;
 }
 export interface Mating {
+  timingVersion?: 2;
   id: string;
   ordinal: number;
   date: GameDate;
@@ -80,6 +81,7 @@ export interface Mating {
   } | null;
 }
 export interface TimedEgg {
+  timing?: {version:2; hatchAfter:3|4};
   id: string;
   matingId: string | null;
   laidDate: GameDate;
@@ -98,7 +100,7 @@ export interface Sale {
   marketVersion: string; marketBase: number; valuation: number;
 }
 /** External parents are immutable pedigree records, never player livestock. */
-export interface ShopFamily { version: 1; seed: string; matingTurn: number; father: Gecko; mother: Gecko }
+export interface ShopFamily { version: 1 | 2; seed: string; matingTurn: number; father: Gecko; mother: Gecko }
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string;
   family?: ShopFamily | null; purchased?: boolean;
 }
@@ -115,7 +117,8 @@ export interface HardcoreGame {
   /** Optional v10 extension. Missing in old saves means no selected challenge/rewards. */
   breedingChallenges?: import("./challenges").BreedingChallenges;
   saveVersion: 5 | 6 | 7 | 8 | 9 | 10;
-  rulesVersion: 2 | 3 | 4;
+  rulesVersion: 2 | 3 | 4 | 5;
+  monthlyCalendar?: {version:1; turn:number; date:GameDate; legacy:boolean};
   gameId: string;
   seed: string;
   revision: number;
