@@ -8,7 +8,7 @@ import {dateNumber} from './time';
 import { seasonEggSeed } from "./season";
 import { createEmbryo } from "./offspring";
 import { TRAIT_KEYS } from "@/genetics/traits";
-import { atBirth, waitingForCollection } from './brood-care';
+import { birthMetadata, waitingForCollection } from './brood-care';
 import { fertileChance, eggFailure } from './egg-outcome';
 
 const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
@@ -71,7 +71,7 @@ export function validateLifecycle(game:HardcoreGame):void {
       // Genomes, seeds, all discrete records and the stored values remain exact.
       assert(TRAIT_KEYS.every(k=>Number.isFinite(o.embryo.potential[k])&&Math.abs(o.embryo.potential[k]-expected.potential[k])<=1e-12));
       assert(equal({...o.embryo,potential:expected.potential},expected));
-      if(clutch<=s.clutchesLaid)assert(egg&&equal(egg.embryo,egg.care?atBirth(o.embryo,egg.lifecycle!.dueTurn,egg.dueDate,egg.timing?MONTHLY:V12):o.embryo)&&egg.seed===seed&&egg.lifecycle?.fertilized===o.fertilized);
+      if(clutch<=s.clutchesLaid)assert(egg&&equal(egg.embryo,egg.care?{...o.embryo,...birthMetadata(egg.lifecycle!.dueTurn,egg.dueDate,egg.timing?MONTHLY:V12)}:o.embryo)&&egg.seed===seed&&egg.lifecycle?.fertilized===o.fertilized);
       else assert(!egg);
     }
   }

@@ -20,6 +20,7 @@ import type { Embryo } from './model';
 import { projectBroodCare, validateBroodCare } from './brood-care-validation';
 import {validateRush} from '@/game/rush';
 import {validateForge,inheritForge,validateForgeChild} from './forge-genetics';
+import {validationProjection} from './validation-projection';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
 function fail():never {throw new Error("저장 유전체·공개 지식·유전 상속 기록이 손상되었습니다.");}
@@ -42,7 +43,7 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
 }
 export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(!value||typeof value!=="object"||![5,6,7,8,9,10].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
-  const game=value as HardcoreGame,base=structuredClone(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
+  const game=value as HardcoreGame,base=validationProjection(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
   if(Object.hasOwn(game,'forge')){keys(game.forge,'version');if(game.forge?.version!==1)fail();delete base.forge;}
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
@@ -84,7 +85,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(catalog){
     validateShop(game);
     const projected=base as unknown as HardcoreGame;
-    for(const parent of relatives)if(!projected.individuals[parent.id])projected.individuals[parent.id]=structuredClone(parent);
+    for(const parent of relatives)if(!projected.individuals[parent.id])projected.individuals[parent.id]={...parent};
     delete projected.shop.batch;
     for(const [id,offer] of Object.entries(projected.shop.offers)){
       if(offer.purchased){delete projected.shop.offers[id];continue;}

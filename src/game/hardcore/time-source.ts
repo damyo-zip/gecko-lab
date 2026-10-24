@@ -20,14 +20,16 @@ export function needsTimeSync(game: HardcoreGame, realDate: GameDate): boolean {
   return !isV12(game)&&TIME_SOURCES[game.time.mode].targetDate(game, realDate) > game.lastDate;
 }
 export function synchronizeTime(source: HardcoreGame, realDate: GameDate, table: PriceTable = MARKET): HardcoreGame {
-  dateNumber(realDate); validateGame(source);
+  dateNumber(realDate);
+  // synchronize validates both the input and any changed calendar/market result.
   let next = synchronize(source, isV12(source)?source.lastDate:TIME_SOURCES[source.time.mode].targetDate(source, realDate), table);
   if (source.time.mode === "realtime" && realDate > source.time.realtimeAnchorDate) {
     if (next === source) next = structuredClone(source);
     next.time.realtimeAnchorDate = realDate;
     if (next.revision === source.revision) next.revision++;
+    validateGame(next);
   }
-  validateGame(next); return next;
+  return next;
 }
 export function actWithTime(source: HardcoreGame, action: Action, realDate: GameDate, table: PriceTable = MARKET): HardcoreGame {
   const game = synchronizeTime(source, realDate, table);

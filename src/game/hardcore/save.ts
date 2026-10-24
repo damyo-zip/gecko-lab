@@ -67,17 +67,18 @@ export function readSave(value:unknown,date:GameDate):HardcoreGame {
     if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
     validateGame(candidate.game);
     if(candidate.game.saveVersion!==candidate.version||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
-    const game=migrateBroodCare(migrateRisk(migrateAlbum(candidate.game)));validateGame(game);return game;
+    // Migration functions return a new object whenever they change the state.
+    const game=migrateBroodCare(migrateRisk(migrateAlbum(candidate.game)));if(game!==candidate.game)validateGame(game);return game;
   }
   const game=migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date)))));validateGame(game);return game;
 }
 /** Frozen weekly Forge boundary. Monthly production upgrades this reader below. */
 export function readForgeSave(value:unknown,date:GameDate):HardcoreGame {
-  const game=migrateForge(readSave(value,date));validateGame(game);return game;
+  const source=readSave(value,date),game=migrateForge(source);if(game!==source)validateGame(game);return game;
 }
 /** Current monthly production boundary, after the frozen readers verify source data. */
 export function readMonthlySave(value:unknown,date:GameDate):HardcoreGame {
- const game=migrateMonthly(readForgeSave(value,date));validateGame(game);return game;
+ const source=readForgeSave(value,date),game=migrateMonthly(source);if(game!==source)validateGame(game);return game;
 }
 export function parseMonthlyBackup(input:string,date:GameDate):HardcoreGame {
  if(new TextEncoder().encode(input).length>MAX_BACKUP_BYTES)throw new Error('백업 파일은 16MB 이하여야 합니다.');

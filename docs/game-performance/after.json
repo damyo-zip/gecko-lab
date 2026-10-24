@@ -1,0 +1,1102 @@
+{
+  "node": "v24.19.0",
+  "results": [
+    {
+      "label": "6 animals: endTurn",
+      "ms": [
+        388.7,
+        31.39,
+        23.26
+      ],
+      "medianMs": 31.39,
+      "clonesPerCall": 5,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 220
+        },
+        {
+          "name": " @ engine/companion-lineage.ts",
+          "ms": 22
+        },
+        {
+          "name": " @ engine/companion-laterals.ts",
+          "ms": 21
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 19
+        },
+        {
+          "name": "renderCompanionDorsal @ engine/companion-dorsal.ts",
+          "ms": 18
+        },
+        {
+          "name": "renderCompanionBase @ engine/companion-base.ts",
+          "ms": 14
+        },
+        {
+          "name": " @ engine/companion-base.ts",
+          "ms": 14
+        },
+        {
+          "name": "renderCompanionFlame @ engine/companion-flame.ts",
+          "ms": 14
+        },
+        {
+          "name": "renderCompanionLaterals @ engine/companion-laterals.ts",
+          "ms": 13
+        },
+        {
+          "name": "renderCompanionLineage @ engine/companion-lineage.ts",
+          "ms": 12
+        },
+        {
+          "name": "layer @ engine/companion-base.ts",
+          "ms": 11
+        },
+        {
+          "name": "buildOriginFlameMask @ engine/origin-flame.ts",
+          "ms": 11
+        }
+      ]
+    },
+    {
+      "label": "6 animals: makeSave",
+      "ms": [
+        11.18,
+        9.99,
+        8.93
+      ],
+      "medianMs": 9.99,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 170
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 10
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 7
+        },
+        {
+          "name": " @ genetics/random.ts",
+          "ms": 4
+        },
+        {
+          "name": "makeSave @ hardcore/save.ts",
+          "ms": 3
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 1
+        },
+        {
+          "name": "checksum @ hardcore/save.ts",
+          "ms": 1
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 1
+        },
+        {
+          "name": "keys @ hardcore/legacy-validation.ts",
+          "ms": 1
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "label": "6 animals: load",
+      "ms": [
+        14.68,
+        7.18,
+        8.94
+      ],
+      "medianMs": 8.94,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 184
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 10
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 2
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": "validatePoly @ advanced/polygenic.ts",
+          "ms": 1
+        },
+        {
+          "name": "(program) @ ",
+          "ms": 1
+        },
+        {
+          "name": "readSave @ hardcore/save.ts",
+          "ms": 1
+        },
+        {
+          "name": " @ hardcore/legacy-validation.ts",
+          "ms": 1
+        },
+        {
+          "name": "cross @ advanced/inheritance.ts",
+          "ms": 1
+        },
+        {
+          "name": "inheritPoly @ advanced/polygenic.ts",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "label": "60 animals: endTurn",
+      "ms": [
+        56.26,
+        45.62,
+        36.3
+      ],
+      "medianMs": 45.62,
+      "clonesPerCall": 5,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 215
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 36
+        },
+        {
+          "name": "structuredClone @ worker/js_transferable",
+          "ms": 14
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 8
+        },
+        {
+          "name": "validatePoly @ advanced/polygenic.ts",
+          "ms": 8
+        },
+        {
+          "name": "validateGeckoRecord @ hardcore/legacy-validation.ts",
+          "ms": 7
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 6
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 5
+        },
+        {
+          "name": " @ hardcore/legacy-validation.ts",
+          "ms": 4
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 4
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 3
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 3
+        }
+      ]
+    },
+    {
+      "label": "60 animals: makeSave",
+      "ms": [
+        17.7,
+        18.46,
+        19.29
+      ],
+      "medianMs": 18.46,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 218
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 26
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 6
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 4
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 2
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 1
+        },
+        {
+          "name": " @ ",
+          "ms": 1
+        },
+        {
+          "name": " @ hardcore/brood-care-validation.ts",
+          "ms": 1
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 1
+        },
+        {
+          "name": "owned @ hardcore/survival.ts",
+          "ms": 1
+        },
+        {
+          "name": " @ genetics/random.ts",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "label": "60 animals: load",
+      "ms": [
+        18.74,
+        19.87,
+        21.82
+      ],
+      "medianMs": 19.87,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 176
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 19
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 10
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 6
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 6
+        },
+        {
+          "name": " @ ",
+          "ms": 4
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 3
+        },
+        {
+          "name": "validatePoly @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": "validateGeckoRecord @ hardcore/legacy-validation.ts",
+          "ms": 2
+        },
+        {
+          "name": "readSave @ hardcore/save.ts",
+          "ms": 1
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "label": "300 animals: endTurn",
+      "ms": [
+        135.34,
+        108.71,
+        133.47
+      ],
+      "medianMs": 133.47,
+      "clonesPerCall": 5,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 200
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 82
+        },
+        {
+          "name": "structuredClone @ worker/js_transferable",
+          "ms": 71
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 19
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 18
+        },
+        {
+          "name": "keys @ hardcore/validation.ts",
+          "ms": 15
+        },
+        {
+          "name": "validatePoly @ advanced/polygenic.ts",
+          "ms": 14
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 13
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 13
+        },
+        {
+          "name": "validateGeckoRecord @ hardcore/legacy-validation.ts",
+          "ms": 12
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 11
+        },
+        {
+          "name": "pairKey @ advanced/loci.ts",
+          "ms": 11
+        }
+      ]
+    },
+    {
+      "label": "300 animals: makeSave",
+      "ms": [
+        70.83,
+        55.12,
+        78.87
+      ],
+      "medianMs": 70.83,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 230
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 85
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 31
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 19
+        },
+        {
+          "name": " @ ",
+          "ms": 18
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 9
+        },
+        {
+          "name": "validateGeckoRecord @ hardcore/legacy-validation.ts",
+          "ms": 8
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 5
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 4
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 3
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 3
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "label": "300 animals: load",
+      "ms": [
+        84.48,
+        56.11,
+        53.72
+      ],
+      "medianMs": 56.11,
+      "clonesPerCall": 0,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 190
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 65
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 32
+        },
+        {
+          "name": " @ ",
+          "ms": 24
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 10
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 10
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 7
+        },
+        {
+          "name": "validateGeckoRecord @ hardcore/legacy-validation.ts",
+          "ms": 6
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 6
+        },
+        {
+          "name": " @ genetics/mendel.ts",
+          "ms": 5
+        },
+        {
+          "name": "canonicalPair @ ",
+          "ms": 4
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 4
+        }
+      ]
+    },
+    {
+      "label": "1 clutches: fixture",
+      "animals": 4,
+      "eggs": 2,
+      "turn": 4,
+      "checksum": "4c017a27"
+    },
+    {
+      "label": "1 clutches: endTurn",
+      "ms": [
+        217.23,
+        29.26,
+        31.34
+      ],
+      "medianMs": 31.34,
+      "clonesPerCall": 10,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 189
+        },
+        {
+          "name": " @ engine/companion-base.ts",
+          "ms": 20
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 13
+        },
+        {
+          "name": "renderCompanionLineage @ engine/companion-lineage.ts",
+          "ms": 13
+        },
+        {
+          "name": "renderCompanionFlame @ engine/companion-flame.ts",
+          "ms": 11
+        },
+        {
+          "name": " @ engine/companion-lineage.ts",
+          "ms": 10
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 9
+        },
+        {
+          "name": " @ engine/companion-laterals.ts",
+          "ms": 9
+        },
+        {
+          "name": "structuredClone @ worker/js_transferable",
+          "ms": 9
+        },
+        {
+          "name": "renderCompanionBase @ engine/companion-base.ts",
+          "ms": 8
+        },
+        {
+          "name": "renderCompanionDorsal @ engine/companion-dorsal.ts",
+          "ms": 8
+        },
+        {
+          "name": "buildCompanionTransverseStripes @ engine/companion-stripes-v4.ts",
+          "ms": 8
+        }
+      ]
+    },
+    {
+      "label": "1 clutches: makeSave",
+      "ms": [
+        21.43,
+        18.67,
+        23.61
+      ],
+      "medianMs": 21.43,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 210
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 14
+        },
+        {
+          "name": " @ ",
+          "ms": 5
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 4
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 3
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateLateralTraits @ engine/lateral-genetics.ts",
+          "ms": 3
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 3
+        },
+        {
+          "name": "dateNumber @ hardcore/time.ts",
+          "ms": 2
+        },
+        {
+          "name": "seededRandom @ genetics/random.ts",
+          "ms": 2
+        },
+        {
+          "name": "inspectChallenge @ hardcore/challenge-observation.ts",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "label": "1 clutches: load",
+      "ms": [
+        28.13,
+        23.24,
+        14.69
+      ],
+      "medianMs": 23.24,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 289
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 11
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 10
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 9
+        },
+        {
+          "name": " @ ",
+          "ms": 4
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 3
+        },
+        {
+          "name": "readSave @ hardcore/save.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 3
+        },
+        {
+          "name": "validatePoly @ advanced/polygenic.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateForge @ hardcore/forge-genetics.ts",
+          "ms": 3
+        },
+        {
+          "name": "validateMendelian @ advanced/loci.ts",
+          "ms": 2
+        },
+        {
+          "name": "validateRecord @ hardcore/legacy-validation.ts",
+          "ms": 2
+        }
+      ]
+    },
+    {
+      "label": "8 clutches: fixture",
+      "animals": 16,
+      "eggs": 16,
+      "turn": 32,
+      "checksum": "53327e57"
+    },
+    {
+      "label": "8 clutches: endTurn",
+      "ms": [
+        257.11,
+        99.92,
+        98
+      ],
+      "medianMs": 99.92,
+      "clonesPerCall": 9,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 167
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 73
+        },
+        {
+          "name": " @ ",
+          "ms": 42
+        },
+        {
+          "name": "renderCompanionBase @ engine/companion-base.ts",
+          "ms": 30
+        },
+        {
+          "name": "structuredClone @ worker/js_transferable",
+          "ms": 26
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 19
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 15
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 15
+        },
+        {
+          "name": " @ engine/companion-laterals.ts",
+          "ms": 14
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 13
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 11
+        },
+        {
+          "name": " @ engine/companion-lineage.ts",
+          "ms": 11
+        }
+      ]
+    },
+    {
+      "label": "8 clutches: makeSave",
+      "ms": [
+        40.85,
+        41.15,
+        45.7
+      ],
+      "medianMs": 41.15,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 149
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 49
+        },
+        {
+          "name": " @ ",
+          "ms": 16
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 10
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 7
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 6
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 6
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 3
+        },
+        {
+          "name": "pairs @ ",
+          "ms": 3
+        },
+        {
+          "name": "validateKnowledge @ advanced/inference.ts",
+          "ms": 2
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 2
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 1
+        }
+      ]
+    },
+    {
+      "label": "8 clutches: load",
+      "ms": [
+        44.13,
+        44.69,
+        70.04
+      ],
+      "medianMs": 44.69,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 177
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 57
+        },
+        {
+          "name": " @ ",
+          "ms": 19
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 14
+        },
+        {
+          "name": "pairs @ hardcore/forge-genetics.ts",
+          "ms": 6
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 5
+        },
+        {
+          "name": "validateMorphExtensions @ engine/morph-extensions.ts",
+          "ms": 4
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 4
+        },
+        {
+          "name": "checksum @ ",
+          "ms": 4
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 4
+        },
+        {
+          "name": "keys @ hardcore/legacy-validation.ts",
+          "ms": 3
+        },
+        {
+          "name": "readSave @ hardcore/save.ts",
+          "ms": 3
+        }
+      ]
+    },
+    {
+      "label": "24 clutches: fixture",
+      "animals": 44,
+      "eggs": 48,
+      "turn": 96,
+      "checksum": "d38b32ef"
+    },
+    {
+      "label": "24 clutches: endTurn",
+      "ms": [
+        512.75,
+        411.36,
+        388.63
+      ],
+      "medianMs": 411.36,
+      "clonesPerCall": 8,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 396
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 267
+        },
+        {
+          "name": " @ ",
+          "ms": 193
+        },
+        {
+          "name": "structuredClone @ worker/js_transferable",
+          "ms": 107
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 77
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 53
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 38
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 33
+        },
+        {
+          "name": "offspringRecord @ hardcore/genetics.ts",
+          "ms": 23
+        },
+        {
+          "name": "seededRandom @ genetics/random.ts",
+          "ms": 23
+        },
+        {
+          "name": "dateNumber @ ",
+          "ms": 20
+        },
+        {
+          "name": " @ engine/companion-base.ts",
+          "ms": 19
+        }
+      ]
+    },
+    {
+      "label": "24 clutches: makeSave",
+      "ms": [
+        144.58,
+        153.23,
+        125.45
+      ],
+      "medianMs": 144.58,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 283
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 165
+        },
+        {
+          "name": " @ ",
+          "ms": 67
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 25
+        },
+        {
+          "name": "validateMorphExtensions @ engine/morph-extensions.ts",
+          "ms": 14
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 12
+        },
+        {
+          "name": " @ advanced/polygenic.ts",
+          "ms": 12
+        },
+        {
+          "name": "makeSave @ hardcore/save.ts",
+          "ms": 12
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 10
+        },
+        {
+          "name": "offspringRecord @ hardcore/genetics.ts",
+          "ms": 9
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 7
+        },
+        {
+          "name": "polyScores @ ",
+          "ms": 5
+        }
+      ]
+    },
+    {
+      "label": "24 clutches: load",
+      "ms": [
+        149.34,
+        155.84,
+        143.19
+      ],
+      "medianMs": 149.34,
+      "clonesPerCall": 1,
+      "hotspots": [
+        {
+          "name": "post @ node:inspector",
+          "ms": 244
+        },
+        {
+          "name": "canonicalJSON @ ",
+          "ms": 148
+        },
+        {
+          "name": " @ ",
+          "ms": 74
+        },
+        {
+          "name": "offspringRecord @ ",
+          "ms": 51
+        },
+        {
+          "name": " @ game/save.ts",
+          "ms": 18
+        },
+        {
+          "name": "canonicalJSON @ game/save.ts",
+          "ms": 17
+        },
+        {
+          "name": "polyScores @ advanced/polygenic.ts",
+          "ms": 11
+        },
+        {
+          "name": "readSave @ hardcore/save.ts",
+          "ms": 10
+        },
+        {
+          "name": "(garbage collector) @ ",
+          "ms": 9
+        },
+        {
+          "name": "validateForgeChild @ hardcore/forge-genetics.ts",
+          "ms": 9
+        },
+        {
+          "name": "validateGame @ hardcore/validation.ts",
+          "ms": 8
+        },
+        {
+          "name": "validateLifecycle @ hardcore/lifecycle-validation.ts",
+          "ms": 7
+        }
+      ]
+    }
+  ]
+}

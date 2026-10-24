@@ -11,11 +11,12 @@ export function waitingClutches(game:HardcoreGame,motherId:string){
   return [...new Set(Object.values(game.eggs).filter(e=>waitingForCollection(e)&&e.embryo.parents?.motherId===motherId).map(e=>e.matingId!))];
 }
 /** Only birth/calendar metadata moves. Conception genomes, appearance and rolls remain immutable. */
+export function birthMetadata(turn:number,date:string,rules: {adultAfter:number;daysPerTurn:number}=V12) {
+  const adultDate=addDays(date,rules.adultAfter*rules.daysPerTurn);
+  return {birthTurn:turn,birthDate:date,nextBreedTurn:turn+rules.adultAfter,lastProcessedTurn:turn,cycleAnchor:adultDate,recoverUntil:adultDate};
+}
 export function atBirth(embryo:Embryo,turn:number,date:string,rules: {adultAfter:number;daysPerTurn:number}=V12):Embryo {
-  const child=structuredClone(embryo),adultDate=addDays(date,rules.adultAfter*rules.daysPerTurn);
-  child.birthTurn=turn;child.birthDate=date;child.nextBreedTurn=turn+rules.adultAfter;
-  child.lastProcessedTurn=turn;child.cycleAnchor=adultDate;child.recoverUntil=adultDate;
-  return child;
+  return Object.assign(structuredClone(embryo),birthMetadata(turn,date,rules));
 }
 export function collectEggs(game:HardcoreGame,matingId:string):void {
   const eggs=Object.values(game.eggs).filter(e=>e.matingId===matingId&&waitingForCollection(e));
