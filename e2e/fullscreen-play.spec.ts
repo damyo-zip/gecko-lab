@@ -117,7 +117,7 @@ test("KakaoTalk Android instructions and install link stay on the current page",
   const button = page.getByTestId("install-help-toggle");
   await button.click();
   await expect(button).toHaveAttribute("aria-expanded", "true");
-  await expect(page.getByTestId("install-help-guide")).toContainText("다른 브라우저로 열기");
+  await expect(page.getByTestId("install-help-guide")).toContainText("설치 주소 복사");
   await expect(page.getByTestId("install-help-guide")).toContainText("Chrome");
   await expect(page.getByTestId("copy-install-url")).toBeVisible();
   await expect(page.locator(".game-tab-content")).toHaveCount(0);
@@ -193,7 +193,7 @@ test("KakaoTalk never invokes native PWA prompt", async ({ page }) => {
     window.dispatchEvent(event);
   });
   await page.getByTestId("install-help-toggle").click();
-  await expect(page.getByTestId("install-help-guide")).toContainText("다른 브라우저로 열기");
+  await expect(page.getByTestId("install-help-guide")).toContainText("설치 주소 복사");
   expect(await page.evaluate(() => (window as Window & { __installCalled?: boolean }).__installCalled ?? false)).toBe(false);
 });
 
@@ -214,4 +214,29 @@ test("standalone PWA redirects to game without entry screen", async ({ page }) =
   await page.goto("/fullscreen-play");
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole("heading", { name: /^보유 개체/ })).toBeVisible();
+});
+
+test("KakaoTalk copies the fullscreen entry URL for Chrome installation", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "userAgent", {
+      configurable: true,
+      value: "Mozilla/5.0 (Linux; Android 13) KAKAOTALK 11.0",
+    });
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: (value: string) => {
+          (window as Window & { __copiedInstallUrl?: string }).__copiedInstallUrl = value;
+          return Promise.resolve();
+        },
+      },
+    });
+  });
+  await page.goto("/fullscreen-play");
+  await page.getByTestId("install-help-toggle").click();
+  await page.getByTestId("copy-install-url").click();
+  await expect(page.getByRole("status")).toContainText("주소를 복사했습니다.");
+  expect(await page.evaluate(() => (window as Window & { __copiedInstallUrl?: string }).__copiedInstallUrl))
+    .toBe("http://127.0.0.1:3100/fullscreen-play");
+  await expect(page.getByTestId("install-help-guide")).toContainText("앱 설치하기");
 });

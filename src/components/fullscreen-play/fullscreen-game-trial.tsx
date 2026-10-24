@@ -40,7 +40,8 @@ export default function FullscreenGameTrial() {
     const kakao = /kakaotalk/i.test(ua);
     const ios = /iphone|ipad|ipod/i.test(ua);
     setInstallContext(kakao ? (ios ? "kakao-ios" : "kakao-android") : ios ? "ios" : /android/i.test(ua) ? "android" : "other");
-    setInstallUrl(new URL("/", window.location.href).toString());
+    // Share the same install-capable entry rather than the bare game route.
+    setInstallUrl(new URL("/fullscreen-play", window.location.href).toString());
     const root = document.documentElement;
     const themeMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
     const previousTheme = themeMeta?.getAttribute("content") ?? null;
@@ -176,8 +177,10 @@ export default function FullscreenGameTrial() {
         {installHelpOpen && !installed && <section id="fullscreen-install-guide" className={styles.installGuide} aria-label="앱 설치 안내" data-testid="install-help-guide">
           <div className={styles.installGuideTitle}><strong>앱 설치 안내</strong><button type="button" aria-label="설치 안내 닫기" onClick={() => setInstallHelpOpen(false)}>×</button></div>
           {installContext.startsWith("kakao") ? <>
-            <p>카카오톡 메뉴에서 <strong>다른 브라우저로 열기</strong>를 선택하세요.</p>
-            <p>{installContext === "kakao-ios" ? <>Safari: 공유 → <strong>홈 화면에 추가</strong></> : <>Chrome: 메뉴(⋮) → <strong>앱 설치</strong></>}</p>
+            <p><strong>설치 주소 복사</strong> 후 {installContext === "kakao-ios" ? "Safari" : "Chrome"}에 붙여넣으세요.</p>
+            <p>{installContext === "kakao-ios"
+              ? <>공유 → <strong>홈 화면에 추가</strong></>
+              : <>페이지에서 <strong>앱 설치하기</strong>를 누르세요. 설치창이 없으면 Chrome 메뉴를 이용하세요.</>}</p>
           </> : installContext === "ios" ? (
             <p>Safari: 공유 → <strong>홈 화면에 추가</strong></p>
           ) : (
