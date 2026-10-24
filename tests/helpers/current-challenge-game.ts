@@ -23,7 +23,10 @@ export function addTargetParents(game:HardcoreGame,id:CurrentChallengeId,suffix=
  return ids;
 }
 export function currentChallengeClutch(id:CurrentChallengeId){
- for(let n=0;n<60;n++){
+ // Fixed, previously measured real RNG trials avoid repeated seed-search setup.
+ // If an inherited phenotype stops qualifying, the fixture fails immediately.
+ const n=id==='lilly-dalmatian'?3:0;
+ {
   let game=newForgeGame('eight-clutch-'+id+'-'+n,'2026-10-16',{initialMoney:1_000_000,initialCapacity:20});game.food=500;
   const [fatherId,motherId]=addTargetParents(game,id);
   game=act(game,{type:'breed',fatherId,motherId},game.lastDate);game=challengeTurn(challengeTurn(game));

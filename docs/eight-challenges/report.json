@@ -250,7 +250,7 @@
           "passed": true
         },
         {
-          "label": "어두운 옆구리 면적",
+          "label": "어두운 바탕 면적",
           "value": 0.23923444976076555,
           "minimum": 0.18,
           "passed": true
@@ -296,7 +296,7 @@
           "passed": true
         },
         {
-          "label": "어두운 옆구리 면적",
+          "label": "어두운 바탕 면적",
           "value": 0.23923444976076555,
           "minimum": 0.18,
           "passed": true
@@ -326,7 +326,7 @@
       "id": "halloween",
       "sample": 2,
       "accepted": false,
-      "reason": "어두운 옆구리 면적 · 바탕·주황 밝기 차이",
+      "reason": "어두운 바탕 면적 · 바탕·주황 밝기 차이",
       "nativeRgbaSha256": "79a8fe70f8c4f9db545fdc23dd6e0e55e23139ef5c7e522dafa9f84d89571e08",
       "checks": [
         {
@@ -342,7 +342,7 @@
           "passed": true
         },
         {
-          "label": "어두운 옆구리 면적",
+          "label": "어두운 바탕 면적",
           "value": 0,
           "minimum": 0.18,
           "passed": false
@@ -388,7 +388,7 @@
           "passed": true
         },
         {
-          "label": "어두운 옆구리 면적",
+          "label": "어두운 바탕 면적",
           "value": 0.23923444976076555,
           "minimum": 0.18,
           "passed": true
@@ -806,7 +806,7 @@
           "passed": true
         },
         {
-          "label": "길이 5픽셀 이상 세로 무늬",
+          "label": "연속 5픽셀 이상 세로 무늬",
           "value": 6,
           "minimum": 3,
           "passed": true
@@ -851,7 +851,7 @@
           "passed": true
         },
         {
-          "label": "길이 5픽셀 이상 세로 무늬",
+          "label": "연속 5픽셀 이상 세로 무늬",
           "value": 6,
           "minimum": 3,
           "passed": true
@@ -868,7 +868,7 @@
       "id": "gold-tiger",
       "sample": 2,
       "accepted": false,
-      "reason": "타이거 줄무늬 · 길이 5픽셀 이상 세로 무늬 · 선명한 어두운 줄 면적",
+      "reason": "타이거 줄무늬 · 연속 5픽셀 이상 세로 무늬 · 선명한 어두운 줄 면적",
       "nativeRgbaSha256": "b2fbec8c7c5c44c505fb7bf9340cafd2eab90cd5aff39ef66a55bdec3d741ff0",
       "checks": [
         {
@@ -896,7 +896,7 @@
           "passed": false
         },
         {
-          "label": "길이 5픽셀 이상 세로 무늬",
+          "label": "연속 5픽셀 이상 세로 무늬",
           "value": 0,
           "minimum": 3,
           "passed": false
@@ -941,7 +941,7 @@
           "passed": true
         },
         {
-          "label": "길이 5픽셀 이상 세로 무늬",
+          "label": "연속 5픽셀 이상 세로 무늬",
           "value": 6,
           "minimum": 3,
           "passed": true

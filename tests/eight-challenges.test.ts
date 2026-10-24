@@ -98,3 +98,10 @@ test('an existing Forge game without challenge state can actually save the first
  expect(parseForgeBackup(exportBackup(selected),selected.lastDate)).toEqual(selected);
  const switched=act(selected,{type:'selectChallenge',challengeId:'halloween'},selected.lastDate);expect(switched.breedingChallenges).toMatchObject({activeId:'halloween',initialSelection:false,unlockTurn:5});
 });
+
+test('dark tiger markings cannot count as Halloween base colour and vertical bars need a continuous five-pixel run',()=>{
+ const tiger=forgeReferenceGecko('gold-tiger'),o=challengeObservation(tiger)!;
+ expect(o.stripeArea).toBeGreaterThan(.04);expect(o.sideDark).toBe(0);
+ const baseCheck=inspectChallenge(tiger,'halloween').checks.find(c=>c.label==='어두운 바탕 면적')!;expect(baseCheck.value).toBe(0);expect(baseCheck.passed).toBe(false);
+ const tracks=o.v.description.patternMetrics.tracks;expect(tracks.filter(t=>t.longest>=5)).toHaveLength(6);expect(o.bars).toBe(6);
+});

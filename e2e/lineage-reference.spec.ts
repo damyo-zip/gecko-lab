@@ -106,7 +106,7 @@ test('empty album and missing family records stay honest; lineage end-turn is th
  await navigateGame(page,'인큐베이터',mobile);await expect(page.getByRole('region',{name:'인큐베이터 화면',exact:true})).toBeVisible();await navigateGame(page,'상점',mobile);await expect(page.locator('.shop-offer')).toHaveCount(4);
 });
 test('actual v7 active migration archives original record once, preserves genealogy and named families, and survives JSON restore',async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),envelope=JSON.parse(await readFile('test-results/eight-goals/lineage-reference/baseline-game.json','utf8')),record={save:envelope,writeRevision:20};
+ const mobile=info.project.name.startsWith('mobile'),envelope=JSON.parse(await readFile('docs/lineage-reference/baseline-game.json','utf8')),record={save:envelope,writeRevision:20};
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});},record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');const game=await saved(page);expect(game).toEqual(readSave(envelope,DATE));
  const archive=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});return new Promise(resolve=>{const tx=db.transaction('games','readonly'),r=tx.objectStore('games').get('archive-v7-21');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});});expect(archive).toEqual(record);
