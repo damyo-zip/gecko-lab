@@ -47,4 +47,4 @@
 
 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium node scripts/render-eight-challenges.mjs`
 
-[8개 목표의 인정/불인정 출력](eight-challenges/acceptance-sheet.png)과 [실측값·픽셀 해시](eight-challenges/report.json)를 생성합니다. 본 문서의 최종 테스트 결과는 구현 검증 후 기록합니다.
+[8개 목표의 인정/불인정 출력](eight-challenges/acceptance-sheet.png)과 [실측값·픽셀 해시](eight-challenges/report.json)를 생성합니다. [PR #53의 검증 결과](https://github.com/damyo-zip/gecko-lab/pull/53)에서 최종 실행 결과를 확인할 수 있습니다. 검사는 실제 상속·부화, 이름만 바꾼 개체와 색/점/연결 부족의 탈락, 90% 베일 경계, 0~8개 보상·급여, 대표 교체·판매·폐사·복원, 저장 실패·연속 입력·두 창 충돌, 360/390/430px·PC와 기본 목표/5턴 만료를 포함합니다. 단위의 이전 5개 검증도 역사 버전 테스트로 유지하며 삭제하거나 건너뛰지 않습니다.
