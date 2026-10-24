@@ -2,7 +2,7 @@ import {test,expect,type Page,type Locator} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {newMonthlyGame,act} from '../src/game/hardcore/play';
-import {exportBackup} from '../src/game/hardcore/save';
+import {exportBackup,readMonthlySave} from '../src/game/hardcore/save';
 import {specimen} from '../src/game/hardcore/adapter';
 import {forgeSurface} from '../src/forge/surface';
 import {navigateGame,touch} from './helpers/hardcore-navigation';
@@ -46,5 +46,5 @@ test('a real old backup retains legacy colours through browser restore and reloa
  test.setTimeout(120_000);const backup=readFileSync('tests/fixtures/natural-colours/previous-backup.json','utf8'),game=JSON.parse(backup).game as HardcoreGame;
  await restore(page,backup,info.project.name.startsWith('mobile'));
  const g=Object.values(game.individuals).find(g=>g.status==='owned')!;await nativePixels(page.getByTestId('home-hero-sprite'),g);
- const before=await saved(page);expect(before.save.game).toEqual(game);await page.reload();await nativePixels(page.getByTestId('home-hero-sprite'),g);expect(await saved(page)).toEqual(before);
+ const before=await saved(page);expect(before.save.game).toEqual(readMonthlySave(JSON.parse(backup),DATE));for(const id of Object.keys(game.individuals))expect(before.save.game.individuals[id].genetics).toEqual(game.individuals[id].genetics);await page.reload();await nativePixels(page.getByTestId('home-hero-sprite'),g);expect(await saved(page)).toEqual(before);
 });

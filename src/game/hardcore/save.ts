@@ -71,7 +71,7 @@ export function readSave(value:unknown,date:GameDate):HardcoreGame {
   }
   const game=migrateBroodCare(migrateRisk(migrateAlbum(migrateShop(readV6Save(value,date)))));validateGame(game);return game;
 }
-/** Production load/import boundary. The historical reader remains replayable. */
+/** Frozen weekly Forge boundary. Monthly production upgrades this reader below. */
 export function readForgeSave(value:unknown,date:GameDate):HardcoreGame {
   const game=migrateForge(readSave(value,date));validateGame(game);return game;
 }

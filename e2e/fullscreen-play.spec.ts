@@ -142,7 +142,8 @@ test("KakaoTalk iOS shows Safari home screen installation instructions", async (
 
 test("Android Chrome launches a supplied native PWA install prompt directly", async ({ page }) => {
   await page.goto("/fullscreen-play");
-  await page.evaluate(() => {
+  // Wait for the hydrated event listener before supplying the browser event.
+  await expect.poll(() => page.evaluate(() => {
     const event = new Event("beforeinstallprompt", { cancelable: true }) as Event & {
       prompt(): Promise<void>;
       userChoice: Promise<{outcome: "accepted" | "dismissed"}>;
@@ -150,7 +151,8 @@ test("Android Chrome launches a supplied native PWA install prompt directly", as
     event.prompt = () => { (window as Window & { __installCalled?: boolean }).__installCalled = true; return Promise.resolve(); };
     event.userChoice = Promise.resolve({ outcome: "accepted" });
     window.dispatchEvent(event);
-  });
+    return event.defaultPrevented;
+  })).toBe(true);
   await page.getByTestId("install-help-toggle").click();
   await expect(page.getByText("설치를 진행합니다. 홈 화면에서 실행하세요.")).toBeVisible();
   expect(await page.evaluate(() => (window as Window & { __installCalled?: boolean }).__installCalled)).toBe(true);
@@ -166,7 +168,8 @@ test("Chrome without install event shows concise manual fallback", async ({ page
 
 test("dismissed installation opens fallback instructions", async ({ page }) => {
   await page.goto("/fullscreen-play");
-  await page.evaluate(() => {
+  // Wait for the hydrated event listener before supplying the browser event.
+  await expect.poll(() => page.evaluate(() => {
     const event = new Event("beforeinstallprompt", { cancelable: true }) as Event & {
       prompt(): Promise<void>;
       userChoice: Promise<{outcome: "accepted" | "dismissed"}>;
@@ -174,7 +177,8 @@ test("dismissed installation opens fallback instructions", async ({ page }) => {
     event.prompt = () => Promise.resolve();
     event.userChoice = Promise.resolve({ outcome: "dismissed" });
     window.dispatchEvent(event);
-  });
+    return event.defaultPrevented;
+  })).toBe(true);
   await page.getByTestId("install-help-toggle").click();
   await expect(page.getByText("설치가 취소되었습니다.")).toBeVisible();
   await expect(page.getByTestId("install-help-guide")).toBeVisible();
@@ -183,7 +187,8 @@ test("dismissed installation opens fallback instructions", async ({ page }) => {
 test("KakaoTalk never invokes native PWA prompt", async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(navigator, "userAgent", { configurable: true, value: "Mozilla/5.0 (Linux; Android 13) KAKAOTALK 11.0" }));
   await page.goto("/fullscreen-play");
-  await page.evaluate(() => {
+  // Wait for the hydrated event listener before supplying the browser event.
+  await expect.poll(() => page.evaluate(() => {
     const event = new Event("beforeinstallprompt", { cancelable: true }) as Event & {
       prompt(): Promise<void>;
       userChoice: Promise<{outcome: "accepted" | "dismissed"}>;
@@ -191,7 +196,8 @@ test("KakaoTalk never invokes native PWA prompt", async ({ page }) => {
     event.prompt = () => { (window as Window & { __installCalled?: boolean }).__installCalled = true; return Promise.resolve(); };
     event.userChoice = Promise.resolve({ outcome: "accepted" });
     window.dispatchEvent(event);
-  });
+    return event.defaultPrevented;
+  })).toBe(true);
   await page.getByTestId("install-help-toggle").click();
   await expect(page.getByTestId("install-help-guide")).toContainText("설치 주소 복사");
   expect(await page.evaluate(() => (window as Window & { __installCalled?: boolean }).__installCalled ?? false)).toBe(false);

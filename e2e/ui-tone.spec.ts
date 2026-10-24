@@ -19,7 +19,7 @@ function fixture(){
   game=act(game,{type:"breed",fatherId,motherId},DATE);
   game=turns(game,2);
   if(Object.keys(game.eggs).length!==2)continue;
-  const hatch=turns(game,4);if(Object.values(hatch.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched"))return{base,incubator:game,fatherId,motherId};
+  const hatch=turns(game,4),eggs=Object.values(hatch.eggs).filter(e=>e.lifecycle!.laidTurn===1);if(eggs.length===2&&eggs.every(e=>e.status==="hatched"))return{base,incubator:game,fatherId,motherId};
  }throw new Error("Default 90% breeding fixture unavailable");
 }
 const FIXTURE=fixture();
@@ -64,7 +64,7 @@ test("four portrait screens retain readable controls, immutable records and the 
  expect(await saved(page)).toEqual(incubator);
  await writeFile(info.outputPath("ui-state.json"),JSON.stringify({base:original,incubator},null,2));
  for(let t=0;t<4;t++)await finishTurn(page,mobile);await expect(page.getByTestId("game-day")).toHaveText("6");
- const hatched=await saved(page);expect(Object.values(hatched.eggs).filter(e=>e.lifecycle!.laidTurn===2).every(e=>e.status==="hatched")).toBe(true);
+ const hatched=await saved(page);expect(Object.values(hatched.eggs).filter(e=>e.lifecycle!.laidTurn===1).every(e=>e.status==="hatched")).toBe(true);
  for(const id of [FIXTURE.fatherId,FIXTURE.motherId]){expect(hatched.individuals[id].genetics?.genome).toEqual(incubator.individuals[id].genetics?.genome);expect(hatched.individuals[id].genotype).toEqual(incubator.individuals[id].genotype);expect(hatched.individuals[id].visualSeed).toBe(incubator.individuals[id].visualSeed);}
  await tab(page,"컬렉션",mobile);await expect(page.locator(".hc-card")).toHaveCount(6);const child=Object.values(hatched.individuals).find(g=>g.parents)!;
  await click(page.getByRole("button",{name:child.name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");

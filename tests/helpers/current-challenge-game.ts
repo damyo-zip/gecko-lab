@@ -1,5 +1,6 @@
+import {turnDate} from '../../src/game/hardcore/monthly-calendar';
 import {founderHealth} from '../../src/genetics/health';
-import {newForgeGame,act} from '../../src/game/hardcore/play';
+import {newForgeGame,newMonthlyGame,act} from '../../src/game/hardcore/play';
 import {forgeReferenceGecko} from '../../src/game/hardcore/challenge-previews';
 import {BREEDING_CHALLENGES,type CurrentChallengeId} from '../../src/game/hardcore/challenge-rules';
 import {cachedGenotype} from '../../src/game/hardcore/genetics';
@@ -22,14 +23,16 @@ export function addTargetParents(game:HardcoreGame,id:CurrentChallengeId,suffix=
  }
  return ids;
 }
-export function currentChallengeClutch(id:CurrentChallengeId){
+export function currentChallengeClutch(id:CurrentChallengeId,monthly=false){
  // Fixed, previously measured real RNG trials avoid repeated seed-search setup.
  // If an inherited phenotype stops qualifying, the fixture fails immediately.
  const n=id==='lilly-dalmatian'?3:0;
  {
-  let game=newForgeGame('eight-clutch-'+id+'-'+n,'2026-10-16',{initialMoney:1_000_000,initialCapacity:20});game.food=500;
+  let game=(monthly?newMonthlyGame:newForgeGame)('eight-clutch-'+id+'-'+n,'2026-10-16',{initialMoney:1_000_000,initialCapacity:20});game.food=500;
   const [fatherId,motherId]=addTargetParents(game,id);
-  game=act(game,{type:'breed',fatherId,motherId},game.lastDate);game=challengeTurn(challengeTurn(game));
+  if(monthly)for(const pid of [fatherId,motherId]){game.individuals[pid].birthTurn=-18;game.individuals[pid].birthDate=turnDate(game,-18);game.individuals[pid].nextBreedTurn=0;}
+  game=act(game,{type:'breed',fatherId,motherId},game.lastDate);
+  for(let t=0;t<(monthly?1:2);t++)game=challengeTurn(game);
   game=act(game,{type:'collectEggs',matingId:Object.keys(game.matings)[0]},game.lastDate);
   const match=Object.values(game.eggs).find(e=>eggFailure(e)===null&&evaluateBreedingChallenge(e.embryo,id));
   if(match)return {game,eggId:match.id};
