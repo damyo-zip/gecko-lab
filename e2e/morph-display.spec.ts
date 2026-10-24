@@ -1,7 +1,7 @@
 import {productionSprite,productionName,productionDescription,productionAppearance} from './helpers/forge';
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
-import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
+import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 import {exportBackup} from '../src/game/hardcore/save';
 import {visualName,morphDescription,specimen} from '../src/game/hardcore/adapter';
 import {renderSprite} from '../src/engine/render';

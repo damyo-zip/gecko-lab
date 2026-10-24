@@ -60,3 +60,8 @@
 .challenge-examples>div{display:grid;justify-items:center;padding:6px;border:1px solid #385565;border-radius:4px;min-width:0;text-align:center}
 .challenge-examples canvas{width:96px!important;height:96px!important;max-width:100%;image-rendering:pixelated}
 .challenge-examples strong{font-size:11px;color:#b4e18d}.challenge-examples [data-accepted=false] strong{color:#e8b89c}
+
+button.challenge-preview{padding:0;margin:0;color:inherit;cursor:zoom-in;touch-action:manipulation}
+.challenge-goal button.challenge-example-art{padding:0;border:0;background:transparent;color:inherit;cursor:zoom-in;margin:0;touch-action:manipulation}
+button.challenge-preview:focus-visible,.challenge-example-art:focus-visible{outline:2px solid #b4e18d;outline-offset:2px}
+.challenge-example-art{display:grid;place-items:center;max-width:100%;min-width:0}

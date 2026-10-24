@@ -17,7 +17,7 @@ export function salePriceTags(g:Gecko,table:PriceTable=MARKET):SalePriceTag[] {
  add('appearance',f.appearance,'외형 가산','외형 감산');
  add('carrier',f.carrier,'공개 보인 정보','공개 보인 정보');
  add('sex',f.sex,'성체 암컷','성별 계수');
- add('age',f.age,'성장 단계',g.stage==='juvenile'?'아성체 단계':'해칭 단계');
+ add('age',f.age,'성장 단계',g.stage==='juvenile'?'아성체 단계':'유체 단계');
  add('pedigree',f.pedigree,'부모 기록','부모 기록');
  return tags;
 }

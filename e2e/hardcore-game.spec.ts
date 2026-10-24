@@ -53,7 +53,7 @@ function winningGame() {
  for(let n=0;n<100;n++){
   const first=successfulPair("mobile-v12-"+n+"-",DATE),original=first.original;let g=original;
   for(const id of [first.father,first.mother])g=act(g,{type:"buyGecko",offerId:id},g.lastDate);
-  g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=act(g,{type:"breed",fatherId:first.father,motherId:first.mother},g.lastDate);g=turns(g,18);
+  g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=act(g,{type:"breed",fatherId:first.father,motherId:first.mother},g.lastDate);g=turns(g,22);
   const child=Object.values(g.individuals).filter(i=>i.parents&&i.stage==='adult')[1],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
   if(!child||!partner)continue;
   g=act(g,{type:"buyGecko",offerId:partner.id},g.lastDate);g=act(g,{type:"breed",fatherId:child.sex==='male'?child.id:partner.id,motherId:child.sex==='female'?child.id:partner.id},g.lastDate);g=turns(g,6);
@@ -81,10 +81,10 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
  await tab(page,"컬렉션",mobile);for(let t=0;t<2;t++)await finishTurn(page,mobile);g=await saved(page);expect(Object.keys(g.eggs)).toHaveLength(2);const embryos=Object.values(g.eggs).map(e=>e.embryo);
  await tab(page,"부화",mobile);await page.screenshot({path:info.outputPath("phase3-eggs.png"),scale:"css"});await tab(page,"컬렉션",mobile);
- for(let t=0;t<4;t++)await finishTurn(page,mobile);g=await saved(page);for(const embryo of embryos)expect(g.individuals[embryo.id]).toEqual(bornIndividual(embryo));
+ for(let t=0;t<2;t++)await finishTurn(page,mobile);g=await saved(page);for(const embryo of embryos)expect(g.individuals[embryo.id]).toEqual(bornIndividual(embryo));
  await click(page.getByRole("button",{name:embryos[0].name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");
  await page.getByLabel("개체 이름",{exact:true}).fill("새싹");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"새싹 상세",exact:true})).toBeVisible();await page.getByRole("dialog").screenshot({path:info.outputPath("phase3-hatchling.png"),scale:"css"});await page.keyboard.press("Escape");
- for(let t=0;t<12;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
+ for(let t=0;t<18;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
  const beforeSale=(await saved(page)).money;await click(page.getByRole("button",{name:/^분양 준비/}),mobile);await click(page.getByRole("button",{name:"분양 확정",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("판매 완료");expect((await saved(page)).money).toBeGreaterThan(beforeSale);await page.keyboard.press("Escape");
  await tab(page,"상점",mobile);await manageHousing(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
  const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
@@ -92,7 +92,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await chooseBreedingParent(page,'male',child.sex==='male'?child.id:partner.id);await chooseBreedingParent(page,'female',child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);
  await tab(page,"컬렉션",mobile);for(let t=0;t<6;t++)await finishTurn(page,mobile);g=await saved(page);const grandchild=Object.values(g.individuals).find(i=>i.generation===3)!;expect(grandchild).toBeDefined();
  await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(grandchild.id);await expect(page.locator(".ancestor-list")).toContainText(father.name);await expect(page.locator(".lineage-root")).toContainText("등록된 가문 없음");await expect(page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true})).toContainText("판매 완료");
- await page.screenshot({path:info.outputPath("phase3-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("24");expect(await saved(page)).toEqual(g);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.screenshot({path:info.outputPath("phase3-lineage.png"),scale:"css"});await page.reload();await expect(page.getByTestId("game-day")).toHaveText("28");expect(await saved(page)).toEqual(g);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 
 test("offline time stays paused; five unfed manual turns kill once and preserve dead records",async({page},info)=>{
@@ -159,7 +159,7 @@ test("offline production shell reload preserves paused IndexedDB and allows expl
   await context.setOffline(true);await page.clock.setFixedTime(new Date(addDays(DATE,2)+"T03:00:00Z"));await page.reload();
   await expect(page.getByTestId("game-date")).toHaveText(DATE);expect(await saved(page)).toEqual(before);await finishTurn(page,mobile);const after=await saved(page);
   expect(after.money).toBe(before.money);expect(after.food).toBe(before.food);
-  expect(Object.values(after.individuals)[0].hearts).toBe(4);expect(after.turn).toBe(1);expect(after.lastDate).toBe(addDays(DATE,7));
+  expect(Object.values(after.individuals)[0].hearts).toBe(4);expect(after.turn).toBe(1);expect(after.lastDate).toBe(addDays(DATE,30));
   await context.setOffline(false);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
   expect(await saved(page)).toEqual(after);
 });
@@ -187,6 +187,7 @@ test("live UI distinguishes lethal conditional odds and allows acknowledged risk
   const mobile=info.project.name.startsWith("mobile"),fixture=migrateV2(legacySave(createNewGame("risk-ui")),DATE);
   fixture.capacity=12;fixture.rules={...fixture.rules,fertilizationChance:1,hatchChance:1,juvenileAfter:1,adultAfter:1};
   fixture.time.mode="turn";fixture.food=500;
+  for(const g of Object.values(fixture.individuals))if(g.stage==='adult')g.birthTurn=Math.min(g.birthTurn,fixture.turn-18);
   await restore(page,exportBackup(fixture),mobile);
   const [normal,lillyFemale,,,lillyMale]=Object.values(fixture.individuals);
   await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',lillyMale.id);await chooseBreedingParent(page,'female',lillyFemale.id);

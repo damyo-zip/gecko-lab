@@ -2,7 +2,7 @@ import {test,expect,type Page} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
 import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
-import {exportBackup} from '../src/game/hardcore/save';
+import {readMonthlySave,exportBackup} from '../src/game/hardcore/save';
 import {breedingRisk} from '../src/game/hardcore/breeding-risk';
 import {eggFailure} from '../src/game/hardcore/egg-outcome';
 import {touch,navigateGame,finishTurn} from './helpers/hardcore-navigation';
@@ -43,7 +43,7 @@ test('manual pair collection, newborn pickup and infertile removal persist with 
  await touch(pair,mobile);await expect(pair).toHaveCount(0);await expect(page.getByTestId('hero-collect-eggs-'+f.motherId)).toHaveCount(0);
  let g=await saved(page);expect(Object.values(g.eggs).every(e=>e.care?.collectedTurn===3&&e.lifecycle?.dueTurn===7)).toBe(true);
  await expect(page.getByRole('dialog')).toHaveCount(0);await navigateGame(page,'인큐베이터',mobile);
- await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');await expect(page.getByTestId('incubator-free')).toHaveText('0');
+ await expect(page.getByTestId('incubator-remaining')).toHaveText('4개월 (4턴)');await expect(page.getByTestId('incubator-free')).toHaveText('0');
  for(let n=0;n<4;n++)await finishTurn(page,mobile);
  await navigateGame(page,'인큐베이터',mobile);const baby=page.getByTestId('receive-hatchling-'+f.successId),failed=page.getByTestId('remove-egg-'+f.failedId);
  await expect(baby).toBeVisible();await expect(failed).toBeVisible();g=await saved(page);const childId=g.eggs[f.successId].embryo.id;
@@ -80,12 +80,12 @@ test('v9 active migration archives exact original, preserves incubation and seri
   await new Promise<void>(resolve=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();resolve();};});
  },record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('2');let g=await saved(page);expect(g.saveVersion).toBe(10);
- for(const egg of Object.values(old.eggs))expect(g.eggs[egg.id]).toMatchObject({...egg,care:{version:1,collectedTurn:2,settledTurn:null}});
+ for(const egg of Object.values(old.eggs)){expect(g.eggs[egg.id]).toEqual(readMonthlySave(record.save,DATE).eggs[egg.id]);expect(g.eggs[egg.id].embryo.genetics).toEqual(egg.embryo.genetics);}
  const archived=await page.evaluate(async()=>{
   const db=await new Promise<IDBDatabase>(resolve=>{const r=indexedDB.open('gecko-lab',1);r.onsuccess=()=>resolve(r.result);});
   return new Promise(resolve=>{const tx=db.transaction('games'),r=tx.objectStore('games').get('archive-v9-18');r.onsuccess=()=>resolve(r.result);tx.oncomplete=()=>db.close();});
  });expect(archived).toEqual(record);
- await navigateGame(page,'인큐베이터',mobile);await expect(page.getByTestId('incubator-remaining')).toHaveText('28일 (4턴)');
+ await navigateGame(page,'인큐베이터',mobile);await expect(page.getByTestId('incubator-remaining')).toHaveText('4개월 (4턴)');
  for(let n=0;n<4;n++)await finishTurn(page,mobile);await navigateGame(page,'인큐베이터',mobile);
  const pickup=page.getByTestId('receive-hatchling-'+f.successId),remove=page.getByTestId('remove-egg-'+f.failedId);
  for(const button of [pickup,remove]){await button.evaluate(el=>{(el as HTMLButtonElement).click();(el as HTMLButtonElement).click();});await expect(button).toHaveCount(0);}

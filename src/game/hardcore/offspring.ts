@@ -9,7 +9,7 @@ import type { Embryo, HardcoreGame, Mating } from "./model";
 import { inheritHealth } from '@/genetics/health';
 import { LOCI, pairKey } from '@/genetics/advanced/loci';
 import { addDays, type GameDate } from "./time";
-import { isV12, V12 } from "./lifecycle";
+import { isV12, lifecycleRules } from "./lifecycle";
 
 /** One deterministic inheritance path for both legacy embryos and v1.2 fertilization. */
 export function createEmbryo(game:HardcoreGame,mating:Mating,seed:string,id:string,name:string,birthTurn:number,birthDate:GameDate,newPatterns=game.saveVersion>=7):Embryo {
@@ -25,7 +25,7 @@ export function createEmbryo(game:HardcoreGame,mating:Mating,seed:string,id:stri
     genotype.loci['lilly-white'].every(a=>a==='Lw')?['lilly-white']:[];
   if(game.saveVersion<9&&causes.length)throw new Error("이전 규칙의 비생존 교배 데이터입니다.");
   const risk=mating.riskModel;
-  const adultDate=addDays(birthDate,game.rules.adultAfter*(isV12(game)?V12.daysPerTurn:1));
+  const adultDate=addDays(birthDate,game.rules.adultAfter*(isV12(game)?lifecycleRules(game).daysPerTurn:1));
   return {id,name,sex:seededRandom(seed,"sex")()<.5?"male":"female",birthTurn,birthDate,stage:"hatchling",
     parents:{...mating.parents},generation:mating.generation,genotype,genetics,
     potential:genetics.genome?legacyTraits(polyScores(genetics.genome.polygenic)):inheritTraits(mating.fatherTraits,mating.motherTraits,seed,game.rules.traitVariation),

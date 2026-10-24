@@ -84,7 +84,7 @@ test("plays two generations through selection, probabilities, eggs, hatch, namin
   await page.getByRole("dialog").screenshot({path:info.outputPath("phase2-hatchling.png"),scale:"css"});
   await activate(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
   await tab(page,"컬렉션",mobile);
-  await expect(page.getByRole("button",{name:"새싹 상세보기",exact:true})).toContainText("해칭");
+  await expect(page.getByRole("button",{name:"새싹 상세보기",exact:true})).toContainText("유체");
   await advance(page,5,mobile);
   await expect(page.getByRole("button",{name:"새싹 상세보기",exact:true})).toContainText("아성체");
   await advance(page,1,mobile);

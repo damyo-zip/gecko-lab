@@ -44,7 +44,7 @@ test.beforeEach(async({page},info)=>{
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
 test("manual turns play the entire mating-to-adulthood loop while wall time and reload stay paused",async({page},info)=>{
-  // Eighteen durable turns include the shared rapid-tap guard. Keep every
+  // Twenty-two durable monthly turns include the shared rapid-tap guard. Keep every
   // lifecycle assertion while allowing this full breeding scenario to finish.
   test.setTimeout(90_000);
   const mobile=info.project.name.startsWith("mobile"),fixture=successfulPair("manual-browser-",DATE);
@@ -58,14 +58,14 @@ test("manual turns play the entire mating-to-adulthood loop while wall time and 
   await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);await expect(page.getByRole("region",{name:"인큐베이터 화면",exact:true})).toBeVisible();
   const pending=await saved(page);expect(Object.values(pending.matings)[0].lifecycle!.offspring).toHaveLength(2);
   await page.clock.setFixedTime(new Date(addDays(DATE,700)+"T03:00:00Z"));await page.reload();await expect(page.getByTestId("game-day")).toHaveText("0");expect(await saved(page)).toEqual(pending);
-  await endTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(0);
+  await endTurn(page,mobile);expect(Object.keys((await saved(page)).eggs)).toHaveLength(2);
   await endTurn(page,mobile);const eggs=Object.values((await saved(page)).eggs);expect(eggs).toHaveLength(2);const embryo=eggs[0].embryo;
-  for(let t=3;t<6;t++){await endTurn(page,mobile);expect((await saved(page)).eggs[eggs[0].id].status).toBe("incubating");}
+  for(let t=3;t<4;t++){await endTurn(page,mobile);expect((await saved(page)).eggs[eggs[0].id].status).toBe("incubating");}
   await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id]).toEqual(bornIndividual(embryo));
   await click(page.getByRole("button",{name:embryo.name+" 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("미구분 · 성체 때 공개");await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);
-  for(let t=7;t<=17;t++)await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id].stage).toBe("juvenile");
-  await endTurn(page,mobile);const g=await saved(page);expect(g.individuals[embryo.id]).toMatchObject({stage:"adult",hearts:5});expect(g.lastDate).toBe(addDays(DATE,18*7));
-  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("18");expect(await saved(page)).toEqual(g);
+  for(let t=5;t<=21;t++)await endTurn(page,mobile);expect((await saved(page)).individuals[embryo.id].stage).toBe("juvenile");
+  await endTurn(page,mobile);const g=await saved(page);expect(g.individuals[embryo.id]).toMatchObject({stage:"adult",hearts:5});expect(g.lastDate).toBe(addDays(DATE,22*30));
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("22");expect(await saved(page)).toEqual(g);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:info.outputPath("turn-mode-mobile.png"),scale:"css"});
 });
 

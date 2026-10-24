@@ -1,4 +1,5 @@
 "use client";
+import {turnDurationLabel} from '@/game/hardcore/lifecycle';
 import {breederRank} from "@/game/hardcore/breeder-rank";
 import {useCallback,useEffect,useMemo,useState} from "react";
 import {owned,feedable,reserved} from "@/game/hardcore/survival";
@@ -80,9 +81,9 @@ export function Collection({game,busy,play,onDetail,onShop,onRush,onResources,on
     </div>
     {catalogOpen&&<CollectionCatalog game={game} busy={busy} play={play} initial={{morph:filter,sort,stage}} selectedId={selected?.id??""} onSelect={select} onQuery={q=>{setFilter(q.morph);setSort(q.sort);setStage(q.stage);}} onClose={()=>onCatalog(false)} onDetail={onDetail} onResources={onResources} onFood={onFood} onBreed={onBreed} onRename={onRename} onSell={onSell} onLineage={onLineage}/> }
     {cardAction&&<CardActionDialog action={cardAction} game={game} busy={busy} play={play} onClose={()=>setCardAction(null)}/>}
-    {care&&<Dialog title="컨디션 관리" onClose={()=>setCare(false)}><p className="game-section-copy">{game.lastDate} · TURN {game.turn} · {game.time.mode==="turn"?"턴 방식":"한국 자정"}<br/>사육장 {animals.length}+예약 {reserved(game)} / {game.capacity}</p><p className="game-section-copy">하트는 게임용 컨디션입니다. 1턴은 7일이며 기본 급여량은 생존 개체당 사료 1개입니다. 완료한 도전 1개마다 매 턴 1마리분을 자동 면제하며 무료 급여도 하트를 회복합니다. 미급여 시 하트가 1 감소하고, 0이면 영구 폐사합니다. 상단 먹이 + 버튼에서 사료를 확보하세요. 교배 실행 시 부모 조합의 유전 위험과 근친 여부를 추가로 검사합니다.</p>
+    {care&&<Dialog title="컨디션 관리" onClose={()=>setCare(false)}><p className="game-section-copy">{game.lastDate} · TURN {game.turn} · {game.time.mode==="turn"?"턴 방식":"한국 자정"}<br/>사육장 {animals.length}+예약 {reserved(game)} / {game.capacity}</p><p className="game-section-copy">하트는 게임용 컨디션입니다. {turnDurationLabel(game)}이며 기본 급여량은 생존 개체당 사료 1개입니다. 완료한 도전 2개마다 매 턴 1마리분을 자동 면제하며 무료 급여도 하트를 회복합니다. 미급여 시 하트가 1 감소하고, 0이면 영구 폐사합니다. 상단 먹이 + 버튼에서 사료를 확보하세요. 교배 실행 시 부모 조합의 유전 위험과 근친 여부를 추가로 검사합니다.</p>
       {isV12(game)?<p className="game-section-copy">다음 턴 먹이 면제 {foodDemand(game).exempt}마리 · 필요 사료 {foodDemand(game).needed}개 · 재고 {game.food}개 · 부족 {foodDemand(game).missing}개</p>:<button className="game-primary full-width" disabled={busy||!game.food||!animals.some(g=>feedable(game,g))} onClick={()=>play({type:"feedAll"})}>수동 전체 급여 · 먹이 {game.food}개</button>}
-      <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>setStage(e.target.value)}><option value="all">전체 성장 단계</option><option value="hatchling">해칭</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>
+      <label className="home-stage-filter">성장 단계 필터<select aria-label="성장 단계 필터" value={stage} onChange={e=>setStage(e.target.value)}><option value="all">전체 성장 단계</option><option value="hatchling">유체</option><option value="juvenile">아성체</option><option value="adult">성체</option></select></label>
       <button className="game-secondary full-width" aria-label="전체 개체 목록 열기" aria-haspopup="dialog" onClick={()=>{setCare(false);onCatalog(true);}}>전체 개체 목록 · 검색 / 분양가</button>
       <p className="game-small-note">급여는 턴 종료 시 자동 처리합니다. 사료가 부족하면 하트가 적은 개체부터 급여합니다. 카드 더보기에서 이름 수정·분양·유전 정보를 이용할 수 있습니다.</p></Dialog>}
   </section>;

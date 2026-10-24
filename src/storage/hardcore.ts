@@ -1,7 +1,8 @@
 import type { HardcoreGame } from "@/game/hardcore/model";
-import { newForgeGame as newGame } from "@/game/hardcore/play";
+import { newMonthlyGame as newGame } from "@/game/hardcore/play";
 import { synchronizeTime } from "@/game/hardcore/time-source";
-import { makeSave, readSave,readForgeSave } from "@/game/hardcore/save";
+import { makeSave, readSave,readMonthlySave } from "@/game/hardcore/save";
+import {migrateMonthly} from '@/game/hardcore/migrate-monthly';
 import {migrateForge} from '@/game/hardcore/migrate-forge';
 import type { GameDate } from "@/game/hardcore/time";
 import { DATABASE_NAME, STORE_NAME, SaveConflict } from "./indexed-db";
@@ -51,10 +52,10 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
     r.onsuccess = () => {
       try {
         const record = r.result;
-        const game = record ? readForgeSave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
+        const game = record ? readMonthlySave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
         const synced = synchronizeTime(game, date);
         withRush(store,synced,true,next=>{
-        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==4||record.save.game?.forge?.version!==1||record.save.game?.breedingChallenges?.version===1);
+        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==5||record.save.game?.forge?.version!==1||record.save.game?.breedingChallenges?.version===1);
         const changed = !record || migrated || next !== game;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
         if (record && migrated)
@@ -70,7 +71,7 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
 }
 /** Persist before UI acknowledgement. Replacement archives the previous active slot in the SAME transaction. */
 export async function persistHardcore(game: HardcoreGame, expected: number | null, replacement = false): Promise<LoadedHardcore> {
-  game=migrateForge(game);
+  game=migrateMonthly(migrateForge(game));
   const save=makeSave(game),db=await open();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, "readwrite"), store = tx.objectStore(STORE_NAME), r = store.get("active");

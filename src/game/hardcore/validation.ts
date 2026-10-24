@@ -1,3 +1,4 @@
+import {turnDate} from './monthly-calendar';
 import {validateChallenges} from "./challenge-validation";
 import { canonicalJSON } from "@/game/save";
 import { cachedGenotype, advancedSafety } from "./genetics";
@@ -46,6 +47,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
   }
+  delete base.monthlyCalendar;
   validateChallenges(game);delete base.breedingChallenges;
   const catalog=game.saveVersion>=7;
   if(game.saveVersion>=8){
@@ -94,9 +96,9 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   // Only advanced children bypass the obsolete mean-plus-variation check.
   const strip=(g:Embryo)=>{delete g.genetics;if(game.saveVersion>=9){delete g.healthGenome;delete g.development;}};
   for(const g of Object.values(base.individuals as Record<string,Gecko>))strip(g);
-  for(const e of Object.values(base.eggs as HardcoreGame["eggs"]))strip(e.embryo);
+  for(const e of Object.values(base.eggs as HardcoreGame["eggs"])){delete e.timing;strip(e.embryo);}
   for(const o of Object.values((base.shop as HardcoreGame["shop"]).offers))strip(o.individual);
-  for(const m of Object.values(base.matings as HardcoreGame["matings"])){delete m.genetics;if(game.saveVersion>=9)delete m.riskModel;for(const o of m.lifecycle?.offspring??[])strip(o.embryo);}
+  for(const m of Object.values(base.matings as HardcoreGame["matings"])){delete m.timingVersion;delete m.genetics;if(game.saveVersion>=9)delete m.riskModel;for(const o of m.lifecycle?.offspring??[])strip(o.embryo);}
   base.saveVersion=4;if(game.saveVersion>=6){validateLifecycle(game);validateLifecycleBase(base,advancedIds,catalog,game.saveVersion>=9);}else validateV4(base,advancedIds);
   for(const m of Object.values(game.matings)){
     if(game.saveVersion>=9){if(!Object.hasOwn(m,'riskModel')||m.riskModel===undefined)fail();if(m.riskModel!==null){keys(m.riskModel,'version father mother');validateHealth(m.riskModel.father);validateHealth(m.riskModel.mother);if(m.riskModel.version!==1||!m.lifecycle||!equal(game.individuals[m.parents.fatherId]?.healthGenome,m.riskModel.father)||!equal(game.individuals[m.parents.motherId]?.healthGenome,m.riskModel.mother))fail();}}
@@ -153,11 +155,11 @@ function validateShop(game:HardcoreGame):void {
     if(o.individual.status!=="owned")fail();
     if(o.family===null){if(o.individual.parents)fail();continue;}
     const f=o.family;if(!f)fail();keys(f,"version seed matingTurn father mother");
-    if(f.version!==1||typeof f.seed!=="string"||f.seed.length>512||!Number.isSafeInteger(f.matingTurn)||f.matingTurn!==o.individual.birthTurn-6)fail();
+    if(![1,2].includes(f.version)||f.version===2&&game.rulesVersion!==5||typeof f.seed!=="string"||f.seed.length>512||!Number.isSafeInteger(f.matingTurn)||f.matingTurn!==o.individual.birthTurn-(f.version===2?4:6))fail();
     if(o.individual.sex!==(seededRandom(f.seed,"sex")()<.5?"male":"female")||
-      o.individual.visualSeed!==id+"-"+seedId(f.seed,"visual")||o.individual.birthDate!==addDays(game.lastDate,(o.individual.birthTurn-game.turn)*7))fail();
+      o.individual.visualSeed!==id+"-"+seedId(f.seed,"visual")||o.individual.birthDate!==turnDate(game,o.individual.birthTurn))fail();
     for(const p of [f.father,f.mother]){
-      if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<12||f.matingTurn-p.birthTurn>=60)fail();
+      if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<(f.version===2?18:12)||f.matingTurn-p.birthTurn>=(f.version===2?180:60))fail();
       const archived=game.individuals[p.id];if(archived&&(!equal(archived.genetics?.genome,p.genetics?.genome)||game.saveVersion>=9&&!equal(archived.healthGenome,p.healthGenome)||archived.visualSeed!==p.visualSeed||archived.sex!==p.sex||archived.birthTurn!==p.birthTurn))fail();
       if(archived&&!equal(archived.genetics?.forge,p.genetics?.forge))fail();
       if(o.purchased&&!archived)fail();

@@ -1,5 +1,5 @@
 import type {Gecko,HardcoreGame,Mating} from "@/game/hardcore/model";
-import {isV12,ageTurns,V12} from "@/game/hardcore/lifecycle";
+import {isV12,ageTurns,lifecycleRules} from "@/game/hardcore/lifecycle";
 import {ovulating} from "@/game/hardcore/breeding";
 import {freeSlots} from "@/game/hardcore/survival";
 import {daysBetween} from "@/game/hardcore/time";
@@ -14,7 +14,7 @@ export interface CollectionStatus {
 /** Read-only presentation of the existing calendar/eligibility; never persisted. */
 export interface StatusContext {matings:readonly Mating[];slots:number;recordCount:number}
 export function collectionStatus(game:HardcoreGame,g:Gecko,careWarning=true,context?:StatusContext):CollectionStatus {
-  const v12=isV12(game),age=v12?ageTurns(game,g):daysBetween(g.birthDate,game.lastDate);
+  const V12=lifecycleRules(game),v12=isV12(game),age=v12?ageTurns(game,g):daysBetween(g.birthDate,game.lastDate);
   const state=(kind:CollectionStatus["kind"],label:string,remainingTurns?:number):CollectionStatus=>({kind,label,ready:false,...(remainingTurns===undefined?{}:{remainingTurns})});
   if(g.status!=="owned"||g.hearts<1)return state("unavailable","교배 불가");
   if(v12&&age>=V12.retireAfter)return state("retired","번식 은퇴");

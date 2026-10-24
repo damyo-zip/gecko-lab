@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useMemo,useRef,useState} from 'react';
-import {descendantIds,familySummary,familyTree,pedigreeIndex,recordedAge,searchIndividuals} from '@/game/hardcore/family-album';
+import {descendantIds,familySummary,familyTree,pedigreeIndex,recordedAge,displayAge,searchIndividuals} from '@/game/hardcore/family-album';
 import {visualName,disclosedSex} from '@/game/hardcore/adapter';
 import {STAGE_LABELS} from '@/game/model';
 import type {Gecko} from '@/game/hardcore/model';
@@ -53,7 +53,7 @@ export function Lineage({game,busy,play,onDetail,selectedId,onSelect,view="full"
     <div className="album-section-title"><HomeIcon name="collection"/><h2 id="album-selected-title">선택한 개체</h2><label className="album-quick-select"><span className="sr-only">혈통을 볼 개체</span><select aria-label="혈통을 볼 개체" value={root.id} onChange={e=>choose(e.target.value)}>{quickOptions.map(g=><option value={g.id} key={g.id}>{g.name} · Gen {g.generation} · {STATUS[g.status]}</option>)}</select></label></div>
     <div className="lineage-root" data-id={root.id}>
      <div className="album-selected-art album-art"><Sprite gecko={root} large/><div className="album-selected-name"><Sex g={root}/><h3>{root.name}</h3><div><span>{disclosedSex(root).split(' ')[0]}</span><span>{root.generation}세대</span><span>{STAGE_LABELS[root.stage]}</span></div></div></div>
-     <div className="album-selected-facts"><dl><div><dt>모프</dt><dd>{visualName(root)}</dd></div><div><dt>가문</dt><dd>{families.map(l=>l.name).join(' / ')||'등록된 가문 없음'}</dd></div><div><dt>부화일</dt><dd>{root.birthDate}</dd></div><div><dt>나이</dt><dd>{age.turns}턴 · {age.days}일{age.archived?' (당시)':''}</dd></div><div><dt>상태</dt><dd>{STATUS[root.status]}{root.diedDate&&' · '+root.diedDate}</dd></div><div><dt>고유 ID</dt><dd className="album-full-id">{root.id}</dd></div></dl><button className="album-small-button" onClick={()=>onDetail(root.id)}>상세 정보</button></div>
+     <div className="album-selected-facts"><dl><div><dt>모프</dt><dd>{visualName(root)}</dd></div><div><dt>가문</dt><dd>{families.map(l=>l.name).join(' / ')||'등록된 가문 없음'}</dd></div><div><dt>부화일</dt><dd>{root.birthDate}</dd></div><div><dt>나이</dt><dd>{displayAge(game,root)}{age.archived?' (당시)':''}</dd></div><div><dt>상태</dt><dd>{STATUS[root.status]}{root.diedDate&&' · '+root.diedDate}</dd></div><div><dt>고유 ID</dt><dd className="album-full-id">{root.id}</dd></div></dl><button className="album-small-button" onClick={()=>onDetail(root.id)}>상세 정보</button></div>
     </div>
    </section>}
    <section className="album-family album-metal" aria-labelledby={familyOnly?undefined:"album-family-title"} aria-label={familyOnly?"가족 혈통도":undefined}>

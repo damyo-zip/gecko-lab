@@ -1,8 +1,8 @@
 import {test,expect,type Page,type Locator} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {newForgeGame,act} from '../src/game/hardcore/play';
-import {exportBackup} from '../src/game/hardcore/save';
+import {newMonthlyGame,act} from '../src/game/hardcore/play';
+import {exportBackup,readMonthlySave} from '../src/game/hardcore/save';
 import {specimen} from '../src/game/hardcore/adapter';
 import {forgeSurface} from '../src/forge/surface';
 import {navigateGame,touch} from './helpers/hardcore-navigation';
@@ -30,7 +30,7 @@ async function nativePixels(canvas:Locator,g:Gecko){
 }
 for(const width of[360,390,430,1280])test(`natural colours: native pixels, touch and exact IndexedDB restore at ${width}px`,async({page},info)=>{
  test.setTimeout(120_000);const mobile=info.project.name.startsWith('mobile');await page.setViewportSize({width,height:900});
- let game=newForgeGame('natural-browser-'+width,DATE,{initialMoney:10_000_000,initialCapacity:20});
+ let game=newMonthlyGame('natural-browser-'+width,DATE,{initialMoney:10_000_000,initialCapacity:20});
  const offer=Object.values(game.shop.offers)[0];game=act(game,{type:'buyGecko',offerId:offer.id},DATE);const g=game.individuals[offer.individual.id];
  await restore(page,exportBackup(game),mobile);await nativePixels(page.getByTestId('home-hero-sprite'),g);
  await nativePixels(page.getByTestId('hardcore-sprite-'+g.id),g);
@@ -46,5 +46,5 @@ test('a real old backup retains legacy colours through browser restore and reloa
  test.setTimeout(120_000);const backup=readFileSync('tests/fixtures/natural-colours/previous-backup.json','utf8'),game=JSON.parse(backup).game as HardcoreGame;
  await restore(page,backup,info.project.name.startsWith('mobile'));
  const g=Object.values(game.individuals).find(g=>g.status==='owned')!;await nativePixels(page.getByTestId('home-hero-sprite'),g);
- const before=await saved(page);expect(before.save.game).toEqual(game);await page.reload();await nativePixels(page.getByTestId('home-hero-sprite'),g);expect(await saved(page)).toEqual(before);
+ const before=await saved(page);expect(before.save.game).toEqual(readMonthlySave(JSON.parse(backup),DATE));for(const id of Object.keys(game.individuals))expect(before.save.game.individuals[id].genetics).toEqual(game.individuals[id].genetics);await page.reload();await nativePixels(page.getByTestId('home-hero-sprite'),g);expect(await saved(page)).toEqual(before);
 });

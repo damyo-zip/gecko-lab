@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
+import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 import {BREEDING_CHALLENGES} from '../src/game/hardcore/challenge-rules';
 import {forgeChallengePreview as challengePreview} from '../src/game/hardcore/challenge-previews';
 import {forgeSurface as renderSprite} from '../src/forge/surface';

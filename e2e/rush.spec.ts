@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
+import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 import {rushPlan,RUSH_V1,startRush,type RushGrade} from '../src/game/rush';
 import {exportBackup} from '../src/game/hardcore/save';
 import type {HardcoreGame} from '../src/game/hardcore/model';

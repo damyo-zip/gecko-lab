@@ -24,7 +24,7 @@ test.beforeEach(async({page})=>{errors.set(page,[]);page.on('pageerror',e=>error
 test.afterEach(({page})=>{expect(errors.get(page)).toEqual([]);});
 
 test('age replaces image dimensions; panel, cards, sprite and Gen badge geometry match the previous build exactly',async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame();await restore(page,game,mobile);await expect(age(page)).toHaveText('2개월');await expect(page.locator('.home-info')).not.toContainText('96×96');await expect(page.locator('.home-facts>div').filter({has:page.locator('dt').filter({hasText:/^성장$/})})).toHaveText('성장성체');
+ const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame();await restore(page,game,mobile);await expect(age(page)).toHaveText('1년 6개월');await expect(page.locator('.home-info')).not.toContainText('96×96');await expect(page.locator('.home-facts>div').filter({has:page.locator('dt').filter({hasText:/^성장$/})})).toHaveText('성장성체');
  const baseline=JSON.parse(readFileSync('docs/collection-age-gen/before-geometry-'+info.project.name+'.json','utf8'));await mkdir('docs/collection-age-gen',{recursive:true});
  for(const width of [360,390,430]){
   await page.setViewportSize({width,height:844});
@@ -51,11 +51,11 @@ test('Gen opens the existing real three-generation popup without selecting a car
 });
 
 test('age uses the same game turns after a month boundary and reload without changing growth rules',async({page},info)=>{
- const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame(),g=Object.values(game.individuals)[0];g.stage='juvenile';g.birthTurn=-7;g.birthDate=addDays(game.lastDate,-49);g.nextBreedTurn=5;g.cycleAnchor=g.recoverUntil=addDays(game.lastDate,35);validateGame(game);await restore(page,game,mobile);await expect(age(page)).toHaveText('1개월');
+ const mobile=info.project.name.startsWith('mobile'),game=referenceHomeGame(),g=Object.values(game.individuals)[0];g.stage='juvenile';g.birthTurn=-7;g.birthDate=addDays(game.lastDate,-49);g.nextBreedTurn=5;g.cycleAnchor=g.recoverUntil=addDays(game.lastDate,35);validateGame(game);await restore(page,game,mobile);await expect(age(page)).toHaveText('7개월');
  const before=structuredClone(g);
  for(let n=1;n<=2;n++){
-  await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(page.getByTestId('game-day')).toHaveText(String(n));await expect(age(page)).toHaveText(n===1?'1개월':'2개월');
+  await touch(page.getByRole('button',{name:'턴 넘기기',exact:true}),mobile);await expect(page.getByTestId('game-day')).toHaveText(String(n));await expect(age(page)).toHaveText(n===1?'8개월':'9개월');
  }
  const progressed=await saved(page),child=progressed.individuals[g.id];expect(child.stage).toBe('juvenile');expect(child.birthTurn).toBe(before.birthTurn);expect(child.genotype).toEqual(before.genotype);expect(child.genetics).toEqual(before.genetics);expect(progressed.rules).toEqual(game.rules);expect(progressed.food).toBe(game.food-12);
- await page.reload();await expect(age(page)).toHaveText('2개월');expect(await saved(page)).toEqual(progressed);
+ await page.reload();await expect(age(page)).toHaveText('9개월');expect(await saved(page)).toEqual(progressed);
 });

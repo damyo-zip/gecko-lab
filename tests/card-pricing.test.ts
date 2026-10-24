@@ -30,7 +30,7 @@ test('tags explain actual non-neutral terms without fake retirement or inbreedin
  expect(tags.some(t=>t.id==='age')).toBe(false);
  for(const stage of ['hatchling','juvenile'] as const){
   const young={...g,stage},f=valuationFactors(young);
-  expect(salePriceTags(young)).toContainEqual({id:'age',label:stage==='hatchling'?'해칭 단계':'아성체 단계',tone:'negative'});
+  expect(salePriceTags(young)).toContainEqual({id:'age',label:stage==='hatchling'?'유체 단계':'아성체 단계',tone:'negative'});
   expect(f.age).toBeLessThan(1);expect(salePriceTags(young).some(t=>t.id==='sex')).toBe(false);
  }
  expect(salePriceTags({...g,birthTurn:-90})).toEqual(tags);

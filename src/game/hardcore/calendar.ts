@@ -3,12 +3,12 @@ import { addDays, daysBetween, type GameDate } from "./time";
 import { loseHearts, owned } from "./survival";
 import { breedingEvents } from "./breeding";
 import { refreshShop } from "./shop";
-import { isV12, ageTurns, processCareAndLifespan, V12 } from "./lifecycle";
+import { isV12, ageTurns, processCareAndLifespan, lifecycleRules } from "./lifecycle";
 
 export type DailyEvents = (game: HardcoreGame) => void;
 /** Process every midnight exactly once. Rewinding a device clock never undoes history. */
 export function catchUp(source: HardcoreGame, date: GameDate, events: DailyEvents = breedingEvents): HardcoreGame {
-  const daysPerTurn=isV12(source)?V12.daysPerTurn:1;
+  const daysPerTurn=isV12(source)?lifecycleRules(source).daysPerTurn:1;
   const count = Math.floor(daysBetween(source.lastDate, date)/daysPerTurn);
   if (count <= 0) return source;
   // Valid Gregorian dates impose a finite bound. No offline protection or elapsed-day cap.

@@ -1,6 +1,7 @@
 import type {Gecko,HardcoreGame,NamedLineage} from './model';
+import {dateTurn} from './monthly-calendar';
 import {daysBetween} from './time';
-import {ageTurns,isV12,V12} from './lifecycle';
+import {ageTurns,isV12,lifecycleRules,isMonthly,formatAgeMonths} from './lifecycle';
 
 /** Derived lookup only. Every displayed node is the original game.individuals record. */
 export function pedigreeIndex(game:Pick<HardcoreGame,'individuals'>){
@@ -42,10 +43,13 @@ export function searchIndividuals(game:HardcoreGame,query:string,offset=0,limit=
 }
 /** Archived animals stop ageing at their actual death/sale date; outside parents have no current health record. */
 export function recordedAge(game:HardcoreGame,g:Gecko){
- const archived=g.status==='dead'||g.status==='sold',daysPerTurn=isV12(game)?V12.daysPerTurn:1;
+ const archived=g.status==='dead'||g.status==='sold',daysPerTurn=isV12(game)?lifecycleRules(game).daysPerTurn:1;
  // Historical migration preserves birth dates but can normalize a living adult's
  // birthTurn. Current animals must show the same age as the breeding/lifespan engine.
- if(!archived){const turns=ageTurns(game,g);return {days:turns*daysPerTurn,turns,archived};}
+ if(!archived){const turns=ageTurns(game,g);return {days:turns*daysPerTurn,turns,months:isMonthly(game)?turns:Math.floor(turns*daysPerTurn/30),archived};}
  const end=g.diedDate??game.sales.find(s=>s.individualId===g.id)?.date??game.lastDate;
- const days=Math.max(0,daysBetween(g.birthDate,end));return {days,turns:Math.floor(days/daysPerTurn),archived};
+ const days=Math.max(0,daysBetween(g.birthDate,end));const turns=isMonthly(game)?Math.max(0,dateTurn(game,end)-g.birthTurn):Math.floor(days/daysPerTurn);
+ return {days,turns,months:isMonthly(game)?turns:Math.floor(days/30),archived};
 }
+
+export const displayAge=(game:HardcoreGame,g:Gecko)=>formatAgeMonths(recordedAge(game,g).months);

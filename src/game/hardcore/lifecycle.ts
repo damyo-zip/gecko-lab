@@ -7,14 +7,22 @@ import {challengeFeedSlots} from './challenges';
 export const V12 = Object.freeze({ daysPerTurn: 7, juvenileAfter: 6, adultAfter: 12,
   firstLayAfter: 2, eggsPerClutch: 2, maxClutches: 1, restAfter: 4,
   hatchAfter: 4, fertileChance: .95, hatchChance: .95, seniorAfter: 50, retireAfter: 60 });
+export const MONTHLY = Object.freeze({...V12, daysPerTurn:30, adultAfter:18, firstLayAfter:1,
+  restAfter:2, hatchAfter:3, seniorAfter:144, retireAfter:180, deathAfter:216});
+export const isMonthly=(game:Pick<HardcoreGame,'rulesVersion'>)=>game.rulesVersion===5;
+export const lifecycleRules=(game:Pick<HardcoreGame,'rulesVersion'>)=>isMonthly(game)?MONTHLY:V12;
+export function formatAgeMonths(months:number):string {
+  const age=Math.max(0,Math.floor(months)),years=Math.floor(age/12),rest=age%12;
+  return years?`${years}년${rest?` ${rest}개월`:''}`:`${age}개월`;
+}
 export const isV12 = (game: Pick<HardcoreGame,"rulesVersion">) => game.rulesVersion >= 3;
 export const ageTurns = (game: Pick<HardcoreGame,"turn">, gecko: Pick<Gecko,"birthTurn">) => Math.max(0, game.turn - gecko.birthTurn);
 export function naturalDeathProbability(age: number): number {
   return age < 65 ? 0 : age < 70 ? .01 : age < 75 ? .03 : age < 80 ? .08 : age < 85 ? .18 : age < 90 ? .4 : 1;
 }
 export function lifeStage(game: HardcoreGame, g: Gecko): string {
-  const age=ageTurns(game,g);
-  return age>=V12.retireAfter ? "번식 은퇴" : age>=V12.seniorAfter ? "노령기" : g.stage==="adult" ? "성체" : g.stage==="juvenile" ? "아성체" : "해칭";
+  const age=ageTurns(game,g),V12=lifecycleRules(game);
+  return age>=V12.retireAfter ? "번식 은퇴" : age>=V12.seniorAfter ? "노령기" : g.stage==="adult" ? "성체" : g.stage==="juvenile" ? "아성체" : isMonthly(game)?"유체":"해칭";
 }
 export function foodDemand(game: HardcoreGame): { animals:number; exempt:number; needed:number; missing:number } {
   const animals=owned(game).length,exempt=isV12(game)?Math.min(animals,challengeFeedSlots(game)):0;
@@ -37,8 +45,10 @@ export function processCareAndLifespan(game: HardcoreGame): void {
     if(free||game.food>0){if(free)exempt++;else game.food--;g.lastFedDate=game.lastDate;g.hearts=Math.min(5,g.hearts+1);fed++;}
     else {unfed++;g.hearts--;if(g.hearts===0)die(game,g,"starvation");}
     if(g.status!=="owned")continue;
-    const probability=naturalDeathProbability(ageTurns(game,g));
+    const probability=isMonthly(game)?Number(ageTurns(game,g)>=MONTHLY.deathAfter):naturalDeathProbability(ageTurns(game,g));
     if(probability>0&&seededRandom(game.seed+"|"+g.id,"natural-death:"+ageTurns(game,g))()<probability)die(game,g,"natural");
   }
   if(fed+unfed)game.notices.push(`자동 급여 ${fed}마리 · 사료 ${fed-exempt}개 소비${exempt?` · 먹이 면제 ${exempt}마리`:""}${unfed?` · ${unfed}마리 미급여, 하트 −1`:""}`);
 }
+
+export const turnDurationLabel=(game:Pick<HardcoreGame,'rulesVersion'>)=>isMonthly(game)?'1턴 1개월':'1턴 7일';

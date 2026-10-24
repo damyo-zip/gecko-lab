@@ -1,11 +1,12 @@
 import type {HardcoreGame,TimedEgg} from '@/game/hardcore/model';
 import {freeSlots,owned,reserved} from '@/game/hardcore/survival';
-import {V12} from '@/game/hardcore/lifecycle';
+import {V12,lifecycleRules} from '@/game/hardcore/lifecycle';
 import {holdsIncubatorSlot,waitingForCollection} from '@/game/hardcore/brood-care';
 import {daysBetween} from '@/game/hardcore/time';
 
 /** Presentation only: never inspect an unrevealed embryo or change a saved reservation. */
 export function eggProgress(game:HardcoreGame,egg:TimedEgg){
+ const V12=egg.timing?{...lifecycleRules(game),hatchAfter:egg.timing.hatchAfter}:lifecycleRules({rulesVersion:4});
  if(waitingForCollection(egg))return {remainingTurns:V12.hatchAfter,remainingDays:V12.hatchAfter*V12.daysPerTurn,percent:0};
  const remainingTurns=egg.status!=='incubating'?0:Math.max(0,egg.lifecycle?egg.lifecycle.dueTurn-game.turn:Math.ceil(daysBetween(game.lastDate,egg.dueDate)/V12.daysPerTurn));
  const duration=egg.lifecycle?egg.lifecycle.dueTurn-(egg.care?.collectedTurn??egg.lifecycle.laidTurn):V12.hatchAfter;

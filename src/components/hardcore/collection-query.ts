@@ -1,4 +1,4 @@
-import {recordedAge} from "@/game/hardcore/family-album";
+import {displayAge} from "@/game/hardcore/family-album";
 import type {HardcoreGame,Gecko} from "@/game/hardcore/model";
 import {specimen,visualName} from "@/game/hardcore/adapter";
 import {appearanceProfile} from "@/game/hardcore/appearance";
@@ -40,8 +40,5 @@ export function collectionEntries(animals:readonly Gecko[],q:CollectionQuery) {
   return entries;
 }
 
-/** Display only: 30 days/month, 12 months/year. Engine age remains in turns. */
-export function collectionAge(game:HardcoreGame,g:Gecko):string {
-  const months=Math.floor(recordedAge(game,g).days/30),years=Math.floor(months/12);
-  return years?`${years}년 ${months%12}개월`:`${months}개월`;
-}
+/** One common age format across collection, shop, parents and pedigree. */
+export const collectionAge=displayAge;

@@ -3,6 +3,7 @@ import {mkdir} from 'node:fs/promises';
 import {BREEDING_CHALLENGES} from '../src/game/hardcore/challenge-rules';
 import {currentChallengeClutch,currentBreederRankGames} from '../tests/helpers/current-challenge-game';
 import {challengeClutch,challengeTurn} from '../tests/helpers/challenge-game';
+import {migrateMonthly} from '../src/game/hardcore/migrate-monthly';
 import {emptyChallenges} from '../src/game/hardcore/challenges';
 import {act} from '../src/game/hardcore/play';
 import {actWithTime} from '../src/game/hardcore/time-source';
@@ -77,13 +78,13 @@ test('eight-goal completion and trophy representative persist through IndexedDB 
  await page.reload();await expect(page.getByTestId('breeder-rank')).toHaveText('전설의 브리더');expect(await saved(page)).toEqual(after);dialog=await goals(page,mobile);await expect(dialog.getByRole('combobox',{name:target.target+' 트로피 대표',exact:true})).toHaveValue(eggId);
 });
 
-test('loading an old active slot archives and clears only old challenges, preserving all other gameplay records',async({page},info)=>{
+test('loading an old active slot archives the old slot, upgrades monthly timing and clears obsolete challenges while preserving gameplay evidence',async({page},info)=>{
  let {game}=challengeClutch('sun');game=act(game,{type:'selectChallenge',challengeId:'sun'},game.lastDate);for(let n=0;n<4;n++)game=challengeTurn(game);const envelope=makeSave(game);
  await page.evaluate(async save=>{
   const db=await new Promise<IDBDatabase>(r=>{const q=indexedDB.open('gecko-lab',1);q.onsuccess=()=>r(q.result);});await new Promise<void>(r=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put({save,writeRevision:50},'active');tx.oncomplete=()=>{db.close();r();};});
  },envelope);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('6');const next=await saved(page),expected=structuredClone(game);expected.breedingChallenges=emptyChallenges(2,game.turn);expected.revision++;
- expect(withoutForge(next.save.game)).toEqual(expected);expect(next.writeRevision).toBe(51);
+ expect(withoutForge(next.save.game)).toEqual(migrateMonthly(expected));expect(next.writeRevision).toBe(51);
  const archived=await page.evaluate(async()=>{const db=await new Promise<IDBDatabase>(r=>{const q=indexedDB.open('gecko-lab',1);q.onsuccess=()=>r(q.result);});return new Promise<any>(r=>{const tx=db.transaction('games'),q=tx.objectStore('games').get('archive-v10-51');q.onsuccess=()=>r(q.result);tx.oncomplete=()=>db.close();});});expect(archived.save).toEqual(envelope);await expect(page.getByTestId('breeder-rank')).toHaveText('견습 브리더');
 });
 
