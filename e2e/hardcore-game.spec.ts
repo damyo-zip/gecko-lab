@@ -1,7 +1,7 @@
 import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {bornIndividual} from '../src/game/hardcore/egg-outcome';
 import {inspectGenetics,closeGenetics,closeBreeding} from './helpers/hardcore-navigation';
-import {buyFood,manageResources,closeResources} from "./helpers/hardcore-navigation";
+import {buyFood,manageResources,manageHousing,closeResources} from "./helpers/hardcore-navigation";
 import {navigateGame,feedCollection,finishTurnAndTend as finishTurn} from "./helpers/hardcore-navigation";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { readFile } from "node:fs/promises";
@@ -86,7 +86,7 @@ test("real mobile purchases, automatic care, two generations, hidden sex, sale, 
  await page.getByLabel("개체 이름",{exact:true}).fill("새싹");await click(page.getByRole("button",{name:"이름 저장",exact:true}),mobile);await expect(page.getByRole("heading",{name:"새싹 상세",exact:true})).toBeVisible();await page.getByRole("dialog").screenshot({path:info.outputPath("phase3-hatchling.png"),scale:"css"});await page.keyboard.press("Escape");
  for(let t=0;t<12;t++)await finishTurn(page,mobile);await click(page.getByRole("button",{name:"새싹 상세보기",exact:true}),mobile);await expect(page.getByRole("dialog")).not.toContainText("미구분 · 성체 때 공개");
  const beforeSale=(await saved(page)).money;await click(page.getByRole("button",{name:/^분양 준비/}),mobile);await click(page.getByRole("button",{name:"분양 확정",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("판매 완료");expect((await saved(page)).money).toBeGreaterThan(beforeSale);await page.keyboard.press("Escape");
- await tab(page,"상점",mobile);await manageResources(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
+ await tab(page,"상점",mobile);await manageHousing(page,mobile);await click(page.getByRole("button",{name:"사육장 +4칸 · ₩100,000",exact:true}),mobile);await closeResources(page,mobile);g=await saved(page);
  const child=g.individuals[embryos[1].id],partner=Object.values(g.shop.offers).find(o=>o.individual.stage==='adult'&&o.individual.sex!==child.sex&&o.individual.genotype.loci['lilly-white'].every(a=>a==='n')&&o.individual.genotype.loci.axanthic.every(a=>a==='A'))!;
  await click(page.getByTestId('shop-offer-'+partner.id).getByRole("button",{name:partner.individual.name+" 구매",exact:true}),mobile);await tab(page,"교배",mobile);
  await chooseBreedingParent(page,'male',child.sex==='male'?child.id:partner.id);await chooseBreedingParent(page,'female',child.sex==='female'?child.id:partner.id);await click(page.getByRole("button",{name:"교배하기",exact:true}),mobile);

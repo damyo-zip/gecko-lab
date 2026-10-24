@@ -44,6 +44,9 @@ test.beforeEach(async({page},info)=>{
 test.afterEach(async({page})=>{expect(errors.get(page)).toEqual([]);});
 
 test("manual turns play the entire mating-to-adulthood loop while wall time and reload stay paused",async({page},info)=>{
+  // Eighteen durable turns include the shared rapid-tap guard. Keep every
+  // lifecycle assertion while allowing this full breeding scenario to finish.
+  test.setTimeout(90_000);
   const mobile=info.project.name.startsWith("mobile"),fixture=successfulPair("manual-browser-",DATE);
   await click(page.getByRole("button",{name:"저장 및 게임 설정",exact:true}),mobile);
   await page.getByLabel("JSON 백업 파일",{exact:true}).setInputFiles({name:"turn-game.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(fixture.original))});

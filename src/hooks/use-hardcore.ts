@@ -57,7 +57,12 @@ export function useHardcore(clock: Clock = deviceClock) {
         if (e instanceof SaveConflict) { stale.current = true; setConflict(true); }
       }
       return false;
-    } finally { lock.current = false; if (mounted.current) setBusy(false); }
+    } finally {
+      // Keep all turn entry points locked through a rapid second physical tap,
+      // including devices where IndexedDB finishes before that tap arrives.
+      if(action?.type==='endTurn')await new Promise(resolve=>setTimeout(resolve,350));
+      lock.current = false; if (mounted.current) setBusy(false);
+    }
   }, [clock]);
   useEffect(() => {
     mounted.current = true; let cancelled = false;
