@@ -38,7 +38,8 @@ export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTa
     else updateMarket(result, table);
     if (result.revision === source.revision) result.revision++;
   }
-  validateGame(result); return result;
+  // The unchanged source was fully checked above; every changed result is checked here.
+  if(result!==source)validateGame(result); return result;
 }
 /** Daily engine only receives logical dates; the time-source adapter chooses them. */
 export function act(source: HardcoreGame, action: GameplayAction, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
