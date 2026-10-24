@@ -89,14 +89,18 @@ test('breeding/picker, shop/family, lineage and hatch results share scaling and 
 });
 
 test('six/eighteen-month boundaries instantly update scale, keep card geometry and restore the exact game',async({page},info)=>{
-  const mobile=info.project.name.startsWith('mobile'),f=growthScaleGame();await boot(page,f.game,mobile);
+  const mobile=info.project.name.startsWith('mobile'),f=growthScaleGame();
+  // Play to one month before the first size boundary. The full birth-to-adult
+  // UI journey is also covered by time-mode.spec.ts.
+  for(let n=0;n<5;n++)f.game=actWithTime(f.game,{type:'endTurn'},DATE);
+  await boot(page,f.game,mobile);
   const young=page.getByTestId('hc-card-'+f.hatchlingId),older=page.getByTestId('hc-card-'+f.juvenileId);
   const before=await young.boundingBox();let expected=f.game;
   await expect(young.locator('canvas')).toHaveAttribute('data-growth-stage','hatchling');await expect(older.locator('canvas')).toHaveAttribute('data-growth-stage','juvenile');
-  for(let t=1;t<=18;t++){
+  for(let t=1;t<=13;t++){
     await finishTurn(page,mobile);expected=actWithTime(expected,{type:'endTurn'},DATE);
-    await expect(young.locator('canvas')).toHaveAttribute('data-growth-stage',t<6?'hatchling':t<18?'juvenile':'adult');
-    await expect(older.locator('canvas')).toHaveAttribute('data-growth-stage',t<12?'juvenile':'adult');
+    await expect(young.locator('canvas')).toHaveAttribute('data-growth-stage',5+t<6?'hatchling':5+t<18?'juvenile':'adult');
+    await expect(older.locator('canvas')).toHaveAttribute('data-growth-stage',11+t<18?'juvenile':'adult');
     const box=await young.boundingBox();expect(box!.width).toBe(before!.width);expect(box!.height).toBe(before!.height);
   }
   await checkSprites(page.locator('.home-collection'));const final=await saved(page);
