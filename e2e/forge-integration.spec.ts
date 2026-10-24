@@ -1,8 +1,9 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {newGame,newForgeGame} from '../src/game/hardcore/play';
+import {newGame,newMonthlyGame} from '../src/game/hardcore/play';
 import {exportBackup,makeSave} from '../src/game/hardcore/save';
+import {migrateMonthly} from '../src/game/hardcore/migrate-monthly';
 import {migrateForge} from '../src/game/hardcore/migrate-forge';
 import {specimen,visualName} from '../src/game/hardcore/adapter';
 import {forgeSurface} from '../src/forge/surface';
@@ -22,7 +23,7 @@ async function database(page:Page){return page.evaluate(async()=>{
  return new Promise<Record<string,unknown>>(r=>{const out:Record<string,unknown>={},tx=db.transaction('games'),q=tx.objectStore('games').openCursor();q.onsuccess=()=>{const c=q.result;if(c){out[String(c.key)]=c.value;c.continue();}};tx.oncomplete=()=>{db.close();r(out);};});
 });}
 function gallery(){
- const game=newForgeGame('forge-gallery',DATE,{initialMoney:1_000_000,initialCapacity:24}),template=Object.values(game.shop.offers)[0].family!.father;
+ const game=newMonthlyGame('forge-gallery',DATE,{initialMoney:1_000_000,initialCapacity:24}),template=Object.values(game.shop.offers)[0].family!.father;
  const morphs=['base','lilly','axanthic','dalmatian','select-harlequin','tiger','sable','highway']as const;
  for(const morph of morphs)for(let n=0;n<2;n++){
   const id='forge-review-'+morph+'-'+n,input={id,seed:id,name:morph+' '+n,sex:n?'female' as const:'male' as const};
@@ -66,6 +67,6 @@ test('existing v10 active save is archived byte-for-byte once before appearance 
  await page.evaluate(async record=>{const db=await new Promise<IDBDatabase>(r=>{const q=indexedDB.open('gecko-lab',1);q.onsuccess=()=>r(q.result);});await new Promise<void>(r=>{const tx=db.transaction('games','readwrite');tx.objectStore('games').put(record,'active');tx.oncomplete=()=>{db.close();r();};});},record);
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');
  await expect.poll(async()=>((await database(page)).active as {writeRevision:number}).writeRevision).toBe(18);
- const migrated=await database(page);expect(migrated['archive-v10-18']).toEqual(record);expect((migrated.active as {save:{game:HardcoreGame}}).save.game).toEqual(migrateForge(old));
+ const migrated=await database(page);expect(migrated['archive-v10-18']).toEqual(record);expect((migrated.active as {save:{game:HardcoreGame}}).save.game).toEqual(migrateMonthly(migrateForge(old)));
  await page.reload();await expect(page.getByTestId('game-day')).toHaveText('0');expect(await database(page)).toEqual(migrated);
 });
