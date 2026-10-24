@@ -57,8 +57,11 @@ export function validateLifecycle(game:HardcoreGame):void {
       assert(o.fertilized===(seededRandom(seed,"fertilization")()<fertileChance(m)));
       const egg=game.eggs[o.embryo.id+"-egg"];
       const historical=game.rulesVersion>=4&&clutch>1;
-      const birthTurn=historical?egg?.lifecycle?.dueTurn:s.startTurn+timing.firstLayAfter+(clutch-1)*timing.restAfter+timing.hatchAfter;
-      assert(birthTurn!==undefined&&o.embryo.birthTurn===birthTurn&&o.embryo.birthDate===(historical?egg?.dueDate:addDays(m.date,(birthTurn-s.startTurn)*timing.daysPerTurn)));
+      // Monthly migration moves unhatched egg dates while the original
+      // conception forecast stays immutable, including historical clutches 2/3.
+      const frozenHistorical=historical&&!isMonthly(game);
+      const birthTurn=frozenHistorical?egg?.lifecycle?.dueTurn:s.startTurn+timing.firstLayAfter+(clutch-1)*timing.restAfter+timing.hatchAfter;
+      assert(birthTurn!==undefined&&o.embryo.birthTurn===birthTurn&&o.embryo.birthDate===(frozenHistorical?egg?.dueDate:addDays(m.date,(birthTurn-s.startTurn)*timing.daysPerTurn)));
       // Replay the validated saved appearance version, not the current factory
       // default. Pending old embryos must keep their original pixels after upgrade.
       const replay=m.timingVersion===2?game:{...game,rulesVersion:4 as const,rules:{...game.rules,adultAfter:12}};
