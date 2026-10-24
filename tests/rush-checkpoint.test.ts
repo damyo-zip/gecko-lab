@@ -1,5 +1,7 @@
 import {describe,it,expect,vi,afterEach} from 'vitest';
 import {RushCheckpoint,type RushRequest,type RushResponse} from '../src/storage/rush-checkpoint';
+import {migrateMonthly} from '../src/game/hardcore/migrate-monthly';
+import {migrateForge} from '../src/game/hardcore/migrate-forge';
 import {RushClient} from '../src/storage/rush-client';
 import {act} from '../src/game/hardcore/play';
 import {actWithTime,synchronizeTime} from '../src/game/hardcore/time-source';
@@ -10,10 +12,10 @@ import {makeSave,readSave} from '../src/game/hardcore/save';
 import {SaveConflict} from '../src/storage/indexed-db';
 
 const DATE='2026-10-15';
-const started=(version:RushVersion=2)=>{const game=rushPerformanceGame(6);startRush(game,version);return {game,writeRevision:7};};
+const started=(version:RushVersion=2,monthly=false)=>{const original=rushPerformanceGame(6),game=monthly?migrateMonthly(migrateForge(original)):original;startRush(game,version);return {game,writeRevision:7};};
 describe('isolated checkpoints use the original game and persistence rules',()=>{
-  it.each([1,2,3] as const)('v%s: matches the full action path, keeps every non-Rush field, roundtrips and pays once',async version=>{
-    const source=started(version);
+  it.each([[1,false],[2,false],[3,false],[1,true],[2,true],[3,true]] as const)('v%s monthly=%s: matches the full action path, keeps every non-Rush field, roundtrips and pays once',async(version,monthly)=>{
+    const source=started(version,monthly);
     let durable=structuredClone(source),expected=source.game;
     const persist:typeof persistHardcore=async(game,revision)=>{
       expect(revision).toBe(durable.writeRevision);
@@ -61,11 +63,11 @@ describe('small worker replies and client lifecycle',()=>{
     }
     vi.stubGlobal('Worker',FakeWorker);return sent;
   }
-  it('transfers the collection once, keeps record identities, reinitializes after non-Rush actions',async()=>{
+  it.each([false,true])('monthly=%s: transfers the collection once, keeps record identities, reinitializes after non-Rush actions',async monthly=>{
     let revision=7;
     const sent=install(m=>m.type==='init'?{id:m.id,ok:true,writeRevision:m.loaded.writeRevision}:
       {id:m.id,ok:true,writeRevision:++revision,patch:{revision,notices:[],cafeRush:{version:2,shift:{turn:0,elapsedMs:m.action.elapsedMs,results:Array(10).fill(null),paid:false}}}});
-    const client=new RushClient(),source=started();await client.prepare(source);
+    const client=new RushClient(),source=started(2,monthly);await client.prepare(source);
     const first=(await client.step(source,{type:'stepRush',elapsedMs:800},DATE))!;
     expect(first.game.individuals).toBe(source.game.individuals);expect(first.game.shop).toBe(source.game.shop);
     await client.step(first,{type:'stepRush',elapsedMs:1600},DATE);
