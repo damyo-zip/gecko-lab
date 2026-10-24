@@ -10,11 +10,12 @@ import { createEmbryo } from "./offspring";
 import { TRAIT_KEYS } from "@/genetics/traits";
 import { birthMetadata, waitingForCollection } from './brood-care';
 import { fertileChance, eggFailure } from './egg-outcome';
+import {eggsByMating} from './egg-index';
 
 const equal=(a:unknown,b:unknown)=>canonicalJSON(a)===canonicalJSON(b);
 function assert(condition:unknown):asserts condition {if(!condition)throw new Error("v1.2 턴·성장·산란·수명 기록이 손상되었습니다.");}
 function keys(value:object,names:string):void {assert(value&&Object.keys(value).sort().join()===names.split(" ").sort().join());}
-export function validateLifecycle(game:HardcoreGame):void {
+export function validateLifecycle(game:HardcoreGame,index=eggsByMating(game)):void {
   assert([6,7,8,9,10].includes(game.saveVersion)&&[3,4,5].includes(game.rulesVersion)&&game.time.mode==="turn");
   const current=lifecycleRules(game);
   if(isMonthly(game)){
@@ -45,7 +46,7 @@ export function validateLifecycle(game:HardcoreGame):void {
     }else{
       const historical=s.clutchesLaid>1&&["laid","cancelled"].includes(m.status);
       assert(s.maxClutches===1||historical&&[2,3].includes(s.maxClutches)&&s.maxClutches===s.clutchesLaid);
-      const lastLay=Object.values(game.eggs).filter(e=>e.matingId===m.id).reduce((last,e)=>Math.max(last,e.lifecycle?.laidTurn??last),s.startTurn+timing.firstLayAfter);
+      const lastLay=(index.get(m.id)??[]).reduce((last,e)=>Math.max(last,e.lifecycle?.laidTurn??last),s.startTurn+timing.firstLayAfter);
       assert(s.nextLayTurn===(historical?lastLay:s.startTurn+timing.firstLayAfter));
     }
     assert(s.offspring.length===s.maxClutches*2);

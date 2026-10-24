@@ -12,6 +12,13 @@ import {tagForgeSurface} from '@/forge/surface';
 function legacyView(g: Gecko) {
   return { ...g, genotype: { modelVersion: 1 as const, loci: { "lilly-white": g.genotype.loci["lilly-white"] } } };
 }
+/** Morph filtering needs a classification, not a rendered sprite buffer. */
+export function visualPatternStyle(g:Gecko,profile=appearanceProfile(g)) {
+ if(g.genotype.loci['lilly-white'].includes('Lw'))return 'lilly';
+ if(axanthicState(g.genotype)==='visual')return 'axanthic';
+ if(profile)return profile.names.base.includes('트라이컬러')?'tricolor':profile.names.base.includes('할리퀸')?'harlequin':profile.names.base.includes('달마시안')?'dalmatian':'normal';
+ return toSpecimen(legacyView(g)).appearance.patternStyle;
+}
 export function morph(g: Gecko): string {
   const profile=appearanceProfile(g);
   if(profile){const p=carrierProbability(publicKnowledge(g));
@@ -39,8 +46,7 @@ export function specimen(g: Gecko,fire:"up"|"down"="up") {
   const profile=appearanceProfile(g);
   if(profile){const t=profile.traits;
     result.appearance.patterns=t;
-    const lilly=g.genotype.loci["lilly-white"].includes("Lw"),ax=axanthicState(g.genotype)==="visual";
-    result.appearance.patternStyle=lilly?"lilly":ax?"axanthic":profile.names.base.includes("트라이컬러")?"tricolor":profile.names.base.includes("할리퀸")?"harlequin":profile.names.base.includes("달마시안")?"dalmatian":"normal";
+    result.appearance.patternStyle=visualPatternStyle(g,profile);
     result.appearance.dorsalCoverage=t.dorsal;result.appearance.flankCoverage=t.flank;result.appearance.spotCount=Math.min(70,t.spots.count);
   }
   result.state.fire=fire;
@@ -62,9 +68,9 @@ export function visibleGeneticMorphs(g:Gecko):string[] {
 const displayNames=new WeakMap<Gecko,string>();
 /** One computed representative for every gameplay screen; no save writes. */
 export function visualName(g:Gecko):string {
-  const current=forgeView(g);if(current)return current.displayName;
+  const profile=appearanceProfile(g);if(profile?.displayName)return profile.displayName;
   let name=displayNames.get(g);if(name!==undefined)return name;
-  const profile=appearanceProfile(g),geneticMorphs=visibleGeneticMorphs(g);
+  const geneticMorphs=visibleGeneticMorphs(g);
   // Older sprites have no measured color/pattern profile. Do not invent those traits.
   const legacyPattern=profile?'':{normal:'',lilly:'',axanthic:'',dalmatian:'달마시안',harlequin:'할리퀸',tricolor:'트라이컬러 할리퀸'}[specimen(g).appearance.patternStyle];
   const fallback=profile?.names.primary??(geneticMorphs.length?[geneticMorphs.join(' + '),legacyPattern].filter(Boolean).join(' · '):descriptiveVisualName(g));

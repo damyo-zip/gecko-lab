@@ -16,6 +16,7 @@ import {editFeature} from '@/forge';
 import {lifecycleRules,isMonthly} from './lifecycle';
 import {turnDate} from './monthly-calendar';
 import {shopNickname} from './shop-nicknames';
+import {catalogProfile,configureCatalogParent} from './shop-catalog';
 
 export const SHOP_REFRESH_PRICE=2_000;
 export const SHOP_SIZE=4;
@@ -47,10 +48,11 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   const age=starter?timing.adultAfter:Math.floor(random()*30),birthTurn=game.turn-age,matingTurn=birthTurn-timing.firstLayAfter-timing.hatchAfter;
   const id=game.gameId+'-store-'+batch+'-'+index;
   const profiles=game.forge?13:game.saveVersion>=9?7:4;
-  const father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*profiles),starter);
+  let father=parent(game,id+'-father',seed+'|father','male',matingTurn,starter?0:Math.floor(random()*profiles),starter);
   let mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,starter?0:Math.floor(random()*profiles),starter);
+  if(game.compact&&!starter){father=configureCatalogParent(father,catalogProfile(game.seed,batch,index,'male'),seed+'|father','male');mother=configureCatalogParent(mother,catalogProfile(game.seed,batch,index,'female'),seed+'|mother','female');}
   // All offspring must come from a safe pair, including Lilly homozygous risks.
-  if(advancedSafety(father,mother).length)mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,0,starter);
+  if(!game.compact&&advancedSafety(father,mother).length)mother=parent(game,id+'-mother',seed+'|mother','female',matingTurn,0,starter);
   const mating:Mating={id:id+'-origin',ordinal:1,date:turnDate(game,matingTurn),
     parents:{fatherId:father.id,motherId:mother.id},fatherGenotype:father.genotype,motherGenotype:mother.genotype,
     fatherTraits:father.potential,motherTraits:mother.potential,generation:2,lineageIds:[],seed,
@@ -76,7 +78,7 @@ export function familyOffer(game:HardcoreGame,batch:number,index:number,table:Pr
   }
   const quote=valueGecko(child,table);
   return {id,individual:child,askPrice:quote.ask,marketBase:quote.marketBase,marketVersion:quote.marketVersion,
-    purchased:false,family:{version:isMonthly(game)?2:1,seed:childSeed,matingTurn,father,mother}};
+    purchased:false,family:{version:game.compact?3:isMonthly(game)?2:1,seed:childSeed,matingTurn,father,mother}};
 }
 
 export function refreshFamilyShop(game:HardcoreGame,table:PriceTable=MARKET):void {

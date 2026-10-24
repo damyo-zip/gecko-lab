@@ -13,6 +13,7 @@ import { migrateBroodCare } from "./brood-care";
 import {migrateRisk} from './migrate-risk';
 import {migrateMonthly} from './migrate-monthly';
 import {migrateForge} from './migrate-forge';
+import {compactChecksum,compactDocument,readCompactDocument} from './compact-codec';
 
 export function checksum(value: unknown): string {
   const input = canonicalJSON(value); let hash = 2166136261;
@@ -20,7 +21,7 @@ export function checksum(value: unknown): string {
   return (hash >>> 0).toString(16).padStart(8, "0");
 }
 export function makeSave(game: HardcoreGame) {
-  validateGame(game); return { format: "gecko-lab-save" as const, version: game.saveVersion, checksum: checksum(game), game };
+  validateGame(game); return { format: "gecko-lab-save" as const, version: game.saveVersion, checksum: game.compact?compactChecksum(game):checksum(game), game };
 }
 function migrateLegacy(legacy:LegacyV4Game):HardcoreGame {
   const game={...structuredClone(legacy),saveVersion:5 as const};
@@ -63,10 +64,11 @@ export function readV6Save(value: unknown,date:GameDate):HardcoreGame {
 }
 export function readSave(value:unknown,date:GameDate):HardcoreGame {
   const candidate=value as ReturnType<typeof makeSave>|null;
+  if((candidate?.version as number)===11)return readCompactDocument(value).game;
   if(candidate?.version===7||candidate?.version===8||candidate?.version===9||candidate?.version===10){
     if(candidate.format!=="gecko-lab-save")throw new Error("GECKO LAB 저장 파일이 아닙니다.");
     validateGame(candidate.game);
-    if(candidate.game.saveVersion!==candidate.version||candidate.checksum!==checksum(candidate.game))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
+    if(candidate.game.saveVersion!==candidate.version||candidate.checksum!==(candidate.game.compact?compactChecksum(candidate.game):checksum(candidate.game)))throw new Error("저장 파일의 무결성 검사에 실패했습니다.");
     // Migration functions return a new object whenever they change the state.
     const game=migrateBroodCare(migrateRisk(migrateAlbum(candidate.game)));if(game!==candidate.game)validateGame(game);return game;
   }
@@ -81,9 +83,13 @@ export function readMonthlySave(value:unknown,date:GameDate):HardcoreGame {
  const source=readForgeSave(value,date),game=migrateMonthly(source);if(game!==source)validateGame(game);return game;
 }
 export function parseMonthlyBackup(input:string,date:GameDate):HardcoreGame {
+ return parseBackupBundle(input,date).game;
+}
+export function parseBackupBundle(input:string,date:GameDate):{game:HardcoreGame;history:import('./compact-model').HistoryEntry[]} {
  if(new TextEncoder().encode(input).length>MAX_BACKUP_BYTES)throw new Error('백업 파일은 16MB 이하여야 합니다.');
  let value:unknown;try{value=JSON.parse(input);}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}
- return readMonthlySave(value,date);
+ if((value as {version?:number})?.version===11)return readCompactDocument(value);
+ return {game:readMonthlySave(value,date),history:[]};
 }
 export function parseBackup(input: string, date: GameDate): HardcoreGame {
   if (new TextEncoder().encode(input).length > MAX_BACKUP_BYTES) throw new Error("백업 파일은 16MB 이하여야 합니다.");
@@ -96,4 +102,4 @@ export function parseForgeBackup(input:string,date:GameDate):HardcoreGame {
   let value:unknown;try{value=JSON.parse(input);}catch{throw new Error('JSON 형식이 올바르지 않습니다.');}
   return readForgeSave(value,date);
 }
-export function exportBackup(game: HardcoreGame): string { return JSON.stringify(makeSave(game), null, 2); }
+export function exportBackup(game: HardcoreGame): string { return JSON.stringify(game.compact?compactDocument(game):makeSave(game), null, 2); }

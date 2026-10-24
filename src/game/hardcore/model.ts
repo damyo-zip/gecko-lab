@@ -100,7 +100,7 @@ export interface Sale {
   marketVersion: string; marketBase: number; valuation: number;
 }
 /** External parents are immutable pedigree records, never player livestock. */
-export interface ShopFamily { version: 1 | 2; seed: string; matingTurn: number; father: Gecko; mother: Gecko }
+export interface ShopFamily { version: 1 | 2 | 3; seed: string; matingTurn: number; father: Gecko; mother: Gecko }
 export interface ShopOffer { id: string; individual: Gecko; askPrice: number; marketBase: number; marketVersion: string;
   family?: ShopFamily | null; purchased?: boolean;
 }
@@ -112,6 +112,7 @@ export interface NamedLineage {
   favorite?: boolean;
 }
 export interface HardcoreGame {
+  compact?:import('./compact-model').CompactState;
   /** Versioned engine migration, independent of turn, economy and lifecycle rules. */
   forge?: import('./forge-model').ForgeSystem;
   /** Optional v10 extension. Missing in old saves means no selected challenge/rewards. */

@@ -33,7 +33,7 @@ export function collectionStatus(game:HardcoreGame,g:Gecko,careWarning=true,cont
   // v1.2 eligibility uses nextBreedTurn; legacy ovulation also checks recoverUntil.
   const remaining=Math.max(0,g.nextBreedTurn-game.turn,v12?0:daysBetween(game.lastDate,g.recoverUntil));
   if(remaining>0){
-    const resting=matings.some(m=>m.status==="laid"||m.status==="failed");
+    const resting=matings.some(m=>m.status==="laid"||m.status==="failed")||!!game.compact&&Object.values(game.compact.origins).some(o=>o.mating.parents.motherId===g.id);
     return state(resting?"rest":"waiting",`${resting?"휴식기":"교배 대기"} · ${remaining}턴`,remaining);
   }
   // Under v1.2 the checks above already cover every ovulating() condition.

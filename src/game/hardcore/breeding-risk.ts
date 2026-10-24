@@ -6,8 +6,8 @@ import type { Gecko, HardcoreGame } from './model';
 export interface BreedingWarning { code:'kinship'|'lilly'|'complex'; title:string; message:string }
 /** Public knowledge/pedigree only. Secret genomes (including health loci) NEVER enter this API. */
 export function breedingRisk(game:HardcoreGame, father:Gecko, mother:Gecko) {
-  const pedigree = pedigreeCoefficient(father.id,mother.id,game.individuals);
-  const relationship = pedigreeRelationship(father,mother,game.individuals);
+  const pedigree = game.compact?{coefficient:0,founderAssumptions:0,basis:'recorded-pedigree' as const}:pedigreeCoefficient(father.id,mother.id,game.individuals);
+  const relationship = game.compact?'혈통 추적 종료 · 유전자 조합만 확인':pedigreeRelationship(father,mother,game.individuals);
   const warnings:BreedingWarning[] = [];
   if (pedigree.coefficient > 0) warnings.push({code:'kinship',title:'근친교배 주의',message:
     `${relationship}입니다. 특정 형질을 고정할 수 있지만 숨은 해로운 열성 변이가 발현될 가능성도 높아질 수 있습니다. 예상 자손 근교계수 F ${(pedigree.coefficient*100).toFixed(2)}%. F는 질병 확률이 아닙니다.`});

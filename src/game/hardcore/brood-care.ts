@@ -33,6 +33,7 @@ export function collectEggs(game:HardcoreGame,matingId:string):void {
 }
 export function receiveHatchling(game:HardcoreGame,eggId:string):void {
   const egg=game.eggs[eggId];
+  if(!egg&&game.compact?.recent.some(e=>e.kind==='egg'&&e.id===eggId))return;
   if(!egg?.care)throw new Error('수령할 새끼를 찾을 수 없습니다.');
   if(egg.care.settledTurn!==null)return;
   if(!awaitingPickup(egg))throw new Error('아직 부화한 새끼가 없습니다.');
@@ -45,6 +46,7 @@ export function receiveHatchling(game:HardcoreGame,eggId:string):void {
 }
 export function removeFailedEgg(game:HardcoreGame,eggId:string):void {
   const egg=game.eggs[eggId];
+  if(!egg&&game.compact?.recent.some(e=>e.kind==='egg'&&e.id===eggId))return;
   if(!egg?.care)throw new Error('제거할 알을 찾을 수 없습니다.');
   if(egg.care.settledTurn!==null)return;
   if(!awaitingRemoval(egg))throw new Error('판정이 끝난 실패 알만 제거할 수 있습니다.');
