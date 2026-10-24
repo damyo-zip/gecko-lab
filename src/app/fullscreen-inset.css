@@ -1,0 +1,9 @@
+/* Loaded globally because CSS Modules forbid pure global selectors.
+   The class is attached only while the /fullscreen-play trial owns fullscreen. */
+html.kakao-fullscreen-inset:fullscreen,
+html.kakao-fullscreen-inset:fullscreen body {
+  background-color: #0b141d !important;
+}
+html.kakao-fullscreen-inset:fullscreen::backdrop {
+  background-color: #0b141d !important;
+}

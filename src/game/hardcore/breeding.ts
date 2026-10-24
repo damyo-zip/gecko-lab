@@ -70,7 +70,7 @@ export function startMating(game: HardcoreGame, fatherId: string, motherId: stri
     fertilizationChance: game.rules.fertilizationChance, hatchChance: game.rules.hatchChance,
     status: "pending", resolvedDate: null, genetics: {
       father:structuredClone(father.genetics??legacyRecord(father)),mother:structuredClone(mother.genetics??legacyRecord(mother)),
-      observedIds:[],updates:[] } };
+      observedIds:[],updates:[],...(father.genetics?.forge||mother.genetics?.forge?{paletteVersion:2 as const}:{}) } };
   if(game.saveVersion>=9)game.matings[id].riskModel={version:1,father:structuredClone(father.healthGenome!),mother:structuredClone(mother.healthGenome!)};
   if(isV12(game)){fertilizeSeason(game,game.matings[id]);game.notices.push("교배 성공 · 인큐베이터 2칸 예약 · 2턴 후 알 2개 산란 · 유전 결과 확정");return;}
   mother.recoverUntil = addDays(game.lastDate, game.rules.recoveryDays);

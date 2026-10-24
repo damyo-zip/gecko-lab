@@ -14,6 +14,7 @@ import "./collection-status.css";
 import "./parent-search.css";
 import "./cafe-rush.css";
 import "./convenience.css";
+import "./fullscreen-inset.css";
 
 export const metadata: Metadata = {
   title: "GECKO LAB — 브리딩 연구소",

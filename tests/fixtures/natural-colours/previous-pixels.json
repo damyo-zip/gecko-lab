@@ -1,0 +1,268 @@
+{
+  "baseline": "b7205bb22b7a5d7e181f2688c253c7e2a8db8195",
+  "seed": "natural-colour-legacy-backup",
+  "date": "2026-10-23",
+  "turn": 2,
+  "records": {
+    "h-fbd3a360-store-1-0": {
+      "rgba": "937afcfd91f994ab375fc55fd88b9bed4ee9d039de486a556418bd5fdcdb36c3",
+      "body": [
+        105,
+        75,
+        43
+      ],
+      "pattern": [
+        255,
+        223,
+        174
+      ]
+    },
+    "h-fbd3a360-store-1-0-father": {
+      "rgba": "9860ce57662f9e3a2e246cd2b08ca45d5a680d7d1fa7452863053e4e47df2758",
+      "body": [
+        104,
+        78,
+        46
+      ],
+      "pattern": [
+        255,
+        222,
+        173
+      ]
+    },
+    "h-fbd3a360-store-1-0-mother": {
+      "rgba": "643899e88182b80480b250d2e651beb62e12a6f2989916696a648198734dfea3",
+      "body": [
+        97,
+        72,
+        43
+      ],
+      "pattern": [
+        255,
+        222,
+        173
+      ]
+    },
+    "h-fbd3a360-store-1-1": {
+      "rgba": "45b8e722aaa20d1573a027798da16791289bc0a8aac347e7b1b23a153f6a8ee5",
+      "body": [
+        89,
+        70,
+        44
+      ],
+      "pattern": [
+        255,
+        222,
+        172
+      ]
+    },
+    "h-fbd3a360-store-1-1-father": {
+      "rgba": "13314e4534ffaafe749fef048dfbc5be50a69cb4bbe28475ff281df0c971fca3",
+      "body": [
+        121,
+        79,
+        47
+      ],
+      "pattern": [
+        255,
+        222,
+        173
+      ]
+    },
+    "h-fbd3a360-store-1-1-mother": {
+      "rgba": "018963728e3ee50c3240c1c153f31359b2af5dba1fca7b599ea43f95ffc73abc",
+      "body": [
+        88,
+        75,
+        49
+      ],
+      "pattern": [
+        255,
+        222,
+        173
+      ]
+    },
+    "h-fbd3a360-c1-1-1": {
+      "rgba": "c1f5d0eceaf3fccdf6adf132004b67ffcf936f65a443738ccf1b60a22be62129",
+      "body": [
+        88,
+        74,
+        48
+      ],
+      "pattern": [
+        255,
+        223,
+        174
+      ]
+    },
+    "h-fbd3a360-c1-1-2": {
+      "rgba": "8d4e8619977498673d54c2c14265e1336fb04268fac6c99057426608ec664f1d",
+      "body": [
+        105,
+        79,
+        49
+      ],
+      "pattern": [
+        255,
+        222,
+        173
+      ]
+    },
+    "h-fbd3a360-store-3-0": {
+      "rgba": "1548441a30628bf8cab9dedbaf62a4accbcbc57968f6f77c5ab410c0d4aaf604",
+      "body": [
+        83,
+        65,
+        42
+      ],
+      "pattern": [
+        255,
+        223,
+        175
+      ]
+    },
+    "h-fbd3a360-store-3-0-father": {
+      "rgba": "a520b7ac960bf82c6580d84ae98418b7a8b2381ba2f901dfd26db5538d3b61a9",
+      "body": [
+        89,
+        61,
+        41
+      ],
+      "pattern": [
+        255,
+        226,
+        180
+      ]
+    },
+    "h-fbd3a360-store-3-0-mother": {
+      "rgba": "66f281818422a665fb04bdac16caa108bdc975bccdc467a0a128d9b9ab4be369",
+      "body": [
+        84,
+        71,
+        48
+      ],
+      "pattern": [
+        255,
+        224,
+        176
+      ]
+    },
+    "h-fbd3a360-store-3-1": {
+      "rgba": "40844246e2fa753e03e031b173a088c4a0f938057aa6e19ea8868a59c5f4c827",
+      "body": [
+        87,
+        61,
+        40
+      ],
+      "pattern": [
+        255,
+        229,
+        188
+      ]
+    },
+    "h-fbd3a360-store-3-1-father": {
+      "rgba": "e2f7909b20a96c676305ea0882ba783cc8071c3d7375e71a4416221bcc488be6",
+      "body": [
+        57,
+        40,
+        26
+      ],
+      "pattern": [
+        255,
+        228,
+        185
+      ]
+    },
+    "h-fbd3a360-store-3-1-mother": {
+      "rgba": "dfb778ed55e50610da135607be9b4c414cf2280da069155d7c89332dcac8bed3",
+      "body": [
+        88,
+        69,
+        43
+      ],
+      "pattern": [
+        255,
+        226,
+        181
+      ]
+    },
+    "h-fbd3a360-store-3-2": {
+      "rgba": "addc050e57cad0fb00d7a4e2087667f04e6cb050e3ef4d5bedf309040882a722",
+      "body": [
+        103,
+        76,
+        50
+      ],
+      "pattern": [
+        255,
+        226,
+        181
+      ]
+    },
+    "h-fbd3a360-store-3-2-father": {
+      "rgba": "7be03aa765522f1fb1afa51db7bc70b7725d0658dddec35aab06b599ca86b3bf",
+      "body": [
+        65,
+        53,
+        44
+      ],
+      "pattern": [
+        255,
+        223,
+        175
+      ]
+    },
+    "h-fbd3a360-store-3-2-mother": {
+      "rgba": "da59ca22084958935dedfc7b4751b146701d89d92ecbf22f041041b715e54940",
+      "body": [
+        168,
+        121,
+        63
+      ],
+      "pattern": [
+        255,
+        226,
+        180
+      ]
+    },
+    "h-fbd3a360-store-3-3": {
+      "rgba": "17d2feb07515d833b7b316d8d709feb9ced2c19ec1ad14ef5910768e925d148c",
+      "body": [
+        93,
+        70,
+        43
+      ],
+      "pattern": [
+        255,
+        225,
+        179
+      ]
+    },
+    "h-fbd3a360-store-3-3-father": {
+      "rgba": "a2fae9a722784e2536e9862503f0893b277e201e5fa38794af1a63979850c0f4",
+      "body": [
+        99,
+        68,
+        46
+      ],
+      "pattern": [
+        255,
+        223,
+        175
+      ]
+    },
+    "h-fbd3a360-store-3-3-mother": {
+      "rgba": "cbfeb1e99e21a19eb34ca92357390e2ec33259b9173575b51d677ff02b5b1550",
+      "body": [
+        46,
+        38,
+        26
+      ],
+      "pattern": [
+        255,
+        223,
+        174
+      ]
+    }
+  }
+}
