@@ -15,6 +15,7 @@ import { isV12,MONTHLY } from "./lifecycle";
 import { collectEggs, receiveHatchling, removeFailedEgg } from "./brood-care";
 import {validatedGeckoName} from "./names";
 import {startRush,stepRush,claimRush} from '@/game/rush';
+import {compactGame} from './compact';
 
 export function newGame(seed: string, date: GameDate, rules: Partial<Rules> = {}, table: PriceTable = MARKET, timeMode: TimeMode = "turn"): HardcoreGame {
   const game = createGame(seed, date, rules, timeMode); refreshShop(game, table); validateGame(game); return game;
@@ -28,6 +29,11 @@ export function newMonthlyGame(seed:string,date:GameDate,rules:Partial<Rules>={}
  game.rulesVersion=5;game.monthlyCalendar={version:1,turn:0,date,legacy:false};
  game.rules={...game.rules,juvenileAfter:6,adultAfter:MONTHLY.adultAfter,recoveryDays:MONTHLY.restAfter};
  refreshShop(game,table);validateGame(game);return game;
+}
+/** Production factory; frozen factories above remain historical/replay boundaries. */
+export function newCurrentGame(seed:string,date:GameDate,rules:Partial<Rules>={},table:PriceTable=MARKET,timeMode:TimeMode='turn'):HardcoreGame {
+ const game=compactGame(newMonthlyGame(seed,date,rules,table,timeMode)).game;
+ game.shop.batch=0;refreshShop(game,table);validateGame(game);return game;
 }
 export function synchronize(source: HardcoreGame, date: GameDate, table: PriceTable = MARKET): HardcoreGame {
   validateGame(source);

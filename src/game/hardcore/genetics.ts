@@ -8,7 +8,7 @@ import { LOCI, pairKey, wildGenome } from "@/genetics/advanced/loci";
 import type { GeneticsRecord, Knowledge, Scores } from "@/genetics/advanced/model";
 import { observedLoci } from "@/genetics/advanced/phenotype";
 import { polyScores } from "@/genetics/advanced/polygenic";
-import type { Gecko, HardcoreGame, Mating } from "./model";
+import type { Gecko, HardcoreGame, Mating,TimedEgg } from "./model";
 import { seededRandom } from '@/genetics/random';
 
 /** Existing explicit loci remain recorded; missing Ax/virtual alleles are NOT reconstructed. */
@@ -65,9 +65,9 @@ export function advancedSafety(father:Gecko,mother:Gecko):string[] {
  * Parents are jointly enumerated within this family; separate families use current
  * marginal priors (not a claim of an exact full-pedigree Bayesian network).
  */
-export function observeMating(game:HardcoreGame,mating:Mating):void {
+export function observeMating(game:HardcoreGame,mating:Mating,eggs:readonly TimedEgg[]=Object.values(game.eggs)):void {
   const log=mating.genetics;if(!log)return;
-  const children=Object.values(game.eggs).filter(e=>e.matingId===mating.id&&e.status==="hatched"&&!log.observedIds.includes(e.embryo.id));
+  const children=eggs.filter(e=>e.matingId===mating.id&&e.status==="hatched"&&!log.observedIds.includes(e.embryo.id));
   if(!children.length)return;
   const father=game.individuals[mating.parents.fatherId],mother=game.individuals[mating.parents.motherId];
   const before=[structuredClone(publicKnowledge(father)),structuredClone(publicKnowledge(mother))],after=structuredClone(before);

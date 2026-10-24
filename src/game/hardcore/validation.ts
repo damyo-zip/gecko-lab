@@ -21,6 +21,8 @@ import { projectBroodCare, validateBroodCare } from './brood-care-validation';
 import {validateRush} from '@/game/rush';
 import {validateForge,inheritForge,validateForgeChild} from './forge-genetics';
 import {validationProjection} from './validation-projection';
+import {eggsByMating} from './egg-index';
+import {validateCompact,compactMating} from './compact-validation';
 export { validateV3, validateV4, validateRules } from "./legacy-validation";
 
 function fail():never {throw new Error("저장 유전체·공개 지식·유전 상속 기록이 손상되었습니다.");}
@@ -44,6 +46,7 @@ export function validateGenetics(record:GeneticsRecord|undefined,allowRisk=false
 export function validateGame(value:unknown):asserts value is HardcoreGame {
   if(!value||typeof value!=="object"||![5,6,7,8,9,10].includes((value as HardcoreGame).saveVersion))throw new Error("지원하지 않는 저장 버전입니다.");
   const game=value as HardcoreGame,base=validationProjection(game) as unknown as Record<string,unknown>,advancedIds=new Set<string>();
+  if(Object.hasOwn(game,'compact')){validateCompact(game);delete base.compact;}
   if(Object.hasOwn(game,'forge')){keys(game.forge,'version');if(game.forge?.version!==1)fail();delete base.forge;}
   if(Object.hasOwn(game,'cafeRush')){
     if(game.saveVersion<9)fail();validateRush(game.cafeRush,game.seed);delete base.cafeRush;
@@ -51,7 +54,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   delete base.monthlyCalendar;
   validateChallenges(game);delete base.breedingChallenges;
   const catalog=game.saveVersion>=7;
-  if(game.saveVersion>=8){
+  if(game.saveVersion>=8&&!game.compact){
     const index=pedigreeIndex(game);
     for(const [id,line] of Object.entries(game.lineages)){
       keys(line,'id name createdDate founderId favorite');
@@ -92,7 +95,13 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
       delete offer.family;delete offer.purchased;
     }
   }
-  validateBroodCare(game);projectBroodCare(base as unknown as HardcoreGame);
+  validateBroodCare(game);
+  if(game.compact){
+    // Historical ancestry is retired. Immediate inheritance, active transitions
+    // and retained birth receipts are checked against original records above.
+    const p=base as unknown as HardcoreGame;p.eggs={};p.matings={};p.lineages={};
+    for(const g of [...Object.values(p.individuals),...Object.values(p.shop.offers).map(o=>o.individual)]){g.parents=null;g.generation=1;g.lineageIds=[];}
+  }else projectBroodCare(base as unknown as HardcoreGame);
   // Reuse the established care/calendar/ID/kinship/sale/egg structural contract.
   // Only advanced children bypass the obsolete mean-plus-variation check.
   const strip=(g:Embryo)=>{delete g.genetics;if(game.saveVersion>=9){delete g.healthGenome;delete g.development;}};
@@ -100,7 +109,8 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
   for(const e of Object.values(base.eggs as HardcoreGame["eggs"])){delete e.timing;strip(e.embryo);}
   for(const o of Object.values((base.shop as HardcoreGame["shop"]).offers))strip(o.individual);
   for(const m of Object.values(base.matings as HardcoreGame["matings"])){delete m.timingVersion;delete m.genetics;if(game.saveVersion>=9)delete m.riskModel;for(const o of m.lifecycle?.offspring??[])strip(o.embryo);}
-  base.saveVersion=4;if(game.saveVersion>=6){validateLifecycle(game);validateLifecycleBase(base,advancedIds,catalog,game.saveVersion>=9);}else validateV4(base,advancedIds);
+  const eggIndex=eggsByMating(game);
+  base.saveVersion=4;if(game.saveVersion>=6){validateLifecycle(game,eggIndex);validateLifecycleBase(base,advancedIds,catalog,game.saveVersion>=9);}else validateV4(base,advancedIds);
   for(const m of Object.values(game.matings)){
     if(game.saveVersion>=9){if(!Object.hasOwn(m,'riskModel')||m.riskModel===undefined)fail();if(m.riskModel!==null){keys(m.riskModel,'version father mother');validateHealth(m.riskModel.father);validateHealth(m.riskModel.mother);if(m.riskModel.version!==1||!m.lifecycle||!equal(game.individuals[m.parents.fatherId]?.healthGenome,m.riskModel.father)||!equal(game.individuals[m.parents.motherId]?.healthGenome,m.riskModel.mother))fail();}}
     if(!Object.hasOwn(m,"genetics")||m.genetics===undefined)fail();if(m.genetics===null)continue;
@@ -110,7 +120,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
     const f=game.individuals[m.parents.fatherId],mo=game.individuals[m.parents.motherId];
     if(!equal(f.genetics?.forge,m.genetics!.father.forge)||!equal(mo.genetics?.forge,m.genetics!.mother.forge))fail();
     if(!equal(f.genetics?.genome,m.genetics!.father.genome)||!equal(mo.genetics?.genome,m.genetics!.mother.genome)||game.saveVersion<9&&advancedSafety(f,mo).length)fail();
-    const observed=m.genetics!.observedIds,eggs=Object.values(game.eggs).filter(e=>e.matingId===m.id),maxObserved=m.lifecycle?.offspring.length??2;
+    const observed=m.genetics!.observedIds,eggs=eggIndex.get(m.id)??[],maxObserved=m.lifecycle?.offspring.length??2;
     if(!Array.isArray(observed)||new Set(observed).size!==observed.length||observed.length>maxObserved||observed.some(id=>!eggs.some(e=>e.embryo.id===id&&e.status==="hatched")))fail();
     if(!Array.isArray(m.genetics!.updates)||m.genetics!.updates.length>maxObserved*2)fail();
     for(const u of m.genetics!.updates){keys(u,"id before after");if(u.id!==f.id&&u.id!==mo.id)fail();validateKnowledge(u.before);validateKnowledge(u.after);}
@@ -130,7 +140,7 @@ export function validateGame(value:unknown):asserts value is HardcoreGame {
       const d=e.embryo.development;if(d){keys(d,'version viable causes');if(d.version!==1||typeof d.viable!=='boolean'||!Array.isArray(d.causes))fail();
         const causes=e.embryo.genotype.loci['lilly-white'].every(a=>a==='Lw')?['lilly-white']:[];
         if(!equal(d.causes,causes)||d.viable!==!causes.length)fail();}
-      if(Object.hasOwn(e.embryo,'development')!==!!(e.matingId&&game.matings[e.matingId].riskModel))fail();
+      if(Object.hasOwn(e.embryo,'development')!==!!(e.matingId&&compactMating(game,e.matingId)?.riskModel))fail();
       const child=game.individuals[e.embryo.id];if(child&&(!equal(child.healthGenome,e.embryo.healthGenome)||!equal(child.genetics?.unresolvedComplex,e.embryo.genetics?.unresolvedComplex)||d?.viable===false))fail();
     }
   }
@@ -156,16 +166,16 @@ function validateShop(game:HardcoreGame):void {
     if(o.individual.status!=="owned")fail();
     if(o.family===null){if(o.individual.parents)fail();continue;}
     const f=o.family;if(!f)fail();keys(f,"version seed matingTurn father mother");
-    if(![1,2].includes(f.version)||f.version===2&&game.rulesVersion!==5||typeof f.seed!=="string"||f.seed.length>512||!Number.isSafeInteger(f.matingTurn)||f.matingTurn!==o.individual.birthTurn-(f.version===2?4:6))fail();
+    if(![1,2,3].includes(f.version)||f.version>=2&&game.rulesVersion!==5||f.version===3&&!game.compact||typeof f.seed!=="string"||f.seed.length>512||!Number.isSafeInteger(f.matingTurn)||f.matingTurn!==o.individual.birthTurn-(f.version>=2?4:6))fail();
     if(o.individual.sex!==(seededRandom(f.seed,"sex")()<.5?"male":"female")||
       o.individual.visualSeed!==id+"-"+seedId(f.seed,"visual")||o.individual.birthDate!==turnDate(game,o.individual.birthTurn))fail();
     for(const p of [f.father,f.mother]){
-      if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<(f.version===2?18:12)||f.matingTurn-p.birthTurn>=(f.version===2?180:60))fail();
+      if(p.status!=="pedigree"||p.parents!==null||p.generation!==1||f.matingTurn-p.birthTurn<(f.version>=2?18:12)||f.matingTurn-p.birthTurn>=(f.version>=2?180:60))fail();
       const archived=game.individuals[p.id];if(archived&&(!equal(archived.genetics?.genome,p.genetics?.genome)||game.saveVersion>=9&&!equal(archived.healthGenome,p.healthGenome)||archived.visualSeed!==p.visualSeed||archived.sex!==p.sex||archived.birthTurn!==p.birthTurn))fail();
       if(archived&&!equal(archived.genetics?.forge,p.genetics?.forge))fail();
       if(o.purchased&&!archived)fail();
     }
-    if(f.father.sex!=="male"||f.mother.sex!=="female"||!equal(o.individual.parents,{fatherId:f.father.id,motherId:f.mother.id})||advancedSafety(f.father,f.mother).length)fail();
+    if(f.father.sex!=="male"||f.mother.sex!=="female"||!equal(o.individual.parents,{fatherId:f.father.id,motherId:f.mother.id})||f.version<3&&advancedSafety(f.father,f.mother).length)fail();
     const fg=f.father.genetics?.genome,mg=f.mother.genetics?.genome,cg=o.individual.genetics?.genome;
     if(!equal(o.individual.genetics?.forge,inheritForge(f.father.genetics?.forge,f.mother.genetics?.forge,f.seed)))fail();
     if(!fg||!mg||!cg||!equal(cg.mendelian,inherit(fg.mendelian,mg.mendelian,f.seed))||!equal(cg.polygenic,inheritPoly(fg.polygenic,mg.polygenic,f.seed)))fail();

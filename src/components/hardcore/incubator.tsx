@@ -1,6 +1,6 @@
 "use client";
 import {ObservationImage} from './convenience';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {BreedingRecord} from './genetics-panel';
 import {Dialog,Sprite,type ViewProps} from './common';
 import {HomeIcon} from './home-icons';
@@ -10,10 +10,14 @@ import {incubatorState,eggProgress,eggNumber} from './incubator-state';
 import {lifecycleRules,isMonthly,turnDurationLabel} from '@/game/hardcore/lifecycle';
 import {awaitingPickup,awaitingRemoval} from '@/game/hardcore/brood-care';
 import {bornIndividual} from '@/game/hardcore/egg-outcome';
+import {listHistory} from '@/storage/hardcore';
+import type {HistoryEntry} from '@/game/hardcore/compact-model';
 const MATING_LABEL={pending:'수정 결과 대기',fertilized:'수정 성공',failed:'수정 실패',laid:'산란 완료',cancelled:'산란 전 취소'};
 
 export function Incubator({game,busy,play,onDetail,onTab,onResources}:ViewProps&{onTab:(tab:string)=>void;onResources:()=>void}){
  const [page,setPage]=useState(0),[selectedId,setSelected]=useState(''),[help,setHelp]=useState(false),[limit,setLimit]=useState(12);
+ const [history,setHistory]=useState<HistoryEntry[]>([]),[historyError,setHistoryError]=useState('');
+ useEffect(()=>{if(!help||!game.compact)return;let cancelled=false;listHistory(game).then(rows=>{if(!cancelled){setHistory(rows);setHistoryError('');}}).catch(e=>{if(!cancelled)setHistoryError(e instanceof Error?e.message:'기록을 불러오지 못했습니다.');});return()=>{cancelled=true;};},[help,game.gameId,game.revision,game.compact?.historyId]);
  const V12=lifecycleRules(game);
  const state=incubatorState(game),pages=Math.max(1,Math.ceil(state.slots.length/6)),current=Math.min(page,pages-1);
  const slots=state.slots.slice(current*6,current*6+6),selected=[...state.occupied,...state.waiting].find(e=>e.id===selectedId)??null;
@@ -52,7 +56,9 @@ export function Incubator({game,busy,play,onDetail,onTab,onResources}:ViewProps&
    <p>교배 시 2칸 예약 · {V12.firstLayAfter}턴 뒤 산란 · 알 수거 후 부화 시작. 새끼와 실패 알은 수령·제거 전까지 슬롯을 유지합니다. 현재 교배/수거 예약 {state.booked}개 · 실제 빈 슬롯 {state.available}개.</p>
    <button type="button" className="game-secondary full-width" onClick={()=>{setHelp(false);onTab('home');}}>오늘의 연구소</button>
    <section className="hc-mating-history"><h2>교배·산란 기록</h2>{matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={'mating-'+m.id}><strong>{game.individuals[m.parents.motherId]?.name??'정보 없음'} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.lifecycle?m.status==='fertilized'?` · 산란 0/1 · 산란 예정 TURN ${m.lifecycle.nextLayTurn}`:` · 산란 일정 종료 · 보존된 알 ${Object.values(game.eggs).filter(e=>e.matingId===m.id).length}개`:''}</span><BreedingRecord mating={m} game={game}/></div>)}</section>
-   {matings.length>limit&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>이전 번식 기록 더 보기</button>}
+   {historyError&&<p className="game-warning" role="alert">{historyError}</p>}
+   {history.length>0&&<section className="hc-mating-history"><h2>완료 기록</h2>{history.slice(0,limit).map(e=><div className="hc-event" key={e.kind+e.id}><strong>{e.name} · {e.detail}</strong><span>{e.date}</span></div>)}</section>}
+   {(matings.length>limit||history.length>limit)&&<button className="game-secondary full-width" onClick={()=>setLimit(n=>n+12)}>이전 번식 기록 더 보기</button>}
   </Dialog>}
  </section>;
 }

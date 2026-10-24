@@ -1,8 +1,8 @@
 import {displayAge} from "@/game/hardcore/family-album";
 import type {HardcoreGame,Gecko} from "@/game/hardcore/model";
-import {specimen,visualName} from "@/game/hardcore/adapter";
-import {appearanceProfile} from "@/game/hardcore/appearance";
-import {valueGecko} from "@/game/hardcore/market";
+import {visualPatternStyle,visualName} from "@/game/hardcore/adapter";
+import {appearanceProfile,appearanceKey} from "@/game/hardcore/appearance";
+import {valueGecko,MARKET} from "@/game/hardcore/market";
 import {PATTERN_FILTERS} from '@/phenotype/rules';
 
 export const COLLECTION_MORPHS={normal:"노멀",lilly:"릴리화이트",axanthic:"아잔틱",dalmatian:"달마시안",harlequin:"할리퀸",tricolor:"트라이컬러 할리퀸"};
@@ -13,10 +13,12 @@ export const COLLECTION_SORTS={default:"기본순",name:"이름순",generation:"
 export type CollectionSort=keyof typeof COLLECTION_SORTS;
 export interface CollectionQuery {morph:string;sort:CollectionSort;stage:string;sex?:string;search?:string}
 // UI caches follow immutable game-record identities; nothing is written to a save.
-const prices=new WeakMap<Gecko,number>();
+const prices=new Map<string,number>();
 export const collectionMorph=visualName;
 export function collectionPrice(g:Gecko) {
-  let price=prices.get(g);if(price===undefined){price=valueGecko(g).sell;prices.set(g,price);}return price;
+  const key=JSON.stringify([appearanceKey(g),g.genetics?.knowledge,g.stage,g.sex,g.provenance,!!g.parents,MARKET]);
+  let price=prices.get(key);if(price===undefined)price=valueGecko(g).sell;
+  prices.delete(key);prices.set(key,price);if(prices.size>512)prices.delete(prices.keys().next().value!);return price;
 }
 export function collectionEntries(animals:readonly Gecko[],q:CollectionQuery) {
   const search=q.search?.trim().toLocaleLowerCase("ko-KR");
@@ -30,7 +32,7 @@ export function collectionEntries(animals:readonly Gecko[],q:CollectionQuery) {
     if(q.morph.startsWith("pattern:")){
       const p=appearanceProfile(g);return !!p&&[p.names.primary,p.names.base,p.names.color,...p.names.features].some(n=>n.includes(q.morph.slice(8)));
     }
-    return specimen(g).appearance.patternStyle===q.morph;
+    return visualPatternStyle(g)===q.morph;
   });
   if(q.sort==="name")entries.sort((a,b)=>a.name.localeCompare(b.name,"ko"));
   if(q.sort==="generation")entries.sort((a,b)=>b.generation-a.generation);

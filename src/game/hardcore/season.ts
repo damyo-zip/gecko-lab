@@ -9,6 +9,7 @@ import {shopNickname} from './shop-nicknames';
 import { createEmbryo } from "./offspring";
 import { observeMating } from "./genetics";
 import { bornIndividual, eggFailure, fertileChance } from './egg-outcome';
+import {eggsByMating} from './egg-index';
 
 export const seasonEggSeed=(m:Mating,clutch:number,egg:number)=>m.seed+"|clutch:"+clutch+"|egg:"+egg;
 export function fertilizeSeason(game:HardcoreGame,m:Mating,startTurn=game.turn):void {
@@ -66,5 +67,6 @@ export function seasonEvents(game:HardcoreGame):void {
     if(success){game.individuals[egg.embryo.id]=bornIndividual(egg.embryo);game.notices.push(egg.embryo.name+` 부화 · ${game.rules.adultAfter}개월부터 성체`);}
     else game.notices.push(failure==='genetic'?"유전적 비생존으로 부화 실패 · 공간 해제":failure==='health'?"배아 발달 실패 · 공간 해제":failure==="infertile"?"무정란 확정 · 공간 해제":"수정란 부화 실패 · 공간 해제");
   }
-  for(const m of Object.values(game.matings))observeMating(game,m);
+  const index=eggsByMating(game);
+  for(const m of Object.values(game.matings))observeMating(game,m,index.get(m.id)??[]);
 }

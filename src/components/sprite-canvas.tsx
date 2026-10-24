@@ -23,7 +23,9 @@ export function SpriteCanvas({ specimen, scale = 1, enabled = LAYER_ORDER, testI
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "스프라이트를 표시할 수 없습니다.");
     }
-  }, [sprite, scale]);
+  // Native pixels are immutable and reused across care/age/name updates. CSS
+  // growth and accessible labels still update without repainting identical art.
+  }, [sprite.pixels,sprite.width,sprite.height,scale]);
   if (error) return <p role="alert">{error}</p>;
   return <canvas ref={canvas} width={96 * scale} height={96 * scale}
     className={growthStage?styles.growth:undefined} data-growth-stage={growthStage}

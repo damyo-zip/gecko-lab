@@ -31,7 +31,7 @@ export function sellGecko(g: HardcoreGame, id: string, table: PriceTable = MARKE
   const quote = valueGecko(i, table);
   if (g.money + quote.sell > 1e12) throw new Error("게임 자금 한도에 도달했습니다.");
   i.status = "sold"; g.money += quote.sell;
-  g.sales.push({ id: "sale-" + (g.sales.length + 1), individualId: id, date: g.lastDate,
+  g.sales.push({ id: "sale-" + ((g.compact?.counts.sale??0)+g.sales.length + 1), individualId: id, date: g.lastDate,
     price: quote.sell, marketVersion: quote.marketVersion, marketBase: quote.marketBase, valuation: quote.valuation });
 }
 export function expansionPrice(g: HardcoreGame): number { return g.rules.expansionBasePrice * (g.expansions + 1); }

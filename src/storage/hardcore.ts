@@ -1,5 +1,5 @@
 import type { HardcoreGame } from "@/game/hardcore/model";
-import { newMonthlyGame as newGame } from "@/game/hardcore/play";
+import { newCurrentGame as newGame } from "@/game/hardcore/play";
 import { synchronizeTime } from "@/game/hardcore/time-source";
 import { makeSave, readSave,readMonthlySave } from "@/game/hardcore/save";
 import {migrateMonthly} from '@/game/hardcore/migrate-monthly';
@@ -8,6 +8,10 @@ import type { GameDate } from "@/game/hardcore/time";
 import { DATABASE_NAME, STORE_NAME, SaveConflict } from "./indexed-db";
 import {canonicalJSON} from '@/game/save';
 import {reconcileRush,assertRushForward,validateRush,type RushState} from '@/game/rush';
+import {compactGame} from '@/game/hardcore/compact';
+import {compactDocument} from '@/game/hardcore/compact-codec';
+import {validateHistoryEntry} from '@/game/hardcore/compact-validation';
+import type {HistoryEntry} from '@/game/hardcore/compact-model';
 
 export interface LoadedHardcore { game: HardcoreGame; writeRevision: number }
 function open(): Promise<IDBDatabase> {
@@ -53,13 +57,14 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
       try {
         const record = r.result;
         const game = record ? readMonthlySave(record.save, date) : newGame("GECKO-" + date + "-" + Date.now(), date);
-        const synced = synchronizeTime(game, date);
-        withRush(store,synced,true,next=>{
-        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==5||record.save.game?.forge?.version!==1||record.save.game?.breedingChallenges?.version===1);
-        const changed = !record || migrated || next !== game;
+        const synced = synchronizeTime(game, date),compacted=compactGame(synced);
+        withRush(store,compacted.game,true,next=>{
+        const migrated=record&&(record.save.version!==10||record.save.game?.rulesVersion!==5||record.save.game?.forge?.version!==1||record.save.game?.breedingChallenges?.version===1||!record.save.game?.compact);
+        const changed = !record || migrated || synced !== game||compacted.history.length>0||next.cafeRush!==compacted.game.cafeRush;
         const writeRevision = record ? revision(record) + (changed ? 1 : 0) : 1;
         if (record && migrated)
           store.put(record, "archive-v" + record.save.version + "-" + writeRevision);
+        for(const entry of compacted.history)store.put(entry,historyKey(next,entry));
         if (changed) store.put({ save: makeSave(next), writeRevision }, "active");
         result = { game: next, writeRevision };
         },e=>{error=e;tx.abort();});
@@ -70,8 +75,12 @@ export async function loadGame(date: GameDate): Promise<LoadedHardcore> {
   });
 }
 /** Persist before UI acknowledgement. Replacement archives the previous active slot in the SAME transaction. */
-export async function persistHardcore(game: HardcoreGame, expected: number | null, replacement = false): Promise<LoadedHardcore> {
+export async function persistHardcore(game: HardcoreGame, expected: number | null, replacement = false,importedHistory:HistoryEntry[]=[]): Promise<LoadedHardcore> {
   game=migrateMonthly(migrateForge(game));
+  importedHistory.forEach(validateHistoryEntry);
+  if(importedHistory.some(e=>e.turn>game.turn||e.revision>game.revision||e.date>game.lastDate))throw Error('백업 이력의 시간이 현재 게임과 일치하지 않습니다.');
+  const compacted=compactGame(game);game=compacted.game;
+  if(replacement&&game.compact)game.compact.historyId=game.gameId+'-'+crypto.randomUUID();
   const save=makeSave(game),db=await open();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, "readwrite"), store = tx.objectStore(STORE_NAME), r = store.get("active");
@@ -86,6 +95,7 @@ export async function persistHardcore(game: HardcoreGame, expected: number | nul
         withRush(store,game,replacement,next=>{
           committed=next;
           if (replacement && record) store.put(record, "archive-" + writeRevision + "-" + game.gameId);
+          for(const entry of [...importedHistory,...compacted.history])store.put(entry,historyKey(next,entry));
           store.put({ save:next===game?save:makeSave(next), writeRevision }, "active");
         },e=>{error=e;tx.abort();});
       } catch (e) { error = e; tx.abort(); }
@@ -93,6 +103,22 @@ export async function persistHardcore(game: HardcoreGame, expected: number | nul
     tx.oncomplete = () => { db.close(); resolve({ game:committed, writeRevision }); };
     tx.onabort = tx.onerror = () => { db.close(); reject(error ?? new Error("자동 저장 실패 · 진행을 반영하지 않았습니다.")); };
   });
+}
+const historyPrefix=(game:HardcoreGame)=>'history-v1:'+game.compact?.historyId+':';
+const historyKey=(game:HardcoreGame,e:HistoryEntry)=>historyPrefix(game)+e.kind+':'+e.id;
+/** Cold summaries are read only when the history UI or backup export asks. */
+export async function listHistory(game:HardcoreGame):Promise<HistoryEntry[]> {
+ if(!game.compact)return [];
+ const db=await open(),prefix=historyPrefix(game);
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE_NAME,'readonly'),r=tx.objectStore(STORE_NAME).getAll(IDBKeyRange.bound(prefix,prefix+'\uffff'));
+  let result:HistoryEntry[]=[];r.onsuccess=()=>{try{result=(r.result as HistoryEntry[]).filter(e=>e.revision<=game.revision&&e.turn<=game.turn);result.forEach(validateHistoryEntry);}catch(e){reject(e);}};
+  tx.oncomplete=()=>{db.close();resolve(result.sort((a,b)=>b.date.localeCompare(a.date)||b.revision-a.revision||a.id.localeCompare(b.id)));};tx.onerror=()=>{db.close();reject(tx.error);};
+ });
+}
+export async function exportHardcoreBackup(game:HardcoreGame):Promise<string> {
+ if(!game.compact)return JSON.stringify(makeSave(game),null,2);
+ return JSON.stringify(compactDocument(game,await listHistory(game)),null,2);
 }
 export async function listArchives(): Promise<{ key: string; data: unknown }[]> {
   const db = await open();
