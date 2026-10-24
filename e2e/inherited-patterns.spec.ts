@@ -3,7 +3,7 @@ import {chooseBreedingParent} from './helpers/hardcore-navigation';
 import {test,expect,type Page,type Locator} from "@playwright/test";
 import {createHash} from "node:crypto";
 import {mkdir} from "node:fs/promises";
-import {newForgeGame as newGame,act} from "../src/game/hardcore/play";
+import {newMonthlyGame as newGame,act} from "../src/game/hardcore/play";
 import {exportBackup} from "../src/game/hardcore/save";
 import {specimen,visualName,morph} from "../src/game/hardcore/adapter";
 import {appearanceProfile} from "../src/game/hardcore/appearance";

@@ -48,6 +48,7 @@ export function Incubator({game,busy,play,onDetail,onTab,onResources}:ViewProps&
   {help&&<Dialog title="부화 확률과 슬롯 규칙" onClose={()=>setHelp(false)}>
    <p>알이나 새끼 이미지를 누르면 부모를 확인합니다. 새끼 수령·실패 알 제거는 슬롯의 별도 버튼으로 처리합니다.</p>
    <p>{turnDurationLabel(game)} · 수거 후 {V12.hatchAfter}턴 판정. 알마다 기본 무정란 {((1-game.rules.fertilizationChance)*100).toFixed(0)}%, 생존 가능한 수정란 부화 성공률 {(state.hatchChance*100).toFixed(1)}%, 전체 알 기준 {(game.rules.fertilizationChance*game.rules.hatchChance*100).toFixed(2)}%입니다. 유전적 비생존·가상 건강 영향은 별도로 적용되며 결과를 재추첨하지 않습니다.</p>
+   <p>이전 저장의 진행 중인 교배와 알은 확정된 남은 턴을 유지합니다.</p>
    <p>교배 시 2칸 예약 · {V12.firstLayAfter}턴 뒤 산란 · 알 수거 후 부화 시작. 새끼와 실패 알은 수령·제거 전까지 슬롯을 유지합니다. 현재 교배/수거 예약 {state.booked}개 · 실제 빈 슬롯 {state.available}개.</p>
    <button type="button" className="game-secondary full-width" onClick={()=>{setHelp(false);onTab('home');}}>오늘의 연구소</button>
    <section className="hc-mating-history"><h2>교배·산란 기록</h2>{matings.slice(0,limit).map(m=><div className="hc-event" key={m.id} data-testid={'mating-'+m.id}><strong>{game.individuals[m.parents.motherId]?.name??'정보 없음'} · {MATING_LABEL[m.status]}</strong><span>교배 {m.date}{m.lifecycle?m.status==='fertilized'?` · 산란 0/1 · 산란 예정 TURN ${m.lifecycle.nextLayTurn}`:` · 산란 일정 종료 · 보존된 알 ${Object.values(game.eggs).filter(e=>e.matingId===m.id).length}개`:''}</span><BreedingRecord mating={m} game={game}/></div>)}</section>

@@ -6,7 +6,7 @@ import {withoutForge} from './helpers/forge-fixtures';
 import {test,expect,type Page} from '@playwright/test';
 import {writeFile,mkdir} from 'node:fs/promises';
 import {newGame as v6Game} from '../tests/helpers/v6-hardcore';
-import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
+import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 import {makeSave,exportBackup} from '../src/game/hardcore/save';
 import {valueGecko} from '../src/game/hardcore/market';
 import {ancestors} from '../src/game/hardcore/lineage';

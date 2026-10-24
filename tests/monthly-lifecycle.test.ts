@@ -22,7 +22,7 @@ describe('confirmed monthly lifecycle',()=>{
 });
 
 describe('monthly migration and breeding boundaries',()=>{
- it.each([0,1,2,3])('preserves a legacy pending/collected clutch at turn %i without rerolling',t=>{
+ it.each([0,1,2,3,9])('preserves a legacy pending/collected clutch at turn %i without rerolling',t=>{
   let old=newForgeGame('monthly-old-clutch',DATE,{initialMoney:2_000_000,initialCapacity:20});old.food=100;
   const ids=addTargetParents(old,'gold-tiger');old=act(old,{type:'breed',fatherId:ids[0],motherId:ids[1]},old.lastDate);
   const matingId=Object.keys(old.matings)[0];for(let n=0;n<t;n++)old=turn(old);

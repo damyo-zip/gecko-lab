@@ -25,6 +25,10 @@ function adultReview(g:HardcoreGame){
  for(const x of Object.values(g.individuals))if(x.status==='owned'&&x.stage==='adult'&&g.turn-x.birthTurn<18)x.birthTurn=g.turn-18;
  return current(g);
 }
+function adultShopReview(g:HardcoreGame){
+ for(const o of Object.values(g.shop.offers))if(o.individual.stage==='adult'&&!o.family){o.individual.birthTurn=g.turn-18;}
+ return current(g);
+}
 export const referenceHomeGame=()=>adultReview(home());
 export const collectionStatusGame=()=>{const f=status();return {...f,game:adultReview(f.game)};};
 export const lineageFixture=()=>{const f=lineage();return {...f,game:current(f.game)};};
@@ -33,9 +37,9 @@ export const incubatorFixture=()=>current(incubator());
 export const breedingRiskFixture=()=>{const f=risk();return {...f,game:current(f.game)};};
 export const rushPerformanceGame=(...a:Parameters<typeof rush>)=>current(rush(...a));
 export const rushShiftGame=(...a:Parameters<typeof shift>)=>current(shift(...a));
-export const legacyCatalogGame=(...a:Parameters<typeof catalog>)=>current(catalog(...a));
-export const axCatalog=(...a:Parameters<typeof ax>)=>current(ax(...a));
-export const successfulPair=(...a:Parameters<typeof pair>)=>{const f=pair(...a);return {...f,original:current(f.original)};};
+export const legacyCatalogGame=(...a:Parameters<typeof catalog>)=>adultShopReview(catalog(...a));
+export const axCatalog=(...a:Parameters<typeof ax>)=>adultShopReview(ax(...a));
+export const successfulPair=(...a:Parameters<typeof pair>)=>{const f=pair(...a);return {...f,original:adultShopReview(f.original)};};
 export const breederRankGames=()=>ranks().map(current);
 
 /** For migration comparisons against original DNA, before the new engine marker.

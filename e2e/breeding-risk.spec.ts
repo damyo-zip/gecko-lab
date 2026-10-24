@@ -51,7 +51,7 @@ test('lineal crosses warn and ordinary unrelated crosses execute without another
  expect((await saved(page)).nextClutch).toBe(f.game.nextClutch+1);
 });
 
-import {newForgeGame as newGame,act} from '../src/game/hardcore/play';
+import {newMonthlyGame as newGame,act} from '../src/game/hardcore/play';
 function shopComplexPair(){
  let game=newGame('actual-complex-ui',DATE,{initialMoney:5_000_000,initialCapacity:30}),fatherId='',motherId='';game.food=200;
  for(let batch=0;batch<40&&(!fatherId||!motherId);batch++){

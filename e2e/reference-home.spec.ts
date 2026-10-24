@@ -109,7 +109,7 @@ test("reference home binds six real specimens, preserves read-only state and adv
   await touch(turn,mobile);await expect(turn).toBeDisabled();await expect(page.getByTestId("game-day")).toHaveText("0");
   await page.evaluate(()=>(window as unknown as {releaseHomeTurn:()=>void}).releaseHomeTurn());
   await expect(page.getByTestId("game-day")).toHaveText("1");await expect(turn).toBeEnabled();
-  await expect(page.getByTestId("game-date")).toHaveText(addDays(original.lastDate,7));
+  await expect(page.getByTestId("game-date")).toHaveText(addDays(original.lastDate,30));
   await expect(page.locator(".game-tab-content")).toHaveAttribute("data-view","collection");
   await expect(page.getByRole("heading",{name:"교배",exact:true})).toHaveCount(0);
   const next=await saved(page);for(const id of Object.keys(original.individuals)){expect(next.individuals[id].hearts).toBe(Math.min(5,original.individuals[id].hearts+1));expect(next.individuals[id].genetics).toEqual(original.individuals[id].genetics);expect(next.individuals[id].visualSeed).toBe(original.individuals[id].visualSeed);}
@@ -136,7 +136,7 @@ test("empty home shows actual starting resources, resource buttons work and hatc
   const carrier=Object.values(fixture.individuals)[1];carrier.genotype.loci.axanthic=["A","ax"];carrier.genetics={...legacyRecord(carrier),forge:{version:1}};
   await restore(page,fixture,mobile);await expect(page.locator(".home-name .home-sex")).toHaveText("?");
   await expect(page.getByTestId("hc-card-"+carrier.id).locator(".home-morph")).not.toContainText("het");
-  await expect(page.locator(".home-card").first().locator(".home-sex")).toHaveText("?");await expect(page.locator(".home-info")).toContainText("해칭");
+  await expect(page.locator(".home-card").first().locator(".home-sex")).toHaveText("?");await expect(page.locator(".home-info")).toContainText("유체");
   await touch(page.getByRole("button",{name:carrier.name+" 상세보기",exact:true}),mobile);await expect(page.getByTestId("detail-morph-description")).toContainText("100% het 아잔틱");await page.keyboard.press("Escape");
   await touch(page.getByRole("button",{name:"컨디션 관리",exact:true}),mobile);await page.getByRole("combobox",{name:"성장 단계 필터",exact:true}).selectOption("hatchling");await page.keyboard.press("Escape");
   await expect(page.locator(".home-card")).toHaveCount(1);expect(await saved(page)).toEqual(fixture);await noOverflow(page);

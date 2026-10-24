@@ -18,6 +18,7 @@ export function validateLifecycle(game:HardcoreGame):void {
   assert([6,7,8,9,10].includes(game.saveVersion)&&[3,4,5].includes(game.rulesVersion)&&game.time.mode==="turn");
   const current=lifecycleRules(game);
   if(isMonthly(game)){
+    assert(game.saveVersion===10);
     const c=game.monthlyCalendar;assert(c);keys(c,"version turn date legacy");
     assert(c.version===1&&typeof c.legacy==='boolean'&&Number.isSafeInteger(c.turn)&&c.turn>=0&&c.turn<=game.turn);dateNumber(c.date);
     assert(c.date>=game.startedDate&&c.date<=game.lastDate&&(!c.legacy?c.turn===0&&c.date===game.startedDate:true));

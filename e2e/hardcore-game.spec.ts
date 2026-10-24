@@ -159,7 +159,7 @@ test("offline production shell reload preserves paused IndexedDB and allows expl
   await context.setOffline(true);await page.clock.setFixedTime(new Date(addDays(DATE,2)+"T03:00:00Z"));await page.reload();
   await expect(page.getByTestId("game-date")).toHaveText(DATE);expect(await saved(page)).toEqual(before);await finishTurn(page,mobile);const after=await saved(page);
   expect(after.money).toBe(before.money);expect(after.food).toBe(before.food);
-  expect(Object.values(after.individuals)[0].hearts).toBe(4);expect(after.turn).toBe(1);expect(after.lastDate).toBe(addDays(DATE,7));
+  expect(Object.values(after.individuals)[0].hearts).toBe(4);expect(after.turn).toBe(1);expect(after.lastDate).toBe(addDays(DATE,30));
   await context.setOffline(false);await page.reload();await expect(page.getByRole("heading",{name:/^보유 개체/})).toBeVisible();
   expect(await saved(page)).toEqual(after);
 });

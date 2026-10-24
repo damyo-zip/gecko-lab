@@ -30,7 +30,7 @@ function scenario(){
     const original=newGame("advanced-browser-"+n,DATE,{initialMoney:3_000_000,initialCapacity:20});
     const offers=Object.values(original.shop.offers),father=offers[0],mother=offers[1];
     if(!father.individual.genotype.loci.axanthic.includes("ax")||mother.individual.sex!=="female")continue;
-    let g=act(original,{type:"buyGecko",offerId:father.id},DATE);g=act(g,{type:"buyGecko",offerId:mother.id},DATE);g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=turns(g,12);
+    let g=act(original,{type:"buyGecko",offerId:father.id},DATE);g=act(g,{type:"buyGecko",offerId:mother.id},DATE);g=act(g,{type:"buyFood",amount:1000},g.lastDate);g=turns(g,18);
     g=act(g,{type:"breed",fatherId:father.id,motherId:mother.id},g.lastDate);g=turns(g,6);
     if(Object.values(g.individuals).some(i=>i.parents&&i.genotype.loci.axanthic.every(a=>a==="ax")))return {original,father:father.id,mother:mother.id};
   }throw new Error("seeded evidence scenario missing");
@@ -45,7 +45,7 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await tab(page,"상점",mobile);const card=page.getByTestId("shop-offer-"+fixture.father);await expect(card).toContainText("노멀");
   await tab(page,"컬렉션",mobile);await tab(page,"상점",mobile);
   await click(page.getByRole("button",{name:"노멀 수컷 구매",exact:true}),mobile);await click(page.getByRole("button",{name:"Ax 해칭 구매",exact:true}),mobile);
-  await buyFood(page,mobile,1000);await tab(page,"컬렉션",mobile);for(let t=0;t<12;t++)await day(page,mobile);
+  await buyFood(page,mobile,1000);await tab(page,"컬렉션",mobile);for(let t=0;t<18;t++)await day(page,mobile);
   await tab(page,"교배",mobile);await chooseBreedingParent(page,'male',fixture.father);await chooseBreedingParent(page,'female',fixture.mother);
   await inspectGenetics(page,mobile);await expect(page.getByTestId("hardcore-forecast")).toContainText("25%");await expect(page.getByTestId("hardcore-forecast")).toContainText("아잔틱");
   await page.getByTestId("hardcore-forecast").scrollIntoViewIfNeeded();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -65,9 +65,9 @@ test("touch purchase possible het, mate with visual Ax, hatch and infer, name, g
   await expect(page.getByRole("button",{name:"파이어 업 미리 보기",exact:true})).toBeVisible();
   await page.getByTestId("public-genetics").scrollIntoViewIfNeeded();
   await page.screenshot({path:info.outputPath("phase5-details.png"),scale:"css"});
-  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);for(let t=0;t<12;t++)await day(page,mobile);
+  await click(page.getByRole("button",{name:"상세 창 닫기",exact:true}),mobile);for(let t=0;t<18;t++)await day(page,mobile);
   const final=await saved(page);expect(final.individuals[child.id].stage).toBe("adult");expect(final.individuals[child.id].genetics!.genome).toEqual(eggs[child.id+"-egg"].embryo.genetics!.genome);
-  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("30");expect(await saved(page)).toEqual(final);
+  await page.reload();await expect(page.getByTestId("game-day")).toHaveText("42");expect(await saved(page)).toEqual(final);
   await tab(page,"혈통",mobile);await page.getByRole("combobox",{name:"혈통을 볼 개체",exact:true}).selectOption(child.id);await expect(page.locator(".ancestor-list")).toContainText("노멀 수컷");await click(page.getByRole("button",{name:"아버지 노멀 수컷 혈통 보기",exact:true}),mobile);await click(page.getByRole("button",{name:"상세 정보",exact:true}),mobile);await expect(page.getByRole("dialog")).toContainText("100% het 아잔틱");await page.keyboard.press("Escape");
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
